@@ -1,0 +1,19 @@
+Nodejs
+Con node instalado, puedo correr archivos .js al escribir: node xxxxx.js
+Así me despliega en el terminal el resultado del archivo.
+Para utilizar un modulo (otro archivo .js) debo llamarlo con una variable y asignalre require con el path del modulo
+ex: var m2 =  require ('./modulo2')   //   "./" significa que está en el mismo directorio//
+Cuidado al usar console.log para escrinir en la consola el contenido de un objeto. Si se necesita llamar una funcion, lo mejor es enviar directamente el nombre de la uncion o variable a la que gfue asignada
+NPM sirve para instalar paquetes de librerias en el folder en el que estoy, o para empaquetar las librerias que se instalen de NPM. Asi poder distribuir todas en un solo packages. El nomre de las librerias que se guardan quedan en un parchivo llamado package.json
+NPM init inicia el empaquetamiento.
+Despues se puede agregar librerias con NPM install <libreria> -S (-s para que lo agregue al .json)
+Éstos se installan en una carpeta llamada node_modules.
+Si borro esta carpeta y escrbo npm install, me la creara de nuevo con los modulos que tenga el archivo package.json
+HTTP es una libreria tambien, pero ya viene en node (no hay que instalarla o requerirla).
+
+
+Con Express se crea un framework para hacer un servidor WEB.
+
+nodemon bin/www comando permite que el servidor se reinicie automaticamente cunado se hayan hecho cambios.
+
+https://www.youtube.com/watch?v=FqMIyTH9wSg

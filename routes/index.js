@@ -12,4 +12,4 @@ router.get('/', function(req,res){
 });
 
 
-module.exports = router;  //JDO este archivo retorna el archivo router creado arriba
+module.exports = router;  //JDO este archivo retorna el archivo router creado arr
