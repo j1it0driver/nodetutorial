@@ -203,9 +203,9 @@
     }
     .container {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
+      top: 100px;
+      left:75%;
+      -webkit-transform: translate(-50%, 0%);
     }
     input {
       background-color: #43BD5D;
@@ -280,13 +280,60 @@
     }
     /*ejemplo twilio INI*/
     .chatMessages{
-      width:100% ;
+      width:350px ;
       position:absolute;
-      top: 30px; /*no funciona*/
+      top: 30px;
+      font-size: 15px;
     }
     .scrollable {
-      height: 60%; /* or any value */
+      height: 90%; /* or any value */
       overflow-y: auto;
+    }
+    .bubble-left {
+      line-height: 100%;
+      display: block;
+      position: relative;
+      padding: .25em .5em;
+      background: #5BC0DE ;
+      border: black solid 0;
+      -webkit-border-radius: 11px;
+      -moz-border-radius: 11px;
+      border-radius: 11px;
+      margin-bottom: 2em;
+      clear: both;
+      max-width:75%;
+      color: white;
+
+    }
+
+
+    .bubble-right {
+      line-height: 100%;
+      display: block;
+      position: relative;
+      padding: .25em .5em;
+      background: #5CB85C ;
+      border: black solid 0;
+      -webkit-border-radius: 11px;
+      -moz-border-radius: 11px;
+      border-radius: 11px;
+      margin-bottom: 2em;
+      clear: both;
+      max-width:75%;
+      color: white;
+
+
+
+
+    }
+
+    .bubble-left {
+      margin-right:10%;
+      float:left;
+    }
+    .bubble-right {
+      margin-left:10% ;
+      float:right;
     }
     /*ejemplo twilio END*/
   </style>
@@ -303,6 +350,7 @@
     </div>
     <input id="speech" type="text">
     <button id="rec" class="btn">Speak</button>
+    <label id="statusMessages">You</label>
     <div id="spokenResponse" class="spoken-response">
 
       <div class="spoken-response__text"></div>
