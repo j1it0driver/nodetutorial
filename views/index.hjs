@@ -122,10 +122,10 @@
         chatHistoryDiv.append(
         "<div class='chat-message bubble-left' >"+
           "<div class='avatar'>"+
-               "<img src='https://cdn.glitch.com/dc415a0e-213d-4b6e-9f5b-181c910c5294%2FminionBob.png?1490112728881' alt='' width='32' height='32'>"+
+               "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32' height='32'>"+
           "</div>"+
           "<div class='chat-message-content'>" +
-            "<h5>"+text+"</h5>"+
+            "<h4>"+text+"</h4>"+
             //"<span class='chat-time right'>13:35</span>"+
             //"<p class='right'>Me</p>"+
           "</div> <!-- end chat-message-content -->"+
@@ -176,11 +176,11 @@
       //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
         chatHistoryDiv.append(
           "<div class='chat-message bubble-right'>"+
-            "<img src='https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png' alt='' width='75%' height='75%'>"+
+            "<img src='https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png' alt='' width='120px' height='25px'>"+
             "<div class='chat-message-content'>" +
               //"<span class='chat-time'>13:35</span>"+
               // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
-              "<h5>"+val+"</h5>"+
+              "<h4>"+val+"</h4>"+
             "</div> <!-- end chat-message-content -->"+
             //"<hr>"+
           "</div> <!-- end chat-message -->"
@@ -274,16 +274,20 @@
       max-height: 400px;
     }
     .spoken-response__text {
+      max-width: 300px;
       background-color: #008ACA;
       color: #FFFFFF;
       padding: 1em;
     }
-    /*ejemplo twilio INI*/
+    /*ejemplo twilio INI---------------------------------------------*/
     .chatMessages{
       width:280px ;
       position:absolute;
       top: 30px;
       font-size: 15px;
+      background: #58585A;
+      padding: 5px 5px;
+      margin: 5px;
     }
     .scrollable {
       height: 90%; /* or any value */
@@ -299,7 +303,7 @@
       -webkit-border-radius: 11px;
       -moz-border-radius: 11px;
       border-radius: 11px;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
       clear: both;
       max-width:75%;
       color: white;
@@ -317,22 +321,20 @@
       -webkit-border-radius: 11px;
       -moz-border-radius: 11px;
       border-radius: 11px;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
       clear: both;
       max-width:75%;
       color: white;
 
 
-
-
     }
 
     .bubble-left {
-      margin-right:10%;
+      margin-right:5%;
       float:left;
     }
     .bubble-right {
-      margin-left:10% ;
+      margin-left:5% ;
       float:right;
     }
     /*ejemplo twilio END*/
