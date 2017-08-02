@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
+var mongoose = require ('mongoose');
 
 var index = require('./routes/index'); //JDO Cundo requiero este archivo (index.js), estoy realmente llamando al funcion routes que esta dentro de index.js
 //var users = require('./routes/users');

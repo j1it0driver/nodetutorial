@@ -6,9 +6,7 @@ var router = express.Router();
 //   res.render('index', { title: 'Express' });
 // });
 router.get('/', function(req,res){
-  res.send({users: [ "Wil", "Laura"
-
-  ]});
+  res.render('index');
 });
 
 
