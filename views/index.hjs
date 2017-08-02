@@ -6,7 +6,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script type="text/javascript">
-    var accessToken = "dce399808780466db898fad9bfae71fe",
+    var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
+    var accessToken = tadvisorToken,
       baseUrl = "https://api.api.ai/v1/",
       $speechInput,
       $recBtn,
@@ -15,13 +16,26 @@
       messageCouldntHear = "I couldn't hear you, could you say that again?",
       messageInternalError = "Oh no, there has been an internal server error",
       messageSorry = "I'm sorry, I don't have the answer to that yet.";
+    var firstTypedLetter = 'Y';
+
     $(document).ready(function() {
       $speechInput = $("#speech");
       $recBtn = $("#rec");
       $speechInput.keypress(function(event) {
+        ////////
+        if (firstTypedLetter==='Y') {
+          $('#statusMessages').text("Typing...")
+        }
+        firstTypedLetter = 'N';
+        /////
         if (event.which == 13) {
           event.preventDefault();
-          send();
+          var mensaje = $speechInput.val();
+          if(mensaje != ''){
+            send();
+            $speechInput.val('');
+          }
+          //$speechInput.val(""); //para borrar el texto al ENTER
         }
       });
       $recBtn.on("click", function(event) {
@@ -32,6 +46,7 @@
         return false;
       });
     });
+
     function startRecognition() {
       recognition = new webkitSpeechRecognition();
       recognition.continuous = false;
@@ -97,6 +112,10 @@
           respond(messageInternalError);
         }
       });
+      ///////
+      $('#statusMessages').text("Send");
+      firstTypedLetter = 'Y';
+      ///////
     }
     function prepareResponse(val) {
       var debugJSON = JSON.stringify(val, undefined, 2),
@@ -218,6 +237,9 @@
     <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
   </div>
   <div class="container">
+    <div>
+      <label id="statusMessages">You</label> <!-- ejemplo twilio -->
+    </div>
     <input id="speech" type="text">
     <button id="rec" class="btn">Speak</button>
     <div id="spokenResponse" class="spoken-response">
