@@ -96,6 +96,7 @@
     }
     function send() {
       var text = $speechInput.val();
+      var chatHistoryDiv = $("#chatHistory");
       $.ajax({
         type: "POST",
         url: baseUrl + "query",
@@ -115,6 +116,39 @@
       ///////
       $('#statusMessages').text("Send");
       firstTypedLetter = 'Y';
+      // if (auth === memberName )
+      // {
+        //$('#chatHistory').append( "<div ><span class='left'>"+auth+":"+msg+"</span></div><hr>" );
+        chatHistoryDiv.append(
+        "<div class='chat-message bubble-left' >"+
+          "<div class='avatar'>"+
+               "<img src='https://cdn.glitch.com/dc415a0e-213d-4b6e-9f5b-181c910c5294%2FminionBob.png?1490112728881' alt='' width='32' height='32'>"+
+          "</div>"+
+          "<div class='chat-message-content'>" +
+            "<h5>"+text+"</h5>"+
+            //"<span class='chat-time right'>13:35</span>"+
+            //"<p class='right'>Me</p>"+
+          "</div> <!-- end chat-message-content -->"+
+          //"<hr>"+
+        "</div> <!-- end chat-message -->"
+        );
+      // }
+      // else
+      // {
+      //   //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
+      //   chatHistoryDiv.append(
+      //   "<div class='chat-message bubble-right'>"+
+      //     "<img src='https://cdn.glitch.com/dc415a0e-213d-4b6e-9f5b-181c910c5294%2FminionKevin.png?1490112728077' alt='' width='32' height='32'>"+
+      //     "<div class='chat-message-content'>" +
+      //       //"<span class='chat-time'>13:35</span>"+
+      //       "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
+      //       "<h5>"+msg+"</h5>"+
+      //     "</div> <!-- end chat-message-content -->"+
+      //     //"<hr>"+
+      //   "</div> <!-- end chat-message -->"
+      //   );
+      // }
+      $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
       ///////
     }
     function prepareResponse(val) {
@@ -127,6 +161,7 @@
       $("#response").text(val);
     }
     function respond(val) {
+      var chatHistoryDiv = $("#chatHistory");
       if (val == "") {
         val = messageSorry;
       }
@@ -138,6 +173,19 @@
         window.speechSynthesis.speak(msg);
       }
       $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+      //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
+        chatHistoryDiv.append(
+          "<div class='chat-message bubble-right'>"+
+            "<img src='https://cdn.glitch.com/dc415a0e-213d-4b6e-9f5b-181c910c5294%2FminionKevin.png?1490112728077' alt='' width='32' height='32'>"+
+            "<div class='chat-message-content'>" +
+              //"<span class='chat-time'>13:35</span>"+
+              // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
+              "<h5>"+val+"</h5>"+
+            "</div> <!-- end chat-message-content -->"+
+            //"<hr>"+
+          "</div> <!-- end chat-message -->"
+        );
+
     }
   </script>
   <style type="text/css">
@@ -162,7 +210,7 @@
     input {
       background-color: #43BD5D;
       border: 1px solid #008ACA;
-      color: #FFFFFF;
+      color: #000000;
       font-family: "Titillium Web";
       font-size: 20px;
       line-height: 43px;
@@ -230,11 +278,24 @@
       color: #FFFFFF;
       padding: 1em;
     }
+    /*ejemplo twilio INI*/
+    .chatMessages{
+      width:100% ;
+      position:absolute;
+      top: 30px; /*no funciona*/
+    }
+    .scrollable {
+      height: 60%; /* or any value */
+      overflow-y: auto;
+    }
+    /*ejemplo twilio END*/
   </style>
 </head>
 <body>
-  <div class="">
+  <div>
     <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
+  </div>
+  <div id="chatHistory" class="scrollable chatMessages">
   </div>
   <div class="container">
     <div>
@@ -243,6 +304,7 @@
     <input id="speech" type="text">
     <button id="rec" class="btn">Speak</button>
     <div id="spokenResponse" class="spoken-response">
+
       <div class="spoken-response__text"></div>
     </div>
   </div>
