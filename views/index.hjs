@@ -122,7 +122,7 @@
         chatHistoryDiv.append(
         "<div class='chat-message bubble-left' >"+
           "<div class='avatar'>"+
-               "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32' height='32'>"+
+               "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32'>"+
           "</div>"+
           "<div class='chat-message-content'>" +
             "<h4>"+text+"</h4>"+
@@ -176,8 +176,8 @@
       //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
         chatHistoryDiv.append(
           "<div class='chat-message bubble-right'>"+
-            "<img src='https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png' alt='' width='120px' height='25px'>"+
-            "<div class='chat-message-content'>" +
+            "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right;'>"+
+            "<div class='chat-message-content' style= 'clear: right;'>" +
               //"<span class='chat-time'>13:35</span>"+
               // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
               "<h4>"+val+"</h4>"+
@@ -310,7 +310,6 @@
 
     }
 
-
     .bubble-right {
       line-height: 100%;
       display: block;
@@ -325,17 +324,17 @@
       clear: both;
       max-width:75%;
       color: white;
-
-
     }
 
     .bubble-left {
       margin-right:5%;
       float:left;
+
     }
     .bubble-right {
       margin-left:5% ;
       float:right;
+      /*text-align: right;*/
     }
     /*ejemplo twilio END*/
   </style>

@@ -19,3 +19,4 @@ nodemon bin/www comando permite que el servidor se reinicie automaticamente cuna
 https://www.youtube.com/watch?v=FqMIyTH9wSg
 
 ejemplo twilio chat JS https://glitch.com/edit/#!/twilio-chat-qs?path=chat.html:92:0
+https://www.twilio.com/blog/2017/06/complete-chat-application-javascript.html
