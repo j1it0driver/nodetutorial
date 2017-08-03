@@ -2,12 +2,13 @@
 <html>
 <!--Código de Github https://github.com/sitepoint-editors/Api-AI-Personal-Assistant-Demo/blob/master/index.html  -->
 <head>
-  <title>Barry</title>
+  <link href="https://www.mytadvisor.com/wp-content/themes/tadvisor/tadvisor.ico" rel="shortcut icon">
+  <title>BoT-advisor </title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script type="text/javascript">
     var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
-    var accessToken = tadvisorToken,
+    var accessToken = originalToken,
       baseUrl = "https://api.api.ai/v1/",
       $speechInput,
       $recBtn,
@@ -113,41 +114,28 @@
           respond(messageInternalError);
         }
       });
-      ///////
+    ///////
       $('#statusMessages').text("Send");
       firstTypedLetter = 'Y';
       // if (auth === memberName )
       // {
         //$('#chatHistory').append( "<div ><span class='left'>"+auth+":"+msg+"</span></div><hr>" );
-        chatHistoryDiv.append(
-        "<div class='chat-message bubble-left' >"+
-          "<div class='avatar'>"+
-               "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32'>"+
-          "</div>"+
-          "<div class='chat-message-content'>" +
-            "<h4>"+text+"</h4>"+
-            //"<span class='chat-time right'>13:35</span>"+
-            //"<p class='right'>Me</p>"+
-          "</div> <!-- end chat-message-content -->"+
-          //"<hr>"+
-        "</div> <!-- end chat-message -->"
-        );
-      // }
-      // else
-      // {
-      //   //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
-      //   chatHistoryDiv.append(
-      //   "<div class='chat-message bubble-right'>"+
-      //     "<img src='https://cdn.glitch.com/dc415a0e-213d-4b6e-9f5b-181c910c5294%2FminionKevin.png?1490112728077' alt='' width='32' height='32'>"+
-      //     "<div class='chat-message-content'>" +
-      //       //"<span class='chat-time'>13:35</span>"+
-      //       "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
-      //       "<h5>"+msg+"</h5>"+
-      //     "</div> <!-- end chat-message-content -->"+
-      //     //"<hr>"+
-      //   "</div> <!-- end chat-message -->"
-      //   );
-      // }
+      datestr=getFormattedDate();
+      chatHistoryDiv.append(
+      "<div class='chat-message bubble-left' >"+
+        "<div class='avatar'>"+
+             "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32'>"+
+        "</div>"+
+        "<div class='chat-message-content'>" +
+          "<h4>"+text+"</h4>"+
+          "<h5 class='timestamp_left' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+          //"<span class='chat-time right'>13:35</span>"+
+          //"<p class='right'>Me</p>"+
+        "</div> <!-- end chat-message-content -->"+
+        //"<hr>"+
+      "</div> <!-- end chat-message -->"
+      );
+
       $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
       ///////
     }
@@ -173,20 +161,45 @@
         window.speechSynthesis.speak(msg);
       }
       $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+      datestr=getFormattedDate();
       //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
         chatHistoryDiv.append(
           "<div class='chat-message bubble-right'>"+
-            "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right;'>"+
+            "<div class='avatar'>"+
+              "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right;'>"+
+            "</div>"+
             "<div class='chat-message-content' style= 'clear: right;'>" +
               //"<span class='chat-time'>13:35</span>"+
               // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
-              "<h4>"+val+"</h4>"+
+              "<h4 style='margin-top: 50px;'>"+val+"</h4>"+
+              "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
             "</div> <!-- end chat-message-content -->"+
             //"<hr>"+
           "</div> <!-- end chat-message -->"
         );
 
     }
+    function getFormattedDate() {
+      var date = new Date();
+
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var hour = date.getHours();
+      var min = date.getMinutes();
+      var sec = date.getSeconds();
+
+      month = (month < 10 ? "0" : "") + month;
+      day = (day < 10 ? "0" : "") + day;
+      hour = (hour < 10 ? "0" : "") + hour;
+      min = (min < 10 ? "0" : "") + min;
+      sec = (sec < 10 ? "0" : "") + sec;
+
+      var str = date.getFullYear() + "/" + month + "/" + day + " " +  hour + ":" + min; /*+ ":" + sec;*/
+
+      /*alert(str);*/
+
+      return str;
+  }
   </script>
   <style type="text/css">
     html {
@@ -208,16 +221,60 @@
       -webkit-transform: translate(-50%, 0%);
     }
     input {
-      background-color: #43BD5D;
-      border: 1px solid #008ACA;
+
+      background-color: #d2d2d2;
+      border: 1px solid #43BD5D;
       color: #000000;
       font-family: "Titillium Web";
       font-size: 18px;
       line-height: 40px;
       padding: 0 0.75em;
       width: 300px;
-      -webkit-transition: all 0.35s ease-in;
+      /*-webkit-transition: all 0.35s ease-in;*/
     }
+    input:focus{
+      background-color: #c3d5bb;
+      border: 1px solid #43BD5D;
+      outline:none;
+    }
+    /*para cambiar el placeholder inicio*/
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color:    #58585A;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color:    #58585A;
+      opacity:  1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color:    #58585A;
+      opacity:  1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color:    #58585A;
+    }
+    ::-ms-input-placeholder { /* Microsoft Edge */
+      color:    #58585A;
+    }
+    /*para cambiar el placeholder final*/
+    /*para cambiar el placeholder inicio*/
+    input:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color: transparent;
+    }
+    input:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: transparent;
+      opacity:  1;
+    }
+    input:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: transparent;
+      opacity:  1;
+    }
+    input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: transparent;
+    }
+    input:focus::-ms-input-placeholder { /* Microsoft Edge */
+      color: transparent;
+    }
+    /*para cambiar el placeholder final*/
     textarea {
       background-color: #070F24;
       border: 1px solid #122435;
@@ -226,17 +283,18 @@
       width: 100%;
       -webkit-transition: all 0.35s ease-in;
     }
-    input:active, input:focus, textarea:active, textarea:focus {
+    input:active, textarea:active, textarea:focus {
       outline: 1px solid #48788B;
     }
     .btn {
-      background-color: #126178;
+      background-color: #58585A;
       border: 1px solid #549EAF;
       color: #549EAF;
       cursor: pointer;
       display: inline-block;
       font-family: "Titillium Web";
       font-size: 18px;
+      font-weight: bold;
       line-height: 40px;
       padding: 0 0.75em;
       text-align: center;
@@ -244,8 +302,9 @@
       -webkit-transition: all 0.35s ease-in;
     }
     .btn:hover {
-      background-color: #1888A9;
-      color: #183035;
+      background-color: #549EAF;
+      color: #58585a;
+      font-weight: bold;
     }
     .debug {
       bottom: 0;
@@ -260,7 +319,8 @@
     }
     .debug__content.is-active {
       display: block;
-      max-height: 500px;
+      height: auto;
+      max-height: 50vh;
     }
     .debug__btn {
       width: 100%;
@@ -281,9 +341,12 @@
     }
     /*ejemplo twilio INI---------------------------------------------*/
     .chatMessages{
-      width:280px ;
+      width:300px ;
       position:absolute;
-      top: 30px;
+      top: 60px;
+      -webkit-border-radius: 11px;
+      -moz-border-radius: 11px;
+      border-radius: 11px;
       font-size: 15px;
       background: #58585A;
       padding: 5px 5px;
@@ -292,6 +355,7 @@
     .scrollable {
       height: 90%; /* or any value */
       overflow-y: auto;
+      overflow-x: hidden;
     }
     .bubble-left {
       line-height: 100%;
@@ -336,25 +400,34 @@
       float:right;
       /*text-align: right;*/
     }
+    .timestamp_right{
+      text-align: right;
+    }
+    .timestamp_left{
+      text-align: left;
+    }
+    *:focus, select, textarea{
+      outline: none;
+    }
     /*ejemplo twilio END*/
   </style>
 </head>
 <body>
-  <div>
+  <div style="margin: 10px">
     <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
+      <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
+  </div>
+  <div>
   </div>
   <div id="chatHistory" class="scrollable chatMessages">
   </div>
   <div class="container">
-
-    <input id="speech" type="text">
+    <input id="speech" type="text" autofocus placeholder="Type here">
     <div>
       <label id="statusMessages">You</label> <!-- ejemplo twilio -->
     </div>
     <button id="rec" class="btn">Speak</button>
-
     <div id="spokenResponse" class="spoken-response">
-
       <div class="spoken-response__text"></div>
     </div>
   </div>
