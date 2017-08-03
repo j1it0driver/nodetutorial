@@ -24,6 +24,7 @@
       $recBtn = $("#rec");
       $speechInput.keypress(function(event) {
         ////////
+        var mensaje = $speechInput.val();
         if (firstTypedLetter==='Y') {
           $('#statusMessages').text("Typing...")
         }
@@ -31,7 +32,6 @@
         /////
         if (event.which == 13) {
           event.preventDefault();
-          var mensaje = $speechInput.val();
           if(mensaje != ''){
             send();
             $speechInput.val('');
@@ -223,19 +223,21 @@
     input {
 
       background-color: #d2d2d2;
-      border: 1px solid #43BD5D;
+      border:none;
+      border: 0px solid #43BD5D;
       color: #000000;
       font-family: "Titillium Web";
       font-size: 18px;
       line-height: 40px;
       padding: 0 0.75em;
       width: 300px;
-      /*-webkit-transition: all 0.35s ease-in;*/
+      -webkit-transition: all 0.35s ease-in;
     }
     input:focus{
       background-color: #c3d5bb;
-      border: 1px solid #43BD5D;
-      outline:none;
+      border:none;
+      border: 0px solid #43BD5D;
+      outline: 1px solid #43BD5D;
     }
     /*para cambiar el placeholder inicio*/
     ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -283,13 +285,13 @@
       width: 100%;
       -webkit-transition: all 0.35s ease-in;
     }
-    input:active, textarea:active, textarea:focus {
+    textarea:active, textarea:focus {
       outline: 1px solid #48788B;
     }
     .btn {
       background-color: #58585A;
-      border: 1px solid #549EAF;
-      color: #549EAF;
+      border: 1px solid #5CB85C;
+      color: #5CB85C;
       cursor: pointer;
       display: inline-block;
       font-family: "Titillium Web";
@@ -302,7 +304,7 @@
       -webkit-transition: all 0.35s ease-in;
     }
     .btn:hover {
-      background-color: #549EAF;
+      background-color: #5CB85C;
       color: #58585a;
       font-weight: bold;
     }
@@ -406,9 +408,7 @@
     .timestamp_left{
       text-align: left;
     }
-    *:focus, select, textarea{
-      outline: none;
-    }
+
     /*ejemplo twilio END*/
   </style>
 </head>
