@@ -2,453 +2,522 @@
 <html>
 <!--Código de Github https://github.com/sitepoint-editors/Api-AI-Personal-Assistant-Demo/blob/master/index.html  -->
 <head>
-  <link href="https://www.mytadvisor.com/wp-content/themes/tadvisor/tadvisor.ico" rel="shortcut icon">
-  <title>BoT-advisor </title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript">
+    <link href="https://www.mytadvisor.com/wp-content/themes/tadvisor/tadvisor.ico" rel="shortcut icon">
+    <title>BoT-advisor </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
     var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
     var accessToken = originalToken,
-      baseUrl = "https://api.api.ai/v1/",
-      $speechInput,
-      $recBtn,
-      recognition,
-      messageRecording = "Recording...",
-      messageCouldntHear = "I couldn't hear you, could you say that again?",
-      messageInternalError = "Oh no, there has been an internal server error",
-      messageSorry = "I'm sorry, I don't have the answer to that yet.";
-    var firstTypedLetter = 'Y';
+    baseUrl = "https://api.api.ai/v1/",
+    $speechInput,
+    $recBtn,
+    recognition,
+    mensaje,
+    messageRecording = "Recording...",
+    messageCouldntHear = "I couldn't hear you, could you say that again?",
+    messageInternalError = "Oh no, there has been an internal server error",
+    messageSorry = "I'm sorry, I don't have the answer to that yet.";
+    var tiempoSend, timeout = null;
+    // var firstTypedLetter = 'Y';
 
     $(document).ready(function() {
-      $speechInput = $("#speech");
-      $recBtn = $("#rec");
-      $speechInput.keypress(function(event) {
-        ////////
-        var mensaje = $speechInput.val();
-        if (firstTypedLetter==='Y') {
-          $('#statusMessages').text("Typing...")
-        }
-        firstTypedLetter = 'N';
-        /////
-        if (event.which == 13) {
-          event.preventDefault();
-          if(mensaje != ''){
-            send();
-            $speechInput.val('');
-          }
-          //$speechInput.val(""); //para borrar el texto al ENTER
-        }
-      });
-      $recBtn.on("click", function(event) {
-        switchRecognition();
-      });
-      $(".debug__btn").on("click", function() {
-        $(this).next().toggleClass("is-active");
-        return false;
-      });
+        $speechInput = $("#speech");
+        $recBtn = $("#rec");
+        mensaje = $speechInput.val();
+        $speechInput.keyup(function(event) { //I change keyup fot keypress//
+            ///////
+            if (tiempoSend !== null) {
+                clearTimeout(tiempoSend);
+            }
+            if (timeout !== null) {
+                clearTimeout(timeout);
+            }
+            $speechInput.val();
+            if ($speechInput.val()==''){
+                $('#statusMessages').text("Waiting input...");
+            }
+            else{
+                $('#statusMessages').text("Typing...");
+                $speechInput.val();
+                    timeout = setTimeout(function () {if($speechInput.val() != ''){$('#statusMessages').text("Waiting input or Enter");}}, 3000);
+            }
+            if (event.which == 13) {
+                event.preventDefault();
+                if($speechInput.val() != ''){
+                    send();
+                    tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input");},2000);
+                }
+            }
+        });
+        $recBtn.on("click", function(event) {
+            switchRecognition();
+        });
+        $(".debug__btn").on("click", function() {
+            $(this).next().toggleClass("is-active");
+            return false;
+        });
+
     });
 
-    function startRecognition() {
-      recognition = new webkitSpeechRecognition();
-      recognition.continuous = false;
-          recognition.interimResults = false;
-      recognition.onstart = function(event) {
-        respond(messageRecording);
-        updateRec();
-      };
-      recognition.onresult = function(event) {
-        recognition.onend = null;
+    function printInput() {
+        if($speechInput.val() != ''){
+            $('#testing').text($speechInput.val());
+        }
+        else{
+            if($speechInput.val() == ''){$('#testing').text("Estoy vacio");}
+            else{$('#testing').text("Aqui otra vez");}
+        }
+    }
 
-        var text = "";
-          for (var i = event.resultIndex; i < event.results.length; ++i) {
-            text += event.results[i][0].transcript;
-          }
-          setInput(text);
-        stopRecognition();
-      };
-      recognition.onend = function() {
-        respond(messageCouldntHear);
-        stopRecognition();
-      };
-      recognition.lang = "en-US";
-      recognition.start();
+
+    function startRecognition() {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.onstart = function(event) {
+            respond(messageRecording);
+            updateRec();
+        };
+        recognition.onresult = function(event) {
+            recognition.onend = null;
+            var text = "";
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                text += event.results[i][0].transcript;
+            }
+            setInput(text);
+            stopRecognition();
+        };
+        recognition.onend = function() {
+            respond(messageCouldntHear);
+            stopRecognition();
+        };
+        recognition.lang = "en-US";
+        recognition.start();
     }
 
     function stopRecognition() {
-      if (recognition) {
-        recognition.stop();
-        recognition = null;
-      }
-      updateRec();
-    }
-    function switchRecognition() {
-      if (recognition) {
-        stopRecognition();
-      } else {
-        startRecognition();
-      }
-    }
-    function setInput(text) {
-      $speechInput.val(text);
-      send();
-    }
-    function updateRec() {
-      $recBtn.text(recognition ? "Stop" : "Speak");
-    }
-    function send() {
-      var text = $speechInput.val();
-      var chatHistoryDiv = $("#chatHistory");
-      $.ajax({
-        type: "POST",
-        url: baseUrl + "query",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        headers: {
-          "Authorization": "Bearer " + accessToken
-        },
-        data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
-        success: function(data) {
-          prepareResponse(data);
-        },
-        error: function() {
-          respond(messageInternalError);
+        if (recognition) {
+            recognition.stop();
+            recognition = null;
         }
-      });
-    ///////
-      $('#statusMessages').text("Send");
-      firstTypedLetter = 'Y';
-      // if (auth === memberName )
-      // {
-        //$('#chatHistory').append( "<div ><span class='left'>"+auth+":"+msg+"</span></div><hr>" );
-      datestr=getFormattedDate();
-      chatHistoryDiv.append(
-      "<div class='chat-message bubble-left' >"+
-        "<div class='avatar'>"+
-             "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32'>"+
-        "</div>"+
-        "<div class='chat-message-content'>" +
-          "<h4>"+text+"</h4>"+
-          "<h5 class='timestamp_left' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
-          //"<span class='chat-time right'>13:35</span>"+
-          //"<p class='right'>Me</p>"+
-        "</div> <!-- end chat-message-content -->"+
-        //"<hr>"+
-      "</div> <!-- end chat-message -->"
-      );
+        updateRec();
+    }
 
-      $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-      ///////
+    function switchRecognition() {
+        if (recognition) {
+            stopRecognition();
+        } else {
+            startRecognition();
+        }
     }
-    function prepareResponse(val) {
-      var debugJSON = JSON.stringify(val, undefined, 2),
-        spokenResponse = val.result.speech;
-      respond(spokenResponse);
-      debugRespond(debugJSON);
+
+    function setInput(text) {
+        $speechInput.val(text);
+        send();
     }
-    function debugRespond(val) {
-      $("#response").text(val);
+
+    function updateRec() {
+        $recBtn.text(recognition ? "Stop" : "Speak");
     }
-    function respond(val) {
-      var chatHistoryDiv = $("#chatHistory");
-      if (val == "") {
-        val = messageSorry;
-      }
-      if (val !== messageRecording) {
-        var msg = new SpeechSynthesisUtterance();
-        msg.voiceURI = "native";
-        msg.text = val;
-        msg.lang = "en-US";
-        window.speechSynthesis.speak(msg);
-      }
-      $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
-      datestr=getFormattedDate();
-      //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
+
+    function send() { /*------------------------------- SEND----------------------------- */
+        var text = $speechInput.val();
+        var chatHistoryDiv = $("#chatHistory");
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "query",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                "Authorization": "Bearer " + accessToken
+            },
+            data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
+            success: function(data) {
+                prepareResponse(data);
+            },
+            error: function() {
+                respond(messageInternalError);
+            }
+        });
+        $('#statusMessages').text("Send");
+        // firstTypedLetter = 'Y';
+        // if (auth === memberName )
+        // {
+        //$('#chatHistory').append( "<div ><span class='left'>"+auth+":"+msg+"</span></div><hr>" );
+        datestr=getFormattedDate();
         chatHistoryDiv.append(
-          "<div class='chat-message bubble-right'>"+
+            "<div class='chat-message bubble-left' >"+
             "<div class='avatar'>"+
-              "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right;'>"+
+            "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32'>"+
             "</div>"+
-            "<div class='chat-message-content' style= 'clear: right;'>" +
-              //"<span class='chat-time'>13:35</span>"+
-              // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
-              "<h4 style='margin-top: 50px;'>"+val+"</h4>"+
-              "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+            "<div class='chat-message-content'>" +
+            "<h4>"+text+"</h4>"+
+            "<h5 class='timestamp_left' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+            //"<span class='chat-time right'>13:35</span>"+
+            //"<p class='right'>Me</p>"+
             "</div> <!-- end chat-message-content -->"+
             //"<hr>"+
-          "</div> <!-- end chat-message -->"
+            "</div> <!-- end chat-message -->"
         );
-
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+        // if($('#statusMessages').text()=='Send'){setTimeout(function(){$('#statusMessages').text("Next input");},2000)}
+        $speechInput.val("");
+        ///////
     }
+
+    function prepareResponse(val) {
+        var debugJSON = JSON.stringify(val, undefined, 2),
+        spokenResponse = val.result.speech;
+        respond(spokenResponse);
+        debugRespond(debugJSON);
+    }
+
+    function debugRespond(val) {
+        $("#response").text(val);
+    }
+
+    function respond(val) {
+        var chatHistoryDiv = $("#chatHistory");
+        if (val == "") {
+            val = messageSorry;
+        }
+        if (val !== messageRecording) {
+            var msg = new SpeechSynthesisUtterance();
+            msg.voiceURI = "native";
+            msg.text = val;
+            msg.lang = "en-US";
+            window.speechSynthesis.speak(msg);
+        }
+        $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+        datestr=getFormattedDate();
+        //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
+        chatHistoryDiv.append(
+            "<div class='chat-message bubble-right'>"+
+            "<div class='avatar'>"+
+            "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right;'>"+
+            "</div>"+
+            "<div class='chat-message-content' style= 'clear: right;'>" +
+            //"<span class='chat-time'>13:35</span>"+
+            // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
+            "<h4 style='margin-top: 50px;'>"+val+"</h4>"+
+            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+            "</div> <!-- end chat-message-content -->"+
+            //"<hr>"+
+            "</div> <!-- end chat-message -->"
+        );
+    }
+
     function getFormattedDate() {
-      var date = new Date();
+        var date = new Date();
 
-      var month = date.getMonth() + 1;
-      var day = date.getDate();
-      var hour = date.getHours();
-      var min = date.getMinutes();
-      var sec = date.getSeconds();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
 
-      month = (month < 10 ? "0" : "") + month;
-      day = (day < 10 ? "0" : "") + day;
-      hour = (hour < 10 ? "0" : "") + hour;
-      min = (min < 10 ? "0" : "") + min;
-      sec = (sec < 10 ? "0" : "") + sec;
+        month = (month < 10 ? "0" : "") + month;
+        day = (day < 10 ? "0" : "") + day;
+        hour = (hour < 10 ? "0" : "") + hour;
+        min = (min < 10 ? "0" : "") + min;
+        sec = (sec < 10 ? "0" : "") + sec;
 
-      var str = date.getFullYear() + "/" + month + "/" + day + " " +  hour + ":" + min; /*+ ":" + sec;*/
+        var str = date.getFullYear() + "/" + month + "/" + day + " " +  hour + ":" + min; /*+ ":" + sec;*/
 
-      /*alert(str);*/
+        /*alert(str);*/
+        return str;
+    }
 
-      return str;
-  }
-  </script>
-  <style type="text/css">
+    </script>
+
+
+
+
+
+
+    <style type="text/css">
     html {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
     *, *:before, *:after {
-      box-sizing: inherit;
+        box-sizing: inherit;
     }
     body {
-      background-color: #FFFFFF;
-      font-family: "Titillium Web", Arial, sans-serif;
-      font-size: 20px;
-      margin: 0;
+        background-color: #FFFFFF;
+        font-family: "Titillium Web", Arial, sans-serif;
+        font-size: 20px;
+        margin: 0;
+        padding: 10px;
     }
     .container {
-      position: fixed;
-      top: 100px;
-      left:75%;
-      -webkit-transform: translate(-50%, 0%);
+        position: fixed;
+        top: 30%;
+        left:50%;
+        /*-webkit-transform: translate(-50%, 0%);*/
     }
     input {
 
-      background-color: #d2d2d2;
-      border:none;
-      border: 0px solid #43BD5D;
-      color: #000000;
-      font-family: "Titillium Web";
-      font-size: 18px;
-      line-height: 40px;
-      padding: 0 0.75em;
-      width: 300px;
-      -webkit-transition: all 0.35s ease-in;
+        background-color: #d2d2d2;
+        border:none;
+        border: 0px solid #43BD5D;
+        color: #000000;
+        font-family: "Titillium Web";
+        font-size: 18px;
+        line-height: 40px;
+        padding: 0 0.75em;
+        width: 300px;
+        -webkit-transition: all 0.35s ease-in;
     }
     input:focus{
-      background-color: #c3d5bb;
-      border:none;
-      border: 0px solid #43BD5D;
-      outline: 1px solid #43BD5D;
+        background-color: #c3d5bb;
+        border:none;
+        border: 0px solid #43BD5D;
+        outline: 1px solid #43BD5D;
     }
     /*para cambiar el placeholder inicio*/
     ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-      color:    #58585A;
+        color:    #58585A;
     }
     :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-      color:    #58585A;
-      opacity:  1;
+        color:    #58585A;
+        opacity:  1;
     }
     ::-moz-placeholder { /* Mozilla Firefox 19+ */
-      color:    #58585A;
-      opacity:  1;
+        color:    #58585A;
+        opacity:  1;
     }
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
-      color:    #58585A;
+        color:    #58585A;
     }
     ::-ms-input-placeholder { /* Microsoft Edge */
-      color:    #58585A;
+        color:    #58585A;
     }
     /*para cambiar el placeholder final*/
     /*para cambiar el placeholder inicio*/
     input:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-      color: transparent;
+        color: transparent;
     }
     input:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-      color: transparent;
-      opacity:  1;
+        color: transparent;
+        opacity:  1;
     }
     input:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-      color: transparent;
-      opacity:  1;
+        color: transparent;
+        opacity:  1;
     }
     input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-      color: transparent;
+        color: transparent;
     }
     input:focus::-ms-input-placeholder { /* Microsoft Edge */
-      color: transparent;
+        color: transparent;
     }
     /*para cambiar el placeholder final*/
     textarea {
-      background-color: #070F24;
-      border: 1px solid #122435;
-      color: #606B88;
-      padding: 0.5em;
-      width: 100%;
-      -webkit-transition: all 0.35s ease-in;
+        background-color: #070F24;
+        border: 1px solid #122435;
+        color: #606B88;
+        padding: 0.5em;
+        width: 100%;
+        -webkit-transition: all 0.35s ease-in;
     }
     textarea:active, textarea:focus {
-      outline: 1px solid #48788B;
+        outline: 1px solid #48788B;
     }
     .btn {
-      background-color: #58585A;
-      border: 1px solid #5CB85C;
-      color: #5CB85C;
-      cursor: pointer;
-      display: inline-block;
-      font-family: "Titillium Web";
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 40px;
-      padding: 0 0.75em;
-      text-align: center;
-      text-transform: uppercase;
-      -webkit-transition: all 0.35s ease-in;
+        background-color: #58585A;
+        border: 1px solid #5CB85C;
+        color: #5CB85C;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Titillium Web";
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 0 0.75em;
+        text-align: center;
+        text-transform: uppercase;
+        -webkit-transition: all 0.35s ease-in;
     }
     .btn:hover {
-      background-color: #5CB85C;
-      color: #58585a;
-      font-weight: bold;
+        background-color: #5CB85C;
+        color: #58585a;
+        font-weight: bold;
     }
     .debug {
-      bottom: 0;
-      position: fixed;
-      right: 0;
+        bottom: 0;
+        position: fixed;
+        right: 0;
     }
     .debug__content {
-      font-size: 14px;
-      max-height: 0;
-      overflow: hidden;
-      -webkit-transition: all 0.35s ease-in;
+        font-size: 14px;
+        max-height: 0;
+        overflow: hidden;
+        -webkit-transition: all 0.35s ease-in;
     }
     .debug__content.is-active {
-      display: block;
-      height: auto;
-      max-height: 50vh;
+        display: block;
+        height: auto;
+        max-height: 50vh;
     }
     .debug__btn {
-      width: 100%;
+        width: 100%;
     }
     .spoken-response {
-      max-height: 0;
-      overflow: hidden;
-      -webkit-transition: all 0.35s ease-in;
+        max-height: 0;
+        overflow: hidden;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        -webkit-transition: all 0.35s ease-in;
     }
     .spoken-response.is-active {
-      max-height: 400px;
+        max-height: 400px;
     }
     .spoken-response__text {
-      max-width: 300px;
-      background-color: #008ACA;
-      color: #FFFFFF;
-      padding: 1em;
+        max-width: 300px;
+        background-color: #008ACA;
+        color: #FFFFFF;
+        padding: 1em;
     }
     /*ejemplo twilio INI---------------------------------------------*/
     .chatMessages{
-      width:300px ;
-      position:absolute;
-      top: 60px;
-      -webkit-border-radius: 11px;
-      -moz-border-radius: 11px;
-      border-radius: 11px;
-      font-size: 15px;
-      background: #58585A;
-      padding: 5px 5px;
-      margin: 5px;
+        width:300px ;
+        position:absolute;
+        top: 55px;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 11px;
+        font-size: 15px;
+        background: #58585A;
+        box-shadow: 0px 0px 10px 5px #888888;
+        /*box-shadow: inset 0px 0px 10px 5px #888888;*/
+        padding: 5px 5px;
+        margin: 5px;
+        margin-left: 10px;
     }
     .scrollable {
-      height: 90%; /* or any value */
-      overflow-y: auto;
-      overflow-x: hidden;
+        height: 90%; /* or any value */
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 90vh;
     }
     .bubble-left {
-      line-height: 100%;
-      display: block;
-      position: relative;
-      padding: .25em .5em;
-      background: #5CB85C;
-      border: black solid 0;
-      -webkit-border-radius: 11px;
-      -moz-border-radius: 11px;
-      border-radius: 11px;
-      margin-bottom: 1em;
-      clear: both;
-      max-width:75%;
-      color: white;
+        line-height: 100%;
+        display: block;
+        position: relative;
+        padding: .25em .5em;
+        background: #5CB85C;
+        box-shadow: 5px 5px 4px #536b53;
+        border: black solid 0;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 11px;
+        margin-bottom: 1em;
+        clear: both;
+        max-width:75%;
+        color: white;
 
     }
 
     .bubble-right {
-      line-height: 100%;
-      display: block;
-      position: relative;
-      padding: .25em .5em;
-      background: #008ACA;
-      border: black solid 0;
-      -webkit-border-radius: 11px;
-      -moz-border-radius: 11px;
-      border-radius: 11px;
-      margin-bottom: 1em;
-      clear: both;
-      max-width:75%;
-      color: white;
+        line-height: 100%;
+        display: block;
+        position: relative;
+        padding: .25em .5em;
+        background: #008ACA;
+        box-shadow: -5px 5px 4px rgb(82, 109, 121);
+        border: black solid 0;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 11px;
+        margin-bottom: 1em;
+        clear: both;
+        max-width:75%;
+        color: white;
     }
 
     .bubble-left {
-      margin-right:5%;
-      float:left;
+        margin-right:5%;
+        float:left;
 
     }
     .bubble-right {
-      margin-left:5% ;
-      float:right;
-      /*text-align: right;*/
+        margin-left:5% ;
+        float:right;
+        /*text-align: right;*/
     }
     .timestamp_right{
-      text-align: right;
+        text-align: right;
     }
     .timestamp_left{
-      text-align: left;
+        text-align: left;
+    }
+
+    /* *  Scrollbar STYLE 7
+    */
+    ::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #58585A ;
+        border-radius: 11px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    ::-webkit-scrollbar
+    {
+        width: 11px;
+        background-color: #rgb(246, 67, 20);/*#F5F5F5 ;*/
+    }
+    ::-webkit-scrollbar-thumb
+    {
+        border-radius: 11px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.44, #5CB85C),color-stop(0.72, #5ca4b8),color-stop(0.86, #008ACA));
     }
 
     /*ejemplo twilio END*/
-  </style>
+    </style>
 </head>
 <body>
-  <div style="margin: 10px">
-    <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
-      <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
-  </div>
-  <div>
-  </div>
-  <div id="chatHistory" class="scrollable chatMessages">
-  </div>
-  <div class="container">
-    <input id="speech" type="text" autofocus placeholder="Type here">
-    <div>
-      <label id="statusMessages">You</label> <!-- ejemplo twilio -->
+    <div style="margin: 10px">
+        <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
+        <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
     </div>
-    <button id="rec" class="btn">Speak</button>
-    <div id="spokenResponse" class="spoken-response">
-      <div class="spoken-response__text"></div>
+    <div id="chatHistory" class="scrollable chatMessages"></div>
+    <div class="container">
+        <div class="">
+            <label id="testing">Aqui</label>
+        </div>
+        <input id="speech" type="text" autofocus placeholder="Type here">
+        <div>
+            <label id="statusMessages">Start a conversation...</label> <!-- ejemplo twilio -->
+        </div>
+        <button id="rec" class="btn">Speak</button>
+        <div id="spokenResponse" class="spoken-response">
+            <div class="spoken-response__text"></div>
+        </div>
     </div>
-  </div>
-  <div class="debug">
-    <div class="debug__btn btn">
-      Debug JSON results
+    <div class="debug">
+        <div class="debug__btn btn">
+            Debug JSON results
+        </div>
+        <div class="debug__content">
+            <textarea id="response" cols="40" rows="20"></textarea>
+        </div>
     </div>
-    <div class="debug__content">
-      <textarea id="response" cols="40" rows="20"></textarea>
-    </div>
-  </div>
 
-  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
 </body>
 
-  <!-- <head> Código original curso de https://www.youtube.com/watch?v=FqMIyTH9wSg
-    <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
-  </body> -->
+<!-- <head> Código original curso de https://www.youtube.com/watch?v=FqMIyTH9wSg
+<title>{{ title }}</title>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1>{{ title }}</h1>
+<p>Welcome to {{ title }}</p>
+</body> -->
 </html>
