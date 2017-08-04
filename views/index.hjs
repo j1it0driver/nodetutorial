@@ -40,13 +40,13 @@
             else{
                 $('#statusMessages').text("Typing...");
                 $speechInput.val();
-                    timeout = setTimeout(function () {if($speechInput.val() != ''){$('#statusMessages').text("Waiting input or Enter");}}, 3000);
+                    timeout = setTimeout(function () {if($speechInput.val() != ''){$('#statusMessages').text("Waiting input or Enter...");}}, 3000);
             }
             if (event.which == 13) {
                 event.preventDefault();
                 if($speechInput.val() != ''){
                     send();
-                    tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input");},2000);
+                    tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
                 }
             }
         });
@@ -140,7 +140,7 @@
                 respond(messageInternalError);
             }
         });
-        $('#statusMessages').text("Send");
+        $('#statusMessages').text("Message Send!");
         // firstTypedLetter = 'Y';
         // if (auth === memberName )
         // {
@@ -161,7 +161,6 @@
             "</div> <!-- end chat-message -->"
         );
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-        // if($('#statusMessages').text()=='Send'){setTimeout(function(){$('#statusMessages').text("Next input");},2000)}
         $speechInput.val("");
         ///////
     }
@@ -190,6 +189,7 @@
             window.speechSynthesis.speak(msg);
         }
         $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+        $("#spokenResponseTitle").addClass("is-active").find(".esponse").html("API Response");
         datestr=getFormattedDate();
         //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
         chatHistoryDiv.append(
@@ -381,6 +381,21 @@
         color: #FFFFFF;
         padding: 1em;
     }
+    .statusToUser {
+        display: block;
+        color: #58585a;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: bold;
+        text-align: right;
+    }
+    .responseTitle{
+        display: block;
+        visibility:hidden;
+    }
+    .responseTitle.is-active{
+        visibility:visible;
+    }
     /*ejemplo twilio INI---------------------------------------------*/
     .chatMessages{
         width:300px ;
@@ -493,9 +508,12 @@
         </div>
         <input id="speech" type="text" autofocus placeholder="Type here">
         <div>
-            <label id="statusMessages">Start a conversation...</label> <!-- ejemplo twilio -->
+            <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
         </div>
         <button id="rec" class="btn">Speak</button>
+        <div id="spokenResponsTitle" class="responseTitle">
+            <label class="response"></label>
+        </div>
         <div id="spokenResponse" class="spoken-response">
             <div class="spoken-response__text"></div>
         </div>
