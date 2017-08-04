@@ -189,7 +189,7 @@
             window.speechSynthesis.speak(msg);
         }
         $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
-        $("#spokenResponseTitle").addClass("is-active").find(".esponse").html("API Response");
+        $("#spokenResponseTitle").addClass("is-active").find(".response").html("API Response");
         datestr=getFormattedDate();
         //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
         chatHistoryDiv.append(
