@@ -8,7 +8,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
     var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
-    var accessToken = originalToken,
+    var accessToken = tadvisorToken,
     baseUrl = "https://api.api.ai/v1/",
     $speechInput,
     $recBtn,
@@ -70,6 +70,11 @@
         }
     }
 
+    function printLink(dato, dato2) {
+            $('#testing').text('');
+            $('#testing').append(dato);
+            $('#frame').append(dato2);
+    }
 
     function startRecognition() {
         recognition = new webkitSpeechRecognition();
@@ -166,11 +171,28 @@
     }
 
     function prepareResponse(val) {
+        var location_c;
         var debugJSON = JSON.stringify(val, undefined, 2),
         spokenResponse = val.result.speech;
+
         respond(spokenResponse);
         debugRespond(debugJSON);
+        ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
+        // printValues(val.result.metadata.intentName);
+        if(val.result.metadata.intentName == "location"){
+
+            location_c = val.result.parameters["geo-country"]; //por el dash "-" no se usa . punto
+            news_country="https://news.google.com/news/search/section/q/"+location_c+"/"+location_c+"?hl=es-419&ned=es_co";
+            link_country="<a href = "+news_country+" target =\"right_side\">News from "+location_c+"</a>";
+            frame_country="<iframe name=\"right_side\" src="+news_country+" width=\"300px\" height=\"100px\"></iframe>";
+            printLink(link_country,frame_country);
+
+        }
     }
+
+
+
+
 
     function debugRespond(val) {
         $("#response").text(val);
@@ -503,8 +525,12 @@
     </div>
     <div id="chatHistory" class="scrollable chatMessages"></div>
     <div class="container">
-        <div class="">
+        <div id="frame">
+
+        </div>
+        <div >
             <label id="testing">Aqui</label>
+
         </div>
         <input id="speech" type="text" autofocus placeholder="Type here">
         <div>
