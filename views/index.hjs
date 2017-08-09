@@ -24,6 +24,7 @@
     $(document).ready(function() {
         $speechInput = $("#speech");
         $recBtn = $("#rec");
+        $recBtn1 = $("#rec1");
         mensaje = $speechInput.val();
         $speechInput.keyup(function(event) { //I change keyup fot keypress//
             ///////
@@ -123,7 +124,7 @@
     }
 
     function updateRec() {
-        $recBtn.text(recognition ? "Stop" : "Speak");
+        $recBtn1.text(recognition ? "Stop" : "Listening...");
     }
 
     function send() { /*------------------------------- SEND----------------------------- */
@@ -272,7 +273,7 @@
         font-size: 20px;
         margin: 0;
     }
-    .container1 {
+    .container-left {
         bottom: 0;
         display: block;
         height: auto;
@@ -285,10 +286,22 @@
 
         /*-webkit-transform: translate(-50%, 0%);*/
     }
-    .container2 {
+    .container-right{
+        bottom: 0;
+        display: block;
+        height: auto;
+        padding: 10px;
         position: fixed;
-        top: 30%;
-        left:50%;
+        right: 0%;
+        text-align: center;
+        top: 70px;
+        width: 50%;
+    }
+    .container1 {
+        display: inline-block;
+        position: sticky;
+        top:30%;
+        /*left:50%;*/
         /*-webkit-transform: translate(-50%, 0%);*/
     }
     input {
@@ -370,7 +383,7 @@
         font-weight: bold;
         line-height: 40px;
         margin-top: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         padding: 0 0.75em;
         text-align: center;
         text-transform: uppercase;
@@ -403,7 +416,7 @@
     .spoken-response {
         max-height: 0;
         overflow: hidden;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-bottom: 10px;
         -webkit-transition: all 0.35s ease-in;
     }
@@ -424,6 +437,9 @@
         font-weight: bold;
         text-align: right;
     }
+    .responseLink{
+        text-align: left;
+    }
     .responseTitle{
         display: block;
         visibility:hidden;
@@ -440,6 +456,14 @@
         padding: 10px;
         width: 100%;
     }
+    /*button{
+        background: url('https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png') no-repeat 5px center;
+    }*/
+    button > img,
+    button > span {
+        vertical-align: middle;
+    }
+
     /*ejemplo twilio INI---------------------------------------------*/
     .chatMessages{
 
@@ -453,7 +477,7 @@
         /*box-shadow: inset 0px 0px 10px 5px #888888;*/
         margin: 0 auto;
         /*margin-left: 10px;*/
-        /*padding: 5px 5px;*/
+        padding: 5px 5px;
         position: sticky;
         /*top: 55px;*/
         width:300px ;
@@ -547,36 +571,37 @@
         <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
         <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
     </div>
-    <div class="container1">
+    <div class="container-left">
         <div id="chatHistory" class="scrollable chatMessages"></div>
     </div>
+    <div class="container-right">
+        <div class="container1">
+            <div class="responseLink">
+                <label id="testing">Aqui</label>
+            </div>
+            <div id="frame" class="i-frame"></div>
+            <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
+            <div>
+                <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
+            </div>
+            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='55px'><span id="rec1">Speak</span></button>
+            <div id="spokenResponsTitle" class="responseTitle">
+                <label class="response"></label>
+            </div>
+            <div id="spokenResponse" class="spoken-response">
+                <div class="spoken-response__text"></div>
+            </div>
+        </div>
 
-    <div class="container2">
-        <div >
-            <label id="testing">Aqui</label>
-        </div>
-        <div id="frame" class="i-frame"></div>
-        <input id="speech" type="text" autofocus placeholder="Type here">
-        <div>
-            <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
-        </div>
-        <button id="rec" class="btn">Speak</button>
-        <div id="spokenResponsTitle" class="responseTitle">
-            <label class="response"></label>
-        </div>
-        <div id="spokenResponse" class="spoken-response">
-            <div class="spoken-response__text"></div>
+        <div class="debug">
+            <div class="debug__btn btn">
+                Debug JSON results
+            </div>
+            <div class="debug__content">
+                <textarea id="response" cols="40" rows="20"></textarea>
+            </div>
         </div>
     </div>
-    <div class="debug">
-        <div class="debug__btn btn">
-            Debug JSON results
-        </div>
-        <div class="debug__content">
-            <textarea id="response" cols="40" rows="20"></textarea>
-        </div>
-    </div>
-
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
 </body>
 
