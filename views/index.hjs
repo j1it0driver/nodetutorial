@@ -73,7 +73,7 @@
     function printLink(dato, dato2) {
             $('#testing').text('');
             $('#testing').append(dato);
-            $('#frame').append(dato2);
+            // $('#frame').append(dato2);
     }
 
     function startRecognition() {
@@ -184,7 +184,8 @@
             location_c = val.result.parameters["geo-country"]; //por el dash "-" no se usa . punto
             news_country="https://news.google.com/news/search/section/q/"+location_c+"/"+location_c+"?hl=es-419&ned=es_co";
             link_country="<a href = "+news_country+" target =\"right_side\">News from "+location_c+"</a>";
-            frame_country="<iframe name=\"right_side\" src="+news_country+" width=\"300px\" height=\"100px\"></iframe>";
+            prueba="https://www.w3schools.com";
+            frame_country="<iframe name=\"right_side\" src =\"\" width=\"300\" height=\"100\">mmmhhh</iframe>";
             printLink(link_country,frame_country);
 
         }
@@ -270,9 +271,21 @@
         font-family: "Titillium Web", Arial, sans-serif;
         font-size: 20px;
         margin: 0;
-        padding: 10px;
     }
-    .container {
+    .container1 {
+        bottom: 0;
+        display: block;
+        height: auto;
+        padding: 10px;
+        position: fixed;
+        text-align: center;
+        top: 70px;
+        width: 50%;
+
+
+        /*-webkit-transform: translate(-50%, 0%);*/
+    }
+    .container2 {
         position: fixed;
         top: 30%;
         left:50%;
@@ -418,27 +431,38 @@
     .responseTitle.is-active{
         visibility:visible;
     }
+    .i-frame {
+        height: 5vh;
+    }
+    .upper{
+        height: 70px;
+        display: block;
+        padding: 10px;
+        width: 100%;
+    }
     /*ejemplo twilio INI---------------------------------------------*/
     .chatMessages{
-        width:300px ;
-        position:absolute;
-        top: 55px;
+
         -webkit-border-radius: 11px;
         -moz-border-radius: 11px;
         border-radius: 11px;
         font-size: 15px;
         background: #58585A;
         box-shadow: 0px 0px 10px 5px #888888;
+        display: inline-block;
         /*box-shadow: inset 0px 0px 10px 5px #888888;*/
-        padding: 5px 5px;
-        margin: 5px;
-        margin-left: 10px;
+        margin: 0 auto;
+        /*margin-left: 10px;*/
+        /*padding: 5px 5px;*/
+        position: sticky;
+        /*top: 55px;*/
+        width:300px ;
     }
     .scrollable {
-        height: 90%; /* or any value */
+        height: 95%; /* or any value */
         overflow-y: auto;
         overflow-x: hidden;
-        max-height: 90vh;
+        /*max-height: 90vh;*/
     }
     .bubble-left {
         line-height: 100%;
@@ -519,19 +543,19 @@
     </style>
 </head>
 <body>
-    <div style="margin: 10px">
+    <div class = "upper">
         <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
         <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
     </div>
-    <div id="chatHistory" class="scrollable chatMessages"></div>
-    <div class="container">
-        <div id="frame">
+    <div class="container1">
+        <div id="chatHistory" class="scrollable chatMessages"></div>
+    </div>
 
-        </div>
+    <div class="container2">
         <div >
             <label id="testing">Aqui</label>
-
         </div>
+        <div id="frame" class="i-frame"></div>
         <input id="speech" type="text" autofocus placeholder="Type here">
         <div>
             <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
