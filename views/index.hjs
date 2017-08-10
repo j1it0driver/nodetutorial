@@ -10,6 +10,7 @@
     var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
     var accessToken = tadvisorToken,
     baseUrl = "https://api.api.ai/v1/",
+    version="20170810",
     $speechInput,
     $recBtn,
     recognition,
@@ -132,7 +133,7 @@
         var chatHistoryDiv = $("#chatHistory");
         $.ajax({
             type: "POST",
-            url: baseUrl + "query",
+            url: baseUrl + "query?v=20170810",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             headers: {
@@ -159,7 +160,7 @@
             "</div>"+
             "<div class='chat-message-content'>" +
             "<h4>"+text+"</h4>"+
-            "<h5 class='timestamp_left' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
             //"<span class='chat-time right'>13:35</span>"+
             //"<p class='right'>Me</p>"+
             "</div> <!-- end chat-message-content -->"+
@@ -172,10 +173,13 @@
     }
 
     function prepareResponse(val) {
-        var location_c;
-        var debugJSON = JSON.stringify(val, undefined, 2),
+        var location_c,
+        messagesPrint= val.result.fulfillment;
+        var debugJSON = JSON.stringify(val, undefined, 2);
+        var debugJSON2 = JSON.stringify(messagesPrint, undefined, 2),
         spokenResponse = val.result.speech;
-
+        // $('#testing').text(val.result.fulfillment);
+        $('#testing').text(debugJSON2);
         respond(spokenResponse);
         debugRespond(debugJSON);
         ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
@@ -503,6 +507,7 @@
         clear: both;
         max-width:75%;
         color: white;
+        text-align:left;
 
     }
 
@@ -521,6 +526,7 @@
         clear: both;
         max-width:75%;
         color: white;
+        text-align:left;
     }
 
     .bubble-left {
