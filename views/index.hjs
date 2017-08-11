@@ -156,11 +156,11 @@
         chatHistoryDiv.append(
             "<div class='chat-message bubble-left' >"+
             "<div class='avatar'>"+
-            "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32'>"+
+            "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32' style='float: left;>"+
             "</div>"+
             "<div class='chat-message-content'>" +
-            "<h4>"+text+"</h4>"+
-            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+            "<h4 style='margin-top: 45px; margin-bottom: 0.5em; margin-left: 0.5em;'>"+text+"</h4>"+
+            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
             //"<span class='chat-time right'>13:35</span>"+
             //"<p class='right'>Me</p>"+
             "</div> <!-- end chat-message-content -->"+
@@ -236,8 +236,8 @@
             "<div class='chat-message-content' style= 'clear: right;'>" +
             //"<span class='chat-time'>13:35</span>"+
             // "<p font-size='50%' font-style= 'italic'>"+auth+"</p>"+
-            "<h4 style='margin-top: 50px;'>"+val+"</h4>"+
-            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0;'>"+datestr+"</h5>"+
+            "<h4 style='margin-top: 45px; margin-bottom: 0.5em; margin-left: 0.5em;'>"+val+"</h4>"+
+            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
             "</div> <!-- end chat-message-content -->"+
             //"<hr>"+
             "</div> <!-- end chat-message -->"
@@ -267,8 +267,8 @@
         min = (min < 10 ? "0" : "") + min;
         sec = (sec < 10 ? "0" : "") + sec;
 
-        var str = date.getFullYear() + "/" + month + "/" + day + " " +  hour + ":" + min; /*+ ":" + sec;*/
-
+        /*var str = date.getFullYear() + "/" + month + "/" + day + " " +  hour + ":" + min + ":" + sec;*/
+        var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
         /*alert(str);*/
         return str;
     }
@@ -576,7 +576,9 @@
     .timestamp_left{
         text-align: left;
     }
-
+    .avatar{
+        display: inline;
+    }
     /* *  Scrollbar STYLE 7
     */
     ::-webkit-scrollbar-track
