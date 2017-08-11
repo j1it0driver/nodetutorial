@@ -22,7 +22,7 @@
     var tiempoSend, timeout = null;
     // var firstTypedLetter = 'Y';
 
-    $(document).ready(function() {
+    $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
         $speechInput = $("#speech");
         $recBtn = $("#rec");
         $recBtn1 = $("#rec1");
@@ -62,7 +62,7 @@
 
     });
 
-    function printInput() {
+    function printInput() {          //////////////////////////////////// PRINT FUNCTIONS ////////////////////////////////////
         if($speechInput.val() != ''){
             $('#testing').text($speechInput.val());
         }
@@ -78,7 +78,7 @@
             // $('#frame').append(dato2);
     }
 
-    function startRecognition() {
+    function startRecognition() {    //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
         recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
@@ -128,7 +128,7 @@
         $recBtn1.text(recognition ? "Stop" : "Listening...");
     }
 
-    function send() { /*------------------------------- SEND----------------------------- */
+    function send() {                //////////////////////////////////// SEND ////////////////////////////////////
         var text = $speechInput.val();
         var chatHistoryDiv = $("#chatHistory");
         $.ajax({
@@ -172,16 +172,28 @@
         ///////
     }
 
-    function prepareResponse(val) {
+    function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
         var location_c,
-        messagesPrint= val.result.fulfillment;
+        dataObj,
+        valObj,
+        messagesPrint= "",
+        messagePrint= "",
+        messagePrint2="";
         var debugJSON = JSON.stringify(val, undefined, 2);
-        var debugJSON2 = JSON.stringify(messagesPrint, undefined, 2),
-        spokenResponse = val.result.speech;
-        // $('#testing').text(val.result.fulfillment);
-        $('#testing').text(debugJSON2);
-        respond(spokenResponse);
+        var spokenResponse = val.result.fulfillment.messages;
+
+        // respond(spokenResponse);
         debugRespond(debugJSON);
+        for (i=0;i< spokenResponse.length; i++){
+            messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
+            messagePrint2= spokenResponse[i].speech;
+            dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
+            messagesPrint+=  "> "+ dataObj + "<br />";
+            respond(dataObj);
+        }
+        spokenRespond(messagesPrint);
+        // $('#testing').text(eval('\"'+ jsonEscape(spokenResponse[1].speech)+'\"'));
+
         ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
         // printValues(val.result.metadata.intentName);
         if(val.result.metadata.intentName == "location"){
@@ -195,10 +207,6 @@
 
         }
     }
-
-
-
-
 
     function debugRespond(val) {
         $("#response").text(val);
@@ -216,8 +224,8 @@
             msg.lang = "en-US";
             window.speechSynthesis.speak(msg);
         }
-        $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
-        $("#spokenResponseTitle").addClass("is-active").find(".response").html("API Response");
+        // $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+        // $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
         datestr=getFormattedDate();
         //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
         chatHistoryDiv.append(
@@ -234,6 +242,14 @@
             //"<hr>"+
             "</div> <!-- end chat-message -->"
         );
+    }
+
+    function spokenRespond (val){
+        if (val == "") {
+            val = messageSorry;
+        }
+        $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+        $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
     }
 
     function getFormattedDate() {
@@ -257,11 +273,14 @@
         return str;
     }
 
+    function jsonEscape(stringJSON)  {
+        return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
+    }
+
     </script>
-
-
-
-
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 
     <style type="text/css">
@@ -304,7 +323,8 @@
     .container1 {
         display: inline-block;
         position: sticky;
-        top:30%;
+        text-align: left;
+        top:25%;
         /*left:50%;*/
         /*-webkit-transform: translate(-50%, 0%);*/
     }
@@ -420,7 +440,7 @@
     .spoken-response {
         max-height: 0;
         overflow: hidden;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 10px;
         -webkit-transition: all 0.35s ease-in;
     }
@@ -431,6 +451,8 @@
         max-width: 300px;
         background-color: #008ACA;
         color: #FFFFFF;
+        font-size: 15px;
+        line-height:20px;
         padding: 1em;
     }
     .statusToUser {
@@ -446,10 +468,19 @@
     }
     .responseTitle{
         display: block;
-        visibility:hidden;
+        max-height: 0;
+        overflow: hidden;
+        margin-top: 20px;
+        margin-bottom: 0px;
+        -webkit-transition: all 0.35s ease-in;
     }
-    .responseTitle.is-active{
-        visibility:visible;
+    .responseTitle.is-actived{
+        display: block;
+        max-height: 40px;
+    }
+    .responseLabel {
+        max-width: 300px;
+        color: #58585a;
     }
     .i-frame {
         height: 5vh;
@@ -474,7 +505,7 @@
         -webkit-border-radius: 11px;
         -moz-border-radius: 11px;
         border-radius: 11px;
-        font-size: 15px;
+        font-size: 14px;
         background: #58585A;
         box-shadow: 0px 0px 10px 5px #888888;
         display: inline-block;
@@ -570,6 +601,11 @@
     }
 
     /*ejemplo twilio END*/
+
+    /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
     </style>
 </head>
 <body>
@@ -591,8 +627,8 @@
                 <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
             </div>
             <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='55px'><span id="rec1">Speak</span></button>
-            <div id="spokenResponsTitle" class="responseTitle">
-                <label class="response"></label>
+            <div id="spokenResponseTitle" class="responseTitle">
+                <label class="responseLabel"></label>
             </div>
             <div id="spokenResponse" class="spoken-response">
                 <div class="spoken-response__text"></div>
