@@ -215,15 +215,6 @@ function respond(val) {
     if (val == "") {
         val = messageSorry;
     }
-    if (val !== messageRecording) {
-        var msg = new SpeechSynthesisUtterance();
-        msg.voiceURI = "native";
-        msg.text = val;
-        msg.lang = "en-US";
-        window.speechSynthesis.speak(msg);
-    }
-    // $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
-    // $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
     datestr=getFormattedDate();
     //$('#chatHistory').append( "<div ><span class='right'>"+auth+":"+msg+"</span></div><hr>" );
     chatHistoryDiv.append(
@@ -240,6 +231,16 @@ function respond(val) {
         //"<hr>"+
         "</div> <!-- end chat-message -->"
     );
+    if (val !== messageRecording) {
+        var msg = new SpeechSynthesisUtterance();
+        msg.voiceURI = "native";
+        msg.text = val.replace(/&nbsp/g,"");
+        msg.lang = "en-US";
+        window.speechSynthesis.speak(msg);
+    }
+    // $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+    // $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
+
 }
 
 function spokenRespond (val){
