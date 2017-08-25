@@ -166,23 +166,30 @@ function send() {                //////////////////////////////////// SEND /////
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     var location_c,
     dataObj,
+    dataObj2,
     valObj,
+    i=0;
     messagesPrint= "",
     messagePrint= "",
     messagePrint2="";
-    var debugJSON = JSON.stringify(val, undefined, 2);
     var spokenResponse = val.result.fulfillment.messages;
+    var debugJSON = JSON.stringify(val, undefined, 2);
+
 
     // respond(spokenResponse);
     debugRespond(debugJSON);
+
     for (i=0;i< spokenResponse.length; i++){
-        messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
-        messagePrint2= spokenResponse[i].speech;
-        dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-        messagesPrint+=  "> "+ dataObj + "<br />";
-        respond(dataObj);
+
+            messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
+            messagePrint2= spokenResponse[i].speech;
+            dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
+            messagesPrint+=  "> "+ dataObj + "<br />";
+            dataObj2 = dataObj.replace("&nbsp","");
+            spokenRespond(dataObj2);
+            respond(dataObj);
     }
-    spokenRespond(messagesPrint);
+    // spokenRespond(messagesPrint);
     // $('#testing').text(eval('\"'+ jsonEscape(spokenResponse[1].speech)+'\"'));
 
     ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
