@@ -180,20 +180,20 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     debugRespond(debugJSON);
 
     for (i=0;i< spokenResponse.length; i++){
-
             messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
             messagePrint2= spokenResponse[i].speech;
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             messagesPrint+=  "> "+ dataObj + "<br />";
-            dataObj2 = dataObj.replace("&nbsp","");
-            spokenRespond(dataObj2);
-            respond(dataObj);
+            dataObj2 = dataObj.replace(/&nbsp/g,"");
+            // dataObj2 = JSON.stringify(dataObj,undefined,2).replace(/&nbsp/g,"");
+            // spokenRespond(dataObj2);
+            respond(dataObj2);
     }
-    // spokenRespond(messagesPrint);
+    $('#testing').text(messagesPrint);
+    spokenRespond(messagesPrint);
     // $('#testing').text(eval('\"'+ jsonEscape(spokenResponse[1].speech)+'\"'));
 
     ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
-    // printValues(val.result.metadata.intentName);
     if(val.result.metadata.intentName == "location"){
 
         location_c = val.result.parameters["geo-country"]; //por el dash "-" no se usa . punto
