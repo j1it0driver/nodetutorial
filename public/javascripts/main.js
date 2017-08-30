@@ -1,9 +1,8 @@
 // Este JS esta recortado del archivo index.hjs original del 24/08/2017
-<<<<<<< HEAD
 
-=======
+
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
->>>>>>> 1cdde38fb0cdb11f7410db22d59d56193e52b68a
+
 var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
 // var accessToken = clientTOKEN.toString(),
 var accessToken = tadvisorToken,
