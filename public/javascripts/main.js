@@ -1,4 +1,5 @@
 // Este JS esta recortado del archivo index.hjs original del 24/08/2017
+
 var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
 var accessToken = tadvisorToken,
 baseUrl = "https://api.api.ai/v1/",
