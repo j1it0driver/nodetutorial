@@ -1,6 +1,11 @@
 // Este JS esta recortado del archivo index.hjs original del 24/08/2017
+<<<<<<< HEAD
 
+=======
+// var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
+>>>>>>> 1cdde38fb0cdb11f7410db22d59d56193e52b68a
 var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
+// var accessToken = clientTOKEN.toString(),
 var accessToken = tadvisorToken,
 baseUrl = "https://api.api.ai/v1/",
 version="20170810",
@@ -13,8 +18,8 @@ messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null;
+    var str="";
 // var firstTypedLetter = 'Y';
-
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
     $speechInput = $("#speech");
     $recBtn = $("#rec");
@@ -29,7 +34,9 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         }
         $speechInput.val();
         if ($speechInput.val()==''){
-            $('#statusMessages').text("Waiting input...");
+            // $('#statusMessages').text("Waiting input...");
+            // $('#statusMessages').text("\""+process.env.API_AI_CIENT_TOKEN_TADV+"\"");
+            // $('#statusMessages').text("clietTOKEN");
         }
         else{
             $('#statusMessages').text("Typing...");
@@ -134,6 +141,8 @@ function send() {                //////////////////////////////////// SEND /////
         data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
+            // console.log("data from SEND");
+            // console.log(data);
         },
         error: function() {
             respond(messageInternalError);
@@ -175,22 +184,31 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     messagePrint2="";
     var spokenResponse = val.result.fulfillment.messages;
     var debugJSON = JSON.stringify(val, undefined, 2);
-
+    // console.log("val from prepareResponse");
+    // console.log(val);
 
     // respond(spokenResponse);
     debugRespond(debugJSON);
-
+    // console.log("debugJSON from prepareResponse");
+    // console.log(debugJSON);
     for (i=0;i< spokenResponse.length; i++){
             messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
             messagePrint2= spokenResponse[i].speech;
+            // console.log("messagePrint: " + i);
+            // console.log(messagePrint);
+            // console.log("messagePrint2:  " + i);
+            // console.log(messagePrint2);
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             messagesPrint+=  "> "+ dataObj + "<br />";
-            dataObj2 = dataObj.replace(/&nbsp/g,"");
+            // dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
+            // messagesPrint+=  "> "+ messagePrint2 + "<br />";
+            // console.log(messagesPrint);
+            // dataObj2 = dataObj.replace(/&nbsp/g,"");
             // dataObj2 = JSON.stringify(dataObj,undefined,2).replace(/&nbsp/g,"");
             // spokenRespond(dataObj2);
-            respond(dataObj2);
+            respond(dataObj);
     }
-    $('#testing').text(messagesPrint);
+    // $('#testing').text(messagesPrint); //imprimir en testing label
     spokenRespond(messagesPrint);
     // $('#testing').text(eval('\"'+ jsonEscape(spokenResponse[1].speech)+'\"'));
 
@@ -274,6 +292,11 @@ function getFormattedDate() {
 }
 
 function jsonEscape(stringJSON)  {
+    // console.log("stringJSON from jsonEscape");
+    // console.log(stringJSON);
+    // str=stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
+    // console.log("str from jsonEscape");
+    // console.log(str);
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
 
@@ -289,6 +312,8 @@ function send_event() {                //////////////////////////////////// SEND
         data: JSON.stringify({'event': {'name':'custom_event', data:{'name': 'Juan'}}, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
+            // console.log("data from SEND_EVENT");
+            // console.log(data);
         },
         error: function() {
             respond(messageInternalError);
