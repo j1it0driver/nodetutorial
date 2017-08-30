@@ -317,3 +317,21 @@ button > span {
     border-bottom-left-radius: 0;
     background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.44, #5CB85C),color-stop(0.72, #5ca4b8),color-stop(0.86, #008ACA));
 }
+button {
+    background-color: #FFFFFF;
+    border: 1px solid #58585A;
+    border-radius: 6px;
+    color: #58585A;
+    cursor: pointer;
+    display: inline;
+    font-family: "Titillium Web";
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding: 0 0.5em;
+    text-align: center;
+    /*text-transform: uppercase;*/
+    -webkit-transition: all 0.35s ease-in;
+}

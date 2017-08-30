@@ -183,6 +183,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     messagePrint2="";
     var spokenResponse = val.result.fulfillment.messages;
     var debugJSON = JSON.stringify(val, undefined, 2);
+    var arrayList=[];
     // console.log("val from prepareResponse");
     // console.log(val);
 
@@ -190,8 +191,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     debugRespond(debugJSON);
     // console.log("debugJSON from prepareResponse");
     // console.log(debugJSON);
+
     for (i=0;i< spokenResponse.length; i++){
-            messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
+        // messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
+        if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
             // console.log("messagePrint: " + i);
             // console.log(messagePrint);
@@ -206,6 +209,16 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             // dataObj2 = JSON.stringify(dataObj,undefined,2).replace(/&nbsp/g,"");
             // spokenRespond(dataObj2);
             respond(dataObj);
+            console.log(dataObj);
+        }
+        else if (spokenResponse[i].type==4) { //type 4 is a custompayload
+            for(j=0;j<spokenResponse[i].payload.items.length;j++){
+                arrayList[j]=spokenResponse[i].payload.items[j]
+            }
+            console.log(arrayList);
+            printButton(arrayList);
+        }
+
     }
     // $('#testing').text(messagesPrint); //imprimir en testing label
     spokenRespond(messagesPrint);
@@ -319,4 +332,23 @@ function send_event() {                //////////////////////////////////// SEND
         }
     });
     $('#statusMessages').text("Type the topic you are interested in");
+}
+
+function printButton(arrayList){
+    var printButton_i="<br />";
+    var chatHistoryDiv = $("#chatHistory");
+    for(i=0;i<arrayList.length;i++){
+        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+arrayList[i]+"' name='listButton"+i+"' onclick='' style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
+    }
+    console.log(printButton_i);
+    chatHistoryDiv.append(
+            "<div class='chat-message bubble-right'>"+
+            "<div class='chat-message-content' style= 'clear: right;'>" +
+            printButton_i+
+            // "<h4 style='margin-top: 45px; margin-bottom: 0.5em; margin-left: 0.5em;'>"+val+"</h4>"+
+            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+            "</div> <!-- end chat-message-content -->"+
+            //"<hr>"+
+            "</div> <!-- end chat-message -->");
+    // return printButton_i;
 }
