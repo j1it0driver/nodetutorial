@@ -338,7 +338,7 @@ function printButton(arrayList){
     var printButton_i="<br />";
     var chatHistoryDiv = $("#chatHistory");
     for(i=0;i<arrayList.length;i++){
-        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+arrayList[i]+"' name='listButton"+i+"' onclick='quickReplyF("+arrayList[i]+")' style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
+        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+arrayList[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"')\" style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
     }
     console.log(printButton_i);
     chatHistoryDiv.append(
@@ -353,6 +353,9 @@ function printButton(arrayList){
     // return printButton_i;
 }
 function quickReplyF(stringItem){
+    $speechInput.val(stringItem);
+    console.log(typeof(stringItem));
+    send();
     // send($speechInput.val(stringItem));
 
 }

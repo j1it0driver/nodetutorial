@@ -3,7 +3,7 @@ Con node instalado, puedo correr archivos .js al escribir: node xxxxx.js
 Así me despliega en el terminal el resultado del archivo.
 Para utilizar un modulo (otro archivo .js) debo llamarlo con una variable y asignalre require con el path del modulo
 ex: var m2 =  require ('./modulo2')   //   "./" significa que está en el mismo directorio//
-Cuidado al usar console.log para escrinir en la consola el contenido de un objeto. Si se necesita llamar una funcion, lo mejor es enviar directamente el nombre de la uncion o variable a la que gfue asignada
+Cuidado al usar console.log para escribir en la consola el contenido de un objeto. Si se necesita llamar una funcion, lo mejor es enviar directamente el nombre de la uncion o variable a la que gfue asignada
 NPM sirve para instalar paquetes de librerias en el folder en el que estoy, o para empaquetar las librerias que se instalen de NPM. Asi poder distribuir todas en un solo packages. El nomre de las librerias que se guardan quedan en un parchivo llamado package.json
 NPM init inicia el empaquetamiento.
 Despues se puede agregar librerias con NPM install <libreria> -S (-s para que lo agregue al .json)
