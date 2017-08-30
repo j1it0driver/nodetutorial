@@ -338,17 +338,21 @@ function printButton(arrayList){
     var printButton_i="<br />";
     var chatHistoryDiv = $("#chatHistory");
     for(i=0;i<arrayList.length;i++){
-        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+arrayList[i]+"' name='listButton"+i+"' onclick='' style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
+        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+arrayList[i]+"' name='listButton"+i+"' onclick='quickReplyF("+arrayList[i]+")' style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
     }
     console.log(printButton_i);
     chatHistoryDiv.append(
             "<div class='chat-message bubble-right'>"+
-            "<div class='chat-message-content' style= 'clear: right;'>" +
-            printButton_i+
+                "<div class='chat-message-content' style= 'clear: right;'>" +
+                    printButton_i+
             // "<h4 style='margin-top: 45px; margin-bottom: 0.5em; margin-left: 0.5em;'>"+val+"</h4>"+
-            "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
-            "</div> <!-- end chat-message-content -->"+
+                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                    "</div> <!-- end chat-message-content -->"+
             //"<hr>"+
             "</div> <!-- end chat-message -->");
     // return printButton_i;
+}
+function quickReplyF(stringItem){
+    // send($speechInput.val(stringItem));
+
 }
