@@ -16,7 +16,7 @@ messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null;
+var tiempoSend, timeout = null, arrayList=[], buttonId=[];;
     var str="";
 // var firstTypedLetter = 'Y';
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
@@ -183,39 +183,30 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     messagePrint2="";
     var spokenResponse = val.result.fulfillment.messages;
     var debugJSON = JSON.stringify(val, undefined, 2);
-    var arrayList=[];
-    // console.log("val from prepareResponse");
-    // console.log(val);
-
     // respond(spokenResponse);
     debugRespond(debugJSON);
-    // console.log("debugJSON from prepareResponse");
-    // console.log(debugJSON);
 
     for (i=0;i< spokenResponse.length; i++){
         // messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
-            // console.log("messagePrint: " + i);
-            // console.log(messagePrint);
-            // console.log("messagePrint2:  " + i);
-            // console.log(messagePrint2);
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             messagesPrint+=  "> "+ dataObj + "<br />";
             // dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             // messagesPrint+=  "> "+ messagePrint2 + "<br />";
-            // console.log(messagesPrint);
             // dataObj2 = dataObj.replace(/&nbsp/g,"");
             // dataObj2 = JSON.stringify(dataObj,undefined,2).replace(/&nbsp/g,"");
             // spokenRespond(dataObj2);
             respond(dataObj);
-            console.log(dataObj);
+            // console.log(dataObj);
         }
-        else if (spokenResponse[i].type==4) { //type 4 is a custompayload
-            for(j=0;j<spokenResponse[i].payload.items.length;j++){
-                arrayList[j]=spokenResponse[i].payload.items[j]
-            }
-            console.log(arrayList);
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
+            console.log(spokenResponse[i].payload.items);
+            // for(j=0;j<spokenResponse[i].payload.items.length;j++){
+            //     arrayList[j]=spokenResponse[i].payload.items[j]
+            // }
+            // printButton(arrayList);
+            arrayList=spokenResponse[i].payload.items;
             printButton(arrayList);
         }
 
@@ -337,10 +328,15 @@ function send_event() {                //////////////////////////////////// SEND
 function printButton(arrayList){
     var printButton_i="<br />";
     var chatHistoryDiv = $("#chatHistory");
+
+    console.log(arrayList);
+
     for(i=0;i<arrayList.length;i++){
-        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+arrayList[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"')\" style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
+        buttonId[i]=createIdFromText(arrayList[i]);
+        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'arrayList'+","+'buttonId'+")\" style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
     }
-    console.log(printButton_i);
+    // console.log(printButton_i);
+    datestr=getFormattedDate();
     chatHistoryDiv.append(
             "<div class='chat-message bubble-right'>"+
                 "<div class='chat-message-content' style= 'clear: right;'>" +
@@ -352,10 +348,19 @@ function printButton(arrayList){
             "</div> <!-- end chat-message -->");
     // return printButton_i;
 }
-function quickReplyF(stringItem){
-    $speechInput.val(stringItem);
-    console.log(typeof(stringItem));
-    send();
-    // send($speechInput.val(stringItem));
 
+function quickReplyF(stringItem,arrayList){
+    $speechInput.val(stringItem);
+    console.log(arrayList);
+    send();
+    disableButtons(buttonId);
+}
+
+function disableButtons(buttonId){
+    for(i=0;i<buttonId.length;i++){
+        document.getElementById(buttonId[i]).disabled = true;
+    }
+}
+function createIdFromText(idText){
+    return idText.toLowerCase().replace(/ /g,"");
 }

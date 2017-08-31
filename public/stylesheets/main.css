@@ -335,3 +335,11 @@ button {
     /*text-transform: uppercase;*/
     -webkit-transition: all 0.35s ease-in;
 }
+button:hover:enabled{
+    background-color: #5CB85C;
+    color: #58585A;
+}
+button:disabled{
+    text-decoration:line-through;
+    color: #58585A;
+}
