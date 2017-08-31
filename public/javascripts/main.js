@@ -177,7 +177,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             printButton(spokenResponse[i].payload.items);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
-            sliderSelector(spokenResponse[i].payload.slide.name);
+            printSliderSelector(spokenResponse[i].payload.slide.name);
         }
     }
     spokenRespond(messagesPrint);
@@ -252,7 +252,7 @@ function jsonEscape(stringJSON)  {
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
 
-function send_event() {                //////////////////////////////////// SEND ////////////////////////////////////
+function send_event() {                //////////////////////////////////// SEND EVENT////////////////////////////////////
     $.ajax({
         type: "POST",
         url: baseUrl + "query?v=20170810",
@@ -282,7 +282,7 @@ function printButton(arrayList){
                 "<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonId'+")\" style='margin-top: 5px; display: inline-block;'>"+
                 arrayList[i]+
                 "</button>"+
-                "</div>";
+            "</div>";
     }
     // console.log(printButton_i);
     datestr=getFormattedDate();
@@ -315,7 +315,7 @@ function createIdFromText(idText){
     return idText.toLowerCase().replace(/ /g,"");
 }
 
-function sliderSelector(sliderName){
+function printSliderSelector(sliderName){
     var chatHistoryDiv = $("#chatHistory");
     var sliderId=createIdFromText(sliderName);
     datestr=getFormattedDate();
