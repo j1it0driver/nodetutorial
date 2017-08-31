@@ -40,10 +40,8 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
-                // disablebuttons
-                // console.log
-                // disableButtons(buttonId);
-                // disableButtons(sliderId);
+                console.log(buttonId);
+                console.log(sliderId);
                 send();
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
@@ -162,36 +160,21 @@ function send() {                //////////////////////////////////// SEND /////
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
-    var location_c,
-    dataObj,
-    dataObj2,
-    valObj,
-    i=0;
-    messagesPrint= "",
-    messagePrint= "",
-    messagePrint2="";
+    var location_c, dataObj, messagesPrint= "", messagePrint2="";
     var spokenResponse = val.result.fulfillment.messages;
-    var debugJSON = JSON.stringify(val, undefined, 2);
-    // respond(spokenResponse);
-    debugRespond(debugJSON);
-
+    var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
+    debugRespond(debugJSON); //print in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
-        // messagePrint = JSON.stringify(spokenResponse[i].speech, undefined, 2);
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             messagesPrint+=  "> "+ dataObj + "<br />";
-            // dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-            // messagesPrint+=  "> "+ messagePrint2 + "<br />";
-            // dataObj2 = dataObj.replace(/&nbsp/g,"");
-            // dataObj2 = JSON.stringify(dataObj,undefined,2).replace(/&nbsp/g,"");
-            // spokenRespond(dataObj2);
             respond(dataObj);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             // arrayList=spokenResponse[i].payload.items;
             // printButton(arrayList);
-            printButton(spokenResponse[i].payload.items)
+            printButton(spokenResponse[i].payload.items);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             sliderSelector(spokenResponse[i].payload.slide.name);
@@ -250,31 +233,22 @@ function spokenRespond (val){
 
 function getFormattedDate() {
     var date = new Date();
-
     var month = date.getMonth() + 1;
     var day = date.getDate();
     var hour = date.getHours();
     var min = date.getMinutes();
     var sec = date.getSeconds();
-
     month = (month < 10 ? "0" : "") + month;
     day = (day < 10 ? "0" : "") + day;
     hour = (hour < 10 ? "0" : "") + hour;
     min = (min < 10 ? "0" : "") + min;
     sec = (sec < 10 ? "0" : "") + sec;
-
-    /*var str = date.getFullYear() + "/" + month + "/" + day + " " +  hour + ":" + min + ":" + sec;*/
     var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
     /*alert(str);*/
     return str;
 }
 
 function jsonEscape(stringJSON)  {
-    // console.log("stringJSON from jsonEscape");
-    // console.log(stringJSON);
-    // str=stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
-    // console.log("str from jsonEscape");
-    // console.log(str);
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
 
@@ -290,8 +264,6 @@ function send_event() {                //////////////////////////////////// SEND
         data: JSON.stringify({'event': {'name':'custom_event', data:{'name': 'Juan'}}, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
-            // console.log("data from SEND_EVENT");
-            // console.log(data);
         },
         error: function() {
             respond(messageInternalError);
