@@ -15,7 +15,7 @@ messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null, arrayList=[], buttonId=[];;
+var tiempoSend, timeout = null, buttonId=[]; sliderId=[]; //arrayList=[]
 var str="";
 // var firstTypedLetter = 'Y';
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
@@ -40,6 +40,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
+                // disablebuttons
+                // console.log
+                // disableButtons(buttonId);
+                // disableButtons(sliderId);
                 send();
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
@@ -185,8 +189,12 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             respond(dataObj);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
-            arrayList=spokenResponse[i].payload.items;
-            printButton(arrayList);
+            // arrayList=spokenResponse[i].payload.items;
+            // printButton(arrayList);
+            printButton(spokenResponse[i].payload.items)
+        }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
+            sliderSelector(spokenResponse[i].payload.slide.name);
         }
     }
     spokenRespond(messagesPrint);
@@ -297,7 +305,12 @@ function printButton(arrayList){
     var chatHistoryDiv = $("#chatHistory");
     for(i=0;i<arrayList.length;i++){
         buttonId[i]=createIdFromText(arrayList[i]);
-        printButton_i+="<div class='quickReplyButton' style='display:inline'>"+"<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonId'+")\" style='margin-top: 5px; display: inline-block;'>"+arrayList[i]+"</button>"+"</div>";
+        printButton_i+=
+            "<div class='quickReplyButton' style='display:inline'>"+
+                "<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonId'+")\" style='margin-top: 5px; display: inline-block;'>"+
+                arrayList[i]+
+                "</button>"+
+                "</div>";
     }
     // console.log(printButton_i);
     datestr=getFormattedDate();
@@ -320,6 +333,7 @@ function quickReplyF(stringItem,buttonId){
 }
 
 function disableButtons(buttonId){
+    console.log(buttonId);
     for(i=0;i<buttonId.length;i++){
         document.getElementById(buttonId[i]).disabled = true;
     }
@@ -328,3 +342,45 @@ function disableButtons(buttonId){
 function createIdFromText(idText){
     return idText.toLowerCase().replace(/ /g,"");
 }
+
+function sliderSelector(sliderName){
+    var chatHistoryDiv = $("#chatHistory");
+    var sliderId=createIdFromText(sliderName);
+    datestr=getFormattedDate();
+    var sliderButton ="<div id='slidecontainer'>"+
+            "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider' id='"+sliderId+"'>"+
+        "</div>";
+
+    // var sendSlice;
+
+    chatHistoryDiv.append(
+            "<div class='chat-message bubble-right' style='width: 75%; text-align:center'>"+
+                "<div class='chat-message-content' style= 'clear: right;'>" +
+                    sliderButton+
+                    // "<div class='' id='"+sliderId+"btn'>"+
+                    "<div class='' id=''>"+
+                        "<button id='"+sliderId+"btnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+                        "</button>"+
+                    "</div>"+
+                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                    "</div> <!-- end chat-message-content -->"+
+            "</div> <!-- end chat-message -->");
+    var slider = document.getElementById(sliderId);
+    // var output = document.getElementById("testing");
+    var output = document.getElementById(sliderId+"btnSend");
+    // var output = $("#"+sliderId+"btnSend");
+    output.innerHTML = slider.value;
+    // output.value = slider.value;
+    // sendSlice="<div><button type='button'>Send "+output.innerHTML+"</button></div>";
+    slider.oninput = function() {
+        output.innerHTML = this.value.toLocaleString(); //toLocaleString to conver to money format
+        $speechInput.val(this.value.toLocaleString());
+    }
+    // return sliderId+"btnSend";
+}
+function sendSlice(sliderId){
+    var sliderIdbtnSend=sliderId+"btnSend";
+    disableButtons([sliderIdbtnSend]);
+    disableButtons([sliderId]);
+    send();
+ }

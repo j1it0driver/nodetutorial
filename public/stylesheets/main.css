@@ -42,7 +42,7 @@ body {
     /*left:50%;*/
     /*-webkit-transform: translate(-50%, 0%);*/
 }
-input {
+input[type=text] {
 
     background-color: #d2d2d2;
     border:none;
@@ -55,7 +55,7 @@ input {
     width: 300px;
     -webkit-transition: all 0.35s ease-in;
 }
-input:focus{
+input[type=text]:focus{
     background-color: #c3d5bb;
     border:none;
     border: 0px solid #43BD5D;
@@ -81,21 +81,21 @@ input:focus{
 }
 /*para cambiar el placeholder final*/
 /*para cambiar el placeholder inicio*/
-input:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+input[type=text]:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: transparent;
 }
-input:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: transparent;
-    opacity:  1;
-}
-input:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+input[type=text]:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: transparent;
     opacity:  1;
 }
-input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+input[type=text]:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+    opacity:  1;
+}
+input[type=text]:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: transparent;
 }
-input:focus::-ms-input-placeholder { /* Microsoft Edge */
+input[type=text]:focus::-ms-input-placeholder { /* Microsoft Edge */
     color: transparent;
 }
 /*para cambiar el placeholder final*/
@@ -342,4 +342,58 @@ button:hover:enabled{
 button:disabled{
     text-decoration:line-through;
     color: #58585A;
+}
+/*////////////////////////////////////////7//////////   Slider   //////////////////////////////////////////////////////////*/
+#slidecontainer {
+    width: 90%; /* Width of the outside container */
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 20px; /* Specified height */
+    background-color: #FFFFFF; /* color background */
+    outline: none; /* Remove outline */
+    /*opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */*/
+    /*-webkit-transition: .2s; /* 0.2 seconds transition on hover */*/
+    transition: all .2s;
+    padding: 0px;
+    border: none;
+    color: #58585A
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    /*opacity: 1;  Fully shown on mouse-over */
+    background-color: #5CB85C;
+    border: #58585A;
+    outline: 1px solid #58585A;
+    /*outline: none;  Remove outline */
+}
+
+.slider:focus{
+    background-color: #FFFFFF;
+    border:none;
+    border: 0px solid #58585A;
+    outline: 1px solid #5CB85C;
+}
+/* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #58585A; /* color background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #58585A; /* color background */
+    cursor: pointer; /* Cursor on hover */
 }
