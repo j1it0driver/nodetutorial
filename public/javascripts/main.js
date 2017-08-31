@@ -315,7 +315,7 @@ function printButton(arrayList){
 
 function quickReplyF(stringItem,buttonId){
     $speechInput.val(stringItem);
-    // disableButtons(buttonId);
+    disableButtons(buttonId);
     send();
 }
 
