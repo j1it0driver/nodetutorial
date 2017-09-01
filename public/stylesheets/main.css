@@ -233,7 +233,8 @@ button > span {
     width:300px ;
 }
 .scrollable {
-    height: 95%; /* or any value */
+    /*height: 95%; /* or any value */*/
+    height: calc(100% - 100px); /* for 1 page chat */
     overflow-y: auto;
     overflow-x: hidden;
     /*max-height: 90vh;*/
