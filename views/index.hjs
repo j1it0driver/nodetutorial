@@ -12,8 +12,8 @@
 
 <body onload="send_event()">
     <div class = "upper">
-        <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
-        <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
+        <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png" height='100%'>
+        <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='100%' style="float: right;">
     </div>
 
     <div class="container-left">
@@ -28,13 +28,13 @@
             <div>
                 <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
             </div>
-            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='55px'><span id="rec1">Speak</span></button>
-            <div id="spokenResponseTitle" class="responseTitle">
+            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='45px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
+            <!-- <div id="spokenResponseTitle" class="responseTitle">
                 <label class="responseLabel"></label>
             </div>
             <div id="spokenResponse" class="scrollable spoken-response">
                 <div class="spoken-response__text"></div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -48,7 +48,7 @@
             <div id="frame" class="i-frame"></div>
             <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
             <div>
-                <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
+                <label id="statusMessages" class="statusToUser">Let's start a conversation...</label>
             </div>
             <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='55px'><span id="rec1">Speak</span></button>
             <div id="spokenResponseTitle" class="responseTitle">
@@ -57,7 +57,7 @@
             <div id="spokenResponse" class="scrollable spoken-response">
                 <div class="spoken-response__text"></div>
             </div>
-        </div> -->
+        </div>  -->
         <div class="debug">
             <div class="debug__btn btn">
                 Debug JSON results

@@ -17,7 +17,7 @@ body {
     padding: 10px;
     position: fixed;
     text-align: center;
-    top: 70px;
+    /*top: 70px;*/
     width: 50%;
 
 
@@ -121,9 +121,9 @@ textarea:active, textarea:focus {
     font-size: 18px;
     font-weight: bold;
     line-height: 40px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    padding: 0 0.75em;
+    /*margin-top: 10px;
+    margin-bottom: 0px;*/
+    padding: 0;
     text-align: center;
     text-transform: uppercase;
     -webkit-transition: all 0.35s ease-in;
@@ -201,7 +201,7 @@ textarea:active, textarea:focus {
     height: 5vh;
 }
 .upper{
-    height: 70px;
+    height: 50px;
     display: block;
     padding: 10px;
     width: 100%;
@@ -237,6 +237,7 @@ button > span {
     height: calc(100% - 100px); /* for 1 page chat */
     overflow-y: auto;
     overflow-x: hidden;
+    height: 70vh;
     /*max-height: 90vh;*/
 }
 .bubble-left {
@@ -295,7 +296,11 @@ button > span {
     text-align: left;
 }
 .avatar{
-    display: inline;
+    display: inline-block;
+    width: 100%
+}
+h4{
+    -webkit-margin-before: 0;
 }
 /* *  Scrollbar STYLE 7
 */
