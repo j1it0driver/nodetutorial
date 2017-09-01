@@ -329,7 +329,8 @@ button {
     font-size: 14px;
     font-weight: bold;
     /*line-height: 20px;*/
-    padding: 10px 0.5em;
+    margin: 5px;
+    padding: 0.5em 1em;
     text-align: center;
     /*text-transform: uppercase;*/
     -webkit-transition: all 0.35s ease-in;
@@ -344,9 +345,9 @@ button:disabled{
 }
 /*////////////////////////////////////////7//////////   Slider   //////////////////////////////////////////////////////////*/
 #slidecontainer {
-    width: 90%; /* Width of the outside container */
+    width: 100%; /* Width of the outside container */
     display: inline-block;
-    padding: 10px 0;
+    padding: 20px 5px;
 }
 
 /* The slider itself */
@@ -397,7 +398,8 @@ button:disabled{
     cursor: pointer; /* Cursor on hover */
 }
 .imgButtonContainer{
-    padding:10px auto;
+    padding:10px 0;
+    margin: 0 auto; /*to center element*/
 }
 .imgBtn {
     -webkit-appearance: none;  /* Override default CSS styles */
