@@ -44,7 +44,7 @@
                 Debug JSON results
             </div>
             <div class="debug__content">
-                <textarea id="response" cols="40" rows="20"></textarea>
+                <textarea id="response" cols="50" rows="25"></textarea>
             </div>
         </div>
     </div>

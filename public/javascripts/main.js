@@ -17,6 +17,8 @@ messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, buttonId=[]; sliderId=[]; //arrayList=[]
 var str="";
+var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}}}');
+// var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
     $speechInput = $("#speech");
@@ -179,6 +181,12 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             printSliderSelector(spokenResponse[i].payload.slide.name);
         }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.imgButton) { //type 4 is a custompayload
+            console.log(spokenResponse[i].payload.imgButton.name);
+            console.log(spokenResponse[i].payload.imgButton.data);
+            printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data);
+            console.log();
+        }
     }
     spokenRespond(messagesPrint);
     ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
@@ -279,7 +287,7 @@ function printButton(arrayList){
         buttonId[i]=createIdFromText(arrayList[i]);
         printButton_i+=
             "<div class='quickReplyButton' style='display:inline'>"+
-                "<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonId'+")\" style='margin-top: 5px; display: inline-block;'>"+
+                "<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonId'+")\" style='display: inline-block;'>"+
                 arrayList[i]+
                 "</button>"+
             "</div>";
@@ -345,8 +353,8 @@ function printSliderSelector(sliderName){
     // output.value = slider.value;
     // sendSlice="<div><button type='button'>Send "+output.innerHTML+"</button></div>";
     slider.oninput = function() {
-        output.innerHTML = this.value.toLocaleString(); //toLocaleString to conver to money format
-        $speechInput.val(this.value.toLocaleString());
+        output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
+        $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
     }
     // return sliderId+"btnSend";
 }
@@ -356,3 +364,44 @@ function sendSlice(sliderId){
     disableButtons([sliderId]);
     send();
  }
+
+function printImgButton(imgBtnName, imgBtnList){
+    var chatHistoryDiv = $("#chatHistory");
+    var imgButtonsName=createIdFromText(imgBtnName);
+    var imgSrc;
+    var imgButton_i="<br />";
+    datestr=getFormattedDate();
+    for(i=0;i<imgBtnList.length;i++){
+        imgBtnId=createIdFromText(imgBtnList[i]);
+        imgSrc=getImgSrc(imgButtonsName, imgBtnList[i]);
+        // funcion para obtener los recursos src de la imagen
+            imgButton_i+="<div class='imgButtonContainer'>"+
+                "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnId+"'>"+
+                "<div class='' id=''>"+
+                    "<button id='"+imgBtnId+"btnSend' type=\"button\" onclick=sendImg('"+imgBtnId+"') style='width:100px'>"+
+                    imgBtnList[i]+
+                    "</button>"+
+                "</div>"+
+            "</div>";
+    }
+    chatHistoryDiv.append(
+            "<div class='chat-message bubble-right' style='width: 75%; text-align:center'>"+
+                "<div class='chat-message-content' style= 'clear: right;'>" +
+                    imgButton_i+
+                    // "<div class='' id='"+sliderId+"btn'>"+
+                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                    "</div> <!-- end chat-message-content -->"+
+            "</div> <!-- end chat-message -->");
+}
+
+function getImgSrc(refName, imgName){
+    // var srcAddresses={"'"+imgName+"'":"'/images/"+refName+"/"+imgName+".png'"};
+    var srcAddress,ref;
+    // var srcAddresses={"reaction":{"hopeful":"/images/reaction/hopeful.png","worried":"/images/reaction/worried.png","relaxed":"/images/reaction/relaxed.png","terrified":"/images/reaction/terrified.png"}};
+    srcAddress=srcAddresses[refName][imgName].src;
+    return srcAddress;
+}
+
+function sendImg(){
+
+}
