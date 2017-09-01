@@ -38,7 +38,7 @@ body {
     display: inline-block;
     position: sticky;
     text-align: left;
-    top:25%;
+    /*top:25%;*/
     /*left:50%;*/
     /*-webkit-transform: translate(-50%, 0%);*/
 }
@@ -301,6 +301,7 @@ button > span {
 }
 h4{
     -webkit-margin-before: 0;
+    margin: 0.5em;
 }
 /* *  Scrollbar STYLE 7
 */

@@ -152,7 +152,7 @@ function send() {                //////////////////////////////////// SEND /////
                 "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32' style='float: left; border-radius: 4px;'>"+
             "</div>"+
             "<div class='chat-message-content'>" +
-                "<h4 style='margin-bottom: 0.5em; margin-left: 0.5em;'>"+text+"</h4>"+
+                "<h4>"+text+"</h4>"+
                 "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
             "</div> <!-- end chat-message-content -->"+
         "</div> <!-- end chat-message -->"
@@ -216,7 +216,7 @@ function respond(val) {
                 "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right; border-radius: 4px;'>"+
             "</div>"+
             "<div class='chat-message-content' style= 'clear: right;'>" +
-                "<h4 style='margin-bottom: 0.5em; margin-left: 0.5em;'>"+val+"</h4>"+
+                "<h4>"+val+"</h4>"+
                 "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
                 "</div> <!-- end chat-message-content -->"+
         "</div> <!-- end chat-message -->"
@@ -298,7 +298,7 @@ function printButton(arrayList){
             "<div class='chat-message bubble-right'>"+
                 "<div class='chat-message-content' style= 'clear: right;'>" +
                     printButton_i+
-            // "<h4 style='margin-bottom: 0.5em; margin-left: 0.5em;'>"+val+"</h4>"+
+            // "<h4>"+val+"</h4>"+
                     "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
                     "</div> <!-- end chat-message-content -->"+
             //"<hr>"+
