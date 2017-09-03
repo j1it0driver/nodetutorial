@@ -54,9 +54,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     });
     $(".debug__btn").on("click", function() {
         $(this).next().toggleClass("is-active");
+        $(this).toggleClass("is-active");
+        $(".debug").toggleClass("is-active");
         return false;
     });
-
 });
 
 // function printInput() {          //////////////////////////////////// PRINT FUNCTIONS ////////////////////////////////////
@@ -157,7 +158,7 @@ function send() {                //////////////////////////////////// SEND /////
             "</div> <!-- end chat-message-content -->"+
         "</div> <!-- end chat-message -->"
     );
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 2000);
     $speechInput.val("");
 }
 
@@ -172,21 +173,25 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             messagesPrint+=  "> "+ dataObj + "<br />";
             respond(dataObj);
+            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             // arrayList=spokenResponse[i].payload.items;
             // printButton(arrayList);
             printButton(spokenResponse[i].payload.items);
+            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             printSliderSelector(spokenResponse[i].payload.slide.name);
+        //     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.imgButton) { //type 4 is a custompayload
-            console.log(spokenResponse[i].payload.imgButton.name);
-            console.log(spokenResponse[i].payload.imgButton.data);
+            // console.log(spokenResponse[i].payload.imgButton.name);
+            // console.log(spokenResponse[i].payload.imgButton.data);
             printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data);
-            console.log();
+            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //[0].scrollHeight ==== .scrollTop
     }
     spokenRespond(messagesPrint);
     ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
@@ -198,6 +203,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         frame_country="<iframe name=\"right_side\" src =\"\" width=\"300\" height=\"100\">mmmhhh</iframe>";
         printLink(link_country,frame_country);
     }
+
+    // $('#chatHistory').scrollTop=200;
 }
 
 function debugRespond(val) {
@@ -278,6 +285,7 @@ function send_event() {                //////////////////////////////////// SEND
         }
     });
     $('#statusMessages').text("Type the topic you are interested in");
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 2000);
 }
 
 function printButton(arrayList){

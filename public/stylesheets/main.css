@@ -20,21 +20,18 @@ body {
     text-align: center;
     /*top: 70px;*/
     width: 400px;
-
-
     /*-webkit-transform: translate(-50%, 0%);*/
 }
 .container-right{
     bottom: 0;
     display: block;
     height: auto;
-
+    max-height: calc(100vh - 50px);
     padding: 10px;
     position: fixed;
     right: 0%;
-    text-align: center;
-    top: 70px;
-    width: 50%;
+    text-align: right;
+    width: calc(100vw - 400px);
 }
 .container1 {
     height: 135px;
@@ -134,6 +131,7 @@ textarea {
     font-size: 10px;
     padding: 0.5em;
     width: 100%;
+    height: 100%;
     -webkit-transition: all 0.35s ease-in;
 }
 textarea:active, textarea:focus {
@@ -163,30 +161,47 @@ textarea:active, textarea:focus {
     font-weight: bold;
 }
 .debug {
-    bottom: 25%;
+    bottom: calc(100vh/2 - 150px);
+    display: table;
+    height: auto;
     position: fixed;
     right: 0;
+    width: 50px;
+    -webkit-transition: all 0.35s ease-in;
+}
+.debug.is-active {
+    position: fixed;
+    width: 350px;ç
+    -webkit-transition: all 0.35s ease-in;
 }
 .debug__content {
-    /*font-size: 14px;*/
-    max-width: 0;
-    /*max-height: 0;*/
+    display: table-cell;
+    height: 300px;
+    width: 0px;
     overflow: hidden;
-
     -webkit-transition: all 0.35s ease-in;
 }
 .debug__content.is-active {
-    display: block;
-    /*height: auto;*/
-    /*max-height: 50vh;*/
     width: 300px;
-    max-width: 50vh;
+    -webkit-transition: all 0.35s ease-in;
+
 }
 .debug__btn {
-    width: 300px; /*100%*/
-    height: 50px;
+    display: table-cell;
+    height: 300px;
+    position: absolute;
+    top: -50px;
     transform: rotate(90deg);
+    transform-origin: left bottom 0;
+    width: 50px; /*100%*/
+    -webkit-transition: all 0.35s ease-in;
+}
+.debug__btn.is_active {
+    position: absolute;
+    /*transform: rotate(90deg);*/
+    width: 50px; /*100%*/
     /*transform-origin: 0 0 top 50%;*/
+    -webkit-transition: all 0.35s ease-in;
 }
 .spoken-response {
     max-height: 0;

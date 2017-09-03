@@ -42,32 +42,15 @@
 
 
     <div class="container-right">
-        <!-- <div class="container1">
-            <div class="responseLink">
-                <label id="testing">Test text</label>
-                <button id="refresh_btn" name="refresh_button" onclick="window.location.reload();" style="margin-top: 5px; float: right; color: #58585A">Refresh</button>
-            </div>
-            <div id="frame" class="i-frame"></div>
-            <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
-            <div>
-                <label id="statusMessages" class="statusToUser">Let's start a conversation...</label>
-            </div>
-            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='55px'><span id="rec1">Speak</span></button>
-            <div id="spokenResponseTitle" class="responseTitle">
-                <label class="responseLabel"></label>
-            </div>
-            <div id="spokenResponse" class="scrollable spoken-response">
-                <div class="spoken-response__text"></div>
-            </div>
-        </div>  -->
-        <div class="debug">
-            <div class="debug__btn btn">
-                Debug JSON results
-            </div>
-            <div class="debug__content">
-                <textarea id="response" cols="50" rows="25"></textarea>
-            </div>
+    </div>
+    <div class="debug">
+        <div class="debug__btn btn">
+            Debug JSON results
         </div>
+        <div class="debug__content">
+            <textarea id="response" ></textarea>
+        </div>
+    </div>
     </div>
 
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
