@@ -17,7 +17,9 @@
     </div>
 
     <div class="container-left">
-        <div id="chatHistory" class="scrollable chatMessages"></div>
+        <div class="container2">
+              <div id="chatHistory" class="scrollable chatMessages"></div>
+        </div>
         <div class="container1">
             <!-- <div class="responseLink">
                 <label id="testing">Test text</label>
@@ -25,7 +27,7 @@
             </div>
             <div id="frame" class="i-frame"></div> -->
             <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
-            <div>
+            <div class="status">
                 <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
             </div>
             <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='45px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
