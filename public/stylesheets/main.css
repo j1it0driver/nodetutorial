@@ -298,6 +298,7 @@ button > span {
     margin: 20px;
     width: 100%;
     display: unset;
+    vertical-align: top;
 }
 .fila{
     display: table-row;
