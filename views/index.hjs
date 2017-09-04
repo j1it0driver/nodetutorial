@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
 </head>
 
-<body onload="send_event()">
+<body onload="send_event('custom_event','Juan')">
     <div class = "upper">
         <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png" height='100%'>
         <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='100%' style="float: right;">

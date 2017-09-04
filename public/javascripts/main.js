@@ -15,9 +15,9 @@ messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null, buttonId=[]; sliderId=[]; //arrayList=[]
-var str="";
-var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}}}');
+var tiempoSend, timeout = null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
+var str="", datos;
+var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}}}');
 // var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
@@ -42,8 +42,8 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
-                console.log(buttonId);
-                console.log(sliderId);
+                // console.log(buttonId);
+                // console.log(sliderId);
                 send();
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
@@ -139,6 +139,7 @@ function send() {                //////////////////////////////////// SEND /////
         },
         data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
+            datos=data.result.fulfillment.messages;
             prepareResponse(data);
         },
         error: function() {
@@ -158,15 +159,15 @@ function send() {                //////////////////////////////////// SEND /////
             "</div> <!-- end chat-message-content -->"+
         "</div> <!-- end chat-message -->"
     );
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 2000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //autoscroll to the end of content
     $speechInput.val("");
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
-    var location_c, dataObj, messagesPrint= "", messagePrint2="";
+    var location_c, dataObj, messagesPrint = "", messagePrint2 = "";
     var spokenResponse = val.result.fulfillment.messages;
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
-    debugRespond(debugJSON); //print in debug window response from API
+    debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
@@ -188,10 +189,16 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.imgButton) { //type 4 is a custompayload
             // console.log(spokenResponse[i].payload.imgButton.name);
             // console.log(spokenResponse[i].payload.imgButton.data);
-            printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data);
+            printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data); //envio el nombre y los datos del payload
             // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
-        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //[0].scrollHeight ==== .scrollTop
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.sendEvent) { //type 4 is a custompayload
+            // console.log(spokenResponse[i].payload.imgButton.name);
+            // console.log(spokenResponse[i].payload.imgButton.data);
+            prepare_event(spokenResponse[i].payload.sendEvent.name,spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
+            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+        }
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
     spokenRespond(messagesPrint);
     ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
@@ -203,21 +210,19 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         frame_country="<iframe name=\"right_side\" src =\"\" width=\"300\" height=\"100\">mmmhhh</iframe>";
         printLink(link_country,frame_country);
     }
-
-    // $('#chatHistory').scrollTop=200;
 }
 
 function debugRespond(val) {
     $("#response").text(val);
 }
 
-function respond(val) {
+function respond(val) { // function to print a text into chat message and to speech the text outloud
     var chatHistoryDiv = $("#chatHistory");
     if (val == "") {
         val = messageSorry;
     }
-    datestr=getFormattedDate();
-    chatHistoryDiv.append(
+    datestr=getFormattedDate(); //respond's time
+    chatHistoryDiv.append( // add bubble to bot side
         "<div class='chat-message bubble-right'>"+
             "<div class='avatar'>"+
                 "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right; border-radius: 4px;'>"+
@@ -231,7 +236,9 @@ function respond(val) {
     if (val !== messageRecording) {
         var msg = new SpeechSynthesisUtterance();
         msg.voiceURI = "native";
-        msg.text = val.replace(/&nbsp/g,"");
+        msg.pitch = 1.5;
+        msg.text = val.replace(/&nbsp/g,""); //quitar el espacio en blanco del speech
+        msg.text = val.replace(/<br \/>/g,""); //quitar el salto de linea del speech
         msg.lang = "en-US";
         window.speechSynthesis.speak(msg);
     }
@@ -267,7 +274,7 @@ function jsonEscape(stringJSON)  {
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
 
-function send_event() {                //////////////////////////////////// SEND EVENT////////////////////////////////////
+function send_event(eventName,valor) {                //////////////////////////////////// SEND EVENT////////////////////////////////////
     $.ajax({
         type: "POST",
         url: baseUrl + "query?v=20170810",
@@ -276,7 +283,7 @@ function send_event() {                //////////////////////////////////// SEND
         headers: {
             "Authorization": "Bearer " + accessToken
         },
-        data: JSON.stringify({'event': {'name':'custom_event', data:{'name': 'Juan'}}, lang: "en", sessionId: "yaydevdiner"}),
+        data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
         },
@@ -285,17 +292,18 @@ function send_event() {                //////////////////////////////////// SEND
         }
     });
     $('#statusMessages').text("Type the topic you are interested in");
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 2000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
 
 function printButton(arrayList){
-    var printButton_i="<br />";
+    var printButton_i="";
     var chatHistoryDiv = $("#chatHistory");
+    buttonIds[i]=[];
     for(i=0;i<arrayList.length;i++){
-        buttonId[i]=createIdFromText(arrayList[i]);
+        buttonIds[i]=createIdFromText(arrayList[i]);
         printButton_i+=
             "<div class='quickReplyButton' style='display:inline'>"+
-                "<button id='"+buttonId[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonId'+")\" style='display: inline-block;'>"+
+                "<button id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
                 arrayList[i]+
                 "</button>"+
             "</div>";
@@ -314,16 +322,16 @@ function printButton(arrayList){
     // return printButton_i;
 }
 
-function quickReplyF(stringItem,buttonId){
+function quickReplyF(stringItem,buttonIds){
     $speechInput.val(stringItem);
-    disableButtons(buttonId);
+    disableButtons(buttonIds);
     send();
 }
 
-function disableButtons(buttonId){
-    console.log(buttonId);
-    for(i=0;i<buttonId.length;i++){
-        document.getElementById(buttonId[i]).disabled = true;
+function disableButtons(buttonIdsToDisable){
+    for(i=0;i<buttonIdsToDisable.length;i++){
+        // console.log(buttonIdsToDisable[i]);
+        document.getElementById(buttonIdsToDisable[i]).disabled = true;
     }
 }
 
@@ -347,7 +355,7 @@ function printSliderSelector(sliderName){
                     sliderButton+
                     // "<div class='' id='"+sliderId+"btn'>"+
                     "<div class='' id=''>"+
-                        "<button id='"+sliderId+"btnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+                        "<button id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
                         "</button>"+
                     "</div>"+
                     "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
@@ -355,7 +363,7 @@ function printSliderSelector(sliderName){
             "</div> <!-- end chat-message -->");
     var slider = document.getElementById(sliderId);
     // var output = document.getElementById("testing");
-    var output = document.getElementById(sliderId+"btnSend");
+    var output = document.getElementById(sliderId+"SliderBtnSend");
     // var output = $("#"+sliderId+"btnSend");
     output.innerHTML = slider.value;
     // output.value = slider.value;
@@ -367,7 +375,7 @@ function printSliderSelector(sliderName){
     // return sliderId+"btnSend";
 }
 function sendSlice(sliderId){
-    var sliderIdbtnSend=sliderId+"btnSend";
+    var sliderIdbtnSend=sliderId+"SliderBtnSend";
     disableButtons([sliderIdbtnSend]);
     disableButtons([sliderId]);
     send();
@@ -375,22 +383,26 @@ function sendSlice(sliderId){
 
 function printImgButton(imgBtnName, imgBtnList){
     var chatHistoryDiv = $("#chatHistory");
-    var imgButtonsName=createIdFromText(imgBtnName);
+    // var imgButtonsName=createIdFromText(imgBtnName); //formateo el nombre: sin espacios, sin mayusculas
     var imgSrc;
-    var imgButton_i="<br />";
+    var imgButton_i="";
     datestr=getFormattedDate();
     for(i=0;i<imgBtnList.length;i++){
-        imgBtnId=createIdFromText(imgBtnList[i]);
-        imgSrc=getImgSrc(imgButtonsName, imgBtnList[i]);
-        // funcion para obtener los recursos src de la imagen
-            imgButton_i+="<div class='imgButtonContainer'>"+
-                "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnId+"'>"+
-                "<div class='' id=''>"+
-                    "<button id='"+imgBtnId+"btnSend' type=\"button\" onclick=sendImg('"+imgBtnId+"') style='width:100px'>"+
-                    imgBtnList[i]+
-                    "</button>"+
-                "</div>"+
-            "</div>";
+        imgBtnIds[i]=createIdFromText(imgBtnList[i]);
+        imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
+        imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
+        imgBtnTemp=imgBtnList[i];
+        imgButton_i+="<div class='imgButtonContainer'>"+
+            "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
+            "<div class='' id=''>"+
+                "<button id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=sendImgBtn("+i+",'"+imgBtnName+"',"+'imgBtnIds'+","+'imgBtnIdsSend'+") style='width:100px'>"+
+                imgBtnList[i]+
+                "</button>"+
+            "</div>"+
+        "</div>";
+        console.log("append");
+        console.log(imgBtnList[i]);
+        console.log(imgBtnIds[i]);
     }
     chatHistoryDiv.append(
             "<div class='chat-message bubble-right' style='width: 75%; text-align:center'>"+
@@ -400,6 +412,7 @@ function printImgButton(imgBtnName, imgBtnList){
                     "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
                     "</div> <!-- end chat-message-content -->"+
             "</div> <!-- end chat-message -->");
+
 }
 
 function getImgSrc(refName, imgName){
@@ -410,6 +423,31 @@ function getImgSrc(refName, imgName){
     return srcAddress;
 }
 
-function sendImg(){
+function sendImgBtn(imgBtnIndex, imgBtnName, imgBtnIds, imgBtnIdsSend){
+    for(i=0;i<datos.length;i++)
+        if(datos[i].type==4 && datos[i].payload.imgButton){
+                $speechInput.val(datos[i].payload.imgButton.data[imgBtnIndex]);
+        }
+    disableButtons(imgBtnIdsSend);
+    disableButtons(imgBtnIds);
+    send();
+}
+
+function prepare_event(eventName,data){
+    switch(eventName){
+        case "wait_time":
+            wait_time(data.timer);
+            break;
+    }
+}
+
+function wait_time(timer){
+    timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","Gear2");}}, timer);
+    // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, timer);
+    // send_event("wait_time");
+    console.log(timer);
+}
+
+function printImgAndText(){
 
 }

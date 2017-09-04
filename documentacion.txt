@@ -22,3 +22,12 @@ ejemplo twilio chat JS https://glitch.com/edit/#!/twilio-chat-qs?path=chat.html:
 https://www.twilio.com/blog/2017/06/complete-chat-application-javascript.html
 Font Kalinga maquetación T-Advisor
 DaFont.com
+
+FALTA:
+Speech recognition
+hide div when press outside of it
+fit narrow photos
+print images (no buttons)
+print links
+hacer los ID unicos (botones, e imagenes)
+cargar src desde archivo

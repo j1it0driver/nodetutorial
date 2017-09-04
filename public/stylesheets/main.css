@@ -15,11 +15,12 @@ body {
     display: block;
     height: auto;
     max-height: calc(100vh - 50px); /*100% menos la altura del upper*/
+    min-width: 400px;
     padding: 0px;
     position: relative;
     text-align: center;
     /*top: 70px;*/
-    width: 400px;
+    width: 50%;
     /*-webkit-transform: translate(-50%, 0%);*/
 }
 .container-right{
@@ -31,7 +32,7 @@ body {
     position: fixed;
     right: 0%;
     text-align: right;
-    width: calc(100vw - 400px);
+    width: auto;
 }
 .container1 {
     height: 135px;
@@ -188,12 +189,12 @@ textarea:active, textarea:focus {
 }
 .debug__btn {
     display: table-cell;
-    height: 300px;
+    height: 50px;
     position: absolute;
     top: -50px;
     transform: rotate(90deg);
     transform-origin: left bottom 0;
-    width: 50px; /*100%*/
+    width: 300px; /*100%*/
     -webkit-transition: all 0.35s ease-in;
 }
 .debug__btn.is_active {
