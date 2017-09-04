@@ -28,11 +28,11 @@ body {
     display: block;
     height: auto;
     max-height: calc(100vh - 50px);
-    padding: 10px;
+    padding: 0px;
     position: fixed;
     right: 0%;
     text-align: right;
-    width: auto;
+    width: 50%;
 }
 .container1 {
     height: 135px;
@@ -251,7 +251,9 @@ textarea:active, textarea:focus {
     color: #58585a;
 }
 .i-frame {
-    height: 5vh;
+    height: calc(100vh - 50px);
+    margin: 0 auto;
+    width: 50vw;
 }
 .upper{
     height: 50px;
@@ -292,6 +294,17 @@ button > span {
     height: 100%;
     /*max-height: 90vh;*/
 }
+.chat-message-content{
+    margin: 20px;
+    width: 100%;
+    display: unset;
+}
+.fila{
+    display: table-row;
+}
+.col{
+    display: table-cell;
+}
 .bubble-left {
     line-height: 100%;
     display: block;
@@ -316,7 +329,7 @@ button > span {
     line-height: 100%;
     display: block;
     position: relative;
-    padding: .25em .5em;
+    padding: .5em .5em;
     background: #008ACA;
     box-shadow: -5px 5px 4px rgb(82, 109, 121);
     border: black solid 0;
@@ -326,34 +339,39 @@ button > span {
     margin-bottom: 1em;
     clear: both;
     min-width: 25%;
-    max-width:75%;
+    max-width:85%;
     color: white;
     text-align:left;
 }
 
 .bubble-left {
-    margin-right:5%;
+    /*margin-right:5%;*/
     float:left;
 
 }
 .bubble-right {
-    margin-left:5% ;
+    /*margin-left:5% ;*/
     float:right;
     /*text-align: right;*/
 }
 .timestamp_right{
     text-align: right;
+    float:right; // para ver si clota en el texto
 }
 .timestamp_left{
     text-align: left;
+    float: left; //para ver si flota en el texto
 }
 .avatar{
-    display: inline-block;
+    display: unset;
+    /*display: inline-block;*/
     width: 100%
 }
 h4{
     -webkit-margin-before: 0;
-    margin: 0.5em;
+    /*margin: 0.5em;*/
+    margin: 0;
+    display: unset;
 }
 /* *  Scrollbar STYLE 7
 */
@@ -389,7 +407,7 @@ button {
     font-weight: bold;
     /*line-height: 20px;*/
     /*margin: 0px;*/
-    padding: 0.5em 1em;
+    padding: 0.2em 0.8em;
     text-align: center;
     /*text-transform: uppercase;*/
     -webkit-transition: all 0.35s ease-in;

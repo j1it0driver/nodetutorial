@@ -17,7 +17,7 @@ messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos;
-var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}}}');
+var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}}}');
 // var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
@@ -180,23 +180,18 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             // arrayList=spokenResponse[i].payload.items;
             // printButton(arrayList);
             printButton(spokenResponse[i].payload.items);
-            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             printSliderSelector(spokenResponse[i].payload.slide.name);
-        //     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.imgButton) { //type 4 is a custompayload
-            // console.log(spokenResponse[i].payload.imgButton.name);
-            // console.log(spokenResponse[i].payload.imgButton.data);
             printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data); //envio el nombre y los datos del payload
-            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.sendEvent) { //type 4 is a custompayload
-            // console.log(spokenResponse[i].payload.imgButton.name);
-            // console.log(spokenResponse[i].payload.imgButton.data);
-            prepare_event(spokenResponse[i].payload.sendEvent.name,spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
-            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+            prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
+            printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, "GEAR Hill: Moderado","https://www.gearinvestments.com/"); //envio el nombre y los datos del payload
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
@@ -224,13 +219,17 @@ function respond(val) { // function to print a text into chat message and to spe
     datestr=getFormattedDate(); //respond's time
     chatHistoryDiv.append( // add bubble to bot side
         "<div class='chat-message bubble-right'>"+
-            "<div class='avatar'>"+
-                "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right; border-radius: 4px;'>"+
-            "</div>"+
-            "<div class='chat-message-content' style= 'clear: right;'>" +
-                "<h4>"+val+"</h4>"+
-                "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+            "<div class='fila'>"+
+                "<div class='chat-message-content' style= 'clear: right; display:table-cell;'>" +
+                    "<h4>"+val+"</h4>"+
                 "</div> <!-- end chat-message-content -->"+
+                "<div class='col'>"+
+                    "<div class='avatar'>"+
+                        "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right; border-radius: 4px;'>"+
+                    "</div>"+
+                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                "</div>"+
+            "</div>"+
         "</div> <!-- end chat-message -->"
     );
     if (val !== messageRecording) {
@@ -286,6 +285,8 @@ function send_event(eventName,valor) {                //////////////////////////
         data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
+            console.log(eventName);
+            console.log(valor);
         },
         error: function() {
             respond(messageInternalError);
@@ -400,9 +401,6 @@ function printImgButton(imgBtnName, imgBtnList){
                 "</button>"+
             "</div>"+
         "</div>";
-        console.log("append");
-        console.log(imgBtnList[i]);
-        console.log(imgBtnIds[i]);
     }
     chatHistoryDiv.append(
             "<div class='chat-message bubble-right' style='width: 75%; text-align:center'>"+
@@ -442,12 +440,45 @@ function prepare_event(eventName,data){
 }
 
 function wait_time(timer){
-    timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","Gear2");}}, timer);
+    timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR-2");}}, timer);
     // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, timer);
     // send_event("wait_time");
     console.log(timer);
 }
 
-function printImgAndText(){
-
+function printImgAndText(name, data, text, link){
+    var chatHistoryDiv = $("#chatHistory");
+    var imgSrc;
+    var imgButton_i="";
+    var itemName;
+    if(data){
+        itemName=createIdFromText(name+data[0]);
+        imgSrc=getImgSrc(name, data[0]);
+        imgButton_i+="<div class='imgContainer'>"+
+                        "<input type='image' src='"+imgSrc+"' class='img' width='95%' id='"+itemName+"'>"+
+                    "</div>";
+    }
+    if(text){
+        itemName=createIdFromText(name+"text");
+        imgButton_i+="<div class='textContainer'>"+
+                        "<h1 class='textPrinted' id='"+itemName+"'>"+
+                        text+
+                        "</h1>"+
+                    "</div>";
+    }
+    if(link){
+        itemName=createIdFromText(name+"link");
+        imgButton_i+="<div class='linkContainer'>"+
+                        "<a href = "+link+" target =\"frame\">"+itemName+"</a>"
+                        text+
+                        "</h1>"+
+                    "</div>";
+    }
+    chatHistoryDiv.append(
+            "<div class='chat-message bubble-right' style='width: 90%; text-align:center'>"+
+                "<div class='chat-message-content' style= 'clear: right;'>" +
+                    imgButton_i+
+                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                    "</div>"+
+            "</div>");
 }
