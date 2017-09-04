@@ -295,16 +295,18 @@ button > span {
     /*max-height: 90vh;*/
 }
 .chat-message-content{
-    margin: 20px;
-    width: 100%;
-    display: unset;
+    /*margin: 20px;*/
+    /*width: 100%;*/
+    display: table-cell;
+    padding: 5px;
     vertical-align: top;
 }
 .fila{
     display: table-row;
 }
 .col{
-    display: table-cell;
+    display: block;
+
 }
 .bubble-left {
     line-height: 100%;
@@ -319,8 +321,8 @@ button > span {
     border-radius: 11px;
     margin-bottom: 1em;
     clear: both;
-    min-width: 25%;
-    max-width:75%;
+    min-width: 35%;
+    max-width:85%;
     color: white;
     text-align:left;
 
@@ -339,7 +341,8 @@ button > span {
     border-radius: 11px;
     margin-bottom: 1em;
     clear: both;
-    min-width: 25%;
+    min-width: 35%;
+    min-height: 55px;
     max-width:85%;
     color: white;
     text-align:left;
@@ -357,22 +360,25 @@ button > span {
 }
 .timestamp_right{
     text-align: right;
-    float:right; // para ver si clota en el texto
+    /*float:right; // para ver si clota en el texto
+    font-size: 10px;*/
+    margin-bottom: 0;
+    /*display: table-cell;*/
 }
 .timestamp_left{
     text-align: left;
     float: left; //para ver si flota en el texto
 }
 .avatar{
-    display: unset;
+    /*display: table-cell;*/
     /*display: inline-block;*/
-    width: 100%
+    /*width: 100%*/
 }
 h4{
     -webkit-margin-before: 0;
     /*margin: 0.5em;*/
-    margin: 0;
-    display: unset;
+    /*margin: 0;*/
+    display: table-cell;
 }
 /* *  Scrollbar STYLE 7
 */
@@ -398,7 +404,7 @@ h4{
 }
 button {
     background-color: #FFFFFF;
-    border: 1px solid #58585A;
+    bordebaseliner: 1px solid #58585A;
     border-radius: 6px;
     color: #008ACA;
     cursor: pointer;

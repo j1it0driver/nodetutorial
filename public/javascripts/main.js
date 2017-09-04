@@ -220,17 +220,19 @@ function respond(val) { // function to print a text into chat message and to spe
     chatHistoryDiv.append( // add bubble to bot side
         "<div class='chat-message bubble-right'>"+
             "<div class='fila'>"+
-                "<div class='chat-message-content' style= 'clear: right; display:table-cell;'>" +
+                "<div class='chat-message-content'>" +
                     "<h4>"+val+"</h4>"+
-                "</div> <!-- end chat-message-content -->"+
-                "<div class='col'>"+
+                "</div>"+
+                "<div class='col' height='32px' width='32px'>"+
                     "<div class='avatar'>"+
-                        "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt='' width='32x' height='32px' style='float: right; border-radius: 4px;'>"+
+                        "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt=''  style= 'border-radius: 4px;'>"+
                     "</div>"+
-                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                    "<div class='fila'>"+
+                      "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                    "</div>"+
                 "</div>"+
             "</div>"+
-        "</div> <!-- end chat-message -->"
+        "</div>"
     );
     if (val !== messageRecording) {
         var msg = new SpeechSynthesisUtterance();
@@ -313,12 +315,14 @@ function printButton(arrayList){
     datestr=getFormattedDate();
     chatHistoryDiv.append(
             "<div class='chat-message bubble-right'>"+
-                "<div class='chat-message-content' style= 'clear: right;'>" +
+                "<div class='fila'>"+
+                    "<div class='chat-message-content''>" +
                     printButton_i+
-            // "<h4>"+val+"</h4>"+
-                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
                     "</div> <!-- end chat-message-content -->"+
-            //"<hr>"+
+                    "<div class='fila'>"+
+                        "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                    "</div>"+
+                "</div>"+
             "</div> <!-- end chat-message -->");
     // return printButton_i;
 }
