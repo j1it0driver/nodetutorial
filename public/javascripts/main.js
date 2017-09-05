@@ -273,6 +273,7 @@ function respond(val) { // function to print a text into chat message and to spe
         var msg = new SpeechSynthesisUtterance();
         msg.voiceURI = "native";
         msg.pitch = 1.2;
+        msg.rate = 1.2;
         msg.text = val.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,""); //quitar el espacio en blanco del speech
         // msg.text = val.replace(/<br \/>/g,"").replace(/<br>/g,""); //quitar el salto de linea del speech
         // msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
