@@ -272,11 +272,13 @@ function respond(val) { // function to print a text into chat message and to spe
     if (val !== messageRecording) {
         var msg = new SpeechSynthesisUtterance();
         msg.voiceURI = "native";
-        msg.pitch = 1.5;
-        msg.text = val.replace(/&nbsp/g,""); //quitar el espacio en blanco del speech
-        msg.text = val.replace(/<br \/>/g,""); //quitar el salto de linea del speech
-        msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
+        msg.pitch = 1.2;
+        msg.text = val.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,""); //quitar el espacio en blanco del speech
+        // msg.text = val.replace(/<br \/>/g,"").replace(/<br>/g,""); //quitar el salto de linea del speech
+        // msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
+        // msg.text = val.replace(/\n/g,"");
         msg.lang = "en-GB";
+        console.log(msg.text);
         window.speechSynthesis.speak(msg);
     }
     $speechInput.focus();
