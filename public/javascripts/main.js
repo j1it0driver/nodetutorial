@@ -16,14 +16,37 @@ messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
-var str="", datos;
+var str="", datos, bubble_id=0;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}}}');
 // var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
+
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
     $speechInput = $("#speech");
     $recBtn = $("#rec");
     $recBtn1 = $("#rec1");
+        //////////////////////// START CustomEvent JAVASCRIPT /////////////////////////////////
+    x = {
+      bubble_idInternal: bubble_id,
+      bubble_idListener: function(val) {},
+      set bubble_id(val) {
+        this.bubble_idInternal = val;
+        this.bubble_idListener(val);
+      },
+      get bubble_id() {
+        return this.bubble_idInternal;
+      },
+      registerListener: function(listener) {
+        this.bubble_idListener = listener;
+      }
+    }
+    x.registerListener(function(val) {
+    //   alert("Someone changed the value of x.a to " + val);
+      $("#bubbleId").text(x.bubble_id);
+    });
+    //////////////////////// END CustomEvent JAVASCRIPT /////////////////////////////////
+
+    console.log(bubble_id);
     $speechInput.keyup(function(event) { //I change keyup for keypress//
         if (tiempoSend !== null) {
             clearTimeout(tiempoSend);
@@ -58,6 +81,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         $(".debug").toggleClass("is-active");
         return false;
     });
+    // $("#bubbleId").text(bubble_id);
 });
 
 // function printInput() {          //////////////////////////////////// PRINT FUNCTIONS ////////////////////////////////////
@@ -149,16 +173,25 @@ function send() {                //////////////////////////////////// SEND /////
     $('#statusMessages').text("Message Send!");
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-        "<div class='chat-message bubble-left' >"+
-            "<div class='avatar'>"+
-                "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32' height='32' style='float: left; border-radius: 4px;'>"+
+        "<div class='chat-message bubble-left'>"+
+                "<div class='fila'>"+
+                "<div class='avatar'>"+
+                    "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32px' style= 'border-radius: 4px;'>"+
+                "</div>"+
+                "<div class='chat-message-content'>" +
+                    "<h4>"+text+"</h4>"+
+                "</div>"+
+                "<div class='col' height='32px' width='32px'>"+
+
+                    "<div class='fila'>"+
+                      "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                    "</div>"+
+                "</div>"+
             "</div>"+
-            "<div class='chat-message-content'>" +
-                "<h4>"+text+"</h4>"+
-                "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
-            "</div> <!-- end chat-message-content -->"+
-        "</div> <!-- end chat-message -->"
+        "</div>"
     );
+    bubble_id++;
+    x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //autoscroll to the end of content
     $speechInput.val("");
 }
@@ -234,13 +267,16 @@ function respond(val) { // function to print a text into chat message and to spe
             "</div>"+
         "</div>"
     );
+    bubble_id++;
+    x.bubble_id++;
     if (val !== messageRecording) {
         var msg = new SpeechSynthesisUtterance();
         msg.voiceURI = "native";
         msg.pitch = 1.5;
         msg.text = val.replace(/&nbsp/g,""); //quitar el espacio en blanco del speech
         msg.text = val.replace(/<br \/>/g,""); //quitar el salto de linea del speech
-        msg.lang = "en-US";
+        msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
+        msg.lang = "en-GB";
         window.speechSynthesis.speak(msg);
     }
     $speechInput.focus();
@@ -305,7 +341,7 @@ function printButton(arrayList){
     for(i=0;i<arrayList.length;i++){
         buttonIds[i]=createIdFromText(arrayList[i]);
         printButton_i+=
-            "<div class='quickReplyButton' style='display:inline'>"+
+            "<div class='quickReplyButton'style='display:inline-table;'>"+
                 "<button id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
                 arrayList[i]+
                 "</button>"+
@@ -316,7 +352,7 @@ function printButton(arrayList){
     chatHistoryDiv.append(
             "<div class='chat-message bubble-right'>"+
                 "<div class='fila'>"+
-                    "<div class='chat-message-content''>" +
+                    "<div class='chat-message-content'style='text-align:center;'>" +
                     printButton_i+
                     "</div> <!-- end chat-message-content -->"+
                     "<div class='fila'>"+
@@ -324,8 +360,10 @@ function printButton(arrayList){
                     "</div>"+
                 "</div>"+
             "</div> <!-- end chat-message -->");
-    // return printButton_i;
+    bubble_id++;
+    x.bubble_id++;
 }
+
 
 function quickReplyF(stringItem,buttonIds){
     $speechInput.val(stringItem);
@@ -355,17 +393,22 @@ function printSliderSelector(sliderName){
     // var sendSlice;
 
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-right' style='width: 75%; text-align:center'>"+
-                "<div class='chat-message-content' style= 'clear: right;'>" +
-                    sliderButton+
-                    // "<div class='' id='"+sliderId+"btn'>"+
-                    "<div class='' id=''>"+
-                        "<button id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
-                        "</button>"+
+            "<div class='chat-message bubble-right'>"+
+                "<div class='fila'>"+
+                    "<div class='chat-message-content''>" +
+                        sliderButton+
+                        "<div class='' id='' style='text-align: center;'>"+
+                            "<button id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+                            "</button>"+
+                        "</div>"+
                     "</div>"+
-                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
-                    "</div> <!-- end chat-message-content -->"+
-            "</div> <!-- end chat-message -->");
+                    "<div class='fila'>"+
+                        "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                    "</div>"+
+                "</div>"+
+            "</div>");
+    bubble_id++;
+    x.bubble_id++;
     var slider = document.getElementById(sliderId);
     // var output = document.getElementById("testing");
     var output = document.getElementById(sliderId+"SliderBtnSend");
@@ -399,7 +442,7 @@ function printImgButton(imgBtnName, imgBtnList){
         imgBtnTemp=imgBtnList[i];
         imgButton_i+="<div class='imgButtonContainer'>"+
             "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
-            "<div class='' id=''>"+
+            "<div class='' id='' style='display:inline-table; padding-left:10px; vertical-align:middle;'>"+
                 "<button id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=sendImgBtn("+i+",'"+imgBtnName+"',"+'imgBtnIds'+","+'imgBtnIdsSend'+") style='width:100px'>"+
                 imgBtnList[i]+
                 "</button>"+
@@ -407,14 +450,19 @@ function printImgButton(imgBtnName, imgBtnList){
         "</div>";
     }
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-right' style='width: 75%; text-align:center'>"+
-                "<div class='chat-message-content' style= 'clear: right;'>" +
-                    imgButton_i+
-                    // "<div class='' id='"+sliderId+"btn'>"+
-                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
-                    "</div> <!-- end chat-message-content -->"+
-            "</div> <!-- end chat-message -->");
-
+            "<div class='chat-message bubble-right'>"+
+                "<div class='fila'>"+
+                    "<div class='chat-message-content''>" +
+                        imgButton_i+
+                    "</div>"+
+                    "<div class='fila'>"+
+                        "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                    "</div>"+
+                "</div>"+
+            "</div>"
+    );
+    bubble_id++;
+    x.bubble_id++;
 }
 
 function getImgSrc(refName, imgName){
@@ -444,7 +492,7 @@ function prepare_event(eventName,data){
 }
 
 function wait_time(timer){
-    timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR-2");}}, timer);
+    timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
     // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, timer);
     // send_event("wait_time");
     console.log(timer);
@@ -465,13 +513,14 @@ function printImgAndText(name, data, text, link){
     if(text){
         itemName=createIdFromText(name+"text");
         imgButton_i+="<div class='textContainer'>"+
-                        "<h1 class='textPrinted' id='"+itemName+"'>"+
+                        "<h2 class='textPrinted' id='"+itemName+"'>"+
                         text+
-                        "</h1>"+
+                        "</h2>"+
                     "</div>";
     }
     if(link){
-        itemName=createIdFromText(name+"link");
+        // itemName=createIdFromText(name+"link");
+        itemName="Ver detalle";
         imgButton_i+="<div class='linkContainer'>"+
                         "<a href = "+link+" target =\"frame\">"+itemName+"</a>"
                         text+
@@ -485,4 +534,6 @@ function printImgAndText(name, data, text, link){
                     "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
                     "</div>"+
             "</div>");
+    bubble_id++;
+    x.bubble_id++;
 }

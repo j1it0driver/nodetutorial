@@ -30,7 +30,10 @@
             <div class="status">
                 <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
             </div>
-            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='45px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
+            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='35px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
+
+                <label style="color: black;" id="bubbleId"></label>
+
             <!-- <div id="spokenResponseTitle" class="responseTitle">
                 <label class="responseLabel"></label>
             </div>
