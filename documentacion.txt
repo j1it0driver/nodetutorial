@@ -31,3 +31,6 @@ print images (no buttons)
 print links
 hacer los ID unicos (botones, e imagenes)
 cargar src desde archivo
+cargar archivos para enviar
+interfaz light: https://www.maxcdn.com/one/tutorial/mime-types/
+for (i in blabla)!!!!

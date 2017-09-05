@@ -11,6 +11,11 @@
 </head>
 
 <body onload="send_event('custom_event','Juan')">
+    <noscript>
+        <p>Bienvenido a Mi Sitio</p>
+        <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript.
+          Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
+    </noscript>
     <div class = "upper">
         <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png" height='100%'>
         <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='100%' style="float: right;">
