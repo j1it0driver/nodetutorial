@@ -75,12 +75,23 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     $recBtn.on("click", function(event) {
         switchRecognition();
     });
-    $(".debug__btn").on("click", function() {
-        $(this).next().toggleClass("is-active");
+    $(".debug_btn").on("click", function() {
+        $(this).next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
         $(this).toggleClass("is-active");
         $(".debug").toggleClass("is-active");
         return false;
     });
+    $(document).click(function(event) {
+        // if($(".debug_btn").hasClass("is-active") && event.target.className !== "response"){
+        if($(".debug_btn").hasClass("is-active") && !$(".debug_content").is(event.target) && $(".debug_content").has(event.target).length === 0){
+            $(".debug_btn").next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
+            $(".debug_btn").toggleClass("is-active");
+            $(".debug").toggleClass("is-active");
+        }
+    });
+    // $(".debug_btn").click(function(event){
+    //     event.stopPropagation();
+    // });
     // $("#bubbleId").text(bubble_id);
 });
 
@@ -93,6 +104,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
 //         else{$('#testing').text("Aqui otra vez");}
 //     }
 // }
+
 
 function printLink(dato, dato2) {
         $('#testing').text('');

@@ -23,7 +23,7 @@
 
     <div class="container container-left">
         <div class="container2">
-              <div id="chatHistory" class="scrollable chatMessages"></div>
+              <div class="scrollable chatMessages" id="chatHistory"></div>
         </div>
         <div class="container1">
             <!-- <div class="responseLink">
@@ -34,11 +34,11 @@
              <div class="textInputContainer">
                 <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
                 <div class="status">
-                    <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
+                    <label class="statusToUser" id="statusMessages">Let's start a conversation...</label> <!-- ejemplo twilio -->
                 </div>
             </div>
-                <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='25px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
-                <label style="color: black;" id="bubbleId"></label>
+                <button class="btn" id="rec"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='25px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
+                <label id="bubbleId" style="color: black;"></label>
 
             <!-- <div id="spokenResponseTitle" class="responseTitle">
                 <label class="responseLabel"></label>
@@ -54,11 +54,11 @@
         <iframe id="frame" name="frame" class="i-frame" src="" frameBorder="0"></iframe>
     </div>
     <div class="debug">
-        <div class="debug__btn btn">
+        <div class="debug_btn btn">
             Debug JSON results
         </div>
-        <div class="debug__content">
-            <textarea id="response" ></textarea>
+        <div class="debug_content">
+            <textarea class="response" id="response" ></textarea>
         </div>
     </div>
     </div>

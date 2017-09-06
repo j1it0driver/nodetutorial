@@ -30,13 +30,13 @@ body {
 .container{
     bottom: 0;
     display: block;
-    height: auto;
-    max-height: calc(100vh - 50px);
+    height: calc(100vh - 50px);
     padding: 0px;
     width: 50%;
 }
 .container-left {
     min-width: 400px;
+    padding: 10px;
     position: relative;
     text-align: center;
 }
@@ -60,7 +60,7 @@ body {
     /*-webkit-transform: translate(-50%, 0%);*/
 }
 .container2{
-    height: calc(100vh - 161px);
+    height: auto;
     margin: 0 auto;
     padding: 5px;
     width: 330px;
@@ -186,14 +186,14 @@ textarea:active, textarea:focus {
     width: 350px;ç
     -webkit-transition: all 0.35s ease-in;
 }
-.debug__content {
+.debug_content {
     display: table-cell;
     height: 300px;
     width: 0px;
     overflow: hidden;
     -webkit-transition: all 0.35s ease-in;
 }
-.debug__content.is-active {
+.debug_content.is-active {
     width: 300px;
     -webkit-transition: all 0.35s ease-in;
 
@@ -214,7 +214,7 @@ textarea:active, textarea:focus {
     background: var(--green-color);
 
 }
-.debug__btn {
+.debug_btn {
     /*display: table-cell;*/
     line-height: 50px;
     height: 50px;
@@ -225,7 +225,7 @@ textarea:active, textarea:focus {
     width: 300px; /*100%*/
     -webkit-transition: all 0.35s ease-in;
 }
-.debug__btn.is_active {
+.debug_btn.is_active {
     position: absolute;
     /*transform: rotate(90deg);*/
     width: 50px; /*100%*/
@@ -309,6 +309,7 @@ button > span {
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
+    max-height: calc(100vh - 152px);
     padding: 15px 15px;
     position: sticky;
     width:100% ;
