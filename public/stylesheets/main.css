@@ -27,29 +27,24 @@ body {
     font-size: 18px;
     margin: 0;
 }
-.container-left {
-    bottom: 0;
-    display: block;
-    height: auto;
-    max-height: calc(100vh - 50px); /*100% viewport menos la altura del upper*/
-    min-width: 400px;
-    padding: 0px;
-    position: relative;
-    text-align: center;
-    /*top: 70px;*/
-    width: 50%;
-    /*-webkit-transform: translate(-50%, 0%);*/
-}
-.container-right{
+.container{
     bottom: 0;
     display: block;
     height: auto;
     max-height: calc(100vh - 50px);
     padding: 0px;
+    width: 50%;
+}
+.container-left {
+    min-width: 400px;
+    position: relative;
+    text-align: center;
+}
+.container-right{
     position: fixed;
     right: 0%;
     text-align: right;
-    width: 50%;
+
 }
 .container1 {
     height: auto;
@@ -93,10 +88,10 @@ input[type=text] {
 input[type=text]:focus{
     background-color: var(--lightgreen-color);
     border:none;
-    border: 1px solid var(--green-color);
+    border: 1px solid var(--userblue-color);
     border-radius: 11px;
-    outline: 0px solid var(--green-color);
-    box-shadow: -5px 5px 20px 2px var(--green-color);
+    outline: 0px solid var(--userblue-color);
+    box-shadow: -5px 5px 20px 2px var(--userblue-color);
 
 }
 /*para cambiar el placeholder inicio*/
@@ -120,25 +115,25 @@ input[type=text]:focus{
 /*para cambiar el placeholder final*/
 /*para cambiar el placeholder inicio*/
 input[type=text]:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: var(--green-color);
+    color: var(--userblue-color);
 
 }
 input[type=text]:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: var(--green-color);
+    color: var(--userblue-color));
 
     opacity:  1;
 }
 input[type=text]:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: var(--green-color);
+    color: var(--userblue-color);
 
     opacity:  1;
 }
 input[type=text]:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: var(--green-color);
+    color: var(--userblue-color);
 
 }
 input[type=text]:focus::-ms-input-placeholder { /* Microsoft Edge */
-    color: var(--green-color);
+    color: var(--userblue-color);
 
 }
 .status{
@@ -204,6 +199,7 @@ textarea:active, textarea:focus {
 
 }
 #rec.btn{
+    background: var(--userblue-color);
     font-size: 14px;
     height: 35px;
     padding: 0;
@@ -213,6 +209,10 @@ textarea:active, textarea:focus {
     box-shadow: -5px 5px 20px 2px #888888;
     position: absolute;
     right: 0;
+}
+#rec.btn:hover{
+    background: var(--green-color);
+
 }
 .debug__btn {
     /*display: table-cell;*/
@@ -318,6 +318,34 @@ button > span {
     overflow-x: hidden;
     height: 100%;
 }
+.chat-message{
+    border: black solid 0;
+    border-radius: 11px;
+    clear: both;
+    color: white;
+    display: block;
+    line-height: 1.2em;
+    margin-bottom: 8px;
+    max-width:85%;
+    min-width: 35%;
+    min-height: 60px;
+    padding: .5em .5em;
+    position: relative;
+    text-align:left;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+}
+.bubble-right {
+
+    background: #008ACA;
+    box-shadow: 10px 10px 20px rgb(82, 109, 121);
+    float:right;
+}
+.bubble-left {
+    background: var(--green-color);
+    box-shadow: -10px 10px 20px #536b53;
+    float:left;
+}
 .chat-message-content{
     display: table-cell;
     padding: 5px 10px;
@@ -328,58 +356,6 @@ button > span {
 }
 .col{
     display: block;
-
-}
-.bubble-left {
-    line-height: 1.2em;
-    display: block;
-    position: relative;
-    padding: .25em .5em;
-    background: var(--green-color);
-    box-shadow: -10px 10px 20px #536b53;
-    border: black solid 0;
-    -webkit-border-radius: 11px;
-    -moz-border-radius: 11px;
-    border-radius: 11px;
-    margin-bottom: 8px;
-    clear: both;
-    min-width: 35%;
-    min-height: 55px;
-    max-width:85%;
-    color: white;
-    text-align:left;
-
-}
-
-.bubble-right {
-    line-height: 1.2em;
-    display: block;
-    position: relative;
-    padding: .5em .5em;
-    background: #008ACA;
-    box-shadow: 10px 10px 20px rgb(82, 109, 121);
-    border: black solid 0;
-    -webkit-border-radius: 11px;
-    -moz-border-radius: 11px;
-    border-radius: 11px;
-    margin-bottom: 8px;
-    clear: both;
-    min-width: 35%;
-    min-height: 55px;
-    max-width:85%;
-    color: white;
-    text-align:left;
-}
-
-.bubble-left {
-    /*margin-right:5%;*/
-    float:left;
-
-}
-.bubble-right {
-    /*margin-left:5% ;*/
-    float:right;
-    /*text-align: right;*/
 }
 .timestamp_right{
     text-align: right;
@@ -392,10 +368,13 @@ button > span {
     text-align: left;
     float: left; //para ver si flota en el texto
 }
-.avatar{
+img.avatar{
     /*display: table-cell;*/
     /*display: inline-block;*/
     /*width: 100%*/
+
+    border-radius: 16px;
+    width: 32px;
 }
 h4{
     -webkit-margin-before: 0;
@@ -450,8 +429,8 @@ button {
     -webkit-transition: all 0.35s ease-in;
 }
 button:hover:enabled{
-    background-color: #5CB85C;
-    color: var(--darkgray-color);
+    background-color: var(--userblue-color);
+    color: white;
 }
 button:disabled{
     background-color: var(--usergray-color);
@@ -487,32 +466,41 @@ button:disabled{
 /* Mouse-over effects */
 .slider:hover {
     /*opacity: 1;  Fully shown on mouse-over */
-    background-color: #5CB85C;
-    border: #58585A;
-    outline: 1px solid #58585A;
+    background-color: var(--userblue-color);
+    /*border: #58585A;
+    outline: 1px solid #58585A;*/
     /*outline: none;  Remove outline */
 }
 
 .slider:focus{
-    background-color: #FFFFFF;
+    background-color: var(--userblue-color);
     border:none;
     border: 0px solid #58585A;
-    outline: 1px solid #5CB85C;
+    outline: 1px solid #58585A;
 }
 /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
+    width: 15px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
-    background: #58585A; /* color background */
+    background: var(--gray-color); /* color background */
     cursor: pointer; /* Cursor on hover */
 }
 
 .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
+    width: 15px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
-    background: #58585A; /* color background */
+    background: var(--gray-color); /* color background */
+    cursor: pointer; /* Cursor on hover */
+}
+.slider::-webkit-slider-thumb:hover {
+    background: var(--darkgray-color); /* color background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb:hover {
+    background: var(--darkgray-color); /* color background */
     cursor: pointer; /* Cursor on hover */
 }
 .imgButtonContainer{

@@ -173,10 +173,10 @@ function send() {                //////////////////////////////////// SEND /////
     $('#statusMessages').text("Message Send!");
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-        "<div class='chat-message bubble-left'>"+
-                "<div class='fila'>"+
-                "<div class='avatar'>"+
-                    "<img src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt='' width='32px' style= 'border-radius: 4px;'>"+
+        "<div class='chat-message bubble-right'>"+
+            "<div class='fila'>"+
+                "<div class=''>"+
+                    "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
                 "</div>"+
                 "<div class='chat-message-content'>" +
                     "<h4>"+text+"</h4>"+
@@ -251,14 +251,14 @@ function respond(val) { // function to print a text into chat message and to spe
     }
     datestr=getFormattedDate(); //respond's time
     chatHistoryDiv.append( // add bubble to bot side
-        "<div class='chat-message bubble-right'>"+
+        "<div class='chat-message bubble-left'>"+
             "<div class='fila'>"+
                 "<div class='chat-message-content'>" +
                     "<h4>"+val+"</h4>"+
                 "</div>"+
                 "<div class='col' height='32px' width='32px'>"+
-                    "<div class='avatar'>"+
-                        "<img src='https://www.mytadvisor.com/SOA20/Content/Images/TAdvisor/isotipo.png' alt=''  style= 'border-radius: 4px;'>"+
+                    "<div class=''>"+
+                        "<img class='avatar' src='/images/avatartadvisor0.png' alt=''>"+
                     "</div>"+
                     "<div class='fila'>"+
                       "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
@@ -353,7 +353,7 @@ function printButton(arrayList){
     // console.log(printButton_i);
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-right'>"+
+            "<div class='chat-message bubble-left'>"+
                 "<div class='fila'>"+
                     "<div class='chat-message-content'style='text-align:center;'>" +
                     printButton_i+
@@ -396,7 +396,7 @@ function printSliderSelector(sliderName){
     // var sendSlice;
 
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-right'>"+
+            "<div class='chat-message bubble-left'>"+
                 "<div class='fila'>"+
                     "<div class='chat-message-content''>" +
                         sliderButton+
@@ -453,7 +453,7 @@ function printImgButton(imgBtnName, imgBtnList){
         "</div>";
     }
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-right'>"+
+            "<div class='chat-message bubble-left'>"+
                 "<div class='fila'>"+
                     "<div class='chat-message-content''>" +
                         imgButton_i+
@@ -531,7 +531,7 @@ function printImgAndText(name, data, text, link){
                     "</div>";
     }
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-right' style='width: 90%; text-align:center'>"+
+            "<div class='chat-message bubble-left' style='width: 90%; text-align:center'>"+
                 "<div class='chat-message-content' style= 'clear: right;'>" +
                     imgButton_i+
                     "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+

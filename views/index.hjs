@@ -21,7 +21,7 @@
         <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='100%' style="float: right;">
     </div>
 
-    <div class="container-left">
+    <div class="container container-left">
         <div class="container2">
               <div id="chatHistory" class="scrollable chatMessages"></div>
         </div>
@@ -50,7 +50,7 @@
     </div>
 
 
-    <div class="container-right">
+    <div class="container container-right">
         <iframe id="frame" name="frame" class="i-frame" src="" frameBorder="0"></iframe>
     </div>
     <div class="debug">
