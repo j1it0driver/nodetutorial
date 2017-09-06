@@ -83,7 +83,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     });
     $(document).click(function(event) {
         // if($(".debug_btn").hasClass("is-active") && event.target.className !== "response"){
-        if($(".debug_btn").hasClass("is-active") && !$(".debug_content").is(event.target) && $(".debug_content").has(event.target).length === 0){
+        if($(".debug_btn").hasClass("is-active") && !$(".debug_content").is(event.target)){
             $(".debug_btn").next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
             $(".debug_btn").toggleClass("is-active");
             $(".debug").toggleClass("is-active");

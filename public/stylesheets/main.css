@@ -27,6 +27,9 @@ body {
     font-size: 18px;
     margin: 0;
 }
+.container0{
+    
+}
 .container{
     bottom: 0;
     display: block;
@@ -44,7 +47,7 @@ body {
     position: fixed;
     right: 0%;
     text-align: right;
-
+    z-index: -1;
 }
 .container1 {
     height: auto;
