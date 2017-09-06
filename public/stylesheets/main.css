@@ -1,3 +1,20 @@
+:root{
+    --lightgray-color: rgb(200, 200, 200); /*gray: #808080*/
+    --usergray-color: #888888;
+    --gray-color: rgba(128,128,128,1);
+    --darkgray-color: #58585A;
+    --lightgreen-color: #c3d5bb;
+    --green-color: #5CB85C;
+    --usergreen-color: #43BD5D;
+    --blue-color: #48788B;
+    --userblue-color: #008ACA;rgb(137, 3, 144)
+    --userBlue-color:#3769cc;
+    --darkblue-color:rgb(82, 109, 121);
+    --userwhite-color: #d2d2d2;
+    --pink-color: pink;
+    --violet-color: #606B88;
+    --chatbg-color: rgba(255,255,255,0); /*use rgba to apply opacity*/
+}
 html {
     box-sizing: border-box; /*incluir margin border y padding en Height y Width*/
 }
@@ -5,16 +22,16 @@ html {
     box-sizing: inherit;
 }
 body {
-    background-color: #FFFFFF;
+    background-color: white;
     font-family: "Asap","Titillium Web", sans-serif, Arial;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0;
 }
 .container-left {
     bottom: 0;
     display: block;
     height: auto;
-    max-height: calc(100vh - 50px); /*100% menos la altura del upper*/
+    max-height: calc(100vh - 50px); /*100% viewport menos la altura del upper*/
     min-width: 400px;
     padding: 0px;
     position: relative;
@@ -35,13 +52,13 @@ body {
     width: 50%;
 }
 .container1 {
-    height: 110px;
+    height: auto;
     display: inline-block;
     margin: 0 auto;
     padding: 5px;
     position: relative;
     text-align: left;
-    width: 310px;
+    width: 330px;
 
     /*top:25%;*/
     /*left:50%;*/
@@ -51,7 +68,11 @@ body {
     height: calc(100vh - 161px);
     margin: 0 auto;
     padding: 5px;
-    width: 310px;
+    width: 330px;
+}
+.textInputContainer{
+    display: inline-block;
+    width: 70%;
 }
 input[type=text] {
 
@@ -59,7 +80,7 @@ input[type=text] {
     border:none;
     border: 1px solid #888888;
     border-radius: 11px;
-    box-shadow: 0px 0px 10px 5px #888888;
+    box-shadow: -5px 5px 20px 2px #888888;
     color: #000000;
     font-family: "Titillium Web";
     font-size: 16px;
@@ -70,54 +91,54 @@ input[type=text] {
     -webkit-transition: all 0.35s ease-in;
 }
 input[type=text]:focus{
-    background-color: #c3d5bb;
+    background-color: var(--lightgreen-color);
     border:none;
-    border: 1px solid #43BD5D;
+    border: 1px solid var(--green-color);
     border-radius: 11px;
-    outline: 0px solid #43BD5D;
-    box-shadow: 0px 0px 10px 5px #43BD5D;
+    outline: 0px solid var(--green-color);
+    box-shadow: -5px 5px 20px 2px var(--green-color);
 
 }
 /*para cambiar el placeholder inicio*/
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    #58585A;
+    color:    var(--darkgray-color);
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #58585A;
+    color:    var(--darkgray-color);
     opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #58585A;
+    color:    var(--darkgray-color);
     opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color:    #58585A;
+    color:    var(--darkgray-color);
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
-    color:    #58585A;
+    color:    var(--darkgray-color);
 }
 /*para cambiar el placeholder final*/
 /*para cambiar el placeholder inicio*/
 input[type=text]:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: #43BD5D;
+    color: var(--green-color);
 
 }
 input[type=text]:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: #43BD5D;
+    color: var(--green-color);
 
     opacity:  1;
 }
 input[type=text]:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #43BD5D;
+    color: var(--green-color);
 
     opacity:  1;
 }
 input[type=text]:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #43BD5D;
+    color: var(--green-color);
 
 }
 input[type=text]:focus::-ms-input-placeholder { /* Microsoft Edge */
-    color: #43BD5D;
+    color: var(--green-color);
 
 }
 .status{
@@ -139,27 +160,22 @@ textarea:active, textarea:focus {
     outline: 1px solid #48788B;
 }
 .btn {
-    background-color: #58585A;
-    border: 1px solid #5CB85C;
-    color: #5CB85C;
+    background-color: var(--userblue-color);
+    border: 0px solid var(--green-color);
+    color: white;
     cursor: pointer;
-    display: inline-block;
     font-family: "Titillium Web";
     font-size: 18px;
     font-weight: bold;
-    height: 40px;
-    /*margin-top: 10px;
-    margin-bottom: 0px;*/
-    padding: 0;
     text-align: center;
     text-transform: uppercase;
-    vertical-align: middle;
     -webkit-transition: all 0.35s ease-in;
 }
 .btn:hover {
-    background-color: #5CB85C;
+    background-color: var(--green-color);
+    border: 0px solid var(--green-color);
     color: #58585a;
-    font-weight: bold;
+
 }
 .debug {
     bottom: calc(100vh/2 - 150px);
@@ -187,8 +203,20 @@ textarea:active, textarea:focus {
     -webkit-transition: all 0.35s ease-in;
 
 }
+#rec.btn{
+    font-size: 14px;
+    height: 35px;
+    padding: 0;
+    min-width: 80px;
+    /*display: inline-block;*/
+    vertical-align: top;
+    box-shadow: -5px 5px 20px 2px #888888;
+    position: absolute;
+    right: 0;
+}
 .debug__btn {
-    display: table-cell;
+    /*display: table-cell;*/
+    line-height: 50px;
     height: 50px;
     position: absolute;
     top: -50px;
@@ -276,27 +304,21 @@ button > span {
     -moz-border-radius: 11px;
     border-radius: 11px;
     font-size: 14px;
-    background: #58585A;
-    box-shadow: 0px 0px 10px 5px #888888;
+    background: var(--chatbg-color);
+    /*box-shadow: 0px 0px 10px 5px #888888;*/
     display: inline-block;
-    /*box-shadow: inset 0px 0px 10px 5px #888888;*/
+    /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    /*margin-left: 10px;*/
-    padding: 5px 5px;
+    padding: 15px 15px;
     position: sticky;
-    /*top: 55px;*/
     width:100% ;
 }
 .scrollable {
-    /*height: 95%; /* or any value */*/
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
-    /*max-height: 90vh;*/
 }
 .chat-message-content{
-    /*margin: 20px;*/
-    /*width: 100%;*/
     display: table-cell;
     padding: 5px 10px;
     vertical-align: top;
@@ -313,8 +335,8 @@ button > span {
     display: block;
     position: relative;
     padding: .25em .5em;
-    background: #5CB85C;
-    box-shadow: 5px 5px 4px #536b53;
+    background: var(--green-color);
+    box-shadow: -10px 10px 20px #536b53;
     border: black solid 0;
     -webkit-border-radius: 11px;
     -moz-border-radius: 11px;
@@ -335,7 +357,7 @@ button > span {
     position: relative;
     padding: .5em .5em;
     background: #008ACA;
-    box-shadow: -5px 5px 4px rgb(82, 109, 121);
+    box-shadow: 10px 10px 20px rgb(82, 109, 121);
     border: black solid 0;
     -webkit-border-radius: 11px;
     -moz-border-radius: 11px;
@@ -385,8 +407,8 @@ h4{
 */
 ::-webkit-scrollbar-track
 {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #58585A ;
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+    background-color: var(--chatbg-color);
     border-radius: 11px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -401,20 +423,26 @@ h4{
     border-radius: 11px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.44, #5CB85C),color-stop(0.72, #5ca4b8),color-stop(0.86, #008ACA));
+    /*background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.44, #5CB85C),color-stop(0.72, #5ca4b8),color-stop(0.86, #008ACA));*/
+    background-color: var(--lightgray-color) ;
 }
+::-webkit-scrollbar-thumb:hover{
+    background-color: var(--gray-color) ;
+}
+::-webkit-scrollbar-thumb:active{
+    background-color: var(--darkgray-color) ;
+}
+
 button {
     background-color: #FFFFFF;
-    bordebaseliner: 1px solid #58585A;
+    /*borderbaseliner: 1px solid #58585A;*/
     border-radius: 6px;
-    color: #008ACA;
+    color: var(--darkgray-color);
     cursor: pointer;
     display: inline;
     font-family: "Titillium Web";
     font-size: 14px;
     font-weight: bold;
-    /*line-height: 20px;*/
-    /*margin: 0px;*/
     min-width: 100px;
     padding: 0.1em 0.8em;
     text-align: center;
@@ -423,11 +451,13 @@ button {
 }
 button:hover:enabled{
     background-color: #5CB85C;
-    color: #58585A;
+    color: var(--darkgray-color);
 }
 button:disabled{
+    background-color: var(--usergray-color);
+    color: var(--darkgray-color);
     text-decoration:line-through;
-    color: #58585A;
+
 }
 .quickReplyButton{
 }
@@ -512,4 +542,9 @@ a:link{
 }
 a:visited{
     color: pink;
+}
+#bubbleId{
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
