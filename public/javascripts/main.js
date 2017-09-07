@@ -17,7 +17,7 @@ messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos, bubble_id=0;
-var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}}}');
+var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 // var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
 
@@ -133,7 +133,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         respond(messageCouldntHear);
         stopRecognition();
     };
-    recognition.lang = "en-US";
+    recognition.lang = "en-GB";
     recognition.start();
 }
 
@@ -236,7 +236,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
-            printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, "GEAR Hill: Moderado","https://www.gearinvestments.com/"); //envio el nombre y los datos del payload
+            console.log(spokenResponse[i].payload.img.data);
+            console.log(spokenResponse[i].payload.img.data["imgsrc"]);
+            printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
+
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
@@ -291,7 +294,7 @@ function respond(val) { // function to print a text into chat message and to spe
         // msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
         // msg.text = val.replace(/\n/g,"");
         msg.lang = "en-GB";
-        console.log(msg.text);
+        // console.log(msg.text);
         window.speechSynthesis.speak(msg);
     }
     $speechInput.focus();
@@ -428,7 +431,9 @@ function printSliderSelector(sliderName){
     // var output = document.getElementById("testing");
     var output = document.getElementById(sliderId+"SliderBtnSend");
     // var output = $("#"+sliderId+"btnSend");
+    // slider.defaultValue;
     output.innerHTML = slider.value;
+    $speechInput.val(slider.value);
     // output.value = slider.value;
     // sendSlice="<div><button type='button'>Send "+output.innerHTML+"</button></div>";
     slider.oninput = function() {
@@ -518,9 +523,10 @@ function printImgAndText(name, data, text, link){
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    if(data){
-        itemName=createIdFromText(name+data[0]);
-        imgSrc=getImgSrc(name, data[0]);
+    console.log(data["imgsrc"]);
+    if(data["imgsrc"]){
+        itemName=createIdFromText(name+data["imgsrc"]);
+        imgSrc=getImgSrc(name, data["imgsrc"]);
         imgButton_i+="<div class='imgContainer'>"+
                         "<input type='image' src='"+imgSrc+"' class='img' width='95%' id='"+itemName+"'>"+
                     "</div>";
