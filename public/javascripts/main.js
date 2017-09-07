@@ -15,7 +15,7 @@ messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
+var tiempoSend, timeout = null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos, bubble_id=0;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 // var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
@@ -76,8 +76,11 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         }
     });
     $recBtn.on("click", function(event) {
+
+        clearTimeout(tiempoStop);
         if (hasGetUserMedia()) {
             switchRecognition();
+            // $recBtn1.text("Listening");
             console.log("rec on");
           console.log("getusermedia ok");
         } else {
@@ -132,10 +135,12 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         console.log("no voice recognition");
     } else {
         recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
+        recognition.continuous = false;
         recognition.interimResults = false;
         recognition.onstart = function(event) {
             respond(messageRecording);
+            $recBtn.addClass("is-actived");
+            // $recBtn1.text("recording");
             updateRec();
         };
         recognition.onresult = function(event) {
@@ -151,7 +156,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
             respond(messageCouldntHear);
             stopRecognition();
         };
-        recognition.lang = "en-US";
+        recognition.lang = "en-GB";
         recognition.start();
     }
 }
@@ -161,16 +166,20 @@ function stopRecognition() {
         recognition.stop();
         recognition = null;
     }
+    $recBtn.removeClass("is-actived");
     updateRec();
 }
 
 function switchRecognition() {
+
     if (recognition) {
         console.log("existing recognition");
         stopRecognition();
+
     } else {
         console.log("new-start recognition");
         startRecognition();
+
     }
 }
 
@@ -180,7 +189,8 @@ function setInput(text) {
 }
 
 function updateRec() {
-    $recBtn1.text(recognition ? "Stop" : "Listening...");
+    $recBtn1.text(recognition ? "Listening" : "Rec");
+    tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
 }
 
 function send() {                //////////////////////////////////// SEND ////////////////////////////////////
@@ -314,7 +324,7 @@ function respond(val) { // function to print a text into chat message and to spe
         // msg.text = val.replace(/<br \/>/g,"").replace(/<br>/g,""); //quitar el salto de linea del speech
         // msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
         // msg.text = val.replace(/\n/g,"");
-        msg.lang = "en-US";
+        msg.lang = "en-GB";
         // console.log(msg.text);
         window.speechSynthesis.speak(msg);
     }

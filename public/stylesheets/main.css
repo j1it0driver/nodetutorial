@@ -28,7 +28,7 @@ body {
     margin: 0;
 }
 .container0{
-    
+
 }
 .container{
     bottom: 0;
@@ -215,8 +215,26 @@ textarea:active, textarea:focus {
 }
 #rec.btn:hover{
     background: var(--green-color);
-
 }
+#rec.btn.is-actived{
+    /*background: red;*/
+    animation-duration: 1500ms;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes blink {
+   from {
+      background: red;
+   }
+   to {
+      background: darkred;
+   }
+ }
+#rec.btn.is-actived:hover{
+    background: darkred;
+
+ }
 .debug_btn {
     /*display: table-cell;*/
     line-height: 50px;
