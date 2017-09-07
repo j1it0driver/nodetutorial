@@ -20,7 +20,10 @@ var str="", datos, bubble_id=0;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 // var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
-
+navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
     $speechInput = $("#speech");
     $recBtn = $("#rec");
@@ -73,7 +76,14 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         }
     });
     $recBtn.on("click", function(event) {
-        switchRecognition();
+        if (hasGetUserMedia()) {
+            switchRecognition();
+            console.log("rec on");
+          console.log("getusermedia ok");
+        } else {
+          alert('getUserMedia() is not supported in your browser');
+        }
+
     });
     $(".debug_btn").on("click", function() {
         $(this).next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
@@ -104,6 +114,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
 //         else{$('#testing').text("Aqui otra vez");}
 //     }
 // }
+function hasGetUserMedia() {
+  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+}
 
 
 function printLink(dato, dato2) {
@@ -113,28 +127,33 @@ function printLink(dato, dato2) {
 }
 
 function startRecognition() {    //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.onstart = function(event) {
-        respond(messageRecording);
-        updateRec();
-    };
-    recognition.onresult = function(event) {
-        recognition.onend = null;
-        var text = "";
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
-            text += event.results[i][0].transcript;
-        }
-        setInput(text);
-        stopRecognition();
-    };
-    recognition.onend = function() {
-        respond(messageCouldntHear);
-        stopRecognition();
-    };
-    recognition.lang = "en-US";
-    recognition.start();
+    if (!('webkitSpeechRecognition' in window)) {
+        upgrade();
+        console.log("no voice recognition");
+    } else {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.onstart = function(event) {
+            respond(messageRecording);
+            updateRec();
+        };
+        recognition.onresult = function(event) {
+            recognition.onend = null;
+            var text = "";
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                text += event.results[i][0].transcript;
+            }
+            setInput(text);
+            stopRecognition();
+        };
+        recognition.onend = function() {
+            respond(messageCouldntHear);
+            stopRecognition();
+        };
+        recognition.lang = "en-US";
+        recognition.start();
+    }
 }
 
 function stopRecognition() {
@@ -147,8 +166,10 @@ function stopRecognition() {
 
 function switchRecognition() {
     if (recognition) {
+        console.log("existing recognition");
         stopRecognition();
     } else {
+        console.log("new-start recognition");
         startRecognition();
     }
 }

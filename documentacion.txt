@@ -34,3 +34,7 @@ cargar src desde archivo
 cargar archivos para enviar
 interfaz light: https://www.maxcdn.com/one/tutorial/mime-types/
 for (i in blabla)!!!!
+https://www.html5rocks.com/en/tutorials/getusermedia/intro/#toc-gettingstarted
+https://stackoverflow.com/questions/41016055/using-web-speech-api-how-can-we-detect-microphone-connected
+
+https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
