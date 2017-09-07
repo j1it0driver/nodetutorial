@@ -133,7 +133,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         respond(messageCouldntHear);
         stopRecognition();
     };
-    recognition.lang = "en-GB";
+    recognition.lang = "en-US";
     recognition.start();
 }
 
@@ -293,7 +293,7 @@ function respond(val) { // function to print a text into chat message and to spe
         // msg.text = val.replace(/<br \/>/g,"").replace(/<br>/g,""); //quitar el salto de linea del speech
         // msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
         // msg.text = val.replace(/\n/g,"");
-        msg.lang = "en-GB";
+        msg.lang = "en-US";
         // console.log(msg.text);
         window.speechSynthesis.speak(msg);
     }
