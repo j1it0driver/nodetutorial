@@ -132,7 +132,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         console.log("no voice recognition");
     } else {
         recognition = new webkitSpeechRecognition();
-        recognition.continuous = false;
+        recognition.continuous = true;
         recognition.interimResults = false;
         recognition.onstart = function(event) {
             respond(messageRecording);
