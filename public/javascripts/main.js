@@ -412,10 +412,10 @@ function printButton(arrayList){
                 "<div class='fila'>"+
                     "<div class='chat-message-content'style='text-align:center;'>" +
                     printButton_i+
-                    "</div> <!-- end chat-message-content -->"+
-                    "<div class='fila'>"+
-                        "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
+                "</div>"+
+                "<div class='fila'>"+
+                    "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                 "</div>"+
             "</div>");
     bubble_id++;

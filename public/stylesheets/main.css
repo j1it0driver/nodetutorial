@@ -373,7 +373,7 @@ button > span {
 }
 .chat-message-content{
     display: table-cell;
-    padding: 10px 10px;
+    padding: 20px 20px;
     vertical-align: top;
 }
 .fila{
@@ -389,7 +389,7 @@ button > span {
     margin-bottom: 0;
     /*display: table-cell;*/
     position: absolute;
-    bottom: .5em;
+    bottom: 10px;
     right: 10px;
 }
 .timestamp_left{
@@ -397,10 +397,8 @@ button > span {
     float: left; //para ver si flota en el texto
 }
 img.avatar{
-    /*display: table-cell;*/
-    /*display: inline-block;*/
-    /*width: 100%*/
     border-radius: 16px;
+    margin:10px;
     width: 32px;
 }
 h4{
