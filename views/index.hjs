@@ -22,30 +22,32 @@
     </div>
     <div class="container0">
         <div class="container container-left">
-            <div class="container2">
-                  <div class="scrollable chatMessages" id="chatHistory"></div>
-            </div>
-            <div class="container1">
-                <!-- <div class="responseLink">
-                    <label id="testing">Test text</label>
-                    <button id="refresh_btn" name="refresh_button" onclick="window.location.reload();" style="margin-top: 5px; float: right; color: #58585A">Refresh</button>
+            <div class="containerleft1">
+                <div class="container2">
+                      <div class="scrollable chatMessages" id="chatHistory"></div>
                 </div>
-                 -->
-                 <div class="textInputContainer">
-                    <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
-                    <div class="status">
-                        <label class="statusToUser" id="statusMessages">Let's start a conversation...</label> <!-- ejemplo twilio -->
+                <div class="container1">
+                    <!-- <div class="responseLink">
+                        <label id="testing">Test text</label>
+                        <button id="refresh_btn" name="refresh_button" onclick="window.location.reload();" style="margin-top: 5px; float: right; color: #58585A">Refresh</button>
                     </div>
-                </div>
-                    <button class="btn" id="rec"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='25px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
-                    <label id="bubbleId" style="color: black;"></label>
+                     -->
+                     <div class="textInputContainer">
+                        <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
+                        <div class="status">
+                            <label class="statusToUser" id="statusMessages">Let's start a conversation...</label> <!-- ejemplo twilio -->
+                        </div>
+                    </div>
+                        <button class="btn" id="rec"><img src="/images/mic.png" alt="" height='25px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
+                        <label id="bubbleId" style="color: black;"></label>
 
-                <!-- <div id="spokenResponseTitle" class="responseTitle">
-                    <label class="responseLabel"></label>
+                    <!-- <div id="spokenResponseTitle" class="responseTitle">
+                        <label class="responseLabel"></label>
+                    </div>
+                    <div id="spokenResponse" class="scrollable spoken-response">
+                        <div class="spoken-response__text"></div>
+                    </div> -->
                 </div>
-                <div id="spokenResponse" class="scrollable spoken-response">
-                    <div class="spoken-response__text"></div>
-                </div> -->
             </div>
         </div>
         <div class="container container-right">

@@ -82,7 +82,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
                 switchRecognition();
                 console.log("mic ok");
             }).catch(function(err) { console.log(err.name + ": " + err.message);
-                                    alert("Microphone is disabled/blocked in your browser. Please give permissions to use voice recognition")}); // always check for errors at the end.;
+                                    alert("Microphone is disabled/blocked in your device/browser. Please give permissions to use voice recognition.")}); // always check for errors at the end.;
         } else {
           alert('getUserMedia() is not supported in your browser');
         }
@@ -236,7 +236,7 @@ function send() {                //////////////////////////////////// SEND /////
                 "<div class='col' height='32px' width='32px'>"+
 
                     "<div class='fila'>"+
-                      "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                      "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
                 "</div>"+
             "</div>"+
@@ -316,7 +316,7 @@ function respond(val) { // function to print a text into chat message and to spe
                         "<img class='avatar' src='/images/avatartadvisor0.png' alt=''>"+
                     "</div>"+
                     "<div class='fila'>"+
-                      "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                      "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
                 "</div>"+
             "</div>"+
@@ -414,7 +414,7 @@ function printButton(arrayList){
                     printButton_i+
                     "</div> <!-- end chat-message-content -->"+
                     "<div class='fila'>"+
-                        "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                        "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
                 "</div>"+
             "</div> <!-- end chat-message -->");
@@ -461,7 +461,7 @@ function printSliderSelector(sliderName){
                         "</div>"+
                     "</div>"+
                     "<div class='fila'>"+
-                        "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                        "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
                 "</div>"+
             "</div>");
@@ -516,7 +516,7 @@ function printImgButton(imgBtnName, imgBtnList){
                         imgButton_i+
                     "</div>"+
                     "<div class='fila'>"+
-                        "<h5 class='timestamp_right' style='position: absolute; bottom:5px; right:10px;'>"+datestr+"</h5>"+
+                        "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
                 "</div>"+
             "</div>"
@@ -592,7 +592,7 @@ function printImgAndText(name, data, text, link){
             "<div class='chat-message bubble-left' style='width: 90%; text-align:center'>"+
                 "<div class='chat-message-content' style= 'clear: right;'>" +
                     imgButton_i+
-                    "<h5 class='timestamp_right' style='font-size: 10px; margin-bottom: 0; margin-top: 0.5em'>"+datestr+"</h5>"+
+                    "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
             "</div>");
     bubble_id++;
