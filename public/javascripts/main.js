@@ -49,7 +49,6 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     });
     //////////////////////// END CustomEvent JAVASCRIPT /////////////////////////////////
 
-    console.log(bubble_id);
     $speechInput.keyup(function(event) { //I change keyup for keypress//
         if (tiempoSend !== null) {
             clearTimeout(tiempoSend);
@@ -75,27 +74,27 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
             }
         }
     });
-    $recBtn.on("click", function(event) {
-
+    $recBtn.on("click", function(event) { // SPEECH
         clearTimeout(tiempoStop);
-        if (hasGetUserMedia()) {
-            switchRecognition();
-            // $recBtn1.text("Listening");
-            console.log("rec on");
-          console.log("getusermedia ok");
+        if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
+            console.log("getusermedia ok");
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
+                switchRecognition();
+                console.log("mic ok");
+            }).catch(function(err) { console.log(err.name + ": " + err.message);
+                                    alert("Microphone is disabled/blocked in your browser. Please give permissions to use voice recognition")}); // always check for errors at the end.;
         } else {
           alert('getUserMedia() is not supported in your browser');
         }
 
     });
-    $(".debug_btn").on("click", function() {
+    $(".debug_btn").on("click", function() { //function to manage DEBUG behavior
         $(this).next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
         $(this).toggleClass("is-active");
         $(".debug").toggleClass("is-active");
         return false;
     });
-    $(document).click(function(event) {
-        // if($(".debug_btn").hasClass("is-active") && event.target.className !== "response"){
+    $(document).click(function(event) { //function to manage DEBUG behavior
         if($(".debug_btn").hasClass("is-active") && !$(".debug_content").is(event.target)){
             $(".debug_btn").next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
             $(".debug_btn").toggleClass("is-active");
@@ -108,7 +107,16 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     // $("#bubbleId").text(bubble_id);
 });
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // function printInput() {          //////////////////////////////////// PRINT FUNCTIONS ////////////////////////////////////
+/////////////////////////
 //     if($speechInput.val() != ''){
 //         $('#testing').text($speechInput.val());
 //     }
@@ -138,6 +146,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         recognition.continuous = false;
         recognition.interimResults = false;
         recognition.onstart = function(event) {
+            console.log("rec on");
             respond(messageRecording);
             $recBtn.addClass("is-actived");
             // $recBtn1.text("recording");
