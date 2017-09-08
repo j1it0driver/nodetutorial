@@ -9,6 +9,7 @@
     --blue-color: #48788B;
     --userblue-color: #008ACA;rgb(137, 3, 144)
     --userBlue-color:#3769cc;
+    --lightblue-color: lightblue;
     --darkblue-color:rgb(82, 109, 121);
     --userwhite-color: #d2d2d2;
     --pink-color: pink;
@@ -71,7 +72,7 @@ body {
     padding: 5px;
     position: relative;
     text-align: left;
-    width: 350px;
+    width: 360px;
     /*bottom: 0;*/
 
     /*top:25%;*/
@@ -82,7 +83,7 @@ body {
     height: auto;
     margin: 0 auto;
     padding: 5px;
-    width: 350px;
+    width: 360px;
 }
 .textInputContainer{
     display: inline-block;
@@ -92,7 +93,7 @@ input[type=text] {
 
     background-color: #d2d2d2;
     border:none;
-    border: 1px solid #888888;
+    /*border: 1px solid #888888;*/
     /*border-radius: 11px;
     box-shadow: -5px 5px 20px 2px #888888;*/
     color: #000000;
@@ -107,9 +108,9 @@ input[type=text] {
 input[type=text]:focus{
     background-color: var(--lightgreen-color);
     border:none;
-    border: 1px solid var(--userblue-color);
+    border: 0px solid var(--gray-color);
     /*border-radius: 11px;*/
-    outline: 0px solid var(--userblue-color);
+    outline: 1px solid var(--gray-color);
     /*box-shadow: -5px 5px 20px 2px var(--userblue-color);*/
 
 }
@@ -131,26 +132,21 @@ input[type=text]:focus{
     color:    var(--darkgray-color);
 }
 input[type=text]:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: var(--userblue-color);
-
+    color: var(--darkgray-color);
 }
 input[type=text]:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: var(--userblue-color));
-
+    color: var(--darkgray-color));
     opacity:  1;
 }
 input[type=text]:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: var(--userblue-color);
-
+    color: var(--darkgray-color);
     opacity:  1;
 }
 input[type=text]:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: var(--userblue-color);
-
+    color: var(--darkgray-color);
 }
 input[type=text]:focus::-ms-input-placeholder { /* Microsoft Edge */
-    color: var(--userblue-color);
-
+    color: var(--darkgray-color);
 }
 .status{
     padding: 5px 5px 0px 5px;
@@ -221,12 +217,12 @@ textarea:active, textarea:focus {
     min-width: 100px;
     /*display: inline-block;*/
     vertical-align: top;
-    box-shadow: -5px 5px 20px 2px #888888;
+    /*box-shadow: -5px 5px 20px 2px #888888;*/
     position: absolute;
-    right: 0;
+    right: 5px;
 }
 #rec.btn:hover{
-    background: var(--green-color);
+    background: #ff3c4c ;
 }
 #rec.btn.is-actived{
     /*background: red;*/
@@ -285,8 +281,8 @@ textarea:active, textarea:focus {
 }
 .statusToUser {
     display: block;
-    color: #58585a;
-    font-size: 14px;
+    color: var(--gray-color);
+    font-size: 12px;
     font-style: italic;
     font-weight: bold;
     line-height: 20px;
@@ -353,12 +349,12 @@ button > span {
     clear: both;
     color: white;
     display: block;
-    line-height: 1.2em;
-    margin-top: 8px;
+    line-height: 1.4em;
+    margin: 4px;
     max-width:85%;
     min-width: 35%;
     min-height: 60px;
-    padding: .5em .5em;
+    /*padding: .5em .5em;*/
     position: relative;
     text-align:left;
     /*-moz-border-radius: 11px;
@@ -415,7 +411,7 @@ h4{
 }
 ::-webkit-scrollbar-track
 {
-    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.2);
     background-color: var(--chatbg-color);
     border-radius: 11px;
     border-top-left-radius: 0;
@@ -443,14 +439,16 @@ h4{
 button {
     background-color: #FFFFFF;
     /*borderbaseliner: 1px solid #58585A;*/
-    border-radius: 6px;
+    /*border-radius: 6px;*/
+    border-style: none;
     color: var(--darkgray-color);
     cursor: pointer;
     display: inline;
     font-family: "Titillium Web";
     font-size: 14px;
     font-weight: bold;
-    min-width: 100px;
+    min-width: 120px;
+    margin: 1px;
     padding: 0.1em 0.8em;
     text-align: center;
     /*text-transform: uppercase;*/

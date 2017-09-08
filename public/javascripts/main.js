@@ -417,7 +417,7 @@ function printButton(arrayList){
                         "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
                 "</div>"+
-            "</div> <!-- end chat-message -->");
+            "</div>");
     bubble_id++;
     x.bubble_id++;
 }
