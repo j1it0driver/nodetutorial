@@ -233,7 +233,7 @@ textarea:active, textarea:focus {
 }
 @keyframes blink {
    from {
-      background: red;
+      background: #ff3c4c;
    }
    to {
       background: darkred;
@@ -389,7 +389,7 @@ button > span {
     margin-bottom: 0;
     /*display: table-cell;*/
     position: absolute;
-    bottom: 10px;
+    bottom: 4px;
     right: 10px;
 }
 .timestamp_left{
@@ -418,7 +418,7 @@ h4{
 ::-webkit-scrollbar
 {
     width: 11px;
-    background-color: #rgb(246, 67, 20);/*#F5F5F5 ;*/
+    background-color: #F5F5F5;/*#F5F5F5 ;*/
 }
 ::-webkit-scrollbar-thumb
 {
