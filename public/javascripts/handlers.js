@@ -1,23 +1,39 @@
-var baseUrl_H="https://mytadvisor.com/SOA/tower4customers/";
+var baseUrl_H="http://towersoa.wmptech.com/SOA/tower4customers/";
+var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
-function sendH() {                //////////////////////////////////// SEND ////////////////////////////////////
-    var text = $speechInput.val();
-    var chatHistoryDiv = $("#chatHistory");
+var language=null;
+var userId=null; //
+var userCode=null;
+var userPass=null;
+var tokenString=null;
+var views=null;
+var clientId=null;
+var token=null;
+var email=null;
+
+
+function login(userCode,userPass,domain,language) {
+    userCode="juann@techrules.com";
+    userPass="Sebastian1.";
+    domain="TADVISOR";
+    language="es-ES";
+    session_cookies=document.cookie;             //////////////////////////////////// SEND ////////////////////////////////////
     $.ajax({
         type: "POST",
-        url: baseUrl_H + "Login.ashx?userCode=juann@techrules.com&userPass=Sebastian1.&domain=TADVISOR&language=es-ES&callback=parseResponse", //&callback=parseResponse
+        url: baseUrl_H + "Login.ashx?userCode="+userCode+"&userPass="+userPass+"&domain="+domain+"&language="+language, //&callback=parseResponse
             //url: baseUrl_H + "MyTAdvisorLoginInvestorHandler.ashx",
         // dataType: "JSON",
-        jsonpCallback: 'callback',
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
-
         // headers: {
         //     "Authorization": "Bearer " + accessToken
         //},
         // data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data1) {
-        var j=data1;
-        console.log(j);
+        userId=data1.RSLT.UserId;
+        userCode=data1.RSLT.UserCode;
+        tokenString=data1.RSLT.TokenString;
+        session_cookies="UserCode="+userCode+"; UserId="+userId+"; token="+tokenString;
+        console.log(session_cookies);
             // prepareResponse_h(data);
         },
         error: function() {
@@ -25,40 +41,31 @@ function sendH() {                //////////////////////////////////// SEND ////
         }
     });
 }
-function prepareResponse_h(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
-    var location_c, dataObj, messagesPrint = "", messagePrint2 = "";
-    var spokenResponse = val.result.fulfillment.messages;
-    var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
-    debugRespond(debugJSON); //function to print string in debug window response from API
-    for (i=0;i< spokenResponse.length; i++){
-        if(spokenResponse[i].type==0){ //type 0 is a SPEECH
-            messagePrint2= spokenResponse[i].speech;
-            dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-            messagesPrint+=  "> "+ dataObj + "<br />";
-            respond(dataObj);
-            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+function clientHandler(userCode,domain,language,token,views,clientId) {
+    userCode="2wnABpAEXSahApzPgh4Suw==";
+    domain="TADVISOR";
+    language="es-ES";
+    token="7727A2C3DDE8494C13A09EECEB932F20";
+    views="ClientGeneralData";
+    // clientId="qZX5vetGIq/gbwAPurYUUg==";
+    // clientId='fCYeYJCd/ej4wN4Ma+807ST0vgfDyTrXFH53ZYLe5Z41sIZ5XeNRAEMtrCM5u73+';
+    clientId="Fvnpqmh0xkGtn05BZi/6cg==";
+    // clientId="-1"
+    // hola="&clientId="+clientId;
+    // console.log(hola);
+    //userCode="j1it0driver@gmail.com", userPass="judaor82";
+    $.ajax({
+        type: "POST",
+        url: baseUrl_H + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
+        // dataType: "JSON",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        success: function(data1) {
+        email=data1.RSLT.ClientModuleT4C.Client.PersonalInformation.Email;
+        console.log(email);
+            // prepareResponse_h(data);
+        },
+        error: function() {
+            respond(messageInternalError);
         }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
-            // arrayList=spokenResponse[i].payload.items;
-            // printButton(arrayList);
-            printButton(spokenResponse[i].payload.items);
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
-            printSliderSelector(spokenResponse[i].payload.slide.name);
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.imgButton) { //type 4 is a custompayload
-            printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.sendEvent) { //type 4 is a custompayload
-            prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
-            console.log(spokenResponse[i].payload.img.data);
-            console.log(spokenResponse[i].payload.img.data["imgsrc"]);
-            printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
-
-        }
-        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
-    }
-    spokenRespond(messagesPrint);
+    });
 }

@@ -70,7 +70,8 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
                 // console.log(buttonId);
                 // console.log(sliderId);
                 send();
-                sendH();
+                login(userCode,userPass,domain,language);
+                clientHandler(userCode,domain,language,token,views,clientId);
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
         }
@@ -78,10 +79,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     $recBtn.on("click", function(event) { // SPEECH
         clearTimeout(tiempoStop);
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
-            console.log("getusermedia ok");
+            // console.log("getusermedia ok");
             navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
                 switchRecognition();
-                console.log("mic ok");
+                // console.log("mic ok");
             }).catch(function(err) { console.log(err.name + ": " + err.message);
                                     alert("Microphone is disabled/blocked in your device/browser. Please give permissions to use voice recognition.")}); // always check for errors at the end.;
         } else {
@@ -141,13 +142,13 @@ function printLink(dato, dato2) {
 function startRecognition() {    //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
     if (!('webkitSpeechRecognition' in window)) {
         upgrade();
-        console.log("no voice recognition");
+        // console.log("no voice recognition");
     } else {
         recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
         recognition.onstart = function(event) {
-            console.log("rec on");
+            // console.log("rec on");
             respond(messageRecording);
             $recBtn.addClass("is-actived");
             // $recBtn1.text("recording");
@@ -183,11 +184,11 @@ function stopRecognition() {
 function switchRecognition() {
 
     if (recognition) {
-        console.log("existing recognition");
+        // console.log("existing recognition");
         stopRecognition();
 
     } else {
-        console.log("new-start recognition");
+        // console.log("new-start recognition");
         startRecognition();
 
     }
@@ -277,8 +278,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
-            console.log(spokenResponse[i].payload.img.data);
-            console.log(spokenResponse[i].payload.img.data["imgsrc"]);
+            // console.log(spokenResponse[i].payload.img.data);
+            // console.log(spokenResponse[i].payload.img.data["imgsrc"]);
             printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
 
         }
@@ -382,8 +383,8 @@ function send_event(eventName,valor) {                //////////////////////////
         data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
-            console.log(eventName);
-            console.log(valor);
+            // console.log(eventName);
+            // console.log(valor);
         },
         error: function() {
             respond(messageInternalError);
@@ -556,7 +557,7 @@ function wait_time(timer){
     timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
     // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, timer);
     // send_event("wait_time");
-    console.log(timer);
+    // console.log(timer);
 }
 
 function printImgAndText(name, data, text, link){
@@ -564,7 +565,7 @@ function printImgAndText(name, data, text, link){
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    console.log(data["imgsrc"]);
+    // console.log(data["imgsrc"]);
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
