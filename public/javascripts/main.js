@@ -70,6 +70,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
                 // console.log(buttonId);
                 // console.log(sliderId);
                 send();
+                sendH();
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
         }
