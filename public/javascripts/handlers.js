@@ -1,20 +1,23 @@
-var baseUrl_H="http://towersoa.wmptech.com/SOA/tower4customers/";
+var baseUrl_H="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
 function sendH() {                //////////////////////////////////// SEND ////////////////////////////////////
     var text = $speechInput.val();
     var chatHistoryDiv = $("#chatHistory");
     $.ajax({
-        type: "GET",
-        url: baseUrl_H + "Login.ashx?userCode=juann@techrules.com&userPass=Sebastian1.&domain=TADVISOR&language=es-ES",
+        type: "POST",
+        url: baseUrl_H + "Login.ashx?userCode=juann@techrules.com&userPass=Sebastian1.&domain=TADVISOR&language=es-ES&callback=parseResponse", //&callback=parseResponse
             //url: baseUrl_H + "MyTAdvisorLoginInvestorHandler.ashx",
-        contentType: "application/json",//; charset=utf-8",
-        dataType: "json",
+        // dataType: "JSON",
+        jsonpCallback: 'callback',
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+
         // headers: {
         //     "Authorization": "Bearer " + accessToken
         //},
         // data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
-        success: function(data) {
-        console.log(data);
+        success: function(data1) {
+        var j=data1;
+        console.log(j);
             // prepareResponse_h(data);
         },
         error: function() {
