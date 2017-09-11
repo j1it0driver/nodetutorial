@@ -283,6 +283,12 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
 
         }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.login) { //type 4 is a custompayload
+            // console.log(spokenResponse[i].payload.img.data);
+            // console.log(spokenResponse[i].payload.img.data["imgsrc"]);
+            printLogin(spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
+
+        }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
     spokenRespond(messagesPrint);
@@ -599,4 +605,21 @@ function printImgAndText(name, data, text, link){
             "</div>");
     bubble_id++;
     x.bubble_id++;
+}
+function printLogin(username,password) {
+    loginInput="<div class='loginForm'>"+
+                // "<form action="">"+
+                    "<label><b>Username</b></label>"+
+                    "<input type='text' placeholder='Enter Username' name='uname' required>"+
+                    "<label><b>Password</b></label>"+
+                    "<input type='password' placeholder='Enter Password' name='psw' required>"+
+                    "<button type='submit' onclick=''>Login</button>"+
+                    "<input type='checkbox' checked='checked'> Remember me"+
+                // "</form>"+
+                "</div>";
+
+  "<div class='container' style='background-color:#f1f1f1'>"+
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  ""</div>""
 }
