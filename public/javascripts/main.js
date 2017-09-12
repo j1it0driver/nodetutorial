@@ -1,12 +1,9 @@
 // Este JS esta recortado del archivo index.hjs original del 24/08/2017
-
-
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
 
 var tadvisorToken = "aba2ecdbb9e744ba8b37ec6cf6a175d9", originalToken = "dce399808780466db898fad9bfae71fe";
 var productionToken="d8263496b81c4d82bc1b557574106e0f", floruristToken="1dfd6eb17bb240db9ec60813c5d0095a";
-// var accessToken = clientTOKEN.toString(),
-var accessToken = floruristToken,
+var accessToken = tadvisorToken,
 baseUrl = "https://api.api.ai/v1/",
 version="20170810",
 $speechInput,
@@ -19,7 +16,6 @@ messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos, bubble_id=0;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
-// var srcAddresses=JSON.parse("{'reaction':{'hopeful':{'src':'/images/reaction/hopeful.png'},'worried':{'src':'/images/reaction/worried.png'},'relaxed':{'src':'/images/reaction/relaxed.png'},'terrified':{'src':'/images/reaction/terrified.png'}}}");
 // var firstTypedLetter = 'Y';
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
@@ -57,22 +53,18 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if (timeout !== null) {
             clearTimeout(timeout);
         }
-        // $speechInput.val();
         if ($speechInput.val()==''){
         }
         else{
             $('#statusMessages').text("Typing...");
-            // $speechInput.val();
             timeout = setTimeout(function () {if($speechInput.val() != ''){$('#statusMessages').text("Waiting input or Enter...");}}, 3000);
         }
         if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
-                // console.log(buttonId);
-                // console.log(sliderId);
                 send();
-                // login(userCode,userPass,domain,language);
-                // clientHandler(userCode,domain,language,token,views,clientId);
+                login(userCode,userPass,domain,language);
+                clientHandler(userCode,domain,language,token,views,clientId);
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
         }
