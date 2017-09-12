@@ -8,6 +8,7 @@ function login(userCode,userPass,domain,language) {
     console.log(userPass);
     console.log(domain);
     console.log(language);
+    // console.log(PRUEBA);
     session_cookies=document.cookie;             //////////////////////////////////// SEND ////////////////////////////////////
     $.ajax({
         type: "POST",
@@ -43,7 +44,7 @@ function clientHandler(userCode,domain,language,token,views,clientId) {
     clientId="Fvnpqmh0xkGtn05BZi/6cg==";
     // clientId="-1"
     // hola="&clientId="+clientId;
-    // console.log(hola);
+    console.log(process.env.PRUEBA);
     //userCode="j1it0driver@gmail.com", userPass="judaor82";
     $.ajax({
         type: "POST",
