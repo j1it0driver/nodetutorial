@@ -30,7 +30,6 @@ var views=null;
 var clientId=null;
 var token=null;
 var email=null;
-// var envi=process.env;
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
