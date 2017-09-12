@@ -85,7 +85,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%; /*nothing*/
+    width: 70%; /*nothing*/
 
 }
 .container1 {
@@ -111,6 +111,18 @@ body {
 .textInputContainer{
     display: inline-block;
     width: 70%;
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .container{
+        width: 100%;
+    }
+    .container-left {
+        min-width: 300px;
+    }
+    .containerleft1{
+        width: 100%
+    }
 }
 #speech { /*input[type=text]*/
 
