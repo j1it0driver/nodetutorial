@@ -11,7 +11,7 @@
     <!-- <script type="application/javascript" src="/javascripts/handlers.js"></script> -->
 </head>
 
-<body onload="send_event('custom_event','Juan')">
+<body onload="send_event('custom_event','Jaime')">
     <noscript>
         <p>Bienvenido a Mi Sitio</p>
         <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript.
