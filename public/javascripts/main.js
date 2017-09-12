@@ -3,9 +3,10 @@
 
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
 
-var tadvisorToken = "8d84b192d8df4d85b023605ae7ac1e83", originalToken = "dce399808780466db898fad9bfae71fe";
+var tadvisorToken = "aba2ecdbb9e744ba8b37ec6cf6a175d9", originalToken = "dce399808780466db898fad9bfae71fe";
+var productionToken="d8263496b81c4d82bc1b557574106e0f", floruristToken="1dfd6eb17bb240db9ec60813c5d0095a";
 // var accessToken = clientTOKEN.toString(),
-var accessToken = tadvisorToken,
+var accessToken = floruristToken,
 baseUrl = "https://api.api.ai/v1/",
 version="20170810",
 $speechInput,
@@ -70,8 +71,8 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
                 // console.log(buttonId);
                 // console.log(sliderId);
                 send();
-                login(userCode,userPass,domain,language);
-                clientHandler(userCode,domain,language,token,views,clientId);
+                // login(userCode,userPass,domain,language);
+                // clientHandler(userCode,domain,language,token,views,clientId);
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
         }
@@ -606,20 +607,20 @@ function printImgAndText(name, data, text, link){
     bubble_id++;
     x.bubble_id++;
 }
-function printLogin(username,password) {
-    loginInput="<div class='loginForm'>"+
-                // "<form action="">"+
-                    "<label><b>Username</b></label>"+
-                    "<input type='text' placeholder='Enter Username' name='uname' required>"+
-                    "<label><b>Password</b></label>"+
-                    "<input type='password' placeholder='Enter Password' name='psw' required>"+
-                    "<button type='submit' onclick=''>Login</button>"+
-                    "<input type='checkbox' checked='checked'> Remember me"+
-                // "</form>"+
-                "</div>";
-
-  "<div class='container' style='background-color:#f1f1f1'>"+
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  ""</div>""
-}
+// function printLogin(username,password) {
+//     loginInput="<div class='loginForm'>"+
+//                 // "<form action="">"+
+//                     "<label><b>Username</b></label>"+
+//                     "<input type='text' placeholder='Enter Username' name='uname' required>"+
+//                     "<label><b>Password</b></label>"+
+//                     "<input type='password' placeholder='Enter Password' name='psw' required>"+
+//                     "<button type='submit' onclick=''>Login</button>"+
+//                     "<input type='checkbox' checked='checked'> Remember me"+
+//                 // "</form>"+
+//                 "</div>";
+//
+//   // "<div class='container' style='background-color:#f1f1f1'>"+
+//   //   <button type="button" class="cancelbtn">Cancel</button>
+//   //   <span class="psw">Forgot <a href="#">password?</a></span>
+//   // ""</div>""
+// }
