@@ -17,6 +17,19 @@ var tiempoSend, timeout = null, tiempoStop=null, buttonIds=[], sliderId=[], imgB
 var str="", datos, bubble_id=0;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 // var firstTypedLetter = 'Y';
+var uname, psw;
+var baseUrl_H="http://towersoa.wmptech.com/SOA/tower4customers/";
+var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
+var domain="TADVISOR";
+var language=null;
+var userId=null; //
+var userCode=null;
+var userPass=null;
+var tokenString=null;
+var views=null;
+var clientId=null;
+var token=null;
+var email=null;
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -63,8 +76,8 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
             event.preventDefault();
             if($speechInput.val() != ''){
                 send();
-                login(userCode,userPass,domain,language);
-                clientHandler(userCode,domain,language,token,views,clientId);
+                // login(userCode,userPass,domain,language);
+                // clientHandler(userCode,domain,language,token,views,clientId);
                 tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
             }
         }
@@ -589,6 +602,7 @@ function printImgAndText(name, data, text, link){
                         "</h1>"+
                     "</div>";
     }
+    datestr=getFormattedDate();
     chatHistoryDiv.append(
             "<div class='chat-message bubble-left' style='width: 90%; text-align:center'>"+
                 "<div class='chat-message-content' style= 'clear: right;'>" +
@@ -599,20 +613,36 @@ function printImgAndText(name, data, text, link){
     bubble_id++;
     x.bubble_id++;
 }
-// function printLogin(username,password) {
-//     loginInput="<div class='loginForm'>"+
-//                 // "<form action="">"+
-//                     "<label><b>Username</b></label>"+
-//                     "<input type='text' placeholder='Enter Username' name='uname' required>"+
-//                     "<label><b>Password</b></label>"+
-//                     "<input type='password' placeholder='Enter Password' name='psw' required>"+
-//                     "<button type='submit' onclick=''>Login</button>"+
-//                     "<input type='checkbox' checked='checked'> Remember me"+
-//                 // "</form>"+
-//                 "</div>";
-//
-//   // "<div class='container' style='background-color:#f1f1f1'>"+
-//   //   <button type="button" class="cancelbtn">Cancel</button>
-//   //   <span class="psw">Forgot <a href="#">password?</a></span>
-//   // ""</div>""
-// }
+function printLogin(username,password) {
+    var chatHistoryDiv = $("#chatHistory");
+    datestr=getFormattedDate();
+    chatHistoryDiv.append(
+    "<div class='chat-message bubble-left' style='width: 90%; text-align:center'>"+
+        "<div class='chat-message-content' style= 'clear: right;'>" +
+            "<div class='loginForm'>"+
+                // "<form action="">"+
+                "<label><b>Username</b></label>"+
+                "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
+                "<label><b>Password</b></label>"+
+                "<input type='password' placeholder='Enter Password' name='psw' required>"+
+                "<button type='submit' onclick=send_login()>Login</button>"+
+                "<label><input type='checkbox' checked='checked'> Remember me</label>"+
+            // "</form>"+
+            "</div>"+
+            "<div class='' style=''>"+
+              "<button type='button' class='cancelbtn'>Cancel</button>"+
+              "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
+            "</div>"+
+            "<h5 class='timestamp_right'>"+datestr+"</h5>"+
+        "</div>"+
+    "</div>");
+            console.log(uname);
+
+}
+function send_login(){
+    uname=$("input[name='uname']").val();
+    psw=$("input[name='psw']").val();
+    domain="TADVISOR";
+    language= navigator.language || navigator.userLanguage;
+    login(uname,psw,domain,language);
+}

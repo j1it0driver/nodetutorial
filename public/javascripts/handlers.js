@@ -1,22 +1,13 @@
-var baseUrl_H="http://towersoa.wmptech.com/SOA/tower4customers/";
-var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
-var domain="TADVISOR";
-var language=null;
-var userId=null; //
-var userCode=null;
-var userPass=null;
-var tokenString=null;
-var views=null;
-var clientId=null;
-var token=null;
-var email=null;
-
 
 function login(userCode,userPass,domain,language) {
-    userCode="juann@techrules.com";
-    userPass="Sebastian1.";
-    domain="TADVISOR";
-    language="es-ES";
+    // userCode="juann@techrules.com";
+    // userPass="Sebastian1.";
+    // domain="TADVISOR";
+    // language="es-ES";
+    console.log(userCode);
+    console.log(userPass);
+    console.log(domain);
+    console.log(language);
     session_cookies=document.cookie;             //////////////////////////////////// SEND ////////////////////////////////////
     $.ajax({
         type: "POST",

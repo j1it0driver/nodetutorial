@@ -3,8 +3,8 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../app'); //JDO: Busco a app en un directorio anterior
+//Require is used to acces files in other directories, separate files
+var app = require('../app'); //JDO: Busco la app en un directorio anterior, en este caso el directorio raiz de la aplicación "nodeappexp"
 var debug = require('debug')('nodeappexp:server'); //JDO nodeappexp es el nombre que se escribe en DEBUG
 var http = require('http');
 
@@ -12,20 +12,20 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3000'); //selecting port
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
-
+var server = http.createServer(app); //Building the server
+//(app) is the function that will handle de request from client y converts to responds to the client (our logic)
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port); //start the server
 server.on('error', onError);
 server.on('listening', onListening);
 

@@ -89,7 +89,7 @@ body {
     display: inline-block;
     width: 70%;
 }
-input[type=text] {
+#speech { /*input[type=text]*/
 
     background-color: #d2d2d2;
     border:none;
@@ -105,7 +105,7 @@ input[type=text] {
     width: 100%;
     -webkit-transition: all 0.35s ease-in;
 }
-input[type=text]:focus{
+#speech:focus{
     background-color: var(--lightgreen-color);
     border:none;
     border: 0px solid var(--gray-color);
@@ -131,21 +131,21 @@ input[type=text]:focus{
 ::-ms-input-placeholder { /* Microsoft Edge */
     color:    var(--darkgray-color);
 }
-input[type=text]:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+#speech:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: var(--darkgray-color);
 }
-input[type=text]:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+#speech:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: var(--darkgray-color));
     opacity:  1;
 }
-input[type=text]:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+#speech:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
     color: var(--darkgray-color);
     opacity:  1;
 }
-input[type=text]:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+#speech:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: var(--darkgray-color);
 }
-input[type=text]:focus::-ms-input-placeholder { /* Microsoft Edge */
+#speech:focus::-ms-input-placeholder { /* Microsoft Edge */
     color: var(--darkgray-color);
 }
 .status{
