@@ -30,10 +30,14 @@ var views=null;
 var clientId=null;
 var token=null;
 var email=null;
+var chat_bubbleId=[];
+var voices=speechSynthesis.getVoices();
+// var voices=speechSynthesis.getVoices();
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
+
 $(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
     $speechInput = $("#speech");
     $recBtn = $("#rec");
@@ -56,6 +60,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     x.registerListener(function(val) {
     //   alert("Someone changed the value of x.a to " + val);
       $("#bubbleId").text(x.bubble_id);
+
     });
     //////////////////////// END CustomEvent JAVASCRIPT /////////////////////////////////
 
@@ -123,6 +128,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     //     event.stopPropagation();
     // });
     // $("#bubbleId").text(bubble_id);
+    window.speechSynthesis.onvoiceschanged=function(){
+        voices=speechSynthesis.getVoices();
+    };
+
 });
 
 
@@ -246,8 +255,9 @@ function send() {                //////////////////////////////////// SEND /////
     });
     $('#statusMessages').text("Message Send!");
     datestr=getFormattedDate();
+    disableBubbles();
     chatHistoryDiv.append(
-        "<div class='chat-message bubble-right'>"+
+        "<div class='chat-message bubble-right' id='chatBubble"+bubble_id+"'>"+
             "<div class='fila'>"+
                 "<div class=''>"+
                     "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
@@ -334,7 +344,7 @@ function respond(val) { // function to print a text into chat message and to spe
     }
     datestr=getFormattedDate(); //respond's time
     chatHistoryDiv.append( // add bubble to bot side
-        "<div class='chat-message bubble-left'>"+
+        "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
             "<div class='fila'>"+
                 "<div class='chat-message-content'>" +
                     "<h4>"+val+"</h4>"+
@@ -350,6 +360,7 @@ function respond(val) { // function to print a text into chat message and to spe
             "</div>"+
         "</div>"
     );
+    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
     if (val !== messageRecording) {
@@ -364,6 +375,8 @@ function respond(val) { // function to print a text into chat message and to spe
         msg.lang = "en-GB";
         // console.log(msg.text);
         window.speechSynthesis.speak(msg);
+        console.log(voices);
+
     }
     $speechInput.focus();
 }
@@ -390,6 +403,10 @@ function getFormattedDate() {
     sec = (sec < 10 ? "0" : "") + sec;
     var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
     /*alert(str);*/
+    console.log(x.bubble_id);
+    console.log(bubble_id);
+    chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
+    console.log(chat_bubbleId[bubble_id]);
     return str;
 }
 
@@ -436,7 +453,7 @@ function printButton(arrayList){
     // console.log(printButton_i);
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-left'>"+
+            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
                 "<div class='fila'>"+
                     "<div class='chat-message-content'style='text-align:center;'>" +
                     printButton_i+
@@ -446,11 +463,11 @@ function printButton(arrayList){
                     "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                 "</div>"+
             "</div>");
+    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
-
 
 function quickReplyF(stringItem,buttonIds){
     $speechInput.val(stringItem);
@@ -480,7 +497,7 @@ function printSliderSelector(sliderName){
     // var sendSlice;
 
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-left'>"+
+            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
                 "<div class='fila'>"+
                     "<div class='chat-message-content''>" +
                         sliderButton+
@@ -494,6 +511,7 @@ function printSliderSelector(sliderName){
                     "</div>"+
                 "</div>"+
             "</div>");
+    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
     var slider = document.getElementById(sliderId);
@@ -512,6 +530,7 @@ function printSliderSelector(sliderName){
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
     // return sliderId+"btnSend";
 }
+
 function sendSlice(sliderId){
     var sliderIdbtnSend=sliderId+"SliderBtnSend";
     disableButtons([sliderIdbtnSend]);
@@ -540,7 +559,7 @@ function printImgButton(imgBtnName, imgBtnList){
         "</div>";
     }
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-left'>"+
+            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
                 "<div class='fila'>"+
                     "<div class='chat-message-content''>" +
                         imgButton_i+
@@ -551,6 +570,7 @@ function printImgButton(imgBtnName, imgBtnList){
                 "</div>"+
             "</div>"
     );
+    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
@@ -621,21 +641,23 @@ function printImgAndText(name, data, text, link){
     }
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-            "<div class='chat-message bubble-left' style='width: 90%; text-align:center'>"+
+            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"' style='width: 90%; text-align:center'>"+
                 "<div class='chat-message-content' style= 'clear: right;'>" +
                     imgButton_i+
                     "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
             "</div>");
+    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
+
 function printLogin(username,password) {
     var chatHistoryDiv = $("#chatHistory");
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-    "<div class='chat-message bubble-left' style='width: 90%; text-align:center'>"+
+    "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"' style='width: 90%; text-align:center'>"+
         "<div class='chat-message-content' style= 'clear: right;'>" +
             "<div class='loginForm'>"+
                 // "<form action="">"+
@@ -654,14 +676,24 @@ function printLogin(username,password) {
             "<h5 class='timestamp_right'>"+datestr+"</h5>"+
         "</div>"+
     "</div>");
-            console.log(uname);
+    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
+    bubble_id++;
+    x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 
 }
+
 function send_login(){
     uname=$("input[name='uname']").val();
     psw=$("input[name='psw']").val();
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
     login(uname,psw,domain,language);
+}
+
+function disableBubbles(){
+    for(i=0;i<chat_bubbleId.length;i++){
+        $(chat_bubbleId[i]).css("opacity","0.7");
+        console.log("disabled"+chat_bubbleId[i]);
+    }
 }

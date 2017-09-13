@@ -37,9 +37,7 @@ body {
 }
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
-    body{
-        font-size: 18px;
-    }
+
 }
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -122,6 +120,9 @@ body {
 }
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
+    body{
+        font-size: 18px;
+    }
     .container{
         width: 100%;
     }
@@ -154,11 +155,12 @@ body {
   .containerleft1{
       width: 100%
   }
+
 }
-@media all and (device-width: 1024px) and (device-height: 1366px) and (orientation:landscape) {
+@media all and (device-width: 1366px) and (device-height: 1024px) and (orientation:landscape) {
   .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
   body{
-      font-size: 20px;
+      font-size: 22px;
   }
   .container{
       width: 100%;
@@ -400,7 +402,7 @@ textarea:active, textarea:focus {
 .upper{
     height: 3.0em;
     display: block;
-    padding: 10px;
+    padding: 0.5em;
     width: 100%;
 }
 button > img,
