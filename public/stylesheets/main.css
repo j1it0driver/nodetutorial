@@ -63,12 +63,13 @@ body {
     clear: both;
     display: table;
 }
+
 .container0{
 }
 .container{
 
     display: block;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 6em);
     padding: 0px;
     width: 50%;
 }
@@ -393,7 +394,7 @@ textarea:active, textarea:focus {
     width: 50vw;
 }
 .upper{
-    height: 50px;
+    height: 3.0em;
     display: block;
     padding: 10px;
     width: 100%;

@@ -112,6 +112,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     window.onresize=function(){
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
     };
+    calcVH();
+    $(window).on('orientationchange resize', function() {
+        calcVH();
+    });
     // $(".debug_btn").click(function(event){
     //     event.stopPropagation();
     // });
@@ -136,6 +140,9 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
 //         else{$('#testing').text("Aqui otra vez");}
 //     }
 // }
+function calcVH() {
+    $('body').innerHeight( $(this).innerHeight() );
+}
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia || navigator.msGetUserMedia);
