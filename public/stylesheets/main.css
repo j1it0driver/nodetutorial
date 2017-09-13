@@ -131,6 +131,44 @@ body {
         width: 100%
     }
 }
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
+
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+  .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
+
+}
+@media all and (device-width: 1024px) and (device-height: 1366px) and (orientation:portrait) {
+  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
+  body{
+      font-size: 20px;
+  }
+  .container{
+      width: 100%;
+  }
+  .container-left {
+      min-width: 300px;
+  }
+  .containerleft1{
+      width: 100%
+  }
+}
+@media all and (device-width: 1024px) and (device-height: 1366px) and (orientation:landscape) {
+  .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
+  body{
+      font-size: 20px;
+  }
+  .container{
+      width: 100%;
+  }
+  .container-left {
+      min-width: 500px;
+  }
+  .containerleft1{
+      width: 100%
+  }
+}
 #speech { /*input[type=text]*/
 
     background-color: #d2d2d2;
@@ -141,8 +179,8 @@ body {
     color: #000000;
     font-family: "Titillium Web";
     font-size: 1.2em;
-    height: 35px;
-    line-height: 40px;
+    height: 2em;
+    line-height: 2em;
     padding: 0 0.75em;
     width: 100%;
     -webkit-transition: all 0.35s ease-in;
@@ -192,7 +230,7 @@ body {
 }
 .status{
     padding: 5px 5px 0px 5px;
-    height: 25px;
+    height: 1.5em;
 }
 textarea {
     background-color: #070F24;
@@ -253,8 +291,8 @@ textarea:active, textarea:focus {
 }
 #rec.btn{
     background: var(--userblue-color);
-    font-size: 0.9em;
-    height: 35px;
+    font-size: 1.2em;
+    height: 2em;
     padding: 0;
     min-width: 100px;
     /*display: inline-block;*/

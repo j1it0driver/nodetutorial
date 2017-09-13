@@ -109,6 +109,9 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
             $(".debug").toggleClass("is-active");
         }
     });
+    window.onresize=function(){
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    };
     // $(".debug_btn").click(function(event){
     //     event.stopPropagation();
     // });
@@ -434,6 +437,7 @@ function printButton(arrayList){
             "</div>");
     bubble_id++;
     x.bubble_id++;
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
 
 
@@ -494,6 +498,7 @@ function printSliderSelector(sliderName){
         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
     }
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
     // return sliderId+"btnSend";
 }
 function sendSlice(sliderId){
@@ -537,6 +542,7 @@ function printImgButton(imgBtnName, imgBtnList){
     );
     bubble_id++;
     x.bubble_id++;
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
 
 function getImgSrc(refName, imgName){
@@ -612,6 +618,7 @@ function printImgAndText(name, data, text, link){
             "</div>");
     bubble_id++;
     x.bubble_id++;
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
 function printLogin(username,password) {
     var chatHistoryDiv = $("#chatHistory");
@@ -637,6 +644,7 @@ function printLogin(username,password) {
         "</div>"+
     "</div>");
             console.log(uname);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 
 }
 function send_login(){
