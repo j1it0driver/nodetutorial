@@ -13,7 +13,7 @@ messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
+var tiempoSend, timeout = null, timeou2=null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos, bubble_id=0;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 // var firstTypedLetter = 'Y';
@@ -116,6 +116,9 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     $(window).on('orientationchange resize', function() {
         calcVH();
     });
+    $speechInput.on("focus click keyup",function(){
+            $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    });
     // $(".debug_btn").click(function(event){
     //     event.stopPropagation();
     // });
@@ -140,13 +143,14 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
 //         else{$('#testing').text("Aqui otra vez");}
 //     }
 // }
-function calcVH() {
-    $('body').innerHeight( $(this).innerHeight() );
-}
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
+function calcVH() {
+    $('body').innerHeight( $(this).innerHeight() );
+}
+
 
 
 function printLink(dato, dato2) {
@@ -579,7 +583,7 @@ function prepare_event(eventName,data){
 }
 
 function wait_time(timer){
-    timeout = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
+    timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
     // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, timer);
     // send_event("wait_time");
     // console.log(timer);

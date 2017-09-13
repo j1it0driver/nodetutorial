@@ -93,7 +93,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    width: 70%; /*nothing*/
+    width: 80%; /*nothing*/
 
 }
 .container1 {
@@ -292,10 +292,11 @@ textarea:active, textarea:focus {
 }
 #rec.btn{
     background: var(--userblue-color);
-    font-size: 1.2em;
-    height: 2em;
+    font-size: 1em;
+    height: 2.4em;
     padding: 0;
-    min-width: 100px;
+    min-width: 6em;
+    margin: 0;
     /*display: inline-block;*/
     vertical-align: top;
     /*box-shadow: -5px 5px 20px 2px #888888;*/
@@ -307,6 +308,9 @@ textarea:active, textarea:focus {
 }
 #rec.btn.is-actived{
     /*background: red;*/
+    font-size: 0.8em;
+    height: 3em;
+    min-width: 7.5em;
     animation-duration: 1500ms;
     animation-name: blink;
     animation-iteration-count: infinite;
@@ -414,7 +418,7 @@ button > span {
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    max-height: calc(100vh - 152px);
+    max-height: calc(100vh - 12em);
     padding: 0px 0px;
     position: sticky;
     width:100% ;
