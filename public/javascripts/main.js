@@ -183,7 +183,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
             respond(messageRecording);
             $recBtn.addClass("is-actived");
             // $recBtn1.text("recording");
-            updateRec();
+            // updateRec();
         };
         recognition.onresult = function(event) {
             recognition.onend = null;
@@ -205,11 +205,13 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
 
 function stopRecognition() {
     if (recognition) {
+
         recognition.stop();
         recognition = null;
     }
+    respond("stopRecognition");
     $recBtn.removeClass("is-actived");
-    updateRec();
+    // updateRec();
 }
 
 function switchRecognition() {
