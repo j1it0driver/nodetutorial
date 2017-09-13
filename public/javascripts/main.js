@@ -92,6 +92,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
             // console.log("getusermedia ok");
             navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
+
                 switchRecognition();
                 // console.log("mic ok");
             }).catch(function(err) { console.log(err.name + ": " + err.message);
@@ -173,6 +174,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         upgrade();
         // console.log("no voice recognition");
     } else {
+        respond("startRecognition");
         recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
@@ -217,6 +219,7 @@ function switchRecognition() {
         stopRecognition();
 
     } else {
+
         // console.log("new-start recognition");
         startRecognition();
 
@@ -445,7 +448,7 @@ function printButton(arrayList){
         buttonIds[i]=createIdFromText(arrayList[i]);
         printButton_i+=
             "<div class='quickReplyButton'style='display:inline-table;'>"+
-                "<button id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
+                "<button class='listButton' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
                 arrayList[i]+
                 "</button>"+
             "</div>";
@@ -502,7 +505,7 @@ function printSliderSelector(sliderName){
                     "<div class='chat-message-content''>" +
                         sliderButton+
                         "<div class='' id='' style='text-align: center;'>"+
-                            "<button id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+                            "<button class='sliderButton' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
                             "</button>"+
                         "</div>"+
                     "</div>"+
@@ -552,7 +555,7 @@ function printImgButton(imgBtnName, imgBtnList){
         imgButton_i+="<div class='imgButtonContainer'>"+
             "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
             "<div class='' id='' style='display:inline-table; padding-left:10px; vertical-align:middle;'>"+
-                "<button id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=sendImgBtn("+i+",'"+imgBtnName+"',"+'imgBtnIds'+","+'imgBtnIdsSend'+") style='width:100px'>"+
+                "<button class='listButton' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=sendImgBtn("+i+",'"+imgBtnName+"',"+'imgBtnIds'+","+'imgBtnIdsSend'+") style='width:100px'>"+
                 imgBtnList[i]+
                 "</button>"+
             "</div>"+
@@ -665,12 +668,12 @@ function printLogin(username,password) {
                 "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
                 "<label><b>Password</b></label>"+
                 "<input type='password' placeholder='Enter Password' name='psw' required>"+
-                "<button type='submit' onclick=send_login()>Login</button>"+
+                "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
                 "<label><input type='checkbox' checked='checked'> Remember me</label>"+
             // "</form>"+
             "</div>"+
             "<div class='' style=''>"+
-              "<button type='button' class='cancelbtn'>Cancel</button>"+
+              "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
               "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
             "</div>"+
             "<h5 class='timestamp_right'>"+datestr+"</h5>"+
