@@ -32,8 +32,14 @@ body {
     background-blend-mode: normal;
     background-size: 100% 100%;
     font-family: "Asap","Titillium Web", sans-serif, Arial;
-    font-size: 18px;
+    font-size: 14px;
     margin: 0;
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    body{
+        font-size: 18px;
+    }
 }
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -82,6 +88,7 @@ body {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
+    max-width: 500px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -133,7 +140,7 @@ body {
     box-shadow: -5px 5px 20px 2px #888888;*/
     color: #000000;
     font-family: "Titillium Web";
-    font-size: 16px;
+    font-size: 1.2em;
     height: 35px;
     line-height: 40px;
     padding: 0 0.75em;
@@ -167,21 +174,21 @@ body {
     color:    var(--darkgray-color);
 }
 #speech:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: var(--darkgray-color);
+    color: var(--gray-color);
 }
 #speech:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: var(--darkgray-color));
+    color: var(--gray-color));
     opacity:  1;
 }
 #speech:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: var(--darkgray-color);
+    color: var(--gray-color);
     opacity:  1;
 }
 #speech:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: var(--darkgray-color);
+    color: var(--gray-color);
 }
 #speech:focus::-ms-input-placeholder { /* Microsoft Edge */
-    color: var(--darkgray-color);
+    color: var(--gray-color);
 }
 .status{
     padding: 5px 5px 0px 5px;
@@ -191,7 +198,7 @@ textarea {
     background-color: #070F24;
     border: 1px solid #122435;
     color: #606B88;
-    font-size: 10px;
+    font-size: 0.9em;
     padding: 0.5em;
     width: 100%;
     height: 100%;
@@ -206,7 +213,7 @@ textarea:active, textarea:focus {
     color: white;
     cursor: pointer;
     font-family: "Titillium Web";
-    font-size: 18px;
+    font-size: 1.3em;
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
@@ -246,7 +253,7 @@ textarea:active, textarea:focus {
 }
 #rec.btn{
     background: var(--userblue-color);
-    font-size: 13px;
+    font-size: 0.9em;
     height: 35px;
     padding: 0;
     min-width: 100px;
@@ -310,14 +317,14 @@ textarea:active, textarea:focus {
     max-width: 300px;
     background-color: #008ACA;
     color: #FFFFFF;
-    font-size: 15px;
+    font-size: 1.1em;
     line-height:20px;
     padding: 1em;
 }
 .statusToUser {
     display: block;
     color: var(--gray-color);
-    font-size: 12px;
+    font-size: 0.8em;
     font-style: italic;
     font-weight: bold;
     line-height: 20px;
@@ -362,7 +369,7 @@ button > span {
     /*-webkit-border-radius: 11px;
     -moz-border-radius: 11px;
     border-radius: 11px;*/
-    font-size: 14px;
+    font-size: 1em;
     background: var(--chatbg-color);
     /*box-shadow: 0px 0px 10px 5px #888888;*/
     display: inline-block;
@@ -384,7 +391,7 @@ button > span {
     clear: both;
     color: white;
     display: block;
-    line-height: 1.4em;
+    line-height: 1.25em;
     margin: 4px;
     max-width:85%;
     min-width: 35%;
@@ -408,7 +415,7 @@ button > span {
 }
 .chat-message-content{
     display: table-cell;
-    padding: 20px 20px;
+    padding: 1em 0.5em 1em 1em;
     vertical-align: top;
 }
 .fila{
@@ -421,6 +428,7 @@ button > span {
     text-align: right;
     /*float:right; // para ver si clota en el texto
     font-size: 10px;*/
+    line-height: 0.9em;
     margin-bottom: 0;
     /*display: table-cell;*/
     position: absolute;
@@ -441,6 +449,7 @@ h4{
     /*margin: 0.5em;*/
     /*margin: 0;*/
     display: table-cell;
+    text-indent: 0.3em;
 }
 ::-webkit-scrollbar-track
 {
@@ -478,7 +487,7 @@ button {
     cursor: pointer;
     display: inline;
     font-family: "Titillium Web";
-    font-size: 14px;
+    font-size: 1em;
     font-weight: bold;
     min-width: 120px;
     margin: 1px;

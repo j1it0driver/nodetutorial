@@ -41,7 +41,7 @@
                         </div>
                     </div>
                         <button class="btn" id="rec"><img src="/images/mic.png" alt="" height='25px'><span id="rec1">Speak&nbsp&nbsp&nbsp</span></button>
-                        <label id="bubbleId" style="color: black;"></label>
+                        <label id="bubbleId" style="color: black; display: none;"></label>
 
                     <!-- <div id="spokenResponseTitle" class="responseTitle">
                         <label class="responseLabel"></label>
@@ -56,7 +56,7 @@
             <iframe id="frame" name="frame" class="i-frame" src="" frameBorder="0"></iframe>
         </div>
     </div>
-    <div class="debug">
+    <div class="debug" style="display: none;">
         <div class="debug_btn btn">
             Debug JSON results
         </div>
