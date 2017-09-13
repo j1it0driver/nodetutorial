@@ -178,7 +178,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
-        recognition.maxAlternatives=1;
+        // recognition.maxAlternatives=2;
         recognition.onstart = function(event) {
             // console.log("rec on");
             respond(messageRecording);
@@ -191,6 +191,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
             var text = "";
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 text += event.results[i][0].transcript;
+                respond("eventRecognition");
             }
             setInput(text);
             stopRecognition();
@@ -199,7 +200,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
             respond(messageCouldntHear);
             stopRecognition();
         };
-        recognition.lang = "en-GB";
+        recognition.lang = "en-US";
         recognition.start();
     }
 }
