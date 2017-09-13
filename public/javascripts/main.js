@@ -178,6 +178,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
+        recognition.maxAlternatives=1;
         recognition.onstart = function(event) {
             // console.log("rec on");
             respond(messageRecording);
