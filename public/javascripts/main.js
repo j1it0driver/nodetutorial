@@ -92,6 +92,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
             console.log("getusermedia ok");
             // navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             navigator.getUserMedia({ audio: true },function(e) {
                 console.log("audioTrue ok");
                 switchRecognition();
