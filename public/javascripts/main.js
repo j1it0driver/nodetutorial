@@ -254,7 +254,7 @@ function switchRecognition() {
 
     } else {
 
-        // console.log("new-start recognition");
+        // console.log("new-start recogn");
         console.log("startRecFunc ");
         startRecognition();
 
