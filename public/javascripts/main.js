@@ -216,14 +216,19 @@ function startRecognition() {
             setInput(final_transcript);
             stopRecognition();
         };
+        recognition.onerror = function(event){
+            console.log("error "+ event.error);
+            respond(event.error);
+        };
         recognition.onend = function() {
             console.log("rec.onend ");
             respond(messageCouldntHear);
-            stopRecognition();
+
             if(recognition){
                 recognition.lang = "en-GB";
                 recognition.start();// to restart recognition for mobile problem
             }
+            stopRecognition();
         };
         recognition.lang = "en-US";
         recognition.start();
@@ -411,7 +416,7 @@ function respond(val) { // function to print a text into chat message and to spe
         console.log(voices);
 
     }
-    $speechInput.focus();
+    // $speechInput.focus();
 }
 
 function spokenRespond (val){
@@ -729,4 +734,18 @@ function disableBubbles(){
         $(chat_bubbleId[i]).css("opacity","0.7");
         console.log("disabled"+chat_bubbleId[i]);
     }
+}
+function toggleFullScreen() {
+  var doc = window.document;
+  var docEl = doc.documentElement; // documentElement= body? -> no, is different
+
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);
+  }
 }

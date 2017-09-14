@@ -4,14 +4,15 @@
 <head>
     <link href="/images/tadvisor.ico" rel="shortcut icon">
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> <!--esta linea es para accesar el .css como archivo externo -->
+
     <title>BoT-advisor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
     <script type="application/javascript" src="/javascripts/handlers.js"></script>
 </head>
-
 <body onload="send_event('custom_event','Jaime')">
     <div class="full-screen">
         <noscript>

@@ -73,7 +73,7 @@ body {
 .container{
 
     display: block;
-    height: calc(100vh - 6em);
+    height: calc(100vh - 3em);
     padding: 0px;
     width: 50%;
 }
