@@ -90,9 +90,9 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
     $recBtn.on("click", function(event) { // SPEECH
         clearTimeout(tiempoStop);
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
-            // console.log("getusermedia ok");
+            console.log("getusermedia ok");
             navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
-
+                console.log("audioTrue ok");
                 switchRecognition();
                 // console.log("mic ok");
             }).catch(function(err) { console.log(err.name + ": " + err.message);
@@ -154,8 +154,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
 //     }
 // }
 function hasGetUserMedia() {
-  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
 function calcVH() {
     $('body').innerHeight( $(this).innerHeight() );
@@ -170,13 +169,18 @@ function printLink(dato, dato2) {
         // $('#frame').append(dato2);
 }
 
-function startRecognition() {    //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
+function startRecognition() {
+    console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
     if (!('webkitSpeechRecognition' in window)) {
+        console.log("no webkit");
         upgrade();
+        console.log("upgrade");
         // console.log("no voice recognition");
     } else {
         // respond("startRecognition");
         recognition = new webkitSpeechRecognition();
+        console.log("new recog ");
+        respond("new rec");
         recognition.continuous = false;
         recognition.interimResults = false;
         // recognition.maxAlternatives=2;
@@ -188,6 +192,8 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
             // updateRec();
         };
         recognition.onresult = function(event) {
+            respond("onresult");
+            console.log("rec.onresult ");
             recognition.onend = null;
             var text = "";
             for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -198,6 +204,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
             stopRecognition();
         };
         recognition.onend = function() {
+            console.log("rec.onend ");
             respond(messageCouldntHear);
             stopRecognition();
             if(recognition){
@@ -230,6 +237,7 @@ function switchRecognition() {
     } else {
 
         // console.log("new-start recognition");
+        console.log("startRecFunc ");
         startRecognition();
 
     }
