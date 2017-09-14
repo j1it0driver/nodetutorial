@@ -91,11 +91,13 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         clearTimeout(tiempoStop);
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
             console.log("getusermedia ok");
-            navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
+            // navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
+            navigator.getUserMedia({ audio: true },function(e) {
                 console.log("audioTrue ok");
                 switchRecognition();
                 // console.log("mic ok");
-            }).catch(function(err) { console.log(err.name + ": " + err.message);
+            // }).catch(function(err) { console.log(err.name + ": " + err.message);
+            },function(err) { console.log(err.name + ": " + err.message);
                                     alert("Microphone is disabled/blocked in your device/browser. Please give permissions to use voice recognition.")}); // always check for errors at the end.;
         } else {
           alert('getUserMedia() is not supported in your browser');
@@ -154,7 +156,7 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
 //     }
 // }
 function hasGetUserMedia() {
-  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+  return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
 function calcVH() {
     $('body').innerHeight( $(this).innerHeight() );
@@ -192,14 +194,15 @@ function startRecognition() {
             // updateRec();
         };
         recognition.onresult = function(event) {
-            respond("onresult");
-            console.log("rec.onresult ");
-            recognition.onend = null;
+
             var text = "";
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 text += event.results[i][0].transcript;
                 respond("eventRecognition");
             }
+            respond("onresult");
+            console.log("rec.onresult ");
+            recognition.onend = null;
             setInput(text);
             stopRecognition();
         };
