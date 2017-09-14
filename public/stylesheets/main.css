@@ -33,7 +33,13 @@ body {
     background-size: 100% 100%;
     font-family: "Asap","Titillium Web", sans-serif, Arial;
     font-size: 14px;
+    height: 100%; /*testing viewport problem*/
     margin: 0;
+    min-height: 100%; /*testing viewport problem*/
+}
+.full-screen{/*testing viewport problem*/
+    height: 100%;/*testing viewport problem*/
+    min-height: 100%;/*testing viewport problem*/
 }
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
@@ -306,7 +312,7 @@ textarea:active, textarea:focus {
     right: 5px;
 }
 #rec.btn:hover{
-    background: #ff3c4c ;
+    /*background: #ff3c4c ;*/
 }
 #rec.btn.is-actived{
     /*background: red;*/
@@ -327,7 +333,7 @@ textarea:active, textarea:focus {
    }
  }
 #rec.btn.is-actived:hover{
-    background: darkred;
+    /*background: darkred;*/
 
  }
 .debug_btn {

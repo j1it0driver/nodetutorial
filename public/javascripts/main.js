@@ -158,6 +158,7 @@ function hasGetUserMedia() {
 }
 function calcVH() {
     $('body').innerHeight( $(this).innerHeight() );
+    //window.screen.availHeight; //max height of a window when is maximized
 }
 
 
@@ -195,6 +196,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         recognition.onend = function() {
             respond(messageCouldntHear);
             stopRecognition();
+            recognition.start();// to restart recognition for mobile problem
         };
         recognition.lang = "en-GB";
         recognition.start();
