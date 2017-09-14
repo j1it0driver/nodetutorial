@@ -117,16 +117,16 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
             $(".debug").toggleClass("is-active");
         }
     });
-    window.onresize=function(){
-        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-    };
-    calcVH();
-    $(window).on('orientationchange resize', function() {
-        calcVH();
-    });
-    $speechInput.on("focus click keyup",function(){
-            $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-    });
+    // window.onresize=function(){
+    //     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    // };
+    // calcVH();
+    // $(window).on('orientationchange resize', function() {
+    //     calcVH();
+    // });
+    // $speechInput.on("focus click keyup",function(){
+    //         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    // });
     // $(".debug_btn").click(function(event){
     //     event.stopPropagation();
     // });
