@@ -104,7 +104,7 @@ body {
     height: auto;
     display: block;
     margin: 0 auto;
-    padding: 5px;
+    padding: 0px 0.25em;
     position: relative;
     text-align: left;
     width: 100%; /*360px*/
@@ -117,7 +117,7 @@ body {
 .container2{
     height: auto;
     margin: 0 auto;
-    padding: 5px;
+    padding: 0px 0.25em;
     width: 100%; /*360px;*/
 }
 .textInputContainer{
@@ -127,7 +127,7 @@ body {
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     body{
-        font-size: 18px;
+        font-size: 16px;
     }
     .container{
         width: 100%;
@@ -427,7 +427,7 @@ button > span {
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    max-height: calc(100vh - 12em);
+    max-height: calc(100vh - 7.5em);
     padding: 0px 0px;
     position: sticky;
     width:100% ;
