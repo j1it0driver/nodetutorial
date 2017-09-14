@@ -173,6 +173,7 @@ function printLink(dato, dato2) {
 }
 
 function startRecognition() {
+    var final_transcript;
     console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
     if (!('webkitSpeechRecognition' in window)) {
         console.log("no webkit");
@@ -185,7 +186,7 @@ function startRecognition() {
         console.log("new recog ");
         respond("new rec");
         recognition.continuous = false;
-        recognition.interimResults = false;
+        recognition.interimResults = true;
         // recognition.maxAlternatives=2;
         recognition.onstart = function(event) {
             // console.log("rec on");
@@ -197,14 +198,22 @@ function startRecognition() {
         recognition.onresult = function(event) {
 
             var text = "";
+            // for (var i = event.resultIndex; i < event.results.length; ++i) {
+            //     text += event.results[i][0].transcript;
+            //     respond("eventRecognition");
+            // }
             for (var i = event.resultIndex; i < event.results.length; ++i) {
-                text += event.results[i][0].transcript;
-                respond("eventRecognition");
-            }
+               if (event.results[i].isFinal) {
+                 final_transcript += event.results[i][0].transcript;
+               } else {
+                 text += event.results[i][0].transcript;
+               }
+             }
             respond("onresult");
             console.log("rec.onresult ");
             recognition.onend = null;
             setInput(text);
+            setInput(final_transcript);
             stopRecognition();
         };
         recognition.onend = function() {
