@@ -175,7 +175,7 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         upgrade();
         // console.log("no voice recognition");
     } else {
-        respond("startRecognition");
+        // respond("startRecognition");
         recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
@@ -216,7 +216,7 @@ function stopRecognition() {
         recognition.stop();
         recognition = null;
     }
-    respond("stopRecognition");
+    // respond("stopRecognition");
     $recBtn.removeClass("is-actived");
     // updateRec();
 }
