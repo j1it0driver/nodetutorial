@@ -8,6 +8,7 @@
   "lang":"en-GB",
   "scope": "/",
   "start_url": "/index.html",
+  "default_locale": "en",
   "display": "fullscreen",
   "orientation": "portrait",
   "permissions" : {
