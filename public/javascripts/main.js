@@ -196,7 +196,10 @@ function startRecognition() {    //////////////////////////////////// SPEECH REC
         recognition.onend = function() {
             respond(messageCouldntHear);
             stopRecognition();
-            recognition.start();// to restart recognition for mobile problem
+            if(recognition){
+                recognition.lang = "en-GB";
+                recognition.start();// to restart recognition for mobile problem
+            }
         };
         recognition.lang = "en-GB";
         recognition.start();
