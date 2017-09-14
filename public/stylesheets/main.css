@@ -255,9 +255,9 @@ textarea:active, textarea:focus {
     outline: 1px solid #48788B;
 }
 .btn {
-    background-color: var(--userblue-color);
+    /*background-color: var(--userblue-color);*/
     border: 0px solid var(--green-color);
-    color: white;
+    /*color: white;*/
     cursor: pointer;
     font-family: "Titillium Web";
     font-size: 1.3em;
@@ -300,6 +300,7 @@ textarea:active, textarea:focus {
 }
 #rec.btn{
     background: var(--userblue-color);
+    color: white;
     font-size: 1em;
     height: 2.4em;
     padding: 0;
@@ -315,7 +316,7 @@ textarea:active, textarea:focus {
     /*background: #ff3c4c ;*/
 }
 #rec.btn.is-actived{
-    /*background: red;*/
+    background: #ff3c4c;
     font-size: 0.8em;
     height: 3em;
     min-width: 7.5em;
@@ -529,7 +530,7 @@ h4{
 ::-webkit-scrollbar-thumb:active{
     background-color: var(--darkgray-color) ;
 }
-button {
+.listButton, .sliderButton{
     background-color: #FFFFFF;
     /*borderbaseliner: 1px solid #58585A;*/
     /*border-radius: 6px;*/
@@ -547,6 +548,30 @@ button {
     /*text-transform: uppercase;*/
     -webkit-transition: all 0.35s ease-in;
 }
+/*.sliderButton{
+
+}*/
+.formBtn{
+
+}
+/*button {
+    background-color: #FFFFFF;
+                        /*borderbaseliner: 1px solid #58585A;*/
+                        /*border-radius: 6px;*/
+/*    border-style: none;
+    color: var(--darkgray-color);
+    cursor: pointer;
+    display: inline;
+    font-family: "Titillium Web";
+    font-size: 1em;
+    font-weight: bold;
+    min-width: 120px;
+    margin: 1px;
+    padding: 0.1em 0.8em;
+    text-align: center;
+*/                        /*text-transform: uppercase;*/
+/*    -webkit-transition: all 0.35s ease-in;
+}*/
 button:hover:enabled{
     background-color: var(--userblue-color);
     color: white;
