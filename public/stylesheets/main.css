@@ -18,6 +18,7 @@
 }
 html {
     box-sizing: border-box; /*incluir margin border y padding en Height y Width*/
+    font-size: 14px;
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -32,7 +33,7 @@ body {
     background-blend-mode: normal;
     background-size: 100% 100%;
     font-family: "Roboto","Roboto Condensed","Helvetica","Asap","Titillium Web", sans-serif, Arial;
-    font-size: 14px;
+    font-size: 1rem;
     height: 100%; /*testing viewport problem*/
     margin: 0;
     min-height: 100%; /*testing viewport problem*/
@@ -59,8 +60,8 @@ body {
 .col-12 {width: 100%;}
 [class*="col-"] {
     float: left;
-    padding: 15px;
-    border: 1px solid red;
+    padding: 1rem;
+    border: 0.07rem solid red;
 }
 .row::after {
     content: "";
@@ -73,13 +74,13 @@ body {
 .container{
 
     display: block;
-    height: calc(100vh - 4em);
-    padding: 0px;
+    height: calc(100vh - 4rem);
+    padding: 0;
     width: 50%;
 }
 .container-left {
-    min-width: 400px; /*/400px*/
-    padding: 10px;
+    min-width: 28.5rem; /*/400px*/
+    padding: 0.7rem; /*10px*/
     position: relative;
     text-align: center;
 }
@@ -93,7 +94,7 @@ body {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    max-width: 500px;
+    max-width: 35rem;/*500px;*/
     left: 0;
     right: 0;
     bottom: 0;
@@ -544,8 +545,8 @@ h4{
     font-size: 1em;
     font-weight: normal;
     min-width: 120px;
-    margin: 1px;
-    padding: 0.1em 0.8em;
+    margin: 0.1em;
+    padding: 0.4em 0.8em;
     text-align: center;
     /*text-transform: uppercase;*/
     -webkit-transition: all 0.35s ease-in;
