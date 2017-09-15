@@ -3,6 +3,7 @@
 <!--Código de Github https://github.com/sitepoint-editors/Api-AI-Personal-Assistant-Demo/blob/master/index.html  -->
 <head>
     <link href="/images/tadvisor.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> <!--esta linea es para accesar el .css como archivo externo -->
 
     <title>BoT-advisor</title>

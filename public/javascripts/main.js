@@ -174,6 +174,7 @@ function printLink(dato, dato2) {
 
 function startRecognition() {
     var final_transcript;
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
     console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
     if (!('webkitSpeechRecognition' in window)) {
         console.log("no webkit");
@@ -182,7 +183,7 @@ function startRecognition() {
         // console.log("no voice recognition");
     } else {
         // respond("startRecognition");
-        recognition = new webkitSpeechRecognition();
+        recognition = new SpeechRecognition();
         console.log("new recog ");
         respond("new rec");
         recognition.continuous = false;

@@ -31,7 +31,7 @@ body {
     background-clip: border-box;
     background-blend-mode: normal;
     background-size: 100% 100%;
-    font-family: "Asap","Titillium Web", sans-serif, Arial;
+    font-family: "Roboto","Roboto Condensed","Helvetica","Asap","Titillium Web", sans-serif, Arial;
     font-size: 14px;
     height: 100%; /*testing viewport problem*/
     margin: 0;
@@ -73,7 +73,7 @@ body {
 .container{
 
     display: block;
-    height: calc(100vh - 3em);
+    height: calc(100vh - 4em);
     padding: 0px;
     width: 50%;
 }
@@ -127,7 +127,7 @@ body {
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     body{
-        font-size: 16px;
+        font-size: 14px;
     }
     .container{
         width: 100%;
@@ -136,7 +136,7 @@ body {
         min-width: 300px;
     }
     .containerleft1{
-        width: 100%
+        width: 95%
     }
 }
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
@@ -186,10 +186,10 @@ body {
     /*border-radius: 11px;
     box-shadow: -5px 5px 20px 2px #888888;*/
     color: #000000;
-    font-family: "Titillium Web";
-    font-size: 1.2em;
+    font-family: "Roboto","Titillium Web","Helvetica";
+    font-size: 1.1em;
     height: 2em;
-    line-height: 2em;
+    /*line-height: 2em;*/
     padding: 0 0.75em;
     width: 100%;
     -webkit-transition: all 0.35s ease-in;
@@ -204,38 +204,38 @@ body {
 
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    var(--darkgray-color);
+    color:    var(--gray-color);
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    var(--darkgray-color);
+    color:    var(--gray-color);
     opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    var(--darkgray-color);
+    color:    var(--gray-color);
     opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color:    var(--darkgray-color);
+    color:    var(--gray-color);
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
-    color:    var(--darkgray-color);
+    color:    var(--gray-color);
 }
 #speech:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: var(--gray-color);
+    color: var(--lightgray-color);
 }
 #speech:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: var(--gray-color));
+    color: var(--lightgray-color);
     opacity:  1;
 }
 #speech:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: var(--gray-color);
+    color: var(--lightgray-color);
     opacity:  1;
 }
 #speech:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: var(--gray-color);
+    color: var(--lightgray-color);
 }
 #speech:focus::-ms-input-placeholder { /* Microsoft Edge */
-    color: var(--gray-color);
+    color: var(--lightgray-color);
 }
 .status{
     padding: 5px 5px 0px 5px;
@@ -259,9 +259,9 @@ textarea:active, textarea:focus {
     border: 0px solid var(--green-color);
     /*color: white;*/
     cursor: pointer;
-    font-family: "Titillium Web";
+    font-family: "Roboto","Titillium Web","Helvetica";
     font-size: 1.3em;
-    font-weight: bold;
+    font-weight:normal;
     text-align: center;
     text-transform: uppercase;
     -webkit-transition: all 0.35s ease-in;
@@ -300,9 +300,10 @@ textarea:active, textarea:focus {
 }
 #rec.btn{
     background: var(--userblue-color);
+    border:0;
     color: white;
-    font-size: 1em;
-    height: 2.4em;
+    font-size: 1.1em;
+    height: 2em;
     padding: 0;
     min-width: 6em;
     margin: 0;
@@ -316,10 +317,11 @@ textarea:active, textarea:focus {
     /*background: #ff3c4c ;*/
 }
 #rec.btn.is-actived{
+    border: 0;
     background: #ff3c4c;
-    font-size: 0.8em;
-    height: 3em;
-    min-width: 7.5em;
+    font-size: 1.1em;
+    height: 2em;
+    min-width: 6em;
     animation-duration: 1500ms;
     animation-name: blink;
     animation-iteration-count: infinite;
@@ -378,8 +380,8 @@ textarea:active, textarea:focus {
     color: var(--gray-color);
     font-size: 0.8em;
     font-style: italic;
-    font-weight: bold;
-    line-height: 20px;
+    font-weight: normal;
+    line-height: 1.2em;
     text-align: right;
 }
 .responseLink{
@@ -407,9 +409,9 @@ textarea:active, textarea:focus {
     width: 50vw;
 }
 .upper{
-    height: 3.0em;
+    height: 4em;
     display: block;
-    padding: 0.5em;
+    padding: 1em;
     width: 100%;
 }
 button > img,
@@ -438,7 +440,7 @@ button > span {
     height: 100%;
 }
 .chat-message{
-    border: black solid 0;
+    /*border: black solid 0;*/
     /*border-radius: 11px;*/
     clear: both;
     color: white;
@@ -507,9 +509,9 @@ h4{
 {
     -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.2);
     background-color: var(--chatbg-color);
-    border-radius: 11px;
+    /*border-radius: 11px;
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;*/
 }
 ::-webkit-scrollbar
 {
@@ -538,9 +540,9 @@ h4{
     color: var(--darkgray-color);
     cursor: pointer;
     display: inline;
-    font-family: "Titillium Web";
+    font-family:"Roboto","Titillium Web","Helvetica";
     font-size: 1em;
-    font-weight: bold;
+    font-weight: normal;
     min-width: 120px;
     margin: 1px;
     padding: 0.1em 0.8em;
