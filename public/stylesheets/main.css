@@ -34,6 +34,7 @@ body {
     background-size: 100% 100%;
     font-family: "Roboto","Roboto Condensed","Helvetica","Asap","Titillium Web", sans-serif, Arial;
     font-size: 1rem;
+    font-weight: lighter;
     height: 100%; /*testing viewport problem*/
     margin: 0;
     min-height: 100%; /*testing viewport problem*/
@@ -262,7 +263,7 @@ textarea:active, textarea:focus {
     cursor: pointer;
     font-family: "Roboto","Titillium Web","Helvetica";
     font-size: 1.3rem;
-    font-weight:normal;
+    font-weight:lighter;
     text-align: center;
     text-transform: uppercase;
     -webkit-transition: all 0.35s ease-in;
@@ -313,6 +314,9 @@ textarea:active, textarea:focus {
     /*box-shadow: -5px 5px 20px 2px #888888;*/
     position: absolute;
     right: 0.35rem;
+}
+#rec.btn>img{
+    height: 1.1rem;
 }
 #rec.btn:hover{
     /*background: #ff3c4c ;*/
@@ -483,6 +487,7 @@ button > span {
     text-align: right;
     /*float:right; // para ver si clota en el texto
     font-size: 10px;*/
+    font-weight: normal;
     line-height: 0.9rem;
     margin-bottom: 0;
     /*display: table-cell;*/
@@ -501,6 +506,7 @@ img.avatar{
 }
 h4{
     -webkit-margin-before: 0;
+    font-weight: normal;
     /*margin: 0.5em;*/
     /*margin: 0;*/
     display: table-cell;
