@@ -9,12 +9,13 @@
     --blue-color: #48788B;
     --userblue-color: #008ACA;rgb(137, 3, 144)
     --userBlue-color:#3769cc;
-    --lightblue-color: lightblue;
+    --lightblue-color: rgb(152,200,222);
     --darkblue-color:rgb(82, 109, 121);
     --userwhite-color: #d2d2d2;
     --pink-color: pink;
     --violet-color: #606B88;
     --chatbg-color: rgb(210, 210, 210); /*use rgba to apply opacity*/
+    --bubble-left: white;
 }
 html {
     box-sizing: border-box; /*incluir margin border y padding en Height y Width*/
@@ -197,7 +198,7 @@ body {
     -webkit-transition: all 0.35s ease-in;
 }
 #speech:focus{
-    background-color: var(--lightgreen-color);
+    background-color: var(--lightblue-color);
     border:none;
     border: 0rem solid var(--gray-color);
     /*border-radius: 11px;*/
@@ -223,21 +224,21 @@ body {
     color:    var(--gray-color);
 }
 #speech:focus::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: var(--lightgray-color);
+    color: white;
 }
 #speech:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: var(--lightgray-color);
+    color:white;
     opacity:  1;
 }
 #speech:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: var(--lightgray-color);
+    color: white;
     opacity:  1;
 }
 #speech:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: var(--lightgray-color);
+    color: white;
 }
 #speech:focus::-ms-input-placeholder { /* Microsoft Edge */
-    color: var(--lightgray-color);
+    color: white;
 }
 .status{
     padding: 0.35rem 0.35remx 0rem 0.35rem;
@@ -324,7 +325,7 @@ textarea:active, textarea:focus {
 #rec.btn.is-actived{
     border: 0;
     background: #ff3c4c;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     height: 2rem;
     min-width: 6rem;
     animation-duration: 1500ms;
@@ -434,7 +435,7 @@ button > span {
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    max-height: calc(100vh - 7.5rem);
+    max-height: calc(100vh - 11.5rem);
     padding: 0rem 0rem;
     position: sticky;
     width:100% ;
@@ -448,7 +449,7 @@ button > span {
     /*border: black solid 0;*/
     /*border-radius: 11px;*/
     clear: both;
-    color: white;
+
     display: block;
     line-height: 1.25rem;
     margin: 0.28rem;
@@ -461,20 +462,39 @@ button > span {
     /*-moz-border-radius: 11px;
     -webkit-border-radius: 11px;*/
 }
+.chatUpper{
+    background: var(--gray-color);
+    display: table;
+    color:white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    height: 4em;
+    padding: 0.7rem 0.7rem 0.7rem 1.4rem;
+    /*vertical-align: middle;*/
+    width: 100%;
+}
+.chatUpper>span{
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .bubble-right {
 
     background: #008ACA;
+    color: white;
     /*box-shadow: 10px 10px 20px rgb(82, 109, 121);*/
     float:right;
 }
 .bubble-left {
-    background: var(--green-color);
+    background: var(--bubble-left);
+    color: var(--darkgray-color);
+
     /*box-shadow: -10px 10px 20px #536b53;*/
     float:left;
 }
 .chat-message-content{
     display: table-cell;
-    padding: 1rem 0.5rem 1rem 1rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
     vertical-align: top;
 }
 .fila{
@@ -500,9 +520,12 @@ button > span {
     float: left; //para ver si flota en el texto
 }
 img.avatar{
-    border-radius: 1.2rem;
-    margin:0.7rem;
-    width: 2.4rem;
+
+    border-radius: 2.6rem;
+    display: table-cell;
+    float: left;
+    padding: 0;
+    height: 100%;
 }
 h4{
     -webkit-margin-before: 0;
@@ -510,7 +533,7 @@ h4{
     /*margin: 0.5em;*/
     /*margin: 0;*/
     display: table-cell;
-    text-indent: 0.3rem;
+    /*text-indent: 0.3rem;*/
 }
 ::-webkit-scrollbar-track
 {
@@ -541,16 +564,16 @@ h4{
 }
 .listButton, .sliderButton{
     background-color: #FFFFFF;
-    /*borderbaseliner: 1px solid #58585A;*/
-    /*border-radius: 6px;*/
     border-style: none;
-    color: var(--darkgray-color);
+    border: 0.14rem solid var(--userblue-color);
+    border-radius: 1rem;
+    color: var(--userblue-color);
     cursor: pointer;
     display: inline;
     font-family:"Roboto","Titillium Web","Helvetica";
     font-size: 1rem;
     font-weight: normal;
-    min-width: 8.5rem;
+    min-width: 9rem;
     margin: 0.1rem;
     padding: 0.4rem 0.8rem;
     text-align: center;
@@ -585,13 +608,17 @@ button:hover:enabled{
     background-color: var(--userblue-color);
     color: white;
 }
-button:disabled{
+/*button:disabled{
     background-color: var(--usergray-color);
     color: var(--darkgray-color);
     text-decoration:line-through;
 
-}
+}*/
 .quickReplyButton{
+}
+.responseBtn{
+    background-color: var(--userblue-color);
+    color: white;
 }
 /*////////////////////////////////////////7//////////   Slider   //////////////////////////////////////////////////////////*/
 #slidecontainer {
@@ -604,7 +631,7 @@ button:disabled{
     appearance: none;
     width: 100%; /* Full-width */
     height: 1.4rem; /* Specified height */
-    background-color: #FFFFFF; /* color background */
+    background-color: var(--lightgray-color); /* color background */
     outline: none; /* Remove outline */
     /*opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */*/
     /*-webkit-transition: .2s; /* 0.2 seconds transition on hover */*/
@@ -629,7 +656,7 @@ button:disabled{
 .slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    width: 1.1rem; /* Set a specific slider handle width */
+    width: 0.8rem; /* Set a specific slider handle width */
     height: 1.7rem; /* Slider handle height */
     background: var(--gray-color); /* color background */
     cursor: pointer; /* Cursor on hover */

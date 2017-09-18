@@ -178,14 +178,13 @@ function startRecognition() {
     console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
     if (!('webkitSpeechRecognition' in window)) {
         console.log("no webkit");
-        upgrade();
+        // upgrade();
         console.log("upgrade");
         // console.log("no voice recognition");
     } else {
         // respond("startRecognition");
         recognition = new SpeechRecognition();
         console.log("new recog ");
-        respond("new rec");
         recognition.continuous = false;
         recognition.interimResults = true;
         // recognition.maxAlternatives=2;
@@ -194,7 +193,7 @@ function startRecognition() {
             respond(messageRecording);
             $recBtn.addClass("is-actived");
             // $recBtn1.text("recording");
-            // updateRec();
+            updateRec();
         };
         recognition.onresult = function(event) {
 
@@ -210,7 +209,6 @@ function startRecognition() {
                  text += event.results[i][0].transcript;
                }
              }
-            respond("onresult");
             console.log("rec.onresult ");
             recognition.onend = null;
             setInput(text);
@@ -244,7 +242,7 @@ function stopRecognition() {
     }
     // respond("stopRecognition");
     $recBtn.removeClass("is-actived");
-    // updateRec();
+    updateRec();
 }
 
 function switchRecognition() {
@@ -252,13 +250,10 @@ function switchRecognition() {
     if (recognition) {
         // console.log("existing recognition");
         stopRecognition();
-
     } else {
-
         // console.log("new-start recogn");
         console.log("startRecFunc ");
         startRecognition();
-
     }
 }
 
@@ -275,48 +270,50 @@ function updateRec() {
 function send() {                //////////////////////////////////// SEND ////////////////////////////////////
     var text = $speechInput.val();
     var chatHistoryDiv = $("#chatHistory");
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "query?v=20170810",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        headers: {
-            "Authorization": "Bearer " + accessToken
-        },
-        data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
-        success: function(data) {
-            datos=data.result.fulfillment.messages;
-            prepareResponse(data);
-        },
-        error: function() {
-            respond(messageInternalError);
-        }
-    });
-    $('#statusMessages').text("Message Send!");
-    datestr=getFormattedDate();
-    disableBubbles();
-    chatHistoryDiv.append(
-        "<div class='chat-message bubble-right' id='chatBubble"+bubble_id+"'>"+
-            "<div class='fila'>"+
-                "<div class=''>"+
-                    "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
-                "</div>"+
-                "<div class='chat-message-content'>" +
-                    "<h4>"+text+"</h4>"+
-                "</div>"+
-                "<div class='col' height='32px' width='32px'>"+
+    if($speechInput.val() != ''){
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "query?v=20170810",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                "Authorization": "Bearer " + accessToken
+            },
+            data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
+            success: function(data) {
+                datos=data.result.fulfillment.messages;
+                prepareResponse(data);
+            },
+            error: function() {
+                respond(messageInternalError);
+            }
+        });
+        $('#statusMessages').text("Message Send!");
+        datestr=getFormattedDate();
+        disableBubbles();
+        chatHistoryDiv.append(
+            "<div class='chat-message bubble-right' id='chatBubble"+bubble_id+"'>"+
+                "<div class='fila'>"+
+                    "<div class=''>"+
+                        "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
+                    "</div>"+
+                    "<div class='chat-message-content'>" +
+                        "<h4>"+text+"</h4>"+
+                    "</div>"+
+                    "<div class='col' height='32px' width='32px'>"+
 
-                    "<div class='fila'>"+
-                      "<h5 class='timestamp_right'>"+datestr+"</h5>"+
+                        "<div class='fila'>"+
+                          "<h5 class='timestamp_right'>"+datestr+"</h5>"+
+                        "</div>"+
                     "</div>"+
                 "</div>"+
-            "</div>"+
-        "</div>"
-    );
-    bubble_id++;
-    x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //autoscroll to the end of content
-    $speechInput.val("");
+            "</div>"
+        );
+        bubble_id++;
+        x.bubble_id++;
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //autoscroll to the end of content
+        $speechInput.val("");
+    }
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
@@ -389,9 +386,9 @@ function respond(val) { // function to print a text into chat message and to spe
                     "<h4>"+val+"</h4>"+
                 "</div>"+
                 "<div class='col' height='32px' width='32px'>"+
-                    "<div class=''>"+
-                        "<img class='avatar' src='/images/avatartadvisor0.png' alt=''>"+
-                    "</div>"+
+                    // "<div class=''>"+
+                    //     "<img class='avatar' src='/images/avatartadvisor0.png' alt=''>"+
+                    // "</div>"+
                     "<div class='fila'>"+
                       "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                     "</div>"+
@@ -484,7 +481,7 @@ function printButton(arrayList){
         buttonIds[i]=createIdFromText(arrayList[i]);
         printButton_i+=
             "<div class='quickReplyButton'style='display:inline-table;'>"+
-                "<button class='listButton' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
+                "<button class='listButton' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
                 arrayList[i]+
                 "</button>"+
             "</div>";
@@ -508,21 +505,23 @@ function printButton(arrayList){
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
 
-function quickReplyF(stringItem,buttonIds){
+function quickReplyF(stringItem,buttonId,buttonIds){
     $speechInput.val(stringItem);
-    disableButtons(buttonIds);
+    disableButtons(buttonId,buttonIds);
     send();
 }
 
-function disableButtons(buttonIdsToDisable){
+function disableButtons(buttonIdSelected,buttonIdsToDisable){
     for(i=0;i<buttonIdsToDisable.length;i++){
         // console.log(buttonIdsToDisable[i]);
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
+
     }
+    $('#'+buttonIdSelected).addClass("responseBtn");
 }
 
-function createIdFromText(idText){
-    return idText.toLowerCase().replace(/ /g,"");
+function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
+    return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"");
 }
 
 function printSliderSelector(sliderName){
@@ -572,8 +571,8 @@ function printSliderSelector(sliderName){
 
 function sendSlice(sliderId){
     var sliderIdbtnSend=sliderId+"SliderBtnSend";
-    disableButtons([sliderIdbtnSend]);
-    disableButtons([sliderId]);
+    disableButtons([sliderIdbtnSend],[sliderIdbtnSend]);
+    disableButtons([sliderId],[sliderId]);
     send();
  }
 
@@ -591,7 +590,7 @@ function printImgButton(imgBtnName, imgBtnList){
         imgButton_i+="<div class='imgButtonContainer'>"+
             "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
             "<div class='' id='' style='display:inline-table; padding-left:10px; vertical-align:middle;'>"+
-                "<button class='listButton' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=sendImgBtn("+i+",'"+imgBtnName+"',"+'imgBtnIds'+","+'imgBtnIdsSend'+") style='width:100px'>"+
+                "<button class='listButton' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style='width:100px'>"+
                 imgBtnList[i]+
                 "</button>"+
             "</div>"+
@@ -623,13 +622,14 @@ function getImgSrc(refName, imgName){
     return srcAddress;
 }
 
-function sendImgBtn(imgBtnIndex, imgBtnName, imgBtnIds, imgBtnIdsSend){
-    for(i=0;i<datos.length;i++)
-        if(datos[i].type==4 && datos[i].payload.imgButton){
-                $speechInput.val(datos[i].payload.imgButton.data[imgBtnIndex]);
-        }
-    disableButtons(imgBtnIdsSend);
-    disableButtons(imgBtnIds);
+function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
+    // for(i=0;i<datos.length;i++)
+    //     if(datos[i].type==4 && datos[i].payload.imgButton){
+    //             $speechInput.val(datos[i].payload.imgButton.data[imgBtnItem]);
+    //     }
+    $speechInput.val(imgBtnItem);
+    disableButtons(imgBtnName+"ImgBtnSend", imgBtnIdsSend);
+    disableButtons(imgBtnName, imgBtnIds);
     send();
 }
 
