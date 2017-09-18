@@ -2,53 +2,76 @@
 <html>
 <!--Código de Github https://github.com/sitepoint-editors/Api-AI-Personal-Assistant-Demo/blob/master/index.html  -->
 <head>
-    <link href="https://www.mytadvisor.com/wp-content/themes/tadvisor/tadvisor.ico" rel="shortcut icon">
+    <link href="/images/tadvisor.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> <!--esta linea es para accesar el .css como archivo externo -->
-    <title>BoT-advisor </title>
+
+    <title>BoT-advisor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
+    <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
+    <script type="application/javascript" src="/javascripts/handlers.js"></script>
 </head>
+<body onload="send_event('custom_event','Jaime')">
+    <div class="full-screen">
+        <noscript>
+            <p>Bienvenido a Mi Sitio</p>
+            <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript.
+              Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
+        </noscript>
+        <!-- <div class="upper">
 
-<body onload="send_event()">
-    <div class = "upper">
-        <img src="https://www.mytadvisor.com/wp-content/themes/tadvisor/img/logoadvisor.png">
-        <img src="http://www.techrules.com/wp-content/uploads/2017/07/logotipo_techrules2017.png" alt='' height='50px' style="float: right;">
-    </div>
+        </div> -->
+        <div class = "upper">
+            <img src="/images/logoadvisor.png" height='100%'>
+            <img src="/images/logotipo_techrules2017.png" alt='' height='100%' style="float: right;">
+        </div>
+        <div class="container0">
+            <div class="container container-left">
+                <div class="containerleft1">
+                    <div class="container2">
+                          <div class="scrollable chatMessages" id="chatHistory">
+                          </div>
+                    </div>
+                    <div class="container1">
+                        <!-- <div class="responseLink">
+                            <label id="testing">Test text</label>
+                            <button id="refresh_btn" name="refresh_button" onclick="window.location.reload();" style="margin-top: 5px; float: right; color: #58585A">Refresh</button>
+                        </div>
+                         -->
+                         <div class="textInputContainer">
+                            <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
+                            <div class="status">
+                                <label class="statusToUser" id="statusMessages">Let's start a conversation...</label> <!-- ejemplo twilio -->
+                            </div>
+                        </div>
+                            <button class="btn" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1">Speak</span></button>
+                            <label id="bubbleId" style="color: black; display: none;"></label>
 
-    <div class="container-left">
-        <div id="chatHistory" class="scrollable chatMessages"></div>
-    </div>
-
-    <div class="container-right">
-        <div class="container1">
-            <div class="responseLink">
-                <label id="testing">Test text</label>
-                <button id="refresh_btn" name="refresh_button" onclick="window.location.reload();" style="margin-top: 5px; float: right; color: #58585A">Refresh</button>
+                        <!-- <div id="spokenResponseTitle" class="responseTitle">
+                            <label class="responseLabel"></label>
+                        </div>
+                        <div id="spokenResponse" class="scrollable spoken-response">
+                            <div class="spoken-response__text"></div>
+                        </div> -->
+                    </div>
+                </div>
             </div>
-            <div id="frame" class="i-frame"></div>
-            <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
-            <div>
-                <label id="statusMessages" class="statusToUser">Let's start a conversation...</label> <!-- ejemplo twilio -->
-            </div>
-            <button id="rec" class="btn"><img src="https://images.vexels.com/media/users/3/136405/isolated/lists/bf4aefa9cbfadb3b125d50a89c90f2a1-microphone-record-sound-icon.png" alt="" height='55px'><span id="rec1">Speak</span></button>
-            <div id="spokenResponseTitle" class="responseTitle">
-                <label class="responseLabel"></label>
-            </div>
-            <div id="spokenResponse" class="scrollable spoken-response">
-                <div class="spoken-response__text"></div>
+            <div class="container container-right">
+                <iframe id="frame" name="frame" class="i-frame" src="" frameBorder="0"></iframe>
             </div>
         </div>
-        <div class="debug">
-            <div class="debug__btn btn">
+        <div class="debug" style="display: none;">
+            <div class="debug_btn btn">
                 Debug JSON results
             </div>
-            <div class="debug__content">
-                <textarea id="response" cols="40" rows="20"></textarea>
+            <div class="debug_content">
+                <textarea class="response" id="response" ></textarea>
             </div>
         </div>
     </div>
-
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
 </body>
 
@@ -61,3 +84,4 @@
 <p>Welcome to {{ title }}</p>
 </body> -->
 </html>
+<!-- <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> -->
