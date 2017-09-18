@@ -565,7 +565,7 @@ function printSliderSelector(sliderName){
         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
     }
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
     // return sliderId+"btnSend";
 }
 
@@ -611,7 +611,7 @@ function printImgButton(imgBtnName, imgBtnList){
     //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
 }
 
 function getImgSrc(refName, imgName){
@@ -689,7 +689,7 @@ function printImgAndText(name, data, text, link){
     //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
 }
 
 function printLogin(username,password) {
@@ -718,7 +718,7 @@ function printLogin(username,password) {
     //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
     bubble_id++;
     x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
 
 }
 

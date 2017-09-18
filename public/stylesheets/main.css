@@ -120,7 +120,7 @@ body {
 .container2{
     height: auto;
     margin: 0 auto;
-    padding: 0rem 0.25rem;
+    padding: 0.25rem 0.25rem 0 0.25rem;
     width: 100%; /*360px;*/
 }
 .textInputContainer{
@@ -435,7 +435,7 @@ button > span {
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    max-height: calc(100vh - 11.5rem);
+    max-height: calc(100vh - 12rem);
     padding: 0rem 0rem;
     position: sticky;
     width:100% ;
