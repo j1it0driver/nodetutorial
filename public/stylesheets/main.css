@@ -107,7 +107,7 @@ body {
     height: auto;
     display: block;
     margin: 0 auto;
-    padding: 0rem 0.25rem;
+    padding: 0.15rem 0.25rem;
     position: relative;
     text-align: left;
     width: 100%; /*360px*/
@@ -127,71 +127,18 @@ body {
     display: inline-block;
     width: 70%;
 }
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    html{
-        font-size: 14px;
-    }
-    .container{
-        width: 100%;
-    }
-    .container-left {
-        min-width: 21.5rem;
-    }
-    .containerleft1{
-        width: 95%
-    }
-}
-@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
-  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
 
-}
-@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
-  .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
-
-}
-@media all and (device-width: 1024px) and (device-height: 1366px) and (orientation:portrait) {
-  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
-  html{
-      font-size: 20px;
-  }
-  .container{
-      width: 100%;
-  }
-  .container-left {
-      min-width: 21.5rem;
-  }
-  .containerleft1{
-      width: 100%
-  }
-
-}
-@media all and (device-width: 1366px) and (device-height: 1024px) and (orientation:landscape) {
-  .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
-  body{
-      font-size: 22px;
-  }
-  .container{
-      width: 100%;
-  }
-  .container-left {
-      min-width: 35.7rem;
-  }
-  .containerleft1{
-      width: 100%
-  }
-}
 #speech { /*input[type=text]*/
 
     background-color: #d2d2d2;
     border:none;
+    border-radius: 0.42rem;
     /*border: 1px solid #888888;*/
-    /*border-radius: 11px;
-    box-shadow: -5px 5px 20px 2px #888888;*/
+    /*box-shadow: -5px 5px 20px 2px #888888;*/
     color: #000000;
     font-family: "Roboto","Titillium Web","Helvetica";
-    font-size: 1.1rem;
-    height: 2rem;
+    font-size: 1rem;
+    height: 2.2rem;
     /*line-height: 2em;*/
     padding: 0 0.75rem;
     width: 100%;
@@ -200,9 +147,10 @@ body {
 #speech:focus{
     background-color: var(--lightblue-color);
     border:none;
-    border: 0rem solid var(--gray-color);
-    /*border-radius: 11px;*/
-    outline: 0.07rem solid var(--gray-color);
+    border: 0.07rem solid var(--userblue-color);
+    border-radius: 0.42rem;
+    outline: 0;
+    /*outline: 0.07rem solid var(--gray-color)*/
     /*box-shadow: -5px 5px 20px 2px var(--userblue-color);*/
 
 }
@@ -266,7 +214,7 @@ textarea:active, textarea:focus {
     font-size: 1.3rem;
     font-weight:lighter;
     text-align: center;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     -webkit-transition: all 0.35s ease-in;
 }
 .btn:hover {
@@ -304,11 +252,12 @@ textarea:active, textarea:focus {
 #rec.btn{
     background: var(--userblue-color);
     border:0;
+    border-radius: 1rem;
     color: white;
     font-size: 1.1rem;
-    height: 2rem;
+    height: 2.2rem;
     padding: 0;
-    min-width: 6rem;
+    width: 5rem;
     margin: 0;
     /*display: inline-block;*/
     vertical-align: top;
@@ -317,7 +266,7 @@ textarea:active, textarea:focus {
     right: 0.35rem;
 }
 #rec.btn>img{
-    height: 1.1rem;
+    height: 1.3rem;
 }
 #rec.btn:hover{
     /*background: #ff3c4c ;*/
@@ -326,8 +275,8 @@ textarea:active, textarea:focus {
     border: 0;
     background: #ff3c4c;
     font-size: 0.8rem;
-    height: 2rem;
-    min-width: 6rem;
+    height: 2.2rem;
+    width: 5rem;
     animation-duration: 1500ms;
     animation-name: blink;
     animation-iteration-count: infinite;
@@ -427,15 +376,15 @@ button > span {
 /*ejemplo twilio INI---------------------------------------------*/
 .chatMessages{
     /*-webkit-border-radius: 11px;
-    -moz-border-radius: 11px;
-    border-radius: 11px;*/
+    -moz-border-radius: 11px;*/
+    border-radius: 0.42rem;
     font-size: 1rem;
     background: var(--chatbg-color);
     /*box-shadow: 0px 0px 10px 5px #888888;*/
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    max-height: calc(100vh - 12rem);
+    max-height: calc(100vh - 12.3rem);
     padding: 0rem 0rem;
     position: sticky;
     width:100% ;
@@ -447,14 +396,14 @@ button > span {
 }
 .chat-message{
     /*border: black solid 0;*/
-    /*border-radius: 11px;*/
+    border-radius: 0.42rem;
     clear: both;
 
     display: block;
     line-height: 1.25rem;
     margin: 0.28rem;
     max-width:85%;
-    min-width: 35%;
+    min-width: 20%;
     min-height: 4.2rem;
     /*padding: .5em .5em;*/
     position: relative;
@@ -464,12 +413,13 @@ button > span {
 }
 .chatUpper{
     background: var(--gray-color);
+    border-radius: 0.42rem;
     display: table;
     color:white;
     font-size: 1.2rem;
     font-weight: bold;
     height: 4em;
-    padding: 0.7rem 0.7rem 0.7rem 1.4rem;
+    padding: 1.05rem 1.4rem 1.05rem 1.4rem;
     /*vertical-align: middle;*/
     width: 100%;
 }
@@ -479,17 +429,13 @@ button > span {
 }
 
 .bubble-right {
-
     background: #008ACA;
     color: white;
-    /*box-shadow: 10px 10px 20px rgb(82, 109, 121);*/
     float:right;
 }
 .bubble-left {
     background: var(--bubble-left);
     color: var(--darkgray-color);
-
-    /*box-shadow: -10px 10px 20px #536b53;*/
     float:left;
 }
 .chat-message-content{
@@ -521,7 +467,8 @@ button > span {
 }
 img.avatar{
 
-    border-radius: 2.6rem;
+    border-radius: 1.9rem;
+    box-shadow: 0 0 0.01rem 0.01rem white;
     display: table-cell;
     float: left;
     padding: 0;
@@ -571,9 +518,9 @@ h4{
     cursor: pointer;
     display: inline;
     font-family:"Roboto","Titillium Web","Helvetica";
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: normal;
-    min-width: 9rem;
+    min-width: 8rem;
     margin: 0.1rem;
     padding: 0.4rem 0.8rem;
     text-align: center;
@@ -707,4 +654,62 @@ a:visited{
     position: absolute;
     right: 0;
     bottom: 0;
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    html{
+        font-size: 14px;
+    }
+    .container{
+        width: 100%;
+    }
+    .container-left {
+        min-width: 21.5rem;
+    }
+    .containerleft1{
+        width: 95%
+    }
+    .chatUpper{
+        height: 3rem;
+        padding: 0.7rem 1.4rem;
+    }
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
+
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+  .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
+
+}
+@media all and (device-width: 1024px) and (device-height: 1366px) and (orientation:portrait) {
+  .ipad-portrait { color: red; } /* your css rules for ipad portrait */
+  html{
+      font-size: 20px;
+  }
+  .container{
+      width: 100%;
+  }
+  .container-left {
+      min-width: 21.5rem;
+  }
+  .containerleft1{
+      width: 100%
+  }
+
+}
+@media all and (device-width: 1366px) and (device-height: 1024px) and (orientation:landscape) {
+  .ipad-landscape { color: blue; } /* your css rules for ipad landscape */
+  body{
+      font-size: 22px;
+  }
+  .container{
+      width: 100%;
+  }
+  .container-left {
+      min-width: 35.7rem;
+  }
+  .containerleft1{
+      width: 100%
+  }
 }

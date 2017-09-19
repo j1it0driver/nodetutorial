@@ -294,14 +294,13 @@ function send() {                //////////////////////////////////// SEND /////
         chatHistoryDiv.append(
             "<div class='chat-message bubble-right' id='chatBubble"+bubble_id+"'>"+
                 "<div class='fila'>"+
-                    "<div class=''>"+
-                        "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
-                    "</div>"+
+                    // "<div class=''>"+
+                    //     "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
+                    // "</div>"+
                     "<div class='chat-message-content'>" +
                         "<h4>"+text+"</h4>"+
                     "</div>"+
                     "<div class='col' height='32px' width='32px'>"+
-
                         "<div class='fila'>"+
                           "<h5 class='timestamp_right'>"+datestr+"</h5>"+
                         "</div>"+
@@ -732,7 +731,7 @@ function send_login(){
 
 function disableBubbles(){
     for(i=0;i<chat_bubbleId.length;i++){
-        $(chat_bubbleId[i]).css("opacity","0.7");
+        $(chat_bubbleId[i]).css("opacity","0.4");
         console.log("disabled"+chat_bubbleId[i]);
     }
 }

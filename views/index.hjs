@@ -51,7 +51,7 @@
                                 <label class="statusToUser" id="statusMessages">Let's start a conversation...</label> <!-- ejemplo twilio -->
                             </div>
                         </div>
-                            <button class="btn" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1">Speak</span></button>
+                            <button class="btn" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1"></span></button>
                             <label id="bubbleId" style="color: black; display: none;"></label>
 
                         <!-- <div id="spokenResponseTitle" class="responseTitle">
