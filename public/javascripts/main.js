@@ -1,48 +1,37 @@
-// Este JS esta recortado del archivo index.hjs original del 24/08/2017
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
-
 var tadvisorToken = "aba2ecdbb9e744ba8b37ec6cf6a175d9", originalToken = "dce399808780466db898fad9bfae71fe";
-var productionToken="d8263496b81c4d82bc1b557574106e0f", floruristToken="1dfd6eb17bb240db9ec60813c5d0095a";
-var accessToken = tadvisorToken,
-baseUrl = "https://api.api.ai/v1/",
-version="20170810",
-$speechInput,
-$recBtn,
-recognition,
+var productionToken="d8263496b81c4d82bc1b557574106e0f", floruristToken="1dfd6eb17bb240db9ec60813c5d0095a", accessToken = tadvisorToken;
+var baseUrl = "https://api.api.ai/v1/", version="20170810";
+var $speechInput, $recBtn, $recBtn1, $statusMessages, $debugBtn;
+var recognition,
 messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, timeou2=null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos, bubble_id=0;
+var datestr;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
-// var firstTypedLetter = 'Y';
 var uname, psw;
 var baseUrl_H="http://towersoa.wmptech.com/SOA/tower4customers/";
 var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
-var language=null;
-var userId=null; //
-var userCode=null;
-var userPass=null;
-var tokenString=null;
-var views=null;
-var clientId=null;
-var token=null;
-var email=null;
+var language=null, userId=null, userCode=null, userPass=null, tokenString=null, views=null, clientId=null, token=null, email=null;
 var chat_bubbleId=[];
 var voices=speechSynthesis.getVoices();
-// var voices=speechSynthesis.getVoices();
+var chatHistoryDiv = $("#chatHistory");
+var toAppend;
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
 
-$(document).ready(function() {   //////////////////////////////////// JS PRINCIPAL ////////////////////////////////////
+$(document).ready(function() {
     $speechInput = $("#speech");
     $recBtn = $("#rec");
     $recBtn1 = $("#rec1");
-        //////////////////////// START CustomEvent JAVASCRIPT /////////////////////////////////
+    $statusMessages = $('#statusMessages');
+    $debugBtn = $(".debug_btn");
     x = {
       bubble_idInternal: bubble_id,
       bubble_idListener: function(val) {},
@@ -58,13 +47,10 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
       }
     }
     x.registerListener(function(val) {
-    //   alert("Someone changed the value of x.a to " + val);
       $("#bubbleId").text(x.bubble_id);
 
     });
-    //////////////////////// END CustomEvent JAVASCRIPT /////////////////////////////////
-
-    $speechInput.keyup(function(event) { //I change keyup for keypress//
+    $speechInput.keyup(function(event) {
         if (tiempoSend !== null) {
             clearTimeout(tiempoSend);
         }
@@ -74,16 +60,14 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         if ($speechInput.val()==''){
         }
         else{
-            $('#statusMessages').text("Typing...");
-            timeout = setTimeout(function () {if($speechInput.val() != ''){$('#statusMessages').text("Waiting input or Enter...");}}, 3000);
+            $statusMessages.text("Typing...");
+            timeout = setTimeout(function () {if($speechInput.val() != ''){$statusMessages.text("Waiting input or Enter...");}}, 3000);
         }
         if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
                 send();
-                // login(userCode,userPass,domain,language);
-                // clientHandler(userCode,domain,language,token,views,clientId);
-                tiempoSend=setTimeout(function(){$('#statusMessages').text("Next input...");},2000);
+                tiempoSend=setTimeout(function(){$statusMessages.text("Next input...");},2000);
             }
         }
     });
@@ -91,19 +75,15 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         clearTimeout(tiempoStop);
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
             console.log("getusermedia ok");
-            // navigator.mediaDevices.getUserMedia({ audio: true }).then(function() {
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             navigator.getUserMedia({ audio: true },function(e) {
                 console.log("audioTrue ok");
                 switchRecognition();
-                // console.log("mic ok");
-            // }).catch(function(err) { console.log(err.name + ": " + err.message);
             },function(err) { console.log(err.name + ": " + err.message);
                                     alert("Microphone is disabled/blocked in your device/browser. Please give permissions to use voice recognition.")}); // always check for errors at the end.;
         } else {
           alert('getUserMedia() is not supported in your browser');
         }
-
     });
     $(".debug_btn").on("click", function() { //function to manage DEBUG behavior
         $(this).next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
@@ -112,64 +92,27 @@ $(document).ready(function() {   //////////////////////////////////// JS PRINCIP
         return false;
     });
     $(document).click(function(event) { //function to manage DEBUG behavior
-        if($(".debug_btn").hasClass("is-active") && !$(".debug_content").is(event.target)){
-            $(".debug_btn").next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
-            $(".debug_btn").toggleClass("is-active");
+        if($debugBtn.hasClass("is-active") && !$(".debug_content").is(event.target)){
+            $debugBtn.next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
+            $debugBtn.toggleClass("is-active");
             $(".debug").toggleClass("is-active");
         }
     });
-    // window.onresize=function(){
-    //     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-    // };
-    // calcVH();
-    // $(window).on('orientationchange resize', function() {
-    //     calcVH();
-    // });
-    // $speechInput.on("focus click keyup",function(){
-    //         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-    // });
-    // $(".debug_btn").click(function(event){
-    //     event.stopPropagation();
-    // });
-    // $("#bubbleId").text(bubble_id);
-    window.speechSynthesis.onvoiceschanged=function(){
-        voices=speechSynthesis.getVoices();
-    };
 
 });
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// function printInput() {          //////////////////////////////////// PRINT FUNCTIONS ////////////////////////////////////
-/////////////////////////
-//     if($speechInput.val() != ''){
-//         $('#testing').text($speechInput.val());
-//     }
-//     else{
-//         if($speechInput.val() == ''){$('#testing').text("Estoy vacio");}
-//         else{$('#testing').text("Aqui otra vez");}
-//     }
-// }
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
+
 function calcVH() {
     $('body').innerHeight( $(this).innerHeight() );
-    //window.screen.availHeight; //max height of a window when is maximized
 }
-
-
 
 function printLink(dato, dato2) {
         $('#testing').text('');
         $('#testing').append(dato);
-        // $('#frame').append(dato2);
 }
 
 function startRecognition() {
@@ -180,28 +123,18 @@ function startRecognition() {
         console.log("no webkit");
         // upgrade();
         console.log("upgrade");
-        // console.log("no voice recognition");
     } else {
-        // respond("startRecognition");
         recognition = new SpeechRecognition();
         console.log("new recog ");
         recognition.continuous = false;
         recognition.interimResults = true;
-        // recognition.maxAlternatives=2;
         recognition.onstart = function(event) {
-            // console.log("rec on");
             respond(messageRecording);
             $recBtn.addClass("is-actived");
-            // $recBtn1.text("recording");
             updateRec();
         };
         recognition.onresult = function(event) {
-
             var text = "";
-            // for (var i = event.resultIndex; i < event.results.length; ++i) {
-            //     text += event.results[i][0].transcript;
-            //     respond("eventRecognition");
-            // }
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                if (event.results[i].isFinal) {
                  final_transcript += event.results[i][0].transcript;
@@ -236,22 +169,17 @@ function startRecognition() {
 
 function stopRecognition() {
     if (recognition) {
-
         recognition.stop();
         recognition = null;
     }
-    // respond("stopRecognition");
     $recBtn.removeClass("is-actived");
     updateRec();
 }
 
 function switchRecognition() {
-
     if (recognition) {
-        // console.log("existing recognition");
         stopRecognition();
     } else {
-        // console.log("new-start recogn");
         console.log("startRecFunc ");
         startRecognition();
     }
@@ -267,9 +195,9 @@ function updateRec() {
     tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
 }
 
-function send() {                //////////////////////////////////// SEND ////////////////////////////////////
+function send() {           //////////////////////////////////// SEND ////////////////////////////////////
     var text = $speechInput.val();
-    var chatHistoryDiv = $("#chatHistory");
+    var toAppend;
     if($speechInput.val() != ''){
         $.ajax({
             type: "POST",
@@ -289,28 +217,9 @@ function send() {                //////////////////////////////////// SEND /////
             }
         });
         $('#statusMessages').text("Message Send!");
-        datestr=getFormattedDate();
         disableBubbles();
-        chatHistoryDiv.append(
-            "<div class='chat-message bubble-right' id='chatBubble"+bubble_id+"'>"+
-                "<div class='fila'>"+
-                    // "<div class=''>"+
-                    //     "<img class='avatar' src='https://www.mytadvisor.com/SOA20/Profiles/defaultuser_SMALL.png' alt=''>"+
-                    // "</div>"+
-                    "<div class='chat-message-content'>" +
-                        "<h4>"+text+"</h4>"+
-                    "</div>"+
-                    "<div class='col' height='32px' width='32px'>"+
-                        "<div class='fila'>"+
-                          "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                        "</div>"+
-                    "</div>"+
-                "</div>"+
-            "</div>"
-        );
-        bubble_id++;
-        x.bubble_id++;
-        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000); //autoscroll to the end of content
+        toAppend= "<h4>"+text+"</h4>";
+        appendHtml(toAppend,"right");
         $speechInput.val("");
     }
 }
@@ -326,11 +235,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             messagesPrint+=  "> "+ dataObj + "<br />";
             respond(dataObj);
-            // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
-            // arrayList=spokenResponse[i].payload.items;
-            // printButton(arrayList);
             printButton(spokenResponse[i].payload.items);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
@@ -343,21 +249,14 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
-            // console.log(spokenResponse[i].payload.img.data);
-            // console.log(spokenResponse[i].payload.img.data["imgsrc"]);
             printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
-
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.login) { //type 4 is a custompayload
-            // console.log(spokenResponse[i].payload.img.data);
-            // console.log(spokenResponse[i].payload.img.data["imgsrc"]);
             printLogin(spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
-
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
     spokenRespond(messagesPrint);
-    ////// val.$1.$2 , se refiere a la respuesta JSON (valor) data.key1.key2
     if(val.result.metadata.intentName == "location"){
         location_c = val.result.parameters["geo-country"]; //por el dash "-" no se usa . punto
         news_country="https://news.google.com/news/search/section/q/"+location_c+"/"+location_c+"?hl=es-419&ned=es_co";
@@ -373,47 +272,22 @@ function debugRespond(val) {
 }
 
 function respond(val) { // function to print a text into chat message and to speech the text outloud
-    var chatHistoryDiv = $("#chatHistory");
+    var toAppend;
     if (val == "") {
         val = messageSorry;
     }
-    datestr=getFormattedDate(); //respond's time
-    chatHistoryDiv.append( // add bubble to bot side
-        "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
-            "<div class='fila'>"+
-                "<div class='chat-message-content'>" +
-                    "<h4>"+val+"</h4>"+
-                "</div>"+
-                "<div class='col' height='32px' width='32px'>"+
-                    // "<div class=''>"+
-                    //     "<img class='avatar' src='/images/avatartadvisor0.png' alt=''>"+
-                    // "</div>"+
-                    "<div class='fila'>"+
-                      "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                    "</div>"+
-                "</div>"+
-            "</div>"+
-        "</div>"
-    );
-    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
-    bubble_id++;
-    x.bubble_id++;
+    toAppend="<h4>"+val+"</h4>";
+    appendHtml(toAppend,"left");
     if (val !== messageRecording) {
         var msg = new SpeechSynthesisUtterance();
         msg.voiceURI = "native";
         msg.pitch = 1.1;
         msg.rate = 1.1;
         msg.text = val.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,""); //quitar el espacio en blanco del speech
-        // msg.text = val.replace(/<br \/>/g,"").replace(/<br>/g,""); //quitar el salto de linea del speech
-        // msg.text = val.replace(/<i>/g,"").replace(/<\/i>/g,""); //quitar el italic del speech
-        // msg.text = val.replace(/\n/g,"");
         msg.lang = "en-GB";
-        // console.log(msg.text);
         window.speechSynthesis.speak(msg);
-        console.log(voices);
-
     }
-    // $speechInput.focus();
+    $speechInput.focus();
 }
 
 function spokenRespond (val){
@@ -437,11 +311,7 @@ function getFormattedDate() {
     min = (min < 10 ? "0" : "") + min;
     sec = (sec < 10 ? "0" : "") + sec;
     var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
-    /*alert(str);*/
-    console.log(x.bubble_id);
-    console.log(bubble_id);
     chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
-    console.log(chat_bubbleId[bubble_id]);
     return str;
 }
 
@@ -461,8 +331,6 @@ function send_event(eventName,valor) {                //////////////////////////
         data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
             prepareResponse(data);
-            // console.log(eventName);
-            // console.log(valor);
         },
         error: function() {
             respond(messageInternalError);
@@ -474,34 +342,20 @@ function send_event(eventName,valor) {                //////////////////////////
 
 function printButton(arrayList){
     var printButton_i="";
-    var chatHistoryDiv = $("#chatHistory");
-    buttonIds[i]=[];
-    for(i=0;i<arrayList.length;i++){
+    var toAppend;
+    buttonIds[i]=null;
+    for(var i in arrayList){
+    // for(i=0;i<arrayList.length;i++){
         buttonIds[i]=createIdFromText(arrayList[i]);
         printButton_i+=
-            "<div class='quickReplyButton'style='display:inline-table;'>"+
                 "<button class='listButton' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
-                arrayList[i]+
-                "</button>"+
-            "</div>";
+                    arrayList[i]+
+                "</button>";
     }
-    // console.log(printButton_i);
-    datestr=getFormattedDate();
-    chatHistoryDiv.append(
-            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
-                "<div class='fila'>"+
-                    "<div class='chat-message-content'style='text-align:center;'>" +
-                    printButton_i+
-                    "</div>"+
-                "</div>"+
-                "<div class='fila'>"+
-                    "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                "</div>"+
-            "</div>");
-    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
-    bubble_id++;
-    x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    toAppend="<div class='quickReplyButton'style='display:inline-table; text-align:center;'>"+
+        printButton_i+
+        "</div>";
+    appendHtml(toAppend,"left");
 }
 
 function quickReplyF(stringItem,buttonId,buttonIds){
@@ -512,9 +366,7 @@ function quickReplyF(stringItem,buttonId,buttonIds){
 
 function disableButtons(buttonIdSelected,buttonIdsToDisable){
     for(i=0;i<buttonIdsToDisable.length;i++){
-        // console.log(buttonIdsToDisable[i]);
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
-
     }
     $('#'+buttonIdSelected).addClass("responseBtn");
 }
@@ -524,48 +376,25 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
 }
 
 function printSliderSelector(sliderName){
-    var chatHistoryDiv = $("#chatHistory");
+    var toAppend;
     var sliderId=createIdFromText(sliderName);
-    datestr=getFormattedDate();
     var sliderButton ="<div id='slidecontainer'>"+
-            "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider' id='"+sliderId+"'>"+
-        "</div>";
-
-    // var sendSlice;
-
-    chatHistoryDiv.append(
-            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
-                "<div class='fila'>"+
-                    "<div class='chat-message-content''>" +
-                        sliderButton+
-                        "<div class='' id='' style='text-align: center;'>"+
-                            "<button class='sliderButton' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
-                            "</button>"+
-                        "</div>"+
-                    "</div>"+
-                    "<div class='fila'>"+
-                        "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                    "</div>"+
-                "</div>"+
-            "</div>");
-    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
-    bubble_id++;
-    x.bubble_id++;
+                "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider' id='"+sliderId+"'>"+
+            "</div>";
+    toAppend= sliderButton+
+            "<div class='' id='' style='text-align: center;'>"+
+                "<button class='sliderButton' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+                "</button>"+
+            "</div>";
+    appendHtml(toAppend,"left");
     var slider = document.getElementById(sliderId);
-    // var output = document.getElementById("testing");
     var output = document.getElementById(sliderId+"SliderBtnSend");
-    // var output = $("#"+sliderId+"btnSend");
-    // slider.defaultValue;
     output.innerHTML = slider.value;
     $speechInput.val(slider.value);
-    // output.value = slider.value;
-    // sendSlice="<div><button type='button'>Send "+output.innerHTML+"</button></div>";
     slider.oninput = function() {
         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
     }
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
-    // return sliderId+"btnSend";
 }
 
 function sendSlice(sliderId){
@@ -576,8 +405,7 @@ function sendSlice(sliderId){
  }
 
 function printImgButton(imgBtnName, imgBtnList){
-    var chatHistoryDiv = $("#chatHistory");
-    // var imgButtonsName=createIdFromText(imgBtnName); //formateo el nombre: sin espacios, sin mayusculas
+    var toAppend;
     var imgSrc;
     var imgButton_i="";
     datestr=getFormattedDate();
@@ -595,37 +423,17 @@ function printImgButton(imgBtnName, imgBtnList){
             "</div>"+
         "</div>";
     }
-    chatHistoryDiv.append(
-            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"'>"+
-                "<div class='fila'>"+
-                    "<div class='chat-message-content''>" +
-                        imgButton_i+
-                    "</div>"+
-                    "<div class='fila'>"+
-                        "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                    "</div>"+
-                "</div>"+
-            "</div>"
-    );
-    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
-    bubble_id++;
-    x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
+    toAppend=imgButton_i;
+    appendHtml(toAppend,"left");
 }
 
 function getImgSrc(refName, imgName){
-    // var srcAddresses={"'"+imgName+"'":"'/images/"+refName+"/"+imgName+".png'"};
     var srcAddress,ref;
-    // var srcAddresses={"reaction":{"hopeful":"/images/reaction/hopeful.png","worried":"/images/reaction/worried.png","relaxed":"/images/reaction/relaxed.png","terrified":"/images/reaction/terrified.png"}};
     srcAddress=srcAddresses[refName][imgName].src;
     return srcAddress;
 }
 
 function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
-    // for(i=0;i<datos.length;i++)
-    //     if(datos[i].type==4 && datos[i].payload.imgButton){
-    //             $speechInput.val(datos[i].payload.imgButton.data[imgBtnItem]);
-    //     }
     $speechInput.val(imgBtnItem);
     disableButtons(imgBtnName+"ImgBtnSend", imgBtnIdsSend);
     disableButtons(imgBtnName, imgBtnIds);
@@ -642,17 +450,13 @@ function prepare_event(eventName,data){
 
 function wait_time(timer){
     timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
-    // $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, timer);
-    // send_event("wait_time");
-    // console.log(timer);
 }
 
 function printImgAndText(name, data, text, link){
-    var chatHistoryDiv = $("#chatHistory");
+    var toAppend;
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    // console.log(data["imgsrc"]);
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
@@ -669,7 +473,6 @@ function printImgAndText(name, data, text, link){
                     "</div>";
     }
     if(link){
-        // itemName=createIdFromText(name+"link");
         itemName="Ver detalle";
         imgButton_i+="<div class='linkContainer'>"+
                         "<a href = "+link+" target =\"frame\">"+itemName+"</a>"
@@ -677,48 +480,29 @@ function printImgAndText(name, data, text, link){
                         "</h1>"+
                     "</div>";
     }
-    datestr=getFormattedDate();
-    chatHistoryDiv.append(
-            "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"' style='width: 90%; text-align:center'>"+
-                "<div class='chat-message-content' style= 'clear: right;'>" +
-                    imgButton_i+
-                    "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                    "</div>"+
-            "</div>");
-    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
-    bubble_id++;
-    x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
+    toAppend="<div class='img-text-link'style= 'clear: right; text-align:center;width: 90%;'>"+
+        imgButton_i+
+        "</div>";
+    appendHtml(toAppend,"left");
 }
 
 function printLogin(username,password) {
-    var chatHistoryDiv = $("#chatHistory");
-    datestr=getFormattedDate();
-    chatHistoryDiv.append(
-    "<div class='chat-message bubble-left' id='chatBubble"+bubble_id+"' style='width: 90%; text-align:center'>"+
-        "<div class='chat-message-content' style= 'clear: right;'>" +
-            "<div class='loginForm'>"+
-                // "<form action="">"+
-                "<label><b>Username</b></label>"+
-                "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
-                "<label><b>Password</b></label>"+
-                "<input type='password' placeholder='Enter Password' name='psw' required>"+
-                "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
-                "<label><input type='checkbox' checked='checked'> Remember me</label>"+
-            // "</form>"+
-            "</div>"+
-            "<div class='' style=''>"+
-              "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
-              "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
-            "</div>"+
-            "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-        "</div>"+
-    "</div>");
-    //chat_bubbleId[bubble_id]="chatBubble"+bubble_id;
-    bubble_id++;
-    x.bubble_id++;
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400);
-
+    var toAppend;
+    toAppend="<div class='loginForm'>"+
+        // "<form action="">"+
+        "<label><b>Username</b></label>"+
+        "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
+        "<label><b>Password</b></label>"+
+        "<input type='password' placeholder='Enter Password' name='psw' required>"+
+        "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
+        "<label><input type='checkbox' checked='checked'> Remember me</label>"+
+    // "</form>"+
+    "</div>"+
+    "<div class='' style=''>"+
+      "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
+      "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
+    "</div>";
+    appendHtml(toAppend,"left");
 }
 
 function send_login(){
@@ -732,20 +516,47 @@ function send_login(){
 function disableBubbles(){
     for(i=0;i<chat_bubbleId.length;i++){
         $(chat_bubbleId[i]).css("opacity","0.4");
-        console.log("disabled"+chat_bubbleId[i]);
     }
 }
+
 function toggleFullScreen() {
   var doc = window.document;
   var docEl = doc.documentElement; // documentElement= body? -> no, is different
-
   var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
   var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
     requestFullScreen.call(docEl);
   }
   else {
     cancelFullScreen.call(doc);
   }
+}
+
+function appendHtml(toAppend, bubbleSide){
+    datestr=getFormattedDate();
+    chatHistoryDiv.append(
+        "<div class='chat-message bubble-"+bubbleSide+"' id='chatBubble"+bubble_id+"'>"+
+            "<div class='fila'>"+
+                "<div class='chat-message-content'>" +
+                    toAppend+
+                "</div>"+
+                "<div class='col' height='32px' width='32px'>"+
+                    "<div class='fila'>"+
+                      "<h5 class='timestamp_right'>"+datestr+"</h5>"+
+                    "</div>"+
+                "</div>"+
+            "</div>"+
+        "</div>"
+    );
+    bubble_id++;
+    x.bubble_id++;
+    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200); //autoscroll to the end of content
+    hideUpper();
+}
+
+function hideUpper(){
+    if (($("#chatHistory").get(0).scrollHeight > $("#chatHistory").height()) && ($("#chatUpper").css("display")!="none")) {
+        $("#chatHistory").css("max-height","+=42px");
+        $("#chatUpper").css("height","0").css("display","none");
+    }
 }

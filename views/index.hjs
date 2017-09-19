@@ -14,7 +14,7 @@
     <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
     <script type="application/javascript" src="/javascripts/handlers.js"></script>
 </head>
-<body onload="send_event('custom_event','Jaime')">
+<body onload="send_event('start_event','test')"> <!-- "send_event('custom_event','Jaime')" -->
     <div class="full-screen">
         <noscript>
             <p>Bienvenido a Mi Sitio</p>
@@ -32,7 +32,7 @@
             <div class="container container-left">
                 <div class="containerleft1">
                     <div class="container2">
-                        <div class="chatUpper">
+                        <div class="chat-upper" id="chatUpper">
                             <img class='avatar' src='/images/avatartadvisor0.png' alt=''>
                             <span> Welcome to T-Advisor</span>
                         </div>
@@ -67,7 +67,7 @@
                 <iframe id="frame" name="frame" class="i-frame" src="" frameBorder="0"></iframe>
             </div>
         </div>
-        <div class="debug" style="display: none;">
+        <div class="debug" style="display: none">
             <div class="debug_btn btn">
                 Debug JSON results
             </div>
@@ -77,6 +77,8 @@
         </div>
     </div>
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
+    <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
+    <script type="application/javascript" src="/javascripts/handlers.js"></script>
 </body>
 
 <!-- <head> Código original curso de https://www.youtube.com/watch?v=FqMIyTH9wSg

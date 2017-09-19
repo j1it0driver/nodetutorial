@@ -1,6 +1,6 @@
 :root{
     --lightgray-color: rgb(200, 200, 200); /*gray: #808080*/
-    --usergray-color: #888888;
+    --usergray-color: rgb(170, 170, 170);
     --gray-color: rgba(128,128,128,1);
     --darkgray-color: #58585A;
     --lightgreen-color: #c3d5bb;
@@ -12,7 +12,7 @@
     --lightblue-color: rgb(152,200,222);
     --darkblue-color:rgb(82, 109, 121);
     --userwhite-color: #d2d2d2;
-    --pink-color: pink;
+    --pink-color: violet;
     --violet-color: #606B88;
     --chatbg-color: rgb(210, 210, 210); /*use rgba to apply opacity*/
     --bubble-left: white;
@@ -384,7 +384,7 @@ button > span {
     display: inline-block;
     /*box-shadow: inset -5px 5px 5px 5px #888888;*/
     margin: 0 auto;
-    max-height: calc(100vh - 12.3rem);
+    max-height: calc(100vh - 11.3rem);
     padding: 0rem 0rem;
     position: sticky;
     width:100% ;
@@ -411,19 +411,19 @@ button > span {
     /*-moz-border-radius: 11px;
     -webkit-border-radius: 11px;*/
 }
-.chatUpper{
+.chat-upper{
     background: var(--gray-color);
     border-radius: 0.42rem;
     display: table;
     color:white;
     font-size: 1.2rem;
     font-weight: bold;
-    height: 4em;
-    padding: 1.05rem 1.4rem 1.05rem 1.4rem;
+    height: 3rem;
+    padding: 0.7rem 1.4rem;
     /*vertical-align: middle;*/
     width: 100%;
 }
-.chatUpper>span{
+.chat-upper>span{
     display: table-cell;
     vertical-align: middle;
 }
@@ -486,9 +486,9 @@ h4{
 {
     -webkit-box-shadow: inset 0 0 0.07rem rgba(0,0,0,0.2);
     background-color: var(--chatbg-color);
-    /*border-radius: 11px;
+    border-radius: 11px;
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0;*/
+    border-bottom-left-radius: 0;
 }
 ::-webkit-scrollbar
 {
@@ -501,7 +501,7 @@ h4{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     /*background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.44, #5CB85C),color-stop(0.72, #5ca4b8),color-stop(0.86, #008ACA));*/
-    background-color: var(--lightgray-color) ;
+    background-color: var(--usergray-color) ;
 }
 ::-webkit-scrollbar-thumb:hover{
     background-color: var(--gray-color) ;
@@ -555,11 +555,11 @@ button:hover:enabled{
     background-color: var(--userblue-color);
     color: white;
 }
-/*button:disabled{
-    background-color: var(--usergray-color);
+button:disabled{
+    /*background-color: var(--usergray-color);
     color: var(--darkgray-color);
-    text-decoration:line-through;
-
+    text-decoration:line-through;*/
+    cursor: default;
 }*/
 .quickReplyButton{
 }
@@ -645,10 +645,10 @@ button:hover:enabled{
     vertical-align: middle;
 }
 a:link{
-    color: white;
+    /*color: var(--userblue-color);*/
 }
 a:visited{
-    color: pink;
+    /*color: pink;*/
 }
 #bubbleId{
     position: absolute;
@@ -669,10 +669,10 @@ a:visited{
     .containerleft1{
         width: 95%
     }
-    .chatUpper{
+    /*.chatUpper{
         height: 3rem;
         padding: 0.7rem 1.4rem;
-    }
+    }*/
 }
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
   .ipad-portrait { color: red; } /* your css rules for ipad portrait */
