@@ -1,6 +1,6 @@
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
 var tadvisorToken = "aba2ecdbb9e744ba8b37ec6cf6a175d9", originalToken = "dce399808780466db898fad9bfae71fe";
-var productionToken="d8263496b81c4d82bc1b557574106e0f", floruristToken="1dfd6eb17bb240db9ec60813c5d0095a", accessToken = tadvisorToken;
+var productionToken="d8263496b81c4d82bc1b557574106e0f", flouristToken="1dfd6eb17bb240db9ec60813c5d0095a", accessToken = flouristToken;
 var baseUrl = "https://api.api.ai/v1/", version="20170810";
 var $speechInput, $recBtn, $recBtn1, $statusMessages, $debugBtn;
 var recognition,
