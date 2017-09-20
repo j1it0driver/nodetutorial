@@ -14,7 +14,7 @@
     <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
     <script type="application/javascript" src="/javascripts/handlers.js"></script>
 </head>
-<body onload="send_event('custom_event','Jaime')"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
+<body onload="send_event('custom_event','Guest')"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
     <div class="full-screen">
         <noscript>
             <p>Bienvenido a Mi Sitio</p>
