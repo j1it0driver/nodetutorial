@@ -219,7 +219,7 @@ function send() {           //////////////////////////////////// SEND //////////
         });
         $('#statusMessages').text("Message Send!");
         disableBubbles();
-        toAppend= "<h4>"+text+"</h4>";
+        toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
         appendHtml(toAppend,"right");
         $speechInput.val("");
     }
@@ -277,7 +277,7 @@ function respond(val) { // function to print a text into chat message and to spe
     if (val == "") {
         val = messageSorry;
     }
-    toAppend="<h4>"+val+"</h4>";
+    toAppend="<h6 class='mb-0 d-block'>"+val+"</h6>";
     appendHtml(toAppend,"left");
     if (val !== messageRecording) {
         var msg = new SpeechSynthesisUtterance();
@@ -288,7 +288,7 @@ function respond(val) { // function to print a text into chat message and to spe
         msg.lang = "en-GB";
         window.speechSynthesis.speak(msg);
     }
-    $speechInput.focus();
+    // $speechInput.focus();
 }
 
 function spokenRespond (val){
@@ -349,11 +349,11 @@ function printButton(arrayList){
     // for(i=0;i<arrayList.length;i++){
         buttonIds[i]=createIdFromText(arrayList[i]);
         printButton_i+=
-                "<button class='listButton' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
+                "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
                     arrayList[i]+
                 "</button>";
     }
-    toAppend="<div class='quickReplyButton'style='display:inline-table; text-align:center;'>"+
+    toAppend="<div class='quick-reply-button d-block text-center'>"+
         printButton_i+
         "</div>";
     appendHtml(toAppend,"left");
@@ -379,12 +379,13 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
 function printSliderSelector(sliderName){
     var toAppend;
     var sliderId=createIdFromText(sliderName);
-    var sliderButton ="<div id='slidecontainer'>"+
-                "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider' id='"+sliderId+"'>"+
+    var sliderButton ="<div id='slidecontainer px-2'>"+
+                "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'>"+
             "</div>";
-    toAppend= sliderButton+
-            "<div class='' id='' style='text-align: center;'>"+
-                "<button class='sliderButton' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+    toAppend=
+            "<div class='d-block text-center'>"+
+                sliderButton+
+                "<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
                 "</button>"+
             "</div>";
     appendHtml(toAppend,"left");
@@ -415,16 +416,20 @@ function printImgButton(imgBtnName, imgBtnList){
         imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
         imgBtnTemp=imgBtnList[i];
-        imgButton_i+="<div class='imgButtonContainer'>"+
-            "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
-            "<div class='' id='' style='display:inline-table; padding-left:10px; vertical-align:middle;'>"+
-                "<button class='listButton' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style='width:100px'>"+
-                imgBtnList[i]+
-                "</button>"+
-            "</div>"+
-        "</div>";
+        imgButton_i+="<div class='img-button-container d-inline-block card text-center' style='width:9rem;'>"+
+                        "<img class='rounded-circle card-img-top' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"'>"+
+                        "<div class='card-body p-2'>"+
+                            // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
+
+                                "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style='width:8rem;'>"+
+                                    imgBtnList[i]+
+                                "</button>"+
+                        "</div>"+
+                    "</div>";
     }
-    toAppend=imgButton_i;
+    toAppend="<div class='d-block text-center'>"+
+                imgButton_i+
+             "</div>"
     appendHtml(toAppend,"left");
 }
 
@@ -536,15 +541,24 @@ function toggleFullScreen() {
 function appendHtml(toAppend, bubbleSide){
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-        "<div class='chat-message bubble-"+bubbleSide+"' id='chatBubble"+bubble_id+"'>"+
-            "<div class='fila'>"+
-                "<div class='chat-message-content'>" +
+        // "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" col-11' id='chatBubble"+bubble_id+"'>"+
+        //     "<div class='fila'>"+
+        //         "<div class='chat-message-content'>" +
+        //             toAppend+
+        //         "</div>"+
+        //         "<div class='col' height='32px' width='32px'>"+
+        //             "<div class='fila'>"+
+        //               "<h5 class='timestamp_right'>"+datestr+"</h5>"+
+        //             "</div>"+
+        //         "</div>"+
+        //     "</div>"+
+        // "</div>"
+        "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
+            "<div class='media col-12'>"+
+                // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
+                "<div class='media-body mt-3'>"+
                     toAppend+
-                "</div>"+
-                "<div class='col' height='32px' width='32px'>"+
-                    "<div class='fila'>"+
-                      "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-                    "</div>"+
+                    "<h6 class='timestamp_right float-right mb-1 d-block'><small>"+datestr+"</small></h6>"+
                 "</div>"+
             "</div>"+
         "</div>"

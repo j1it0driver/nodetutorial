@@ -1,0 +1,14 @@
+.bodyBckg{
+    background-color: transparent;
+
+}
+.chatBckg{
+    background-color: lightgray;
+}
+.bubble-left{
+    background-color: white;
+}
+.bubble-right{
+    background-color: #007bff;
+    color: white;
+}

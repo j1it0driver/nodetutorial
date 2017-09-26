@@ -1,0 +1,68 @@
+body{
+    font-family: "Roboto";
+    color: darkgray;
+}
+#rec{
+    height: 2.25rem;
+    vertical-align: center;
+}
+img{
+    max-height: 100%;
+    object-fit: cover;
+}
+.scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
+.chat-messages{
+    height:calc(100vh - 9.75rem);
+}
+.chat-message{
+
+}
+.bubble-left{
+    width: 90%;
+}
+.bubble-right{
+    min-width: 25%;
+    max-width: 90%;
+}
+.quick-reply-button{
+
+}
+
+.slider{
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    background: white;
+    height: 0.8srem;
+    border: 1px solid #007bff;
+    /*color: : black;*/
+}
+.slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    border: 1px solid #007bff;
+    width: 0.8rem; /* Set a specific slider handle width */
+    height: 1.2rem; /* Slider handle height */
+    background: #007bff; /* color background */
+    cursor: pointer; /* Cursor on hover */
+}
+.slider::-moz-range-thumb {
+    width: 0.8rem; /* Set a specific slider handle width */
+    height: 1.2rem; /* Slider handle height */
+    background: #007bff; /* color background */
+    cursor: pointer; /* Cursor on hover */
+}
+.slider::-webkit-slider-thumb:hover {
+    cursor: pointer; /* Cursor on hover */
+}
+.slider::-moz-range-thumb:hover {
+
+    cursor: pointer; /* Cursor on hover */
+}
+.img-button-container{
+    /*height: 8rem;*/
+    /*vertical-align: center;*/
+}
