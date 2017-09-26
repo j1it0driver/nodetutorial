@@ -1,9 +1,9 @@
 .bodyBckg{
-    background-color: transparent;
+    background-color: lightgray;
 
 }
 .chatBckg{
-    background-color: lightgray;
+    background-color: transparent;
 }
 .bubble-left{
     background-color: white;
@@ -11,4 +11,10 @@
 .bubble-right{
     background-color: #007bff;
     color: white;
+}
+.header{
+    background-color: white;
+}
+.footer{
+    background-color: white;
 }

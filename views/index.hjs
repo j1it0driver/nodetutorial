@@ -19,7 +19,7 @@
 </head>
 <body onload="send_event('custom_event','Guest')" class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
     <div class="container">
-        <div class="row border-0">
+        <div class="row border-0 header">
             <div class="col-12 pt-3">
                 <div class="media">
                     <img class="d-flex align-self-top mr-5 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
@@ -32,16 +32,16 @@
                 </div>
             </div>
         </div>
-        <div class="row border-0">
-            <div class="chatBckg col-12 px-1">
+        <div class="row border-0 ">
+            <div class="chatBckg col-12 p-0">
 
                 <div class="scrollable chat-messages p-1" id="chatHistory">
                 </div>
 
             </div>
         </div>
-        <div class="row border-0">
-            <div class=" bodyBckg col-12">
+        <div class="row border-0 footer">
+            <div class="col-12">
 
                 <div class="row d-flex justify-content-between mt-3" >
                     <div class="col-9 ">
