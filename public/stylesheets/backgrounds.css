@@ -18,3 +18,38 @@
 .footer{
     background-color: white;
 }
+.slider{
+    background: white;
+}
+.slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    background: #007bff; /* color background */
+}
+.slider::-moz-range-thumb {
+    background: #007bff; /* color background */
+}
+
+/*.tooltip{
+    background-color: red;
+}
+.tooltip-inner{
+    background: red;
+    color:red;
+}*/
+/*.red-tooltip + .tooltip-top > .tooltip-arrow{
+    background-color: #007bff;
+}
+.tooltip-inner {
+
+  background-color: #8447cf;
+
+}
+
+
+
+[data-placement="top"] + .tooltip > .tooltip-arrow {
+
+  border-top-color: #8447cf;
+
+}*/

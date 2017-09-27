@@ -1,7 +1,7 @@
 //version R-Prod from L-Master2
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
 var tadvisorToken = "aba2ecdbb9e744ba8b37ec6cf6a175d9", originalToken = "dce399808780466db898fad9bfae71fe";
-var productionToken="d8263496b81c4d82bc1b557574106e0f", flouristToken="1dfd6eb17bb240db9ec60813c5d0095a", accessToken = flouristToken;
+var productionToken="d8263496b81c4d82bc1b557574106e0f", flouristToken="1dfd6eb17bb240db9ec60813c5d0095a", accessToken = tadvisorToken;
 var baseUrl = "https://api.api.ai/v1/", version="20170810";
 var $speechInput, $recBtn, $recBtn1, $statusMessages, $debugBtn;
 var recognition,
@@ -26,13 +26,16 @@ navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
-
+window.onload = maxWindow;
 $(document).ready(function() {
     $speechInput = $("#speech");
     $recBtn = $("#rec");
     $recBtn1 = $("#rec1");
     $statusMessages = $('#statusMessages');
     $debugBtn = $(".debug_btn");
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     x = {
       bubble_idInternal: bubble_id,
       bubble_idListener: function(val) {},
@@ -222,6 +225,7 @@ function send() {           //////////////////////////////////// SEND //////////
         toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
         appendHtml(toAppend,"right");
         $speechInput.val("");
+        $speechInput.blur();
     }
 }
 
@@ -288,6 +292,7 @@ function respond(val) { // function to print a text into chat message and to spe
         msg.lang = "en-GB";
         window.speechSynthesis.speak(msg);
     }
+    $speechInput.blur();
     // $speechInput.focus();
 }
 
@@ -416,12 +421,12 @@ function printImgButton(imgBtnName, imgBtnList){
         imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
         imgBtnTemp=imgBtnList[i];
-        imgButton_i+="<div class='img-button-container d-inline-block card text-center' style='width:9rem;'>"+
-                        "<img class='rounded-circle card-img-top' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"'>"+
+        imgButton_i+="<div class='img-button-container d-inline-block card text-center w-50'>"+
+                        "<img class='rounded-circle card-img-top w-75' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"'>"+
                         "<div class='card-body p-2'>"+
                             // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
 
-                                "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style='width:8rem;'>"+
+                                "<button class='listButton btn btn-outline-primary btn-sm m-0' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style=''>"+
                                     imgBtnList[i]+
                                 "</button>"+
                         "</div>"+
@@ -541,18 +546,6 @@ function toggleFullScreen() {
 function appendHtml(toAppend, bubbleSide){
     datestr=getFormattedDate();
     chatHistoryDiv.append(
-        // "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" col-11' id='chatBubble"+bubble_id+"'>"+
-        //     "<div class='fila'>"+
-        //         "<div class='chat-message-content'>" +
-        //             toAppend+
-        //         "</div>"+
-        //         "<div class='col' height='32px' width='32px'>"+
-        //             "<div class='fila'>"+
-        //               "<h5 class='timestamp_right'>"+datestr+"</h5>"+
-        //             "</div>"+
-        //         "</div>"+
-        //     "</div>"+
-        // "</div>"
         "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
             "<div class='media col-12'>"+
                 // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+

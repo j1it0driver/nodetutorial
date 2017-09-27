@@ -1,15 +1,17 @@
 body{
     font-family: Roboto;
-    color: darkgray;
+    font-size: 12px;
 }
 #rec{
     height: 2.25rem;
-    vertical-align: center;
 }
 img{
     max-height: 100%;
     object-fit: cover;
 }
+/*h6{
+    font-size: 12px;
+}*/
 .scrollable {
     overflow-y: auto;
     overflow-x: hidden;
@@ -22,7 +24,7 @@ img{
 
 }
 .bubble-left{
-    width: 90%;
+    width: 95%;
 }
 .bubble-right{
     min-width: 25%;
@@ -35,14 +37,14 @@ img{
 .slider{
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
-    background: white;
+
     height: 0.8srem;
     border: 1px solid #007bff;
     /*color: : black;*/
 }
 .slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
+    /*-webkit-appearance: none; /* Override default look */
+    /*appearance: none;*/
     border: 1px solid #007bff;
     width: 0.8rem; /* Set a specific slider handle width */
     height: 1.2rem; /* Slider handle height */

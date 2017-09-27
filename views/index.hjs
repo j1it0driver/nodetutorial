@@ -5,22 +5,22 @@
     <link href="/images/tadvisor.ico" rel="shortcut icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> esta linea es para accesar el .css como archivo externo -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheets/backgrounds.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootmain.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <title>BoT-advisor</title>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="manifest" href="manifest.json">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
-    <script type="application/javascript" src="/javascripts/handlers.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <!-- <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
+    <!-- <script type="application/javascript" src="/javascripts/handlers.js"></script> -->
 </head>
 <body onload="send_event('custom_event','Guest')" class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
     <div class="container">
         <div class="row border-0 header">
-            <div class="col-12 pt-3">
+            <div class="col-12 pt-4">
                 <div class="media">
                     <img class="d-flex align-self-top mr-5 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
                     <div class="media-body">
@@ -50,74 +50,18 @@
                        </div>
                     </div>
                     <div class="col-3 d-flex justify-content-end pl-0 pr-3">
-                        <button class="btn btn-primary ml-auto align-self-start p-1 col-12 col-sm-8 col-md-6" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1"></span></button>
+                        <button class="btn btn-primary ml-auto align-self-start p-1 col-12 col-sm-8 col-md-6" data-toggle="tooltip" data-placement="top" title="Press to init Recording" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1"></span></button>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
-
-    <!-- <div class="full-screen">
-        <noscript>
-            <p>Bienvenido a Mi Sitio</p>
-            <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript.
-              Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
-        </noscript>
-
-        <div class = "upper">
-            <img src="/images/logoadvisor.png" height='100%'>
-            <img src="/images/logotipo_techrules2017.png" alt='' height='100%' style="float: right;">
-        </div>
-
-        <div class="container0">
-            <div class="containerm container-left">
-                <div class="containerleft1">
-                    <div class="container2">
-                        <div class="chat-upper" id="chatUpper">
-                            <img class='avatar' src='/images/avatartadvisor0.png' alt=''>
-                            <span> Welcome to T-Advisor</span>
-                        </div>
-                        <div class="scrollable chatMessages" id="chatHistory">
-                        </div>
-                    </div>
-                    <div class="container1">
-
-                         <div class="textInputContainer">
-                            <input id="speech" type="text" autofocus placeholder="Type here... + Enter">
-                            <div class="status">
-                                <label class="statusToUser" id="statusMessages">Let's start a conversation...</label>
-                            </div>
-                        </div>
-                            <button class="btn" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1"></span></button>
-                            <label id="bubbleId" style="color: black; display: none;"></label>
-
-                    </div>
-                </div>
-            </div>
-            <div class="containerm container-right">
-                <iframe id="frame" name="frame" class="i-frame" src="" frameBorder="0"></iframe>
-            </div>
-        </div>
-        <div class="debug" style="display: none">
-            <div class="debug_btn btn">
-                Debug JSON results
-            </div>
-            <div class="debug_content">
-                <textarea class="response" id="response" ></textarea>
-            </div>
-        </div>
-    </div> -->
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
-    <script type="application/javascript" src="/javascripts/main.js"></script> <!--esta linea es para accesar el .js como archivo externo -->
-    <script type="application/javascript" src="/javascripts/handlers.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script type="application/javascript" src="/javascripts/fullscreen.js"></script>
+    <script type="application/javascript" src="/javascripts/main.js"></script>
+    <script type="application/javascript" src="/javascripts/handlers.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 </body>
-
 </html>
