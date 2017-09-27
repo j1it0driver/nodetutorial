@@ -26,7 +26,7 @@ navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
-window.onload = maxWindow;
+// window.onload = maxWindow;
 $(document).ready(function() {
     $speechInput = $("#speech");
     $recBtn = $("#rec");
