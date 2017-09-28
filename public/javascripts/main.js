@@ -230,7 +230,7 @@ function send() {           //////////////////////////////////// SEND //////////
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
-    var location_c, dataObj, messagesPrint = "", messagePrint2 = "";
+    var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "";
     var spokenResponse = val.result.fulfillment.messages;
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
@@ -238,10 +238,17 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-            messagesPrint+=  "> "+ dataObj + "<br />";
+            // messagesPrint+=  "> "+ dataObj + "<br />";
+            for (j=0;j< spokenResponse.length; j++){
+                if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
+                    dataObj=putLinks(spokenResponse[j].payload.links,dataObj);
+                }
+
+            }
             respond(dataObj);
         }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
+
+        if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
@@ -421,8 +428,8 @@ function printImgButton(imgBtnName, imgBtnList){
         imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
         imgBtnTemp=imgBtnList[i];
-        imgButton_i+="<div class='img-button-container d-inline-block card text-center w-50'>"+
-                        "<img class='rounded-circle card-img-top w-75' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"'>"+
+        imgButton_i+="<div class='img-button-container d-inline-block card text-center mw-50'>"+
+                        "<img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:8rem;'>"+
                         "<div class='card-body p-2'>"+
                             // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
 
@@ -567,4 +574,9 @@ function hideUpper(){
         $("#chatHistory").css("max-height","+=42px");
         $("#chatUpper").css("height","0").css("display","none");
     }
+}
+function putLinks(arrayLinks, val){
+    for (var i in arrayLinks)
+        val=val.replace(i,arrayLinks[i])
+    return val
 }
