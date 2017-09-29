@@ -70,7 +70,7 @@ $(document).ready(function() {
         if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
-                send();
+                send_query();
                 tiempoSend=setTimeout(function(){$statusMessages.text("Next input...");},2000);
             }
         }
@@ -191,7 +191,7 @@ function switchRecognition() {
 
 function setInput(text) {
     $speechInput.val(text);
-    send();
+    send_query();
 }
 
 function updateRec() {
@@ -374,7 +374,7 @@ function printButton(arrayList){
 function quickReplyF(stringItem,buttonId,buttonIds){
     $speechInput.val(stringItem);
     disableButtons(buttonId,buttonIds);
-    send();
+    send_query();
 }
 
 function disableButtons(buttonIdSelected,buttonIdsToDisable){
@@ -415,7 +415,7 @@ function sendSlice(sliderId){
     var sliderIdbtnSend=sliderId+"SliderBtnSend";
     disableButtons([sliderIdbtnSend],[sliderIdbtnSend]);
     disableButtons([sliderId],[sliderId]);
-    send();
+    send_query();
  }
 
 function printImgButton(imgBtnName, imgBtnList){
@@ -455,7 +455,7 @@ function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
     $speechInput.val(imgBtnItem);
     disableButtons(imgBtnName+"ImgBtnSend", imgBtnIdsSend);
     disableButtons(imgBtnName, imgBtnIds);
-    send();
+    send_query();
 }
 
 function prepare_event(eventName,data){
@@ -579,4 +579,34 @@ function putLinks(arrayLinks, val){
     for (var i in arrayLinks)
         val=val.replace(i,arrayLinks[i])
     return val
+}
+function send_query(){
+    var text = $speechInput.val();
+    var toAppend;
+    if($speechInput.val() != ''){
+        $.ajax({
+            type: "POST",
+            // url: baseUrl + "query?v=20170810",
+            url: "/api",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+            //     "Authorization": "Bearer " + accessToken
+            },
+            data: JSON.stringify({"val": text}),
+            success: function(data) {
+                datos=data.result.fulfillment.messages;
+                prepareResponse(data);
+            },
+            error: function() {
+                respond(messageInternalError);
+            }
+        });
+        $('#statusMessages').text("Message Send!");
+        disableBubbles();
+        toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
+        appendHtml(toAppend,"right");
+        $speechInput.val("");
+        $speechInput.blur();
+    }
 }
