@@ -10,7 +10,7 @@ router.post('/', function(req, respond) { //https://stackoverflow.com/questions/
     var baseUrl = "https://api.api.ai/v1/", version="20170810";
     var accessToken="aba2ecdbb9e744ba8b37ec6cf6a175d9";
     var _http = this.secure ? https : http;
-    var datos;
+    var datos="";
 
     var data= JSON.stringify({query: req.body.val, lang: "en", sessionId: "yaydevdiner"});
     var options = {
@@ -18,34 +18,39 @@ router.post('/', function(req, respond) { //https://stackoverflow.com/questions/
             port: 443,
             path: "/v1/query?v=20170810",
             method: "POST",
-
             headers: {
                     "Authorization": "Bearer " + accessToken,
-                    "contentType": "application/json; charset=utf-8",
-                    'Content-Length': Buffer.byteLength("")
-                }
+                    // "contentType": "application/json",
+                    "contentType": "application/json; charset=utf-8"
+                    // 'Content-Length': Buffer.byteLength("")
+                },
             // },
-            // data:JSON.stringify({query: req.body.val, lang: "en", sessionId: "yaydevdiner"})
+            data: JSON.stringify({query: req.body.val, lang: "en", sessionId: "yaydevdiner"})
         };
     var request = https.request(options, function(res){
-        console.log("inside request");
-        var buffer=null;
+        // console.log(request);
+        res.setEncoding('utf8');
         res.on ('data', function(d){
             datos+=d;
-            console.log(datos);
-            respond.send(datos);
+            console.log(d);
+
             // datos=d;
         });
+        // res.on ('end', function(d){
+        //     // resolve(JSON.parse(datos));
+        //     respond.json(datos);
+        // });
         // process.stdout.write(d);
         // console.log(datos);
 
     });
 
 
-    request.write(data);
+    request.write("data:"+JSON.stringify({query: req.body.val, lang: "en", sessionId: "yaydevdiner"}));
+    request.end();
     request.on ('end', function(){
         console.log('end');
-        res.send(datos);
+        respond.json(datos);
     });
     request.on('error', function(e){
         console.error(e);

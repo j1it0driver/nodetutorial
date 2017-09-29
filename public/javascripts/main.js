@@ -213,6 +213,7 @@ function send() {           //////////////////////////////////// SEND //////////
             },
             data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
             success: function(data) {
+                console.log(data);
                 datos=data.result.fulfillment.messages;
                 prepareResponse(data);
             },
