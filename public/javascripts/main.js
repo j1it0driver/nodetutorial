@@ -211,7 +211,7 @@ function send() {           //////////////////////////////////// SEND //////////
             headers: {
                 "Authorization": "Bearer " + accessToken
             },
-            data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
+            data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner2"}),
             success: function(data) {
                 console.log(data);
                 datos=data.result.fulfillment.messages;
@@ -296,7 +296,7 @@ function respond(val) { // function to print a text into chat message and to spe
         msg.voiceURI = "native";
         msg.pitch = 1.1;
         msg.rate = 1.1;
-        msg.text = val.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,""); //quitar el espacio en blanco del speech
+        msg.text = val.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech
         msg.lang = "en-GB";
         window.speechSynthesis.speak(msg);
     }
@@ -342,7 +342,7 @@ function send_event(eventName,valor) {                //////////////////////////
         headers: {
             "Authorization": "Bearer " + accessToken
         },
-        data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner"}),
+        data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner2"}),
         success: function(data) {
             prepareResponse(data);
         },
