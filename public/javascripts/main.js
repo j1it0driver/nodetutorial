@@ -295,7 +295,7 @@ function respond(val) { // function to print a text into chat message and to spe
     for (j=0;j<sentences.length;j++){
          sentence=sentences[i];
         if (val !== messageRecording) {
-            var msg = new SpeechSynthesisUtterance();
+            var msg = new SpeechSynthesisUtterance(sentence);
             msg.voiceURI = "native";
             msg.pitch = 1.1;
             msg.rate = 1.1;
