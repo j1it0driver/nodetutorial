@@ -67,7 +67,7 @@ $(document).ready(function() {
             $statusMessages.text("Typing...");
             timeout = setTimeout(function () {if($speechInput.val() != ''){$statusMessages.text("Waiting input or Enter...");}}, 3000);
         }
-        if (event.which == 13) {
+        if (event.which == 13) {spokenResponse
             event.preventDefault();
             if($speechInput.val() != ''){
                 send_query();
@@ -292,8 +292,8 @@ function respond(val) { // function to print a text into chat message and to spe
     toAppend="<h6 class='mb-0 d-block'>"+val+"</h6>";
     appendHtml(toAppend,"left");
     sentences=val.split(".");
-    for (i=0;i<sentences.length;i++){
-        sentence=sentences[i];
+    for (j=0;j<sentences.length;j++){
+         sentence=sentences[i];
         if (val !== messageRecording) {
             var msg = new SpeechSynthesisUtterance();
             msg.voiceURI = "native";
