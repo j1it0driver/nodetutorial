@@ -19,7 +19,7 @@
 }
 html {
     box-sizing: border-box; /*incluir margin border y padding en Height y Width*/
-    font-size: 14px;
+    font-size: 12px;
 }
 *, *:before, *:after {
     box-sizing: inherit;

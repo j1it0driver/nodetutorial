@@ -133,7 +133,7 @@ function startRecognition() {
         recognition.continuous = false;
         recognition.interimResults = true;
         recognition.onstart = function(event) {
-            respond(messageRecording);
+            respond(messageRecording,null);
             $recBtn.addClass("is-actived");
             updateRec();
         };
@@ -154,11 +154,11 @@ function startRecognition() {
         };
         recognition.onerror = function(event){
             console.log("error "+ event.error);
-            respond(event.error);
+            respond(event.error,null);
         };
         recognition.onend = function() {
             console.log("rec.onend ");
-            respond(messageCouldntHear);
+            respond(messageCouldntHear,null);
 
             if(recognition){
                 recognition.lang = "en-GB";
@@ -218,7 +218,7 @@ function send() {           //////////////////////////////////// SEND //////////
                 prepareResponse(data);
             },
             error: function() {
-                respond(messageInternalError);
+                respond(messageInternalError,null);
             }
         });
         $('#statusMessages').text("Message Send!");
@@ -249,7 +249,6 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             // respond(messagePrint2);
             respond(dataObj,dataObjLinks);
         }
-
         if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
         }
@@ -287,22 +286,26 @@ function debugRespond(val) {
 
 function respond(val, valLinks) { // function to print a text into chat message and to speech the text outloud
     // valor=val.speech;
-    var toAppend, sentences, sentence;
-    if (!valLinks){
+
+    var toAppend, sentences=null, sentence=null, sentencesArray;
+    if (valLinks==null){
         valLinks=val;
     }
     if (valLinks == "") {
         valLinks = messageSorry;
     }
-    sentences=val.split(".");
-    for (k=0;j<sentences.length;k++){
-         sentence=sentences[k];
+    // sentences=val.split(".");
+    sentences=val;
+    sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
+    sentencesArray=sentences.split(".");
+    for (var k in sentencesArray){
+         sentence=sentencesArray[k];
         if (val !== messageRecording) {
             var msg = new SpeechSynthesisUtterance(sentence);
             msg.voiceURI = "native";
             msg.pitch = 1.1;
             msg.rate = 1.1;
-            msg.text = sentence.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
+            msg.text = sentence;
             msg.lang = "en-GB";
             window.speechSynthesis.speak(msg);
         }
@@ -363,7 +366,7 @@ function send_event(eventName,valor) {                //////////////////////////
             prepareResponse(data);
         },
         error: function() {
-            respond(messageInternalError);
+            respond(messageInternalError,null);
         }
     });
     $('#statusMessages').text("Type the topic you are interested in");
@@ -601,6 +604,7 @@ function send_query(){
     var text = $speechInput.val();
     var toAppend;
     if($speechInput.val() != ''){
+        window.speechSynthesis.cancel();
         $.ajax({
             type: "POST",
             // url: baseUrl + "query?v=20170810",
@@ -616,7 +620,7 @@ function send_query(){
                 prepareResponse(data);
             },
             error: function() {
-                respond(messageInternalError);
+                respond(messageInternalError,null);
             }
         });
         $('#statusMessages').text("Message Send!");

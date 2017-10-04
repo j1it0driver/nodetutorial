@@ -30,6 +30,9 @@ img{
     min-width: 25%;
     max-width: 90%;
 }
+h6{
+    font-size: 0.875rem;
+}
 .quick-reply-button{
 
 }
