@@ -67,7 +67,7 @@ $(document).ready(function() {
             $statusMessages.text("Typing...");
             timeout = setTimeout(function () {if($speechInput.val() != ''){$statusMessages.text("Waiting input or Enter...");}}, 3000);
         }
-        if (event.which == 13) {spokenResponse
+        if (event.which == 13) {
             event.preventDefault();
             if($speechInput.val() != ''){
                 send_query();
@@ -231,22 +231,23 @@ function send() {           //////////////////////////////////// SEND //////////
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
-    var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "";
+    var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
+            // messagePrint2= spokenResponse[i];
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             // messagesPrint+=  "> "+ dataObj + "<br />";
             for (j=0;j< spokenResponse.length; j++){
                 if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
-                    dataObj=putLinks(spokenResponse[j].payload.links,dataObj);
+                    dataObjLinks=putLinks(spokenResponse[j].payload.links,dataObj);
                 }
-
             }
-            respond(dataObj);
+            // respond(messagePrint2);
+            respond(dataObj,dataObjLinks);
         }
 
         if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
@@ -284,13 +285,15 @@ function debugRespond(val) {
     $("#response").text(val);
 }
 
-function respond(val) { // function to print a text into chat message and to speech the text outloud
+function respond(val, valLinks) { // function to print a text into chat message and to speech the text outloud
+    // valor=val.speech;
     var toAppend, sentences, sentence;
-    if (val == "") {
-        val = messageSorry;
+    if (!valLinks){
+        valLinks=val;
     }
-    toAppend="<h6 class='mb-0 d-block'>"+val+"</h6>";
-    appendHtml(toAppend,"left");
+    if (valLinks == "") {
+        valLinks = messageSorry;
+    }
     sentences=val.split(".");
     for (j=0;j<sentences.length;j++){
          sentence=sentences[j];
@@ -299,11 +302,15 @@ function respond(val) { // function to print a text into chat message and to spe
             msg.voiceURI = "native";
             msg.pitch = 1.1;
             msg.rate = 1.1;
-            msg.text = sentence.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech
+            msg.text = sentence.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/.*S/, 'HS'); //quitar el espacio en blanco del speech
             msg.lang = "en-GB";
             window.speechSynthesis.speak(msg);
         }
     }
+    // dataObj = eval('\"'+ jsonEscape(valor) +'\"');
+    // valor=putLinks(val.payload.links,valor);
+    toAppend="<h6 class='mb-0 d-block'>"+valLinks+"</h6>";
+    appendHtml(toAppend,"left");
     $speechInput.blur();
     // $speechInput.focus();
 
