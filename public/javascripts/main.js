@@ -75,6 +75,9 @@ $(document).ready(function() {
             }
         }
     });
+    $speechInput.focus(function(event){
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200);
+    });
     $recBtn.on("click", function(event) { // SPEECH
         clearTimeout(tiempoStop);
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
