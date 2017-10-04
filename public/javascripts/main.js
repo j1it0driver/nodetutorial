@@ -295,8 +295,8 @@ function respond(val, valLinks) { // function to print a text into chat message 
         valLinks = messageSorry;
     }
     sentences=val.split(".");
-    for (j=0;j<sentences.length;j++){
-         sentence=sentences[j];
+    for (k=0;j<sentences.length;k++){
+         sentence=sentences[k];
         if (val !== messageRecording) {
             var msg = new SpeechSynthesisUtterance(sentence);
             msg.voiceURI = "native";
