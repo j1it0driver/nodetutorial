@@ -302,7 +302,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.voiceURI = "native";
             msg.pitch = 1.1;
             msg.rate = 1.1;
-            msg.text = sentence.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/.*S/, 'HS'); //quitar el espacio en blanco del speech
+            msg.text = sentence.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
             msg.lang = "en-GB";
             window.speechSynthesis.speak(msg);
         }
