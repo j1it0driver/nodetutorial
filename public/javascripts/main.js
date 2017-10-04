@@ -285,23 +285,32 @@ function debugRespond(val) {
 }
 
 function respond(val) { // function to print a text into chat message and to speech the text outloud
-    var toAppend;
+    var toAppend, sentences, sentence;
     if (val == "") {
         val = messageSorry;
     }
     toAppend="<h6 class='mb-0 d-block'>"+val+"</h6>";
     appendHtml(toAppend,"left");
-    if (val !== messageRecording) {
-        var msg = new SpeechSynthesisUtterance();
-        msg.voiceURI = "native";
-        msg.pitch = 1.1;
-        msg.rate = 1.1;
-        msg.text = val.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech
-        msg.lang = "en-GB";
-        window.speechSynthesis.speak(msg);
+    sentences=val.split(".").replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech
+    for (i=0;i<sentences.length;i++){
+        sentence=sentences[i];
+        if (val !== messageRecording) {
+            var msg = new SpeechSynthesisUtterance();
+            msg.voiceURI = "native";
+            msg.pitch = 1.1;
+            msg.rate = 1.1;
+            msg.text = sentence;
+            msg.lang = "en-GB";
+            window.speechSynthesis.speak(msg);
+        }
     }
     $speechInput.blur();
     // $speechInput.focus();
+
+// setTimeout(function() { //function to avoid speak stops after 15-seg's bug.
+//   speechSynthesis.pause();
+//   speechSynthesis.resume();
+// }, 10000);
 }
 
 function spokenRespond (val){
