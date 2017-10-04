@@ -291,7 +291,7 @@ function respond(val) { // function to print a text into chat message and to spe
     }
     toAppend="<h6 class='mb-0 d-block'>"+val+"</h6>";
     appendHtml(toAppend,"left");
-    sentences=val.split(".").replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech
+    sentences=val.split(".");
     for (i=0;i<sentences.length;i++){
         sentence=sentences[i];
         if (val !== messageRecording) {
@@ -299,7 +299,7 @@ function respond(val) { // function to print a text into chat message and to spe
             msg.voiceURI = "native";
             msg.pitch = 1.1;
             msg.rate = 1.1;
-            msg.text = sentence;
+            msg.text = sentence.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech
             msg.lang = "en-GB";
             window.speechSynthesis.speak(msg);
         }
