@@ -293,7 +293,7 @@ function respond(val) { // function to print a text into chat message and to spe
     appendHtml(toAppend,"left");
     sentences=val.split(".");
     for (j=0;j<sentences.length;j++){
-         sentence=sentences[i];
+         sentence=sentences[j];
         if (val !== messageRecording) {
             var msg = new SpeechSynthesisUtterance(sentence);
             msg.voiceURI = "native";
