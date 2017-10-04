@@ -45,7 +45,6 @@ app.use(express.static(path.join(__dirname, 'public'))); //middleware from expre
 app.use('/', index); // path and function to execute (routes)
 app.use('/api', api);
 app.use('/users', users);
-console.log("app")
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

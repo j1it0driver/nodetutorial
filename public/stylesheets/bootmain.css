@@ -5,6 +5,9 @@ body{
 #rec{
     height: 2.25rem;
 }
+#restart{
+    height: 1.5rem;
+}
 img{
     max-height: 100%;
     object-fit: cover;
@@ -18,7 +21,7 @@ img{
     height: 100%;
 }
 .chat-messages{
-    height:calc(100vh - 9.75rem);
+    height:calc(100vh - 9.0rem);
 }
 .chat-message{
 
@@ -33,8 +36,8 @@ img{
 h6{
     font-size: 0.875rem;
 }
-.quick-reply-button{
-
+.listButton{
+    font-size: 0.775rem;
 }
 
 .slider{
@@ -70,4 +73,13 @@ h6{
 .img-button-container{
     /*height: 8rem;*/
     /*vertical-align: center;*/
+}
+.statusToUser{
+
+}
+.timestamp-right{
+    position: absolute;
+    bottom: 0;
+    z-index: 1000;
+    right: 0.4rem;
 }

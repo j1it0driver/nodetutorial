@@ -299,7 +299,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
     }
     // sentences=val.split(".");
     sentences=val;
-    sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
+    sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"");//.replace(/&quot;/,"\'"); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
@@ -577,11 +577,11 @@ function appendHtml(toAppend, bubbleSide){
     datestr=getFormattedDate();
     chatHistoryDiv.append(
         "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
-            "<div class='media col-12'>"+
+            "<div class='media col-12 pr-4'>"+
                 // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
-                "<div class='media-body mt-3'>"+
+                "<div class='media-body my-3'>"+
                     toAppend+
-                    "<h6 class='timestamp_right float-right mb-1 d-block'><small>"+datestr+"</small></h6>"+
+                    "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
                 "</div>"+
             "</div>"+
         "</div>"

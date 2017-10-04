@@ -17,13 +17,16 @@
 <body onload="send_event('custom_event','Guest')" class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
     <div class="container">
         <div class="row border-0 header">
-            <div class="col-12 pt-4">
+            <div class="col-12 pt-3">
                 <div class="media">
                     <img class="d-flex align-self-top mr-5 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
                     <div class="media-body">
-                        <h5 class="mt-0">T-Advisor</h5>
+                        <div class="row d-flex justify-content-between w-100 ml-0">
+                            <h5 class="mt-0">T-Advisor</h5>
+                            <button class="listButton btn btn-sm p-0 border-0 rounded-circle" data-toggle="tooltip" data-placement="bottom" title="Restart" value="Restart" onClick="window.location.reload()" id="restart"><img src="/images/restart.png" alt="" ></button>
+                        </div>
                         <div class="status">
-                            <label class="statusToUser" id="statusMessages">Let's start a conversation...</label>
+                            <label class="statusToUser small font-italic" id="statusMessages">Let's start a conversation...</label>
                         </div>
                     </div>
                 </div>
@@ -39,7 +42,6 @@
         </div>
         <div class="row border-0 footer">
             <div class="col-12">
-
                 <div class="row d-flex justify-content-between mt-3" >
                     <div class="col-9 ">
                         <div class="textInputContainer form-group ">

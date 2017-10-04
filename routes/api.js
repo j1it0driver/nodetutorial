@@ -15,7 +15,7 @@ var router = express.Router();
 router.post('/', function(req, res) { //api.ai for nodejs
     var data = req.body.val;
     comm.process_req(data).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
-        console.log(datos);
+        // console.log(datos);
         res.send(datos);
     });
     // console.log(datos);
