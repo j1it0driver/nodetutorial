@@ -452,7 +452,7 @@ function printImgButton(imgBtnName, imgBtnList){
         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
         imgBtnTemp=imgBtnList[i];
         imgButton_i+="<div class='img-button-container d-inline-block card text-center mw-50'>"+
-                        "<img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:8rem;'>"+
+                        "<img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:7.2rem;'>"+
                         "<div class='card-body p-2'>"+
                             // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
 
