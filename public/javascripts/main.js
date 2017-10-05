@@ -399,7 +399,7 @@ function printButton(arrayList){
     buttonIds=[];
     $("<div class='quick-reply-button d-block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in arrayList){
-        buttonIds[i]=printIndex+createIdFromText(arrayList[i]);
+        buttonIds[i] = printIndex+createIdFromText(arrayList[i]);
         $("<button class='listButton btn btn-outline-primary btn-sm mr-1 mt-1' id='"+buttonIds[i]+"' name='listButton"+i+"' style='display: inline-block;'>"+arrayList[i]+"</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
     for(var k in arrayList){
@@ -415,7 +415,7 @@ function quickReplyF(stringItem,buttonId,buttonIds){
 }
 
 function disableButtons(buttonIdSelected,buttonIdsToDisable){
-    for(i=0;i<buttonIdsToDisable.length;i++){
+    for(var i in buttonIdsToDisable){
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
     }
     $('#'+buttonIdSelected).addClass("responseBtn");
@@ -425,25 +425,41 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
     return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"").replace(/,/g,"");
 }
 
+// function printSliderSelector(sliderName){
+//     var toAppend;
+//     var sliderId=createIdFromText(sliderName);
+//     var sliderButton ="<div id='slidecontainer px-2'>"+
+//                 "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'>"+
+//             "</div>";
+//     toAppend=
+//             "<div class='d-block text-center'>"+
+//                 sliderButton+
+//                 "<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
+//                 "</button>"+
+//             "</div>";
+//     appendHtml("left",toAppend);
+//     var slider = document.getElementById(sliderId);
+//     var output = document.getElementById(sliderId+"SliderBtnSend");
+//     output.innerHTML = slider.value;buttonIds[i]
+//     $speechInput.val(slider.value);
+//     slider.oninput = function() {
+//         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
+//         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
+//     }
+// }
 function printSliderSelector(sliderName){
-    var toAppend;
-    var sliderId=createIdFromText(sliderName);
-    var sliderButton ="<div id='slidecontainer px-2'>"+
-                "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'>"+
-            "</div>";
-    toAppend=
-            "<div class='d-block text-center'>"+
-                sliderButton+
-                "<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
-                "</button>"+
-            "</div>";
-    appendHtml("left",toAppend);
-    var slider = document.getElementById(sliderId);
-    var output = document.getElementById(sliderId+"SliderBtnSend");
-    output.innerHTML = slider.value;buttonIds[i]
+    var printIndex = bubble_id-1;
+    var sliderId = printIndex+createIdFromText(sliderName);
+    $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    $("<div class='slidecontainer px-2'><input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $("<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" style='width:100px'></button>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $('#'+sliderId+'SliderBtnSend').attr('onClick', "sendSlice('"+sliderId+"')");
+    var slider = $("#"+sliderId)[0];// DOM obj
+    var output = $("#"+sliderId+"SliderBtnSend");//jQuery obj
+    output.html(slider.value);
     $speechInput.val(slider.value);
     slider.oninput = function() {
-        output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
+        output.html(this.value.toLocaleString(undefined, {maximumFractionDigits:2})); //toLocaleString to conver to money format
         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
     }
 }
@@ -455,31 +471,48 @@ function sendSlice(sliderId){
     send_query();
  }
 
+// function printImgButton(imgBtnName, imgBtnList){
+//     var toAppend;
+//     var imgSrc;
+//     var imgButton_i="";
+//     datestr=getFormattedDate();
+//     for(i=0;i<imgBtnList.length;i++){
+//         imgBtnIds[i]=createIdFromText(imgBtnList[i]);
+//         imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
+//         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
+//         imgBtnTemp=imgBtnList[i];
+//         imgButton_i+="<div class='img-button-container d-inline-block card text-center mw-50'>"+
+//                         "<img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:7.2rem;'>"+
+//                         "<div class='card-body p-2'>"+
+//                             // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
+//
+//                                 "<button class='listButton btn btn-outline-primary btn-sm m-0' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style=''>"+
+//                                     imgBtnList[i]+
+//                                 "</button>"+
+//                         "</div>"+
+//                     "</div>";
+//     }
+//     toAppend="<div class='d-block text-center'>"+
+//                 imgButton_i+
+//              "</div>"
+//     appendHtml("left",toAppend);
+// }
+
 function printImgButton(imgBtnName, imgBtnList){
-    var toAppend;
+    var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
-    datestr=getFormattedDate();
-    for(i=0;i<imgBtnList.length;i++){
-        imgBtnIds[i]=createIdFromText(imgBtnList[i]);
+    $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    for (var i in imgBtnList){
+        imgBtnIds[i]=createIdFromText(imgBtnList[i])+printIndex;
         imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
         imgBtnTemp=imgBtnList[i];
-        imgButton_i+="<div class='img-button-container d-inline-block card text-center mw-50'>"+
-                        "<img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:7.2rem;'>"+
-                        "<div class='card-body p-2'>"+
-                            // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
-
-                                "<button class='listButton btn btn-outline-primary btn-sm m-0' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style=''>"+
-                                    imgBtnList[i]+
-                                "</button>"+
-                        "</div>"+
-                    "</div>";
+        $("<div class='img-button-container d-inline-block card text-center mw-50'><img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:7.2rem;'><div class='card-body p-2'><button class='listButton btn btn-outline-primary btn-sm m-0' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" style=''>"+imgBtnList[i]+"</button></div></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-    toAppend="<div class='d-block text-center'>"+
-                imgButton_i+
-             "</div>"
-    appendHtml("left",toAppend);
+    for(var k in imgBtnList){
+        $("#"+imgBtnIds[k]+"ImgBtnSend").attr('onClick', "sendImgBtn(\'"+imgBtnList[k]+"\',\'"+imgBtnIds[k]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")");
+    }
 }
 
 function getImgSrc(refName, imgName){
@@ -508,10 +541,11 @@ function wait_time(timer){
 }
 
 function printImgAndText(name, data, text, link){
-    var toAppend;
+    var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     var itemName;
+    $("<div class='imgContainer'><input type='image' src='"+imgSrc+"' class='img' width='95%' id='"+itemName+"'></div>")
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
@@ -535,10 +569,7 @@ function printImgAndText(name, data, text, link){
                         "</h1>"+
                     "</div>";
     }
-    toAppend="<div class='img-text-link'style= 'clear: right; text-align:center;width: 90%;'>"+
-        imgButton_i+
-        "</div>";
-    appendHtml("left",toAppend);
+
 }
 
 function printLogin(username,password) {
