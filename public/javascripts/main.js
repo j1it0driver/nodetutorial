@@ -1,15 +1,17 @@
+// (function(){
+  'use strict';
 //version R-Prod from L-Master2
 // var clientTOKEN = process.env.API_AI_CIENT_TOKEN_TADV; //revisar el uso de éste acceso a variables env
 var tadvisorToken = "aba2ecdbb9e744ba8b37ec6cf6a175d9", originalToken = "dce399808780466db898fad9bfae71fe";
 var productionToken="d8263496b81c4d82bc1b557574106e0f", flouristToken="1dfd6eb17bb240db9ec60813c5d0095a", accessToken = tadvisorToken;
 var baseUrl = "https://api.api.ai/v1/", version="20170810";
-var $speechInput, $recBtn, $recBtn1, $statusMessages, $debugBtn;
+var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
 var recognition,
 messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null, timeou2=null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
+var tiempoSend, timeout = null, timeout2=null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
 var str="", datos, bubble_id=0;
 var datestr;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
@@ -22,20 +24,15 @@ var chat_bubbleId=[];
 var voices=speechSynthesis.getVoices();
 var chatHistoryDiv = $("#chatHistory");
 var toAppend;
+var x, i, j, k;
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
 // window.onload = maxWindow;
 $(document).ready(function() {
-    $speechInput = $("#speech");
-    $recBtn = $("#rec");
-    $recBtn1 = $("#rec1");
-    $statusMessages = $('#statusMessages');
-    $debugBtn = $(".debug_btn");
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
+    $('[data-toggle="tooltip"]').tooltip();
+    send_event('custom_event','Guest');
     x = {
       bubble_idInternal: bubble_id,
       bubble_idListener: function(val) {},
@@ -227,7 +224,7 @@ function send() {           //////////////////////////////////// SEND //////////
         $('#statusMessages').text("Message Send!");
         disableBubbles();
         toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
-        appendHtml(toAppend,"right");
+        appendHtml("right",toAppend);
         $speechInput.val("");
         $speechInput.blur();
     }
@@ -316,7 +313,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
     // dataObj = eval('\"'+ jsonEscape(valor) +'\"');
     // valor=putLinks(val.payload.links,valor);
     toAppend="<h6 class='mb-0 d-block'>"+valLinks+"</h6>";
-    appendHtml(toAppend,"left");
+    appendHtml("left",toAppend);
     $speechInput.blur();
     // $speechInput.focus();
 
@@ -376,22 +373,39 @@ function send_event(eventName,valor) {                //////////////////////////
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 }
 
+// function printButton(arrayList){
+//     var printButton_i="";
+//     var toAppend;
+//     buttonIds[i]=null;
+//     for(var i in arrayList){
+//     // for(i=0;i<arrayList.length;i++){
+//         buttonIds[i]=createIdFromText(arrayList[i]);
+//         printButton_i+=
+//                 "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
+//                     arrayList[i]+
+//                 "</button>";
+//         // $("#"+buttonIds[i]).onclick= quickReplyF(arrayList[i], buttonIds[i], buttonIds);
+//     }
+//     toAppend="<div class='quick-reply-button d-block text-center'>"+
+//                 printButton_i+
+//             "</div>";
+//     appendHtml(toAppend,"left");
+// }
 function printButton(arrayList){
-    var printButton_i="";
-    var toAppend;
-    buttonIds[i]=null;
+    // appendHtml("left");
+    // var printButton_i="";
+    // var toAppend="";
+    var printIndex= bubble_id-1;
+    buttonIds=[];
+    $("<div class='quick-reply-button d-block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in arrayList){
-    // for(i=0;i<arrayList.length;i++){
-        buttonIds[i]=createIdFromText(arrayList[i]);
-        printButton_i+=
-                "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
-                    arrayList[i]+
-                "</button>";
+        buttonIds[i]=printIndex+createIdFromText(arrayList[i]);
+        $("<button class='listButton btn btn-outline-primary btn-sm mr-1 mt-1' id='"+buttonIds[i]+"' name='listButton"+i+"' style='display: inline-block;'>"+arrayList[i]+"</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-    toAppend="<div class='quick-reply-button d-block text-center'>"+
-        printButton_i+
-        "</div>";
-    appendHtml(toAppend,"left");
+    for(var k in arrayList){
+    $("#"+buttonIds[k]).attr('onClick', "quickReplyF('"+arrayList[k]+"','"+buttonIds[k]+"',"+'buttonIds'+")");
+
+    }
 }
 
 function quickReplyF(stringItem,buttonId,buttonIds){
@@ -408,7 +422,7 @@ function disableButtons(buttonIdSelected,buttonIdsToDisable){
 }
 
 function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
-    return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"");
+    return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"").replace(/,/g,"");
 }
 
 function printSliderSelector(sliderName){
@@ -423,10 +437,10 @@ function printSliderSelector(sliderName){
                 "<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
                 "</button>"+
             "</div>";
-    appendHtml(toAppend,"left");
+    appendHtml("left",toAppend);
     var slider = document.getElementById(sliderId);
     var output = document.getElementById(sliderId+"SliderBtnSend");
-    output.innerHTML = slider.value;
+    output.innerHTML = slider.value;buttonIds[i]
     $speechInput.val(slider.value);
     slider.oninput = function() {
         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
@@ -465,7 +479,7 @@ function printImgButton(imgBtnName, imgBtnList){
     toAppend="<div class='d-block text-center'>"+
                 imgButton_i+
              "</div>"
-    appendHtml(toAppend,"left");
+    appendHtml("left",toAppend);
 }
 
 function getImgSrc(refName, imgName){
@@ -524,7 +538,7 @@ function printImgAndText(name, data, text, link){
     toAppend="<div class='img-text-link'style= 'clear: right; text-align:center;width: 90%;'>"+
         imgButton_i+
         "</div>";
-    appendHtml(toAppend,"left");
+    appendHtml("left",toAppend);
 }
 
 function printLogin(username,password) {
@@ -543,7 +557,7 @@ function printLogin(username,password) {
       "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
       "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
     "</div>";
-    appendHtml(toAppend,"left");
+    appendHtml("left",toAppend);
 }
 
 function send_login(){
@@ -573,19 +587,33 @@ function toggleFullScreen() {
   }
 }
 
-function appendHtml(toAppend, bubbleSide){
+function appendHtml(bubbleSide, toAppend){
     datestr=getFormattedDate();
-    chatHistoryDiv.append(
-        "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
-            "<div class='media col-12 pr-4'>"+
-                // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
-                "<div class='media-body my-3'>"+
-                    toAppend+
-                    "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
+    if(!toAppend){
+        chatHistoryDiv.append(
+            "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
+                "<div class='media col-12 pr-4'>"+
+                    // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
+                    "<div class='media-body my-3' id='chatBubbleDiv"+bubble_id+"'>"+
+                        "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
+                    "</div>"+
                 "</div>"+
-            "</div>"+
-        "</div>"
-    );
+            "</div>"
+        );
+    }
+    else {
+        chatHistoryDiv.append(
+            "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
+                "<div class='media col-12 pr-4'>"+
+                    // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
+                    "<div class='media-body my-3' id='chatBubbleDiv"+bubble_id+"'>"+
+                        toAppend+
+                        "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
+                    "</div>"+
+                "</div>"+
+            "</div>"
+        );
+    }
     bubble_id++;
     x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200); //autoscroll to the end of content
@@ -629,8 +657,9 @@ function send_query(){
         $('#statusMessages').text("Message Send!");
         disableBubbles();
         toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
-        appendHtml(toAppend,"right");
+        appendHtml("right",toAppend);
         $speechInput.val("");
         $speechInput.blur();
     }
 }
+// })();
