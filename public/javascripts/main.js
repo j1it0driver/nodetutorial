@@ -70,9 +70,9 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     send_event('custom_event','Guest');
-    $("#popupPanel-screen").bind('DOMSubtreeModified', function(e) {
-        alert('class changed');
-    });
+    // $("#popupPanel-screen").bind('DOMSubtreeModified', function(e) {
+    //     alert('class changed');
+    // });
     x = {
       bubble_idInternal: bubble_id,
       bubble_idListener: function(val) {},
@@ -141,7 +141,7 @@ $(document).ready(function() {
         //     $debugBtn.toggleClass("is-active");
         //     $(".debug").toggleClass("is-active");
         // }
-        if($("#popupPanel-screen").hasClass("is-active") && !$("#popupPanel-screen").is(event.target)){
+        if($("#popupPanel-popup").hasClass("ui-popup-active") && !$("#popupPanel-popup").is(event.target)){
             $("#chat-button").show(); //algo.next() mira a los hermanos de algo. El siguiente tag
             // $("#chat-button").toggleClass("is-active");
         }
