@@ -545,31 +545,20 @@ function printImgAndText(name, data, text, link){
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    $("<div class='imgContainer'><input type='image' src='"+imgSrc+"' class='img' width='95%' id='"+itemName+"'></div>")
+    $("<div class='img-text-link'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
-        imgButton_i+="<div class='imgContainer'>"+
-                        "<input type='image' src='"+imgSrc+"' class='img' width='95%' id='"+itemName+"'>"+
-                    "</div>";
+        $("<div class='imgContainer'><input type='image' src='"+imgSrc+"' class='img mw-50' id='"+itemName+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
     if(text){
         itemName=createIdFromText(name+"text");
-        imgButton_i+="<div class='textContainer'>"+
-                        "<h2 class='textPrinted' id='"+itemName+"'>"+
-                        text+
-                        "</h2>"+
-                    "</div>";
+        $("<div class='textContainer'><h2 class='textPrinted' id='"+itemName+"'>"+text+"</h2></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
     if(link){
         itemName="Ver detalle";
-        imgButton_i+="<div class='linkContainer'>"+
-                        "<a href = "+link+" target =\"frame\">"+itemName+"</a>"
-                        text+
-                        "</h1>"+
-                    "</div>";
+        $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-
 }
 
 function printLogin(username,password) {
