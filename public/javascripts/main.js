@@ -141,7 +141,7 @@ $(document).ready(function() {
         //     $debugBtn.toggleClass("is-active");
         //     $(".debug").toggleClass("is-active");
         // }
-        if($("#popupPanel-popup").hasClass("ui-popup-active") && !$("#popupPanel-popup").is(event.target)){
+        if(!$("#popupPanel-popup").is(event.target) && !$("#chat-button").is(event.target)){
             $("#chat-button").show(); //algo.next() mira a los hermanos de algo. El siguiente tag
             // $("#chat-button").toggleClass("is-active");
         }
