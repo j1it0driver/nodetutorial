@@ -30,9 +30,49 @@ navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
 // window.onload = maxWindow;
+
+// $(function() {
+// (function($) {
+//     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+//
+//     $.fn.attrchange = function(callback) {
+//         if (MutationObserver) {
+//             var options = {
+//                 subtree: false,
+//                 attributes: true
+//             };
+//
+//             var observer = new MutationObserver(function(mutations) {
+//                 mutations.forEach(function(e) {
+//                     callback.call(e.target, e.attributeName);
+//                 });
+//             });
+//
+//             return this.each(function() {
+//                 observer.observe(this, options);
+//             });
+//
+//         }
+//     }
+// })(jQuery);
+// $("#popupPanel-screen").attrchange(function(attrName) {
+//
+//     if(attrName=='class'){
+//             alert('class changed');
+//     }else if(attrName=='id'){
+//             alert('id changed');
+//     }else{
+//         //OTHER ATTR CHANGED
+//     }
+//
+// });
+// });
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     send_event('custom_event','Guest');
+    $("#popupPanel-screen").bind('DOMSubtreeModified', function(e) {
+        alert('class changed');
+    });
     x = {
       bubble_idInternal: bubble_id,
       bubble_idListener: function(val) {},
@@ -96,13 +136,19 @@ $(document).ready(function() {
         return false;
     });
     $(document).click(function(event) { //function to manage DEBUG behavior
-        if($debugBtn.hasClass("is-active") && !$(".debug_content").is(event.target)){
-            $debugBtn.next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
-            $debugBtn.toggleClass("is-active");
-            $(".debug").toggleClass("is-active");
+        // if($debugBtn.hasClass("is-active") && !$(".debug_content").is(event.target)){
+        //     $debugBtn.next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
+        //     $debugBtn.toggleClass("is-active");
+        //     $(".debug").toggleClass("is-active");
+        // }
+        if($("#popupPanel-screen").hasClass("is-active") && !$("#popupPanel-screen").is(event.target)){
+            $("#chat-button").show(); //algo.next() mira a los hermanos de algo. El siguiente tag
+            // $("#chat-button").toggleClass("is-active");
         }
     });
-
+    $("#chat-button").click(function(event) { //function to manage DEBUG behavior
+            $("#chat-button").hide();
+    });
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

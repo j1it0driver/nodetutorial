@@ -5,58 +5,83 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
     <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> esta linea es para accesar el .css como archivo externo -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/jquery.mobile.custom.structure.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheets/backgrounds.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootmain.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/popup.css">
     <link href="/images/tadvisor.ico" rel="shortcut icon">
     <title>BoT-advisor</title>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="manifest" href="manifest.json">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" defer></script>
+
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" defer></script> -->
+    <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script>
+            $(document).bind('mobileinit',function(){
+                $.mobile.keepNative = "select,input,button,label";
+                //$.mobile.page.prototype.options.keepNative = "select,input";
+            });
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
     <script type="application/javascript" src="/javascripts/fullscreen.js" defer></script>
     <script type="application/javascript" src="/javascripts/main.js" defer></script>
     <script type="application/javascript" src="/javascripts/handlers.js" defer></script>
+    <script type="application/javascript" src="/javascripts/popup.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous" defer></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous" defer></script>
 </head>
 <body class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
-    <div class="container">
-        <div class="row border-0 header">
-            <div class="col-12 pt-3">
-                <div class="media">
-                    <img class="d-flex align-self-top mr-5 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
-                    <div class="media-body">
-                        <div class="row d-flex justify-content-between w-100 ml-0">
-                            <h5 class="mt-0">T-Advisor</h5>
-                            <button class="listButton btn btn-sm p-0 border-0 rounded-circle" data-toggle="tooltip" data-placement="bottom" title="Restart" value="Restart" onClick="window.location.reload()" id="restart"><img src="/images/restart.png" alt="" ></button>
-                        </div>
-                        <div class="status">
-                            <label class="statusToUser small font-italic" id="statusMessages">Let's start a conversation...</label>
+    <div class="row">
+        <div class="col-12">
+            <div class="">
+                    <a class="chat-icon" id="chat-button" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button"><img class="rounded-circle w-100" style="" src="/images/chaticon.png" alt="" ></a>
+            </div>
+
+        </div>
+        <div class="col-12">
+
+        </div>
+    </div>
+    <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+        <div class="container h-100">
+            <div class="row border-0 header">
+                <div class="col-12 pt-3">
+                    <div class="media">
+                        <img class="d-flex align-self-top mr-5 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
+                        <div class="media-body">
+                            <div class="row d-flex justify-content-between w-100 ml-0">
+                                <h5 class="mt-0">T-Advisor</h5>
+                                <button class="listButton btn btn-sm p-0 border-0 rounded-circle" data-toggle="tooltip" data-placement="bottom" title="Restart" value="Restart" onClick="window.location.reload()" id="restart"><img src="/images/restart.png" alt="" ></button>
+                            </div>
+                            <div class="status">
+                                <label class="statusToUser small font-italic" id="statusMessages">Let's start a conversation...</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row border-0 ">
-            <div class="chatBckg col-12 p-0">
-
-                <div class="scrollable chat-messages p-1" id="chatHistory">
-                </div>
-
-            </div>
-        </div>
-        <div class="row border-0 footer">
-            <div class="col-12">
-                <div class="row d-flex justify-content-between mt-3" >
-                    <div class="col-9 ">
-                        <div class="textInputContainer form-group ">
-                           <input id="speech" type="text" autofocus placeholder="Type here... + Enter" class="form-control">
-                       </div>
+            <div class="row border-0 ">
+                <div class="chatBckg col-12 p-0">
+                    <div class="scrollable chat-messages p-1 mh-100" id="chatHistory">
                     </div>
-                    <div class="col-3 d-flex justify-content-end pl-0 pr-3">
-                        <button class="btn btn-primary ml-auto align-self-start p-1 col-12 col-sm-8 col-md-6" data-toggle="tooltip" data-placement="top" title="Press to init Recording" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1"></span></button>
+                </div>
+            </div>
+            <div class="row border-0 footer">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-between mt-3" >
+                        <div class="col-9 ">
+                            <div class="textInputContainer form-group ">
+                               <input id="speech" type="text" autofocus placeholder="Type here... + Enter" class="form-control">
+                           </div>
+                        </div>
+                        <div class="col-3 d-flex justify-content-end pl-0 pr-3">
+                            <button class="btn btn-primary ml-auto align-self-start p-1 col-12 col-sm-8 col-md-6" data-toggle="tooltip" data-placement="top" title="Press to init Recording" id="rec"><img src="/images/mic.png" alt="" ><span id="rec1"></span></button>
+                        </div>
                     </div>
                 </div>
             </div>

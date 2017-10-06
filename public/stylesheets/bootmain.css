@@ -2,8 +2,13 @@ body{
     font-family: Roboto;
     font-size: 12px;
 }
+/*button{
+    all: none;
+}*/
 #rec{
     height: 2.25rem;
+    max-width: 5rem;
+    min-width: 3rem;
 }
 #restart{
     height: 1.5rem;
@@ -25,6 +30,12 @@ img{
 }
 .chat-message{
 
+}
+.chat-icon{
+    position: fixed;
+    width: 8rem;
+    bottom: 0rem;
+    right: 0rem;
 }
 .bubble-left{
     width: 95%;
