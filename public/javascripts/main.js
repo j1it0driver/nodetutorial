@@ -135,19 +135,14 @@ $(document).ready(function() {
         $(".debug").toggleClass("is-active");
         return false;
     });
-    $(document).click(function(event) { //function to manage DEBUG behavior
-        // if($debugBtn.hasClass("is-active") && !$(".debug_content").is(event.target)){
-        //     $debugBtn.next().toggleClass("is-active"); //algo.next() mira a los hermanos de algo. El siguiente tag
-        //     $debugBtn.toggleClass("is-active");
-        //     $(".debug").toggleClass("is-active");
-        // }
-        if(!$("#popupPanel-popup").is(event.target) && !$("#chat-button").is(event.target)){
-            $("#chat-button").show(); //algo.next() mira a los hermanos de algo. El siguiente tag
-            // $("#chat-button").toggleClass("is-active");
-        }
+    $("#chat-button").bind("click",function(){
+        $(this).hide();
     });
-    $("#chat-button").click(function(event) { //function to manage DEBUG behavior
-            $("#chat-button").hide();
+    $( "#popupPanel" ).bind({
+       popupafterclose: function(event, ui) {$("#chat-button").show();  }
+    });
+    $("#close").on("click", function(){
+        $( "#popupPanel" ).popup( "close" );
     });
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

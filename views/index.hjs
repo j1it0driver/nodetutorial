@@ -44,24 +44,30 @@
 
         </div>
         <div class="col-12">
-
         </div>
     </div>
     <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
         <div class="container h-100">
             <div class="row border-0 header">
-                <div class="col-12 pt-3">
+                <div class="col-11 pt-2 pb-2">
                     <div class="media">
-                        <img class="d-flex align-self-top mr-5 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
+                        <img class="d-flex align-self-top mr-4 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
                         <div class="media-body">
-                            <div class="row d-flex justify-content-between w-100 ml-0">
+                            <div class="row d-flex justify-content-between w-100 ml-0 mt-1">
                                 <h5 class="mt-0">T-Advisor</h5>
-                                <button class="listButton btn btn-sm p-0 border-0 rounded-circle" data-toggle="tooltip" data-placement="bottom" title="Restart" value="Restart" onClick="window.location.reload()" id="restart"><img src="/images/restart.png" alt="" ></button>
                             </div>
-                            <div class="status">
+                            <div class="row d-flex justify-content-between w-100 ml-0 status">
                                 <label class="statusToUser small font-italic" id="statusMessages">Let's start a conversation...</label>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-1 p-0 pt-2">
+                    <div class="row w-100 m-0 d-flex justify-content-center">
+                        <button class="barButton btn close p-0 border-0 rounded-circle align-self-center" data-toggle="tooltip" data-placement="bottom" title="Close" value="Close"  id="close"><img src="" alt="" >&times;</button>
+                    </div>
+                    <div class="row w-100 m-0 d-flex justify-content-center">
+                        <button class="barButton btn btn-sm p-0 border-0 rounded-circle align-self-center" data-toggle="tooltip" data-placement="bottom" title="Restart" value="Restart" onClick="window.location.reload()" id="restart"><img src="/images/restart.png" alt="" ></button>
                     </div>
                 </div>
             </div>

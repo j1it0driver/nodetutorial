@@ -3,7 +3,7 @@
 
 }
 .chatBckg{
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.05);
 }
 .bubble-left{
     background-color: white;
@@ -29,27 +29,3 @@
 .slider::-moz-range-thumb {
     background: #007bff; /* color background */
 }
-
-/*.tooltip{
-    background-color: red;
-}
-.tooltip-inner{
-    background: red;
-    color:red;
-}*/
-/*.red-tooltip + .tooltip-top > .tooltip-arrow{
-    background-color: #007bff;
-}
-.tooltip-inner {
-
-  background-color: #8447cf;
-
-}
-
-
-
-[data-placement="top"] + .tooltip > .tooltip-arrow {
-
-  border-top-color: #8447cf;
-
-}*/

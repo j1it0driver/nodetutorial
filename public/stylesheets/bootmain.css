@@ -11,7 +11,8 @@ body{
     min-width: 3rem;
 }
 #restart{
-    height: 1.5rem;
+    height: 1.2rem;
+    background-color: white;
 }
 img{
     max-height: 100%;
@@ -33,9 +34,13 @@ img{
 }
 .chat-icon{
     position: fixed;
-    width: 8rem;
+    width: 6rem;
     bottom: 0rem;
     right: 0rem;
+}
+.button-hidden{
+    display: none;
+
 }
 .bubble-left{
     width: 95%;
@@ -49,6 +54,10 @@ h6{
 }
 .listButton{
     font-size: 0.775rem;
+    line-height: 1.2rem;
+}
+.barButton{
+    line-height: 1.8rem;
 }
 
 .slider{
