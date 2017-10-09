@@ -12,6 +12,26 @@
 #popupPanel .ui-btn {
     margin: 2em 15px;
 }
+.tooltip{
+    z-index: 10000 !important;
+}
+
+/*//////////////////////////////////////*/
+.tooltip > .tooltip-inner {background-color: #007bff;;}
+
+.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before, .tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: #007bff !important;
+}
+.tooltip.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .tooltip.bs-tooltip-bottom .arrow::before {
+  border-bottom-color: #007bff !important;
+}
+.tooltip.bs-tooltip-auto[x-placement^=left] .arrow::before, .tooltip.bs-tooltip-left .arrow::before {
+    border-left-color: #007bff !important;
+}
+.tooltip.bs-tooltip-auto[x-placement^=right] .arrow::before, .tooltip.bs-tooltip-right .arrow::before {
+  border-right-color: #007bff !important;
+}
+
 /*@media only screen and (max-width: 768px) {
     /* For mobile phones:
     #popupPanel,#popupPanel-popup  {

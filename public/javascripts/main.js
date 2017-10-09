@@ -69,6 +69,7 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 // });
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
+    // $("[data-toggle=tooltip]").tooltip();
     send_event('custom_event','Guest');
     // $("#popupPanel-screen").bind('DOMSubtreeModified', function(e) {
     //     alert('class changed');
