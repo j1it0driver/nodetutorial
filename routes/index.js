@@ -1,4 +1,6 @@
 var express = require('express');
+var cookie = require('cookie');
+var cookiesm= require('../cookies.js')
 var router = express.Router();
 
 // /* GET home page. */
@@ -6,6 +8,12 @@ var router = express.Router();
 //   res.render('index', { title: 'Express' });
 // });
 router.get('/', function(req,res){
+  // console.log("aqui va el tema de las cookies");
+  // console.log("Cookies :  ", req.cookies);
+  // var cookies_s = cookie.parse(req.headers.cookie || '');
+  // console.log(cookies_s.visits);
+  // console.log(cookiesm.guid());
+  res.cookie("sessionID",cookiesm.guid(),{expire : new Date() + 9999});
   res.render('index');
 });
 /////// EXAMPLE FOR ROUTING

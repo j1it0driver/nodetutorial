@@ -25,6 +25,9 @@ var voices=speechSynthesis.getVoices();
 var chatHistoryDiv = $("#chatHistory");
 var toAppend;
 var x, i, j, k;
+var visits;
+var sessionID=null;
+var username;
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -68,9 +71,15 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 // });
 // });
 $(document).ready(function() {
+    visits();
+    username();
+    sessionID=readCookie("sessionID");
+    // eraseCookie("sessionID");
+    //eraseCookie("visits");
+    // console.log(guid());
     $('[data-toggle="tooltip"]').tooltip();
     // $("[data-toggle=tooltip]").tooltip();
-    send_event('custom_event','Guest');
+    // send_event('custom_event','Guest');
     // $("#popupPanel-screen").bind('DOMSubtreeModified', function(e) {
     //     alert('class changed');
     // });
@@ -117,7 +126,7 @@ $(document).ready(function() {
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200);
     });
     $recBtn.on("click", function(event) { // SPEECH
-        clearTimeout(tiempoStop);
+        clearTimeout(tiempoStop);sessionID
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
             console.log("getusermedia ok");
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -137,6 +146,9 @@ $(document).ready(function() {
         return false;
     });
     $("#chat-button").bind("click",function(){
+        if(bubble_id==0){
+            send_event('custom_event','Guest');
+        }
         $(this).hide();
     });
     $( "#popupPanel" ).bind({
@@ -148,6 +160,29 @@ $(document).ready(function() {
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function visits(){
+    if(!checkCookie("visits")){
+        console.log("primera visita");
+        visits=0;
+        createCookie("visits", 1, 1);
+        console.log(readCookie("visits"));
+    }else{
+        visits=Number(readCookie("visits"));
+        visits += 1;
+        console.log(visits);
+        createCookie("visits", visits, 1);
+        console.log(readCookie("visits"));
+    }
+}
+function username(){
+    if(!checkCookie("username")){
+        createCookie("username", "New Guest", 1);
+    }else{
+        username=readCookie("username");
+        createCookie("username", username, 1);
+    }
+}
+
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
@@ -253,7 +288,7 @@ function send() {           //////////////////////////////////// SEND //////////
             headers: {
                 "Authorization": "Bearer " + accessToken
             },
-            data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner2"}),
+            data: JSON.stringify({query: text, lang: "en", sessionId: "cookiesssession"}), //yaydevdiner2
             success: function(data) {
                 console.log(data);
                 datos=data.result.fulfillment.messages;
@@ -293,6 +328,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         }
         if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
+            if (spokenResponse[i].payload.username){
+                username=spokenResponse[i].payload.username;
+                createCookie("username",username,365);
+            }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             printSliderSelector(spokenResponse[i].payload.slide.name);
@@ -394,17 +433,39 @@ function jsonEscape(stringJSON)  {
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
 
-function send_event(eventName,valor) {                //////////////////////////////////// SEND EVENT////////////////////////////////////
+// function send_event(eventName,valor) {                //////////////////////////////////// SEND EVENT////////////////////////////////////
+//     $.ajax({
+//         type: "POST",
+//         url: baseUrl + "query?v=20170810",
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         headers: {
+//             "Authorization": "Bearer " + accessToken
+//         },
+//         data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: sessionID}),
+//         success: function(data) {
+//             prepareResponse(data);
+//         },
+//         error: function() {
+//             respond(messageInternalError,null);
+//         }
+//     });
+//     $('#statusMessages').text("Type the topic you are interested in");
+//     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+// }
+function send_event(eventName,valor){
     $.ajax({
         type: "POST",
-        url: baseUrl + "query?v=20170810",
+        // url: baseUrl + "query?v=20170810",
+        url: "/api/event",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         headers: {
-            "Authorization": "Bearer " + accessToken
+        //     "Authorization": "Bearer " + accessToken
         },
-        data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: "yaydevdiner2"}),
+        data: JSON.stringify({'event': {'name': eventName, data:{'username': username}}}),
         success: function(data) {
+            datos=data.result.fulfillment.messages;
             prepareResponse(data);
         },
         error: function() {
@@ -412,8 +473,11 @@ function send_event(eventName,valor) {                //////////////////////////
         }
     });
     $('#statusMessages').text("Type the topic you are interested in");
-    $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
+    $speechInput.val("");
+    $speechInput.blur();
 }
+
+
 
 // function printButton(arrayList){
 //     var printButton_i="";
@@ -421,7 +485,7 @@ function send_event(eventName,valor) {                //////////////////////////
 //     buttonIds[i]=null;
 //     for(var i in arrayList){
 //     // for(i=0;i<arrayList.length;i++){
-//         buttonIds[i]=createIdFromText(arrayList[i]);
+//         buttonIds[i]=createIdFromText(var data = req.body.val;arrayList[i]);
 //         printButton_i+=
 //                 "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
 //                     arrayList[i]+
@@ -439,7 +503,7 @@ function printButton(arrayList){
     // var toAppend="";
     var printIndex= bubble_id-1;
     buttonIds=[];
-    $("<div class='quick-reply-button d-block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    $("<div class='quick-reply-button d-var data = req.body.val;block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in arrayList){
         buttonIds[i] = printIndex+createIdFromText(arrayList[i]);
         $("<button class='listButton btn btn-outline-primary btn-sm mr-1 mt-1' id='"+buttonIds[i]+"' name='listButton"+i+"' style='display: inline-block;'>"+arrayList[i]+"</button>").appendTo('#chatBubbleDivDiv'+printIndex);
@@ -724,4 +788,3 @@ function send_query(){
         $speechInput.blur();
     }
 }
-// })();

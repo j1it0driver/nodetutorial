@@ -4,6 +4,7 @@ var http = require ('http');
 var https = require ('https');
 var express = require('express');
 var processf = require('processf');
+var cookies = require('cookies.js');
 var router = express.Router();
 console.log("api route");
 
@@ -13,7 +14,7 @@ router.post('/', function(req, respond) { //https://stackoverflow.com/questions/
     var accessToken="aba2ecdbb9e744ba8b37ec6cf6a175d9";
     var _http = this.secure ? https : http;
     var datos="";
-
+    var guid=guid();
     var data= JSON.stringify({query: req.body.val, lang: "en", sessionId: "yaydevdiner"});
     var options = {
             hostname: "api.api.ai",
