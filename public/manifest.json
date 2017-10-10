@@ -1,0 +1,29 @@
+{
+    "app":{
+        "background": {
+        }
+    },
+    "manifest_version": 2,
+    "name": "Tadvisor Chatbot",
+    "version": "v2",
+    "short_name": "T-bot",
+    "icons": [],
+    "background_color": "lightgray",
+    "command": "node app.js",
+    "description": "App for testing speech recognition and API natula language processing",
+    "lang":"en-GB",
+    "scope": "/",
+    "start_url": "/index.html",
+    "default_locale": "en",
+    "display": "standalone",
+    "orientation": "portrait",
+    "permissions" : {
+        "audio-capture" : {
+            "description" : "Audio capture"
+        },
+        "speech-recognition" : {
+            "description" : "Speech recognition"
+        },
+        "type" : "privileged"
+    }
+}

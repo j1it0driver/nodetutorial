@@ -147,7 +147,7 @@ $(document).ready(function() {
     });
     $("#chat-button").bind("click",function(){
         if(bubble_id==0){
-            send_event('custom_event','Guest');
+            send_event('custom_event', username);
         }
         $(this).hide();
     });
@@ -176,11 +176,11 @@ function visits(){
 }
 function username(){
     if(!checkCookie("username")){
-        createCookie("username", "New Guest", 1);
+        username="New Guest";
     }else{
         username=readCookie("username");
-        createCookie("username", username, 1);
     }
+    createCookie("username", username, 1);
 }
 
 function hasGetUserMedia() {
@@ -463,7 +463,7 @@ function send_event(eventName,valor){
         headers: {
         //     "Authorization": "Bearer " + accessToken
         },
-        data: JSON.stringify({'event': {'name': eventName, data:{'username': username}}}),
+        data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}}),
         success: function(data) {
             datos=data.result.fulfillment.messages;
             prepareResponse(data);
