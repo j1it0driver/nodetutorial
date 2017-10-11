@@ -17,7 +17,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
         switch(action){
             case 'my_action':
                 var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.')
-                response.json(json);
+                res.json(json);
                 break;
         }
 
