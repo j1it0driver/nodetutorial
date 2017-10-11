@@ -25,7 +25,7 @@ module.exports = {
         var name = getCookie("name");
         if (name != "") {
             return true;
-            alert("Welcome again " + username);
+            // alert("Welcome again " + username);
         } else {
             // username = prompt("Please enter your name:", "");
             return false;

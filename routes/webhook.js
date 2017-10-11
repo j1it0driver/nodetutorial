@@ -13,8 +13,9 @@ var router = express.Router();
 
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
-    console.log(req);
+    console.log('Request to webhook: '+req.body);
     util.fulfillment(req, res);
+    console.log('Response from webhook'+res);
 //     var cookies_s = cookie.parse(req.headers.cookie || '');
 //     var sessionId= cookies_s.sessionID;
 //     console.log(cookies_s.sessionID);

@@ -14,7 +14,7 @@ module.exports = {
             var datos;
 
             if(data.event){
-                console.log(data);
+                // console.log(data);
                 var request = app.eventRequest(data.event, {
                     sessionId: sessionID
                 });
@@ -24,13 +24,13 @@ module.exports = {
                 });
             }
             request.on('response', function(response) {
-                console.log("La respuesta" + response);
+                // console.log("La respuesta" + response);
                 resolve(response);
                 // console.log(datos);
             });
             request.on('error', function(error) {
                 reject(error);
-                console.log(error);
+                console.log('Error in comm.js: '+error);
             });
             request.end();
         });
