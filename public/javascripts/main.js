@@ -348,6 +348,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.login) { //type 4 is a custompayload
             printLogin(spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
         }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.lists) { //type 4 is a custompayload
+            display_lists(); //envio el nombre y los datos del payload
+        }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
     spokenRespond(messagesPrint);
@@ -453,6 +456,7 @@ function jsonEscape(stringJSON)  {
 //     $('#statusMessages').text("Type the topic you are interested in");
 //     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
 // }
+
 function send_event(eventName,valor){
     $.ajax({
         type: "POST",
@@ -476,8 +480,6 @@ function send_event(eventName,valor){
     $speechInput.val("");
     $speechInput.blur();
 }
-
-
 
 // function printButton(arrayList){
 //     var printButton_i="";
@@ -787,4 +789,26 @@ function send_query(){
         $speechInput.val("");
         $speechInput.blur();
     }
+}
+function display_lists(){
+
+    var printIndex = bubble_id-1;
+    var imgSrc;
+    var imgButton_i="";
+    var itemName;
+    $("<div data-role='tabs' id='tabs'><div data-role='navbar'><ul><li><a href='#one' data-ajax='false'>one</a></li><li><a href='#two' data-ajax='false'>two</a></li><li><a href='ajax-content-ignore.html' data-ajax='false'>three</a></li></ul></div><div id='one' class='ui-body-d ui-content'><h1>First tab contents</h1></div><div id='two'><ul data-role='listview' data-inset='true'><li><a href='#'>Acura</a></li><li><a href='#'>Audi</a></li><li><a href='#'>BMW</a></li><li><a href='#'>Cadillac</a></li><li><a href='#'>Ferrari</a></li></ul></div></div>").appendTo('#chatBubbleDiv'+printIndex);
+    if(data["imgsrc"]){
+        itemName=createIdFromText(name+data["imgsrc"]);
+        imgSrc=getImgSrc(name, data["imgsrc"]);
+        $("<div class='imgContainer'><input type='image' src='"+imgSrc+"' class='img mw-50' id='"+itemName+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+    }
+    if(text){
+        itemName=createIdFromText(name+"text");
+        $("<div class='textContainer'><h2 class='textPrinted' id='"+itemName+"'>"+text+"</h2></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+    }
+    if(link){
+        itemName="Ver detalle";
+        $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+    }
+
 }

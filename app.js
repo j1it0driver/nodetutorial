@@ -14,6 +14,7 @@ var dotenv = require('dotenv').config();
 var index = require('./routes/index'); //JDO Cuando requiero este archivo (index.js), estoy realmente llamando al funcion routes que esta dentro de index.js
 var api = require('./routes/api');
 var users = require('./routes/users');
+var webhook = require('./routes/webhook');
 
 //console.log('The value of PORT is:', process.env);
 var app = express(); // JDO la aplicacion arranca aca cuando ejecutamos express.
@@ -45,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public'))); //middleware from expre
 app.use('/', index); // path and function to execute (routes)
 app.use('/api', api);
 app.use('/users', users);
-
+app.use('/webhook', webhook);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
