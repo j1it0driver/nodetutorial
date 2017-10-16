@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+    <div data-history="false" data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
         <div class="container h-100">
             <div class="row border-0 header">
                 <div class="col-11 pt-2 pb-2">

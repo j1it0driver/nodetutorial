@@ -12,11 +12,11 @@ messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
 var tiempoSend, timeout = null, timeout2=null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], imgBtnTemp; //imgBtnList=[];//arrayList=[]
-var str="", datos, bubble_id=0;
+var str="", datos, bubble_id=0, printIndex=bubble_id-1;
 var datestr;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 var uname, psw;
-var baseUrl_H="http://towersoa.wmptech.com/SOA/tower4customers/";
+var baseUrl_H="https://towersoa.wmptech.com/SOA/tower4customers/";
 var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
 var language=null, userId=null, userCode=null, userPass=null, tokenString=null, views=null, clientId=null, token=null, email=null;
@@ -346,7 +346,16 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.login) { //type 4 is a custompayload
-            printLogin(spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
+            appendHtml("left");
+            printLogin('login', spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.create) { //type 4 is a custompayload
+            appendHtml("left");
+            printLogin('create', spokenResponse[i].payload.create.username, spokenResponse[i].payload.create.password); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.forgot) { //type 4 is a custompayload
+            appendHtml("left");
+            printLogin('forgot', spokenResponse[i].payload.forgot.username, null); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.lists) { //type 4 is a custompayload
             display_lists(); //envio el nombre y los datos del payload
@@ -503,7 +512,7 @@ function printButton(arrayList){
     // appendHtml("left");
     // var printButton_i="";
     // var toAppend="";
-    var printIndex= bubble_id-1;
+    // var printIndex= bubble_id-1;
     buttonIds=[];
     $("<div class='quick-reply-button d-var data = req.body.val;block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in arrayList){
@@ -556,7 +565,7 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
 //     }
 // }
 function printSliderSelector(sliderName){
-    var printIndex = bubble_id-1;
+    // var printIndex = bubble_id-1;
     var sliderId = printIndex+createIdFromText(sliderName);
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     $("<div class='slidecontainer px-2'><input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
@@ -607,7 +616,7 @@ function sendSlice(sliderId){
 // }
 
 function printImgButton(imgBtnName, imgBtnList){
-    var printIndex = bubble_id-1;
+    // var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
@@ -629,7 +638,7 @@ function getImgSrc(refName, imgName){
     return srcAddress;
 }
 
-function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
+function sendImgBtn(imgBtnItem, dialogm, imgBtnName, imgBtnIds, imgBtnIdsSend){
     $speechInput.val(imgBtnItem);
     disableButtons(imgBtnName+"ImgBtnSend", imgBtnIdsSend);
     disableButtons(imgBtnName, imgBtnIds);
@@ -649,11 +658,11 @@ function wait_time(timer){
 }
 
 function printImgAndText(name, data, text, link){
-    var printIndex = bubble_id-1;
+    // var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    $("<div class='img-text-link'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    $("<div class='img-text-l#&ui-state=dialogink'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
@@ -669,27 +678,59 @@ function printImgAndText(name, data, text, link){
     }
 }
 
-function printLogin(username,password) {
-    var toAppend;
-    toAppend="<div class='loginForm'>"+
-        // "<form action="">"+
-        "<label><b>Username</b></label>"+
-        "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
-        "<label><b>Password</b></label>"+
-        "<input type='password' placeholder='Enter Password' name='psw' required>"+
-        "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
-        "<label><input type='checkbox' checked='checked'> Remember me</label>"+
-    // "</form>"+
-    "</div>"+
-    "<div class='' style=''>"+
-      "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
-      "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
-    "</div>";
-    appendHtml("left",toAppend);
+function printLogin(type, username,password) {
+    // var printIndex = bubble_id-1;
+    if(type=='login'){
+        $("<div class='loginForm'><label><b>Username</b></label><input id='uname' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
+        $("<div class='' style=''><button class='formBtn' type='submit' onclick=send_login()>Login</button>&nbsp;&nbsp;<button class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
+        if(checkCookie("user")){
+            $("input[name='uname']").val(readCookie("user"));
+        }
+        // clientHandler();
+        // var toAppend;
+        // toAppend="<div class='loginForm'>"+
+        //     // "<form action="">"+
+        //     "<label><b>Username</b></label>"+
+        //     "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
+        //     "<label><b>Password</b></label>"+
+        //     "<input type='password' placeholder='Enter Password' name='psw' required>"+
+        //     "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
+        //     "<label><input type='checkbox' checked='checked'> Remember me</label>"+
+        // // "</form>"+
+        // "</div>"+
+        // "<div class='' style=''>"+
+        //   "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
+        //   "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
+        // "</div>";
+        // appendHtml("left",toAppend);
+    }
 }
+// function printLogin(type, username,password) {
+//     var toAppend;
+//     toAppend="<div class='loginForm'>"+
+//         // "<form action="">"+
+//         "<label><b>Username</b></label>"+
+//         "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
+//         "<label><b>Password</b></label>"+
+//         "<input type='password' placeholder='Enter Password' name='psw' required>"+
+//         "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
+//         "<label><input type='checkbox' checked='checked'> Remember me</label>"+
+//     // "</form>"+
+//     "</div>"+
+//     "<div class='' style=''>"+
+//       "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
+//       "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
+//     "</div>";
+//     appendHtml("left",toAppend);
+// }
 
 function send_login(){
-    uname=$("input[name='uname']").val();
+    if(checkCookie("user")){
+        uname=$("input[name='uname']").val();
+    }else{
+        uname=$("input[name='uname']").val();
+    }
+
     psw=$("input[name='psw']").val();
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
@@ -743,6 +784,7 @@ function appendHtml(bubbleSide, toAppend){
         );
     }
     bubble_id++;
+    printIndex++;
     x.bubble_id++;
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200); //autoscroll to the end of content
     hideUpper();
@@ -792,7 +834,7 @@ function send_query(){
 }
 function display_lists(){
 
-    var printIndex = bubble_id-1;
+    // var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     var itemName;
@@ -811,4 +853,20 @@ function display_lists(){
         $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
 
+}
+function addMessage(message, bubble){
+    if(!bubble){
+        $("<div id='bubbleMessage"+printIndex+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+printIndex);
+    }
+    else {
+        $("<div id='bubbleMessage"+bubble+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+bubble);
+    }
+}
+function changeMessage(messageToAdd, messageId){
+    if($("#bubbleMessage"+messageId).length){
+        $("#bubbleMessage"+messageId).text(messageToAdd).css('font-weight', 'bold').css('font-style', 'italic');
+    }
+    else{
+        addMessage(messageToAdd);
+    }
 }
