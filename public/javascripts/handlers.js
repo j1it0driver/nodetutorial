@@ -57,7 +57,6 @@ function clientHandler() {
         console.log("cookies read");
     }
 
-
     // console.log(process.env.PRUEBA);
     //userCode="j1it0driver@gmail.com", userPass="judaor82";
     $.ajax({
@@ -89,11 +88,11 @@ function showPersonalInfo(data){
     var portfolios=data.RSLT.DATA.Portfolios.Portfolios;
     appendHtml("left");
     addMessage("Email:   <i>"+email+"</i>");
-    addMessage("Name:   "+name+"</i>");
+    addMessage("Name:   <i>"+name+"</i>");
     addMessage("Last Profile:   <i>"+risk_profile+"</i>");
     addMessage("  Last test date:   <i>"+test_date+"</i>");
     for (i=0;i<questions.length;i++){
-        addMessage("  - Question:   <i>"+questions[i]+"</i>"+"   ->   answer:   <i>"+answers[i]+"</i>");
+        addMessage("  - Question: <i>"+questions[i]+"</i>"+" -> answer: <i>"+answers[i]+"</i>");
     }
         addMessage("You have a total of <i>"+portfolios.length+"</i>"+" porfolios.");
     for(j=0;j<portfolios.length;j++){
