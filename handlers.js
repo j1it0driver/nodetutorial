@@ -124,7 +124,7 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         res.on('data', (chunk) => {
             console.log("data ready");
             console.log(`BODY: ${chunk}`);
-            var assetTypes_Ids= JSON.stringify(chunk);
+            var assetTypes_Ids= JSON.parse(chunk.toString());
             // console.log("Asset Types",assetTypes_Ids);
             console.log(assetTypes_Ids);
             // process.stdout.write(d);
