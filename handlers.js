@@ -124,9 +124,10 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         res.on('data', (chunk) => {
             console.log("data ready");
             console.log(`BODY: ${chunk}`);
-            var assetTypes_Ids= JSON.stringify(chunk).RSLT.DATA;
+            var assetTypes_Ids= JSON.stringify(chunk);
             // console.log("Asset Types",assetTypes_Ids);
-            process.stdout.write(d);
+            console.log(assetTypes_Ids);
+            // process.stdout.write(d);
         });
     });
 
