@@ -131,8 +131,6 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
     });
     req.end();
 
-
-
     // $.ajax({
     //     type: "POST",
     //     url: baseUrl + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
