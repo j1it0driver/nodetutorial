@@ -121,12 +121,13 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         // console.log('headers:', res.headers);
         // console.log(res);
 
-        res.on('data', (data) => {
+        res.on('data', (chunk) => {
             console.log("data ready");
-            console.log(data);
-            var assetTypes_Ids= data.RSLT.DATA;
-            console.log("Asset Types",assetTypes_Ids);
-            // process.stdout.write(d);
+            console.log(`BODY: ${chunk}`);
+
+            // var assetTypes_Ids= data.RSLT.DATA;
+            // console.log("Asset Types",assetTypes_Ids);
+            process.stdout.write(d);
         });
     });
 
