@@ -13,8 +13,8 @@ function apiaiResponseFormat(){
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
-    var cookies=req.cookies;
-    console.log(cookies);
+    // var cookies=req.cookies;
+    // console.log(cookies);
     if (!body | !body.result.action){
         console.log('missing action in: '+body.result.metadata.intentName+' intent');
     } else {
