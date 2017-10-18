@@ -1,3 +1,5 @@
+var handlers = require('./handlers.js');
+var cookieParser = require('cookie-parser');
 function apiaiResponseFormat(){
     return{
         "speech": speech,
@@ -8,6 +10,7 @@ function apiaiResponseFormat(){
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
+    var cookies=req.cookies;
     if (!body | !body.result.action){
         console.log('missing action in: '+body.result.metadata.intentName+' intent');
     } else {
@@ -18,6 +21,10 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             case 'my_action':
                 var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.')
                 res.json(json);
+
+            case 'get_assetType_Ids':
+                console.log("Cookies: ", cookies);
+                GetMyTAdvisorScreenerProductTypesHandler();
                 break;
         }
 

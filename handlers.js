@@ -131,6 +131,8 @@ function showPersonalInfo(data){
 // }
 
 function GetMyTAdvisorScreenerProductTypesHandler(){
+    console.log("Enter action");
+    
     if(checkCookie("userCode") && checkCookie("tokenString")){
         userCode=readCookie("userCode");
         domain="TADVISOR";
