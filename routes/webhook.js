@@ -13,7 +13,7 @@ var api = require('./api');
 // var app = apiai(accessToken);
 var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9");
 var router = express.Router();
-var cookies = api.cookies_s;
+var cookies = global.cookies_s;
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
 
