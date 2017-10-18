@@ -1,6 +1,6 @@
 var express = require('express');
 var cookie = require('cookie');
-var cookiesm= require('../cookies.js')
+var cookiesm= require('../cookies.js');
 var router = express.Router();
 
 // /* GET home page. */
