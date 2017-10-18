@@ -3,6 +3,7 @@ var express = require('express');
 var cookie = require('cookie');
 var cookiesm= require('./cookies.js');
 var api = require('./routes/api');
+var handler=require('./handlers.js');
 function apiaiResponseFormat(){
     return{
         "speech": speech,
@@ -30,7 +31,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
             case 'get_assetType_Ids':
                 console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ");
-                GetMyTAdvisorScreenerProductTypesHandler();
+                handler.GetMyTAdvisorScreenerProductTypesHandler();
                 break;
         }
 
