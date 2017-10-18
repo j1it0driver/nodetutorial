@@ -102,7 +102,7 @@ function showPersonalInfo(data){
 }
 
 
-function GetMyTAdvisorScreenerProductTypesHandler(){
+var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
 
     if(checkCookie("userCode") && checkCookie("tokenString")){
@@ -136,4 +136,7 @@ function GetMyTAdvisorScreenerProductTypesHandler(){
         }
     });
 
+}
+module.exports = {
+    GetMyTAdvisorScreenerProductTypesHandler
 }

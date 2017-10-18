@@ -1,8 +1,10 @@
-var handlers = require('./handlers.js');
+
 var express = require('express');
 var cookie = require('cookie');
 var cookiesm= require('./cookies.js');
 var api = require('./routes/api');
+var handlers = require('./handlers.js');
+
 function apiaiResponseFormat(){
     return{
         "speech": speech,
@@ -24,13 +26,14 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
         switch(action){
             case 'my_action':
                 console.log("myaction");
-                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.')
+                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
                 res.json(json);
                 break;
 
             case 'get_assetType_Ids':
                 console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ");
                 handlers.GetMyTAdvisorScreenerProductTypesHandler();
+                console.log("exiting fullfilment");
                 break;
         }
 
