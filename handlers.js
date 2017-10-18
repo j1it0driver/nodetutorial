@@ -91,11 +91,11 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
     var userCode, domain, language, token;
 
-    if(checkCookie("userCode") && checkCookie("tokenString")){
-        userCode=readCookie("userCode");
+    if(cookiesm.checkCookie("userCode") && cookiesm.checkCookie("tokenString")){
+        userCode=cookiesm.readCookie("userCode");
         domain="TADVISOR";
         language="es-ES";
-        token=readCookie("tokenString");
+        token=cookiesm.readCookie("tokenString");
         console.log("cookies read");
     }else{
         userCode='oyet6qi08k0axpiVx0tDBA==';
@@ -104,6 +104,7 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         token='whatever';
         console.log("new values for token");
     }
+    console.log("Cookies Ok from action");
     $.ajax({
         type: "POST",
         url: baseUrl + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
