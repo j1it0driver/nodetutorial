@@ -4,7 +4,7 @@ var express = require('express');
 var apiai = require('apiai');
 var util = require('../wk.js');
 var cookie = require('cookie');
-var cookiesm= require('../cookies.js')
+// var cookiesm= require('../cookies.js')
 // var comm = require('../comm.js')
 // var cookie = require('cookie');
 
