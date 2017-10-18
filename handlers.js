@@ -155,8 +155,8 @@ function GetMyTAdvisorScreenerProductTypesHandler(){
         success: function(data) {
         // email=data.RSLT.Client.PersonalInformation.Email;
             // showPersonalInfo(data);
-            var assestTypes_Ids= data.RSLT.DATA;
-            console.log(assestTypes_Ids);
+            var assetTypes_Ids= data.RSLT.DATA;
+            console.log("Asset Types",assetTypes_Ids);
             // prepareResponse_h(data);
         },
         error: function() {
