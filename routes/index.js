@@ -2,6 +2,7 @@ var express = require('express');
 var cookie = require('cookie');
 var cookiesm= require('../cookies.js');
 var router = express.Router();
+// var cookies_s;
 
 // /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -13,6 +14,7 @@ router.get('/', function(req,res){
   // var cookies_s = cookie.parse(req.headers.cookie || '');
   // console.log(cookies_s.visits);
   // console.log(cookiesm.guid());
+  // cookies_s = cookie.parse(req.headers.cookie || '');
   res.cookie("sessionID",cookiesm.guid(),{expire : new Date() + 9999});
   res.render('index');
 });

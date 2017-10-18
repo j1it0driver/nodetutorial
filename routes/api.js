@@ -2,9 +2,10 @@ var http = require ('http');
 var https = require ('https');
 var express = require('express');
 var apiai = require('apiai');
-var comm = require('../comm.js')
+var comm = require('../comm.js');
 var cookie = require('cookie');
 var cookies_s;
+// var cookies_s;
 
 // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
 // var app = apiai(accessToken);
@@ -32,3 +33,4 @@ router.post('/event', function(req,res) {
     });
 });
 module.exports = router;
+module.exports.cookies_s= cookies_s;
