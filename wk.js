@@ -26,6 +26,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 console.log("myaction");
                 var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.')
                 res.json(json);
+                break;
 
             case 'get_assetType_Ids':
                 console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ");
