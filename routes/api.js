@@ -4,7 +4,7 @@ var express = require('express');
 var apiai = require('apiai');
 var comm = require('../comm.js');
 var cookie = require('cookie');
-var cookies_s;
+// global.cookies_s = cookie.parse(req.headers.cookie || '');
 // var cookies_s;
 
 // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
@@ -14,7 +14,7 @@ var router = express.Router();
 
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
-    cookies_s = cookie.parse(req.headers.cookie || '');
+    global.cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionId= cookies_s.sessionID;
     // console.log(cookies_s.sessionID);
     var data = req.body.val;
@@ -25,7 +25,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
     console.log('cookies from api: ', cookies_s);
 });
 router.post('/event', function(req,res) {
-    cookies_s = cookie.parse(req.headers.cookie || '');
+    global.cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionId= cookies_s.sessionID;
     var data = req.body;
     // console.log(data);
@@ -35,5 +35,5 @@ router.post('/event', function(req,res) {
     console.log('cookies from api/event: ', cookies_s);
 });
 
-module.exports.cookies_s= cookies_s;
+// module.exports.cookies_s = cookies_s;
 module.exports.router = router;
