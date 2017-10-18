@@ -101,34 +101,6 @@ function showPersonalInfo(data){
 
 }
 
-// function clientHandler(userCode,domain,language,token,views,clientId) {
-//     userCode="2wnABpAEXSahApzPgh4Suw==";
-//     domain="TADVISOR";
-//     language="es-ES";
-//     token="7727A2C3DDE8494C13A09EECEB932F20";
-//     views="ClientGeneralData";
-//     // clientId="qZX5vetGIq/gbwAPurYUUg==";
-//     // clientId='fCYeYJCd/ej4wN4Ma+807ST0vgfDyTrXFH53ZYLe5Z41sIZ5XeNRAEMtrCM5u73+';
-//     clientId="Fvnpqmh0xkGtn05BZi/6cg==";
-//     // clientId="-1"
-//     // hola="&clientId="+clientId;
-//     console.log(process.env.PRUEBA);
-//     //userCode="j1it0driver@gmail.com", userPass="judaor82";
-//     $.ajax({
-//         type: "POST",
-//         url: baseUrl_H + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
-//         // dataType: "JSON",
-//         contentType: "application/x-www-form-urlencoded; charset=utf-8",
-//         success: function(data1) {
-//         email=data1.RSLT.ClientModuleT4C.Client.PersonalInformation.Email;
-//         console.log(email);
-//             // prepareResponse_h(data);
-//         },
-//         error: function() {
-//             respond(messageInternalError);
-//         }
-//     });
-// }
 
 function GetMyTAdvisorScreenerProductTypesHandler(){
     console.log("Enter action");
