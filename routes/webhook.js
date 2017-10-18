@@ -17,6 +17,6 @@ router.post('/', function(req, res) { //api.ai for nodejs
     console.log('cookies from client', cookies_s);
     util.fulfillment(req, res);
     console.log('Response from webhook',res);
-/
+
 });
 module.exports = router;
