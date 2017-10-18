@@ -119,10 +119,11 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
     var req = https.request(options, (res) => {
         // console.log('statusCode:', res.statusCode);
         // console.log('headers:', res.headers);
-        console.log(res);
+        // console.log(res);
 
         res.on('data', (data) => {
             console.log("data ready");
+            console.log(data);
             var assetTypes_Ids= data.RSLT.DATA;
             console.log("Asset Types",assetTypes_Ids);
             // process.stdout.write(d);
