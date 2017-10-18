@@ -89,6 +89,7 @@ var cookiesm= require('./cookies.js');
 
 var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
+    var userCode, domain, language, token;
 
     if(checkCookie("userCode") && checkCookie("tokenString")){
         userCode=readCookie("userCode");
