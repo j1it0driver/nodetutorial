@@ -1,4 +1,4 @@
-
+var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 function login(userCode,userPass,domain,language) {
     // userCode="juann@techrules.com";
     // userPass="Sebastian1.";
@@ -12,7 +12,7 @@ function login(userCode,userPass,domain,language) {
     // session_cookies=document.cookie;             //////////////////////////////////// SEND ////////////////////////////////////
     $.ajax({
         type: "POST",
-        url: baseUrl_P + "Login.ashx?userCode="+userCode+"&userPass="+userPass+"&domain="+domain+"&language="+language, //&callback=parseResponse
+        url: baseUrl + "Login.ashx?userCode="+userCode+"&userPass="+userPass+"&domain="+domain+"&language="+language, //&callback=parseResponse
             //url: baseUrl_H + "MyTAdvisorLoginInvestorHandler.ashx",
         // dataType: "JSON",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -61,16 +61,16 @@ function clientHandler() {
     //userCode="j1it0driver@gmail.com", userPass="judaor82";
     $.ajax({
         type: "POST",
-        url: baseUrl_P + 'GetMyTAdvisorClientHandlerV2.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
+        url: baseUrl + 'GetMyTAdvisorClientHandlerV2.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
         // url: baseUrl_P + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
         // dataType: "JSON",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function(data) {
         // email=data.RSLT.Client.PersonalInformation.Email;
             showPersonalInfo(data);
-            var clientCode=data.RSLT.DATA.Client.PersonalInformation.ClientCode;
-        console.log(email);
-            // prepareResponse_h(data);
+        //     var clientCode=data.RSLT.DATA.Client.PersonalInformation.ClientCode;
+        // console.log(email);
+
         },
         error: function() {
             respond(messageInternalError);
@@ -148,7 +148,7 @@ function GetMyTAdvisorScreenerProductTypesHandler(){
     }
     $.ajax({
         type: "POST",
-        url: baseUrl_P + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
+        url: baseUrl + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
         // url: baseUrl_P + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
         // dataType: "JSON",
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
