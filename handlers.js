@@ -1,6 +1,6 @@
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 var cookiesm= require('./cookies.js');
-const https = require('https');
+var https = require('https');
 // function login(userCode,userPass,domain,language) {
 //
 //     language="es-ES";
@@ -92,34 +92,36 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
     var userCode, domain, language, token;
 
-    if(cookiesm.checkCookie("userCode") && cookiesm.checkCookie("tokenString")){
-        userCode=cookiesm.readCookie("userCode");
-        domain="TADVISOR";
-        language="es-ES";
-        token=cookiesm.readCookie("tokenString");
-        console.log("cookies read");
-    }else{
+    // if (cookiesm.checkCookie("userCode") && cookiesm.checkCookie("tokenString")){
+    //     userCode=cookiesm.readCookie("userCode");
+    //     domain="TADVISOR";
+    //     language="es-ES";
+    //     token=cookiesm.readCookie("tokenString");
+    //     console.log("cookies read");
+    // }
+    // else{
         userCode='oyet6qi08k0axpiVx0tDBA==';
         domain="TADVISOR";
         language="es-ES";
         token='whatever';
         console.log("new values for token");
-    }
+    // }
     console.log("Cookies Ok from action");
 
 
-    const options = {
+    var options = {
         hostname: 'mytadvisor.com',
         port: 443,
         path: '/SOA/tower4customers/GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token,
-        method: 'POST'
+        method: 'GET'
     };
 
-    const req = https.request(options, (res) => {
+    var req = https.request(options, (res) => {
         console.log('statusCode:', res.statusCode);
         console.log('headers:', res.headers);
 
         res.on('data', (data) => {
+            console.log("data ready");
             var assetTypes_Ids= data.RSLT.DATA;
             console.log("Asset Types",assetTypes_Ids);
             process.stdout.write(d);
