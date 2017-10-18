@@ -113,18 +113,19 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         hostname: 'mytadvisor.com',
         port: 443,
         path: '/SOA/tower4customers/GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token,
-        method: 'GET'
+        method: 'POST'
     };
 
     var req = https.request(options, (res) => {
-        console.log('statusCode:', res.statusCode);
-        console.log('headers:', res.headers);
+        // console.log('statusCode:', res.statusCode);
+        // console.log('headers:', res.headers);
+        console.log(res);
 
         res.on('data', (data) => {
             console.log("data ready");
             var assetTypes_Ids= data.RSLT.DATA;
             console.log("Asset Types",assetTypes_Ids);
-            process.stdout.write(d);
+            // process.stdout.write(d);
         });
     });
 
