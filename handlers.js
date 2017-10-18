@@ -1,5 +1,6 @@
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 var cookiesm= require('./cookies.js');
+const https = require('https');
 // function login(userCode,userPass,domain,language) {
 //
 //     language="es-ES";
@@ -105,23 +106,50 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         console.log("new values for token");
     }
     console.log("Cookies Ok from action");
-    $.ajax({
-        type: "POST",
-        url: baseUrl + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
-        // url: baseUrl_P + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
-        // dataType: "JSON",
-        contentType: "application/x-www-form-urlencoded; charset=utf-8",
-        success: function(data) {
-        // email=data.RSLT.Client.PersonalInformation.Email;
-            // showPersonalInfo(data);
+
+
+    const options = {
+        hostname: 'mytadvisor.com',
+        port: 443,
+        path: '/SOA/tower4customers/GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token,
+        method: 'POST'
+    };
+
+    const req = https.request(options, (res) => {
+        console.log('statusCode:', res.statusCode);
+        console.log('headers:', res.headers);
+
+        res.on('data', (data) => {
             var assetTypes_Ids= data.RSLT.DATA;
             console.log("Asset Types",assetTypes_Ids);
-            // prepareResponse_h(data);
-        },
-        error: function() {
-            respond(messageInternalError);
-        }
+            process.stdout.write(d);
+        });
     });
+
+    req.on('error', (e) => {
+        console.error(e);
+    });
+    req.end();
+
+
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: baseUrl + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
+    //     // url: baseUrl_P + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
+    //     // dataType: "JSON",
+    //     contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    //     success: function(data) {
+    //     // email=data.RSLT.Client.PersonalInformation.Email;
+    //         // showPersonalInfo(data);
+    //         var assetTypes_Ids= data.RSLT.DATA;
+    //         console.log("Asset Types",assetTypes_Ids);
+    //         // prepareResponse_h(data);
+    //     },
+    //     error: function() {
+    //         respond(messageInternalError);
+    //     }
+    // });
 
 }
 module.exports = {
