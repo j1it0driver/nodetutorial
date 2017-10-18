@@ -1,4 +1,5 @@
 var handlers = require('./handlers.js');
+var express = require('express');
 var cookieParser = require('cookie-parser');
 function apiaiResponseFormat(){
     return{
@@ -11,6 +12,7 @@ function apiaiResponseFormat(){
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
     var cookies=req.cookies;
+    console.log(cookies);
     if (!body | !body.result.action){
         console.log('missing action in: '+body.result.metadata.intentName+' intent');
     } else {
