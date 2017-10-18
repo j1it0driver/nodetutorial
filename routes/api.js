@@ -22,6 +22,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
     comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
         res.send(datos);
     });
+    console.log('cookies from api: ', cookies_s);
 });
 router.post('/event', function(req,res) {
     cookies_s = cookie.parse(req.headers.cookie || '');
@@ -31,6 +32,8 @@ router.post('/event', function(req,res) {
     comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
         res.send(datos);
     });
+    console.log('cookies from api/event: ', cookies_s);
 });
-module.exports = router;
+
 module.exports.cookies_s= cookies_s;
+module.exports.router = router;
