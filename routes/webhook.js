@@ -18,7 +18,7 @@ var router = express.Router();
 router.post('/', function(req, res) { //api.ai for nodejs
 
     console.log('Request to webhook: ', req.body);
-    console.log('cookies from client', global.cookies_s);
+    console.log('cookies from client', cookies_s);
     util.fulfillment(req, res);
     console.log('Response from webhook',res);
 //     var cookies_s = cookie.parse(req.headers.cookie || '');

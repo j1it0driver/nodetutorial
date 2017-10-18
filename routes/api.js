@@ -25,7 +25,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
     console.log('cookies from api: ', cookies_s);
 });
 router.post('/event', function(req,res) {
-    global.cookies_s = cookie.parse(req.headers.cookie || '');
+    cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionId= cookies_s.sessionID;
     var data = req.body;
     // console.log(data);
