@@ -1,6 +1,7 @@
 var handlers = require('./handlers.js');
 var express = require('express');
-var cookieParser = require('cookie-parser');
+var cookie = require('cookie');
+var cookiesm= require('../cookies.js')
 function apiaiResponseFormat(){
     return{
         "speech": speech,

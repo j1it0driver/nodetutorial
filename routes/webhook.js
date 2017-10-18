@@ -3,6 +3,8 @@ var https = require ('https');
 var express = require('express');
 var apiai = require('apiai');
 var util = require('../wk.js');
+var cookie = require('cookie');
+var cookiesm= require('../cookies.js')
 // var comm = require('../comm.js')
 // var cookie = require('cookie');
 
@@ -13,8 +15,9 @@ var router = express.Router();
 
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
+    var cookies = cookie.parse(req.headers.cookie || '');
     console.log('Request to webhook: ', req.body);
-    console.log('cookies from req', req.cookies);
+    console.log('cookies from req', cookies);
     util.fulfillment(req, res);
     console.log('Response from webhook',res);
 //     var cookies_s = cookie.parse(req.headers.cookie || '');
