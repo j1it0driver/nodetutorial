@@ -4,8 +4,7 @@ var express = require('express');
 var apiai = require('apiai');
 var comm = require('../comm.js');
 var cookie = require('cookie');
-// global.cookies_s = cookie.parse(req.headers.cookie || '');
-// var cookies_s;
+
 
 // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
 // var app = apiai(accessToken);

@@ -27,7 +27,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 res.json(json);
 
             case 'get_assetType_Ids':
-                // console.log("Cookies: ", cookies);
+                console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ", cookies);
                 GetMyTAdvisorScreenerProductTypesHandler();
                 break;
         }
