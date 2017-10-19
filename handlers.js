@@ -92,20 +92,20 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
     var userCode, domain, language, token;
 
-    // if (cookiesm.checkCookie("userCode") && cookiesm.checkCookie("tokenString")){
-    //     userCode=cookiesm.readCookie("userCode");
-    //     domain="TADVISOR";
-    //     language="es-ES";
-    //     token=cookiesm.readCookie("tokenString");
-    //     console.log("cookies read");
-    // }
-    // else{
+    if (cookiesm.checkCookie("userCode") && cookiesm.checkCookie("tokenString")){
+        userCode=cookiesm.readCookie("userCode");
+        domain="TADVISOR";
+        language="es-ES";
+        token=cookiesm.readCookie("tokenString");
+        console.log("cookies read");
+    }
+    else{
         userCode='oyet6qi08k0axpiVx0tDBA==';
         domain="TADVISOR";
         language="es-ES";
         token='whatever';
         console.log("new values for token");
-    // }
+    }
     console.log("Cookies Ok from action");
 
 
@@ -133,26 +133,9 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
 
     req.on('error', (e) => {
         console.error(e);
+        respond(messageInternalError);
     });
     req.end();
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: baseUrl + 'GetMyTAdvisorScreenerProductTypesHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token, //&callback=parseResponse
-    //     // url: baseUrl_P + 'ClientHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&views='+views+'&clientId='+clientId, //&callback=parseResponse
-    //     // dataType: "JSON",
-    //     contentType: "application/x-www-form-urlencoded; charset=utf-8",
-    //     success: function(data) {
-    //     // email=data.RSLT.Client.PersonalInformation.Email;
-    //         // showPersonalInfo(data);
-    //         var assetTypes_Ids= data.RSLT.DATA;
-    //         console.log("Asset Types",assetTypes_Ids);
-    //         // prepareResponse_h(data);
-    //     },
-    //     error: function() {
-    //         respond(messageInternalError);
-    //     }
-    // });
 
 }
 module.exports = {
