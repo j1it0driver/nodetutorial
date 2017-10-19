@@ -45,7 +45,6 @@ module.exports = {
             });
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
-                return assetList.RSLT.DATA;
                 console.log("asset List",assetList.RSLT.DATA);
                 return assetList.RSLT.DATA;
             });
