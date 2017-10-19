@@ -124,7 +124,7 @@ var SearchAssetHandler = function(term){
             // console.log(`BODY: ${chunk}`);
             var assetList= JSON.parse(chunk.toString());
             console.log("asset List",assetList.RSLT.DATA);
-            console.log("res https.request ",res);
+            // console.log("res https.request ",res);
             return assetList.RSLT.DATA;
         });
     });

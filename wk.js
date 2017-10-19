@@ -39,6 +39,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 console.log(" SearchAssetHandler  ");
                 var assetsSearched = handlers.SearchAssetHandler("telefonica");
                 console.log("assets encontrados", assetsSearched);
+                res.send(200);
                 break;
         }
 
