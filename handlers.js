@@ -5,7 +5,7 @@ var https = require('https');
 module.exports = {
 
     SearchAssetHandler: function(term){
-        console.log("Cookies Servidor", cookies_s);
+        // console.log("Cookies Servidor", cookies_s);
         var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
         if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
             userCode=cookiesm.readCookieServer("userCode");
@@ -29,11 +29,11 @@ module.exports = {
         var options = {
             hostname: 'mytadvisor.com',
             port: 443,
-            path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term'+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
+            path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term='+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
             method: 'POST'
         };
         var assetList;
-        console.log("after options", cookies_s);
+        // console.log("after options", cookies_s);
         var req = https.request(options, (res) => {
 
             res.on('data', (chunk) => {
@@ -45,8 +45,9 @@ module.exports = {
             });
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
-                // return assetList.RSLT.DATA;
+                return assetList.RSLT.DATA;
                 console.log("asset List",assetList.RSLT.DATA);
+                return assetList.RSLT.DATA;
             });
         });
         req.on('error', (e) => {
