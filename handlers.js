@@ -38,10 +38,15 @@ module.exports = {
 
             res.on('data', (chunk) => {
                 assetList= JSON.parse(chunk.toString());
-                console.log("asset List",assetList.RSLT.DATA);
+
                 // console.log("res https.request ",res);
-                // res.send(assetList.RSLT.DATA);
+
                  // Goes to fullfilment/wk.js
+            });
+            res.on('end', ()=> {
+                res.send(assetList.RSLT.DATA);
+                return assetList.RSLT.DATA;
+                console.log("asset List",assetList.RSLT.DATA);
             });
         });
         req.on('error', (e) => {
@@ -49,7 +54,7 @@ module.exports = {
             return e;
         });
         req.end();
-        return assetList.RSLT.DATA;
+
 
     },
 
