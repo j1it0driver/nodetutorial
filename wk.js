@@ -38,12 +38,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
             case 'search_Asset':
                 console.log("SearchAssetHandler ");
-                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
+                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term;
                 if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
                     userCode=cookiesm.readCookieServer("userCode");
                     domain="TADVISOR";
                     language="es-ES";
                     token=cookiesm.readCookieServer("tokenString");
+                    term="telefonica";
                     numMaxResults = 5;
                     assetGroupsId='';
                     iAdvisor= 1;
@@ -53,6 +54,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     domain="TADVISOR";
                     language="es-ES";
                     token='whatever';
+                    term="telefonica";
                     numMaxResults = 5;
                     assetGroupsId='';
                     iAdvisor= 1;
