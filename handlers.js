@@ -48,7 +48,7 @@ module.exports = {
                 console.log("asset List",assetList);
 
             });
-            return assetList;
+            // return assetList;
 
         });
         req.on('error', (e) => {
