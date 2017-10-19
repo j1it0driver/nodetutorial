@@ -76,8 +76,9 @@ module.exports = {
         return null;
     },
     checkCookieServer: function(name){
-        if (cookies_s.name)
+        if (cookies_s.name){
             return true;
+        }
         return false;
     }
 }
