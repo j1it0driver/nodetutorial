@@ -22,6 +22,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     } else {
         var action = body.result.action;
         var parameters = body.result.parameters;
+        var assetsSearched;
         console.log('Action is: '+action);
         switch(action){
             case 'my_action':
@@ -37,7 +38,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
             case 'search_Asset':
                 console.log("SearchAssetHandler ");
-                var assetsSearched = handlers.SearchAssetHandler("telefonica", function(){
+                assetsSearched = handlers.SearchAssetHandler("telefonica", function(){
                     console.log("assets encontrados");
                 });
 
