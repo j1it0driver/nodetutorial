@@ -70,6 +70,14 @@ module.exports = {
     // 	createCookie(name,"",-1);
     // }
     readCookieServer: function(name){
-        cookies_s;
+        if(cookies_s.name){
+            return cookies_s.name;
+        }
+        return null;
+    },
+    checkCookieServer: function(name){
+        if (cookies_s.name)
+            return true;
+        return false;
     }
 }
