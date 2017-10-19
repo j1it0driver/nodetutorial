@@ -870,3 +870,24 @@ function changeMessage(messageToAdd, messageId){
         addMessage(messageToAdd);
     }
 }
+function searchAssets(assetText){
+    assetText="Hola JD";
+    $.ajax({
+        type: "POST",
+        // url: baseUrl + "query?v=20170810",
+        url: "/searchAssets",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        headers: {
+        //     "Authorization": "Bearer " + accessToken
+        },
+        data: JSON.stringify({"val": assetText}),
+        success: function(data) {
+            datos=data.result.fulfillment.messages;
+            prepareResponse(data);
+        },
+        error: function() {
+            respond(messageInternalError,null);
+        }
+    });
+}
