@@ -71,7 +71,7 @@ module.exports = {
     // }
     readCookieServer: function(name){
         if(cookies_s[name]){
-            return cookies_s.name;
+            return cookies_s[name];
         }
         return null;
     },
