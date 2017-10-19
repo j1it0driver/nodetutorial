@@ -46,16 +46,17 @@ module.exports = {
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
                 console.log("asset List",assetList);
-                res.sendStatus(200);
+                return assetList;
+                // res.sendStatus(200);
                 // console.log("res https.request ",res);
             });
             // console.log("respuestas",req,res);
             // return assetList;
 
         });
-        req.on('error', (e) => {
-            console.error(e);
-        });
+        // req.on('error', (e) => {
+        //     console.error("error",e);
+        // });
         req.end();
         // return assetList.RSLT.DATA;
     },
@@ -114,4 +115,4 @@ module.exports = {
         });
         req.end();
     }
-}
+};
