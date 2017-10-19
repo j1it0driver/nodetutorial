@@ -35,16 +35,16 @@ module.exports = {
         };
         var assetList;
         // console.log("after options", cookies_s);
-        var req = https.request(options, (res) => {
+        var req = https.request(options, (response) => {
 
-            res.on('data', (chunk) => {
+            response.on('data', (chunk) => {
                 assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
                 // console.log("res https.request ",res);
 
                  // Goes to fullfilment/wk.js
             });
-            res.on('end', ()=> {
+            response.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
                 console.log("asset List",assetList);
                 return assetList;
@@ -53,11 +53,11 @@ module.exports = {
             });
             // console.log("respuestas",req,res);
             // return assetList;
-
         });
-        // req.on('error', (e) => {
-        //     console.error("error",e);
-        // });
+        req.on('error', (e) => {
+            console.error("error",e);
+        });
+        return assetList;
         req.end();
         // return assetList.RSLT.DATA;
     },
