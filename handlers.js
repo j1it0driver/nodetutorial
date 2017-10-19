@@ -45,16 +45,15 @@ module.exports = {
             });
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
-                return assetList.RSLT.DATA;
+                // return assetList.RSLT.DATA;
                 console.log("asset List",assetList.RSLT.DATA);
             });
         });
         req.on('error', (e) => {
             console.error(e);
-            return e;
         });
         req.end();
-
+        return assetList.RSLT.DATA;
 
     },
 
