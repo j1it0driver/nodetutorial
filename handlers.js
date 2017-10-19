@@ -87,7 +87,7 @@ var https = require('https');
 //
 // }
 var SearchAssetHandler = function(term){
-    var userCode="userCode", domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
+    var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
     if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
         userCode=cookiesm.readCookieServer("userCode");
         domain="TADVISOR";
@@ -106,6 +106,7 @@ var SearchAssetHandler = function(term){
         assetGroupsId='';
         iAdvisor= 1;
     }
+    
     var options = {
         hostname: 'mytadvisor.com',
         port: 443,
@@ -120,8 +121,8 @@ var SearchAssetHandler = function(term){
 
         res.on('data', (chunk) => {
             // console.log("data ready");
-            // console.log('BODY:', chunk);
-            // console.log(`BODY: ${chunk}`);
+            console.log('BODY:', chunk);
+            console.log(`BODY: ${chunk}`);
             var assetList= JSON.parse(chunk.toString());
             console.log("asset List",assetList.RSLT.DATA);
             // console.log("res https.request ",res);
