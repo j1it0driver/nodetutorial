@@ -80,8 +80,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.on('error', (e) => {
                     console.error("error",e);
                 });
-                res.json(assetList);
                 res.sendStatus(200);
+                res.json(assetList);
+
                 call.end();
                 // handlers.SearchAssetHandler("telefonica", function(){
                 //         console.log("assets encontrados", assetList);
