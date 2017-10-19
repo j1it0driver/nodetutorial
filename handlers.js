@@ -53,7 +53,7 @@ module.exports = {
             console.error(e);
         });
         req.end();
-        console.log('termine');
+        // console.log('termine');
         // return assetList.RSLT.DATA;
     },
 
