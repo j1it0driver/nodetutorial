@@ -35,6 +35,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 handlers.GetMyTAdvisorScreenerProductTypesHandler();
                 console.log("exiting fullfilment");
                 break;
+            case 'search_Asset':
+                console.log(" SearchAssetHandler  ");
+                var assetsSearched = handlers.SearchAssetHandler("telefonica");
+                console.log("assets encontrados", assetsSearched);
+                break;
         }
 
     }

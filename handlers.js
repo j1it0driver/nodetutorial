@@ -125,17 +125,14 @@ var SearchAssetHandler = function(term){
             var assetList= JSON.parse(chunk.toString());
             console.log("asset List",assetList.RSLT.DATA);
             console.log("res https.request ",res);
-            // process.stdout.write(d);
+            return assetList.RSLT.DATA;
         });
     });
-
     req.on('error', (e) => {
         console.error(e);
-        respond(messageInternalError);
+        return e;
     });
     req.end();
-
-
 }
 
 var GetMyTAdvisorScreenerProductTypesHandler = function(){
@@ -189,7 +186,6 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
 
     req.on('error', (e) => {
         console.error(e);
-        respond(messageInternalError);
     });
     req.end();
 
