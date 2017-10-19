@@ -54,7 +54,6 @@ module.exports = {
         });
         req.end();
         return assetList.RSLT.DATA;
-
     },
 
     GetMyTAdvisorScreenerProductTypesHandler: function(){
