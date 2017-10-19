@@ -46,7 +46,7 @@ module.exports = {
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
                 console.log("asset List",assetList);
-                console.log("res https.request ",res);
+                // console.log("res https.request ",res);
             });
             console.log("respuestas",req,res);
             // return assetList;
