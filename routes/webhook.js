@@ -2,7 +2,7 @@ var http = require ('http');
 var https = require ('https');
 var express = require('express');
 var apiai = require('apiai');
-var util = require('../wk.js');
+var wk = require('../wk.js');
 var cookie = require('cookie');
 
 // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
@@ -15,7 +15,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
 
     // console.log('Request to webhook: ', req.body);
     // console.log('cookies from client', cookies_s);
-    util.fulfillment(req, res);
+    wk.fulfillment(req, res);
     console.log('Response from webhook',res);
 
 });

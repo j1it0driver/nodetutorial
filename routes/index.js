@@ -16,6 +16,7 @@ router.get('/', function(req,res){
   // console.log(cookiesm.guid());
   // cookies_s = cookie.parse(req.headers.cookie || '');
   res.cookie("sessionID",cookiesm.guid(),{expire : new Date() + 9999});
+  global.cookies_s = cookie.parse(req.headers.cookie || '');
   res.render('index');
 });
 /////// EXAMPLE FOR ROUTING

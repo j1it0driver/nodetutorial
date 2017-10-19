@@ -13,7 +13,7 @@ var router = express.Router();
 
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
-    global.cookies_s = cookie.parse(req.headers.cookie || '');
+    cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionId= cookies_s.sessionID;
     // console.log(cookies_s.sessionID);
     var data = req.body.val;

@@ -91,7 +91,7 @@ var https = require('https');
 var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
     var userCode, domain, language, token;
-
+    console.log("Cookies Servidor", cookies_s);
     if (cookiesm.checkCookie("userCode") && cookiesm.checkCookie("tokenString")){
         userCode=cookiesm.readCookie("userCode");
         domain="TADVISOR";

@@ -69,4 +69,5 @@ module.exports = {
     eraseCookie: function (name) {
     	createCookie(name,"",-1);
     }
+    readCookieServer: function()
 }
