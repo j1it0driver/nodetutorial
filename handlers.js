@@ -109,7 +109,7 @@ var SearchAssetHandler = function(term){
     var options = {
         hostname: 'mytadvisor.com',
         port: 443,
-        path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
+        path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term'+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
         method: 'POST'
     };
 
@@ -179,7 +179,7 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
             // console.log(`BODY: ${chunk}`);
             var assetTypes_Ids= JSON.parse(chunk.toString());
             console.log("asset Types",assetTypes_Ids.RSLT.DATA);
-            console.log("res https.request ",res);
+            // console.log("res https.request ",res);
             // process.stdout.write(d);
         });
     });
