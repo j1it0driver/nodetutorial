@@ -48,6 +48,7 @@ module.exports = {
                 console.log("asset List",assetList);
                 console.log("res https.request ",res);
             });
+            console.log("respuestas",req,res);
             // return assetList;
 
         });
@@ -55,7 +56,6 @@ module.exports = {
             console.error(e);
         });
         req.end();
-        console.log(req,res);
         // return assetList.RSLT.DATA;
     },
 
