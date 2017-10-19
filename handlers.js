@@ -46,13 +46,14 @@ module.exports = {
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
                 console.log("asset List",assetList.RSLT.DATA);
-                return assetList.RSLT.DATA;
+                // return assetList.RSLT.DATA;
             });
         });
         req.on('error', (e) => {
             console.error(e);
         });
         req.end();
+        console.log('termine');
         return assetList.RSLT.DATA;
     },
 
