@@ -92,8 +92,9 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
     console.log("Enter action");
     var userCode="userCode", domain, language, token;
     console.log("Cookies Servidor", cookies_s);
-    console.log("Cookies Servidor 1", cookies_s["userCode"];
+    console.log("Cookies Servidor 1", cookies_s["userCode"]);
     console.log("Cookies Servidor 2", cookies_s.userCode);
+
     if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
         userCode=cookiesm.readCookieServer("userCode");
         domain="TADVISOR";
