@@ -33,11 +33,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 res.json(json);
                 break;
 
-            case 'get_assetType_Ids':
-                console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ");
-                handlers.GetMyTAdvisorScreenerProductTypesHandler();
-                console.log("exiting fullfilment");
-                break;
+            // case 'get_assetType_Ids':
+            //     console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ");
+            //     handlers.GetMyTAdvisorScreenerProductTypesHandler();
+            //     console.log("exiting fullfilment");
+            //     break;
             case 'search_Asset':
                 console.log("SearchAssetHandler ");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, assetList;
