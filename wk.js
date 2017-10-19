@@ -21,7 +21,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     // console.log(cookies);
     if (!body | !body.result.action){
         console.log('missing action in: '+body.result.metadata.intentName+' intent');
-    } else {
+    }
+    else {
         var action = body.result.action;
         var parameters = body.result.parameters;
         // var assetsSearched;
@@ -80,6 +81,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     console.error("error",e);
                 });
                 res.json(assetList);
+                res.sendStatus(200);
                 call.end();
                 // handlers.SearchAssetHandler("telefonica", function(){
                 //         console.log("assets encontrados", assetList);
