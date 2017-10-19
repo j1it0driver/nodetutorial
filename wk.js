@@ -5,6 +5,7 @@ var cookiesm= require('./cookies.js');
 var api = require('./routes/api');
 var handlers = require('./handlers.js');
 var https = require('https');
+var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
 function apiaiResponseFormat(){
     return{
@@ -23,7 +24,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     } else {
         var action = body.result.action;
         var parameters = body.result.parameters;
-        var assetsSearched;
+        // var assetsSearched;
         console.log('Action is: '+action);
         switch(action){
             case 'my_action':
