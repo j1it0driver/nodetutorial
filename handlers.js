@@ -57,7 +57,7 @@ module.exports = {
         req.on('error', (e) => {
             console.error("error",e);
         });
-        return assetList;
+        // return assetList;
         req.end();
         // return assetList.RSLT.DATA;
     },
