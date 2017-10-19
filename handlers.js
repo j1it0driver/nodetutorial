@@ -32,11 +32,12 @@ module.exports = {
             path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term'+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
             method: 'POST'
         };
+        var assetList;
         console.log("after options", cookies_s);
         var req = https.request(options, (res) => {
 
             res.on('data', (chunk) => {
-                var assetList= JSON.parse(chunk.toString());
+                assetList= JSON.parse(chunk.toString());
                 console.log("asset List",assetList.RSLT.DATA);
                 // console.log("res https.request ",res);
                 res.send(assetList.RSLT.DATA);
