@@ -39,6 +39,7 @@ module.exports = {
                 var assetList= JSON.parse(chunk.toString());
                 // console.log("asset List",assetList.RSLT.DATA);
                 // console.log("res https.request ",res);
+                res.send(assetList.RSLT.DATA);
                 return assetList.RSLT.DATA; // Goes to fullfilment/wk.js
             });
         });
