@@ -46,6 +46,7 @@ module.exports = {
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
                 console.log("asset List",assetList);
+                res.sendStatus(200);
                 // console.log("res https.request ",res);
             });
             // console.log("respuestas",req,res);
