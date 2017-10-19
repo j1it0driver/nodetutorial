@@ -48,9 +48,9 @@ module.exports = {
             console.error(e);
             return e;
         });
-        req.end(){
-            return assetList.RSLT.DATA;
-        };
+        req.end();
+        return assetList.RSLT.DATA;
+
     },
 
     GetMyTAdvisorScreenerProductTypesHandler: function(){
