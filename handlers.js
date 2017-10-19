@@ -35,19 +35,19 @@ module.exports = {
         };
         var assetList;
         // console.log("after options", cookies_s);
-        var req = https.request(options, (response) => {
+        var req = https.request(options, (res) => {
 
-            response.on('data', (chunk) => {
+            res.on('data', (chunk) => {
                 assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
                 // console.log("res https.request ",res);
 
                  // Goes to fullfilment/wk.js
             });
-            response.on('end', ()=> {
+            res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
                 console.log("asset List",assetList);
-                return assetList;
+                // return assetList;
                 // res.sendStatus(200);
                 // console.log("res https.request ",res);
             });
