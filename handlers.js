@@ -1,7 +1,9 @@
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 var cookiesm= require('./cookies.js');
 var https = require('https');
+
 module.exports = {
+
     SearchAssetHandler: function(term){
         console.log("Cookies Servidor", cookies_s);
         var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
@@ -32,18 +34,12 @@ module.exports = {
         };
         console.log("after options", cookies_s);
         var req = https.request(options, (res) => {
-            // console.log('statusCode:', res.statusCode);
-            // console.log('headers:', res.headers);
-            // console.log(res);
 
             res.on('data', (chunk) => {
-                // console.log("data ready");
-                console.log('BODY:', chunk);
-                console.log(`BODY: ${chunk}`);
                 var assetList= JSON.parse(chunk.toString());
-                console.log("asset List",assetList.RSLT.DATA);
+                // console.log("asset List",assetList.RSLT.DATA);
                 // console.log("res https.request ",res);
-                return assetList.RSLT.DATA;
+                return assetList.RSLT.DATA; // Goes to fullfilment/wk.js
             });
         });
         req.on('error', (e) => {
