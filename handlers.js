@@ -38,7 +38,7 @@ module.exports = {
         var req = https.request(options, (res) => {
 
             res.on('data', (chunk) => {
-                assetList= JSON.parse(chunk.toString()).RSLT.DATA;
+                global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
                 // console.log("res https.request ",res);
 
