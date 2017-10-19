@@ -44,7 +44,7 @@ module.exports = {
                  // Goes to fullfilment/wk.js
             });
             res.on('end', ()=> {
-                res.send(assetList.RSLT.DATA);
+                // res.send(assetList.RSLT.DATA);
                 return assetList.RSLT.DATA;
                 console.log("asset List",assetList.RSLT.DATA);
             });
