@@ -676,6 +676,7 @@ function printImgAndText(name, data, text, link){
         itemName="Ver detalle";
         $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
+    searchAssets("prueba");
 }
 
 function printLogin(type, username,password) {
