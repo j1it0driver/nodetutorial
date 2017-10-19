@@ -110,9 +110,11 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         token='whatever';
         console.log("new values for token");
     }
-    console.log("Cookies Ok from action");
-
-
+    console.log("Cookies Ok userCode", userCode);
+    console.log("Cookies Ok domain", domain);
+    console.log("Cookies Ok language", language);
+    console.log("Cookies Ok token", token);
+    
     var options = {
         hostname: 'mytadvisor.com',
         port: 443,
@@ -127,6 +129,7 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
 
         res.on('data', (chunk) => {
             console.log("data ready");
+            console.log('BODY:', chunk);
             console.log(`BODY: ${chunk}`);
             var assetTypes_Ids= JSON.parse(chunk.toString());
             // console.log("Asset Types",assetTypes_Ids);
