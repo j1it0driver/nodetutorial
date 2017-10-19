@@ -41,7 +41,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             //     break;
             case 'search_Asset':
                 console.log("SearchAssetHandler ");
-                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, assetList;
+                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
                 if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
                     userCode=cookiesm.readCookieServer("userCode");
                     domain="TADVISOR";
@@ -70,18 +70,20 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 };
                 var call = https.request(options, (response) => {
                     response.on('data', (chunk) => {
-                        assetList= JSON.parse(chunk.toString()).RSLT.DATA;
+                        global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
                     });
                     response.on('end', ()=> {
                         console.log("asset List",assetList);
+                        res.sendStatus(200);
+                        res.json(assetList);
                     });
                 });
                 call.on('error', (e) => {
                     console.error("error",e);
                 });
-                res.sendStatus(200);
-                res.json(assetList);
+
+
 
                 call.end();
                 // handlers.SearchAssetHandler("telefonica", function(){
