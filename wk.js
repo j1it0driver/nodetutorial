@@ -4,6 +4,7 @@ var cookie = require('cookie');
 var cookiesm= require('./cookies.js');
 var api = require('./routes/api');
 var handlers = require('./handlers.js');
+var https = require('https');
 
 function apiaiResponseFormat(){
     return{
@@ -65,27 +66,25 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term='+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
                     method: 'POST'
                 };
-                var req = https.request(options, (res) => {
-                    res.on('data', (chunk) => {
+                var call = https.request(options, (response) => {
+                    response.on('data', (chunk) => {
                         global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
                     });
-                    res.on('end', ()=> {
+                    response.on('end', ()=> {
                         console.log("asset List",assetList);
                     });
                 });
-                req.on('error', (e) => {
+                call.on('error', (e) => {
                     console.error("error",e);
                 });
                 res.json(assetList);
-                req.end();
-
+                call.end();
                 // handlers.SearchAssetHandler("telefonica", function(){
                 //         console.log("assets encontrados", assetList);
                 //     });
 
                 // res.json(assetsSearched);
-
                 break;
         }
     }
