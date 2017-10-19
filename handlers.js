@@ -40,15 +40,17 @@ module.exports = {
                 assetList= JSON.parse(chunk.toString());
                 console.log("asset List",assetList.RSLT.DATA);
                 // console.log("res https.request ",res);
-                res.send(assetList.RSLT.DATA);
-                return assetList.RSLT.DATA; // Goes to fullfilment/wk.js
+                // res.send(assetList.RSLT.DATA);
+                 // Goes to fullfilment/wk.js
             });
         });
         req.on('error', (e) => {
             console.error(e);
             return e;
         });
-        req.end();
+        req.end(){
+            return assetList.RSLT.DATA;
+        };
     },
 
     GetMyTAdvisorScreenerProductTypesHandler: function(){
