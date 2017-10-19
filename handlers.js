@@ -37,7 +37,7 @@ module.exports = {
         var req = https.request(options, (res) => {
 
             res.on('data', (chunk) => {
-                assetList= JSON.parse(chunk.toString());
+                assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
                 // console.log("res https.request ",res);
 
@@ -45,8 +45,8 @@ module.exports = {
             });
             res.on('end', ()=> {
                 // res.send(assetList.RSLT.DATA);
-                console.log("asset List",assetList.RSLT.DATA);
-                // return assetList.RSLT.DATA;
+                console.log("asset List",assetList);
+                return assetList;
             });
         });
         req.on('error', (e) => {
@@ -54,7 +54,7 @@ module.exports = {
         });
         req.end();
         console.log('termine');
-        return assetList.RSLT.DATA;
+        // return assetList.RSLT.DATA;
     },
 
     GetMyTAdvisorScreenerProductTypesHandler: function(){
