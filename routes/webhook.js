@@ -22,7 +22,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
 
 
 });
-router.post('/searchAssets', function(req, res) { //api.ai for nodejs
+router.post('/search_assets', function(req, res) { //api.ai for nodejs
 
     var data=req.body.val; //texto a buscar
     console.log(data)
@@ -68,9 +68,6 @@ router.post('/searchAssets', function(req, res) { //api.ai for nodejs
     call.on('error', (e) => {
         console.error("error",e);
     });
-
-
-
     call.end();
 
 
