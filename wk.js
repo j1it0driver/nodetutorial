@@ -38,9 +38,49 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
             case 'search_Asset':
                 console.log("SearchAssetHandler ");
-                handlers.SearchAssetHandler("telefonica", function(){
-                        console.log("assets encontrados", assetList);
+                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
+                if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
+                    userCode=cookiesm.readCookieServer("userCode");
+                    domain="TADVISOR";
+                    language="es-ES";
+                    token=cookiesm.readCookieServer("tokenString");
+                    numMaxResults = 5;
+                    assetGroupsId='';
+                    iAdvisor= 1;
+                }
+                else{
+                    userCode='oyet6qi08k0axpiVx0tDBA==';
+                    domain="TADVISOR";
+                    language="es-ES";
+                    token='whatever';
+                    numMaxResults = 5;
+                    assetGroupsId='';
+                    iAdvisor= 1;
+                }
+                var options = {
+                    hostname: 'mytadvisor.com',
+                    port: 443,
+                    path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term='+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
+                    method: 'POST'
+                };
+                var req = https.request(options, (res) => {
+                    res.on('data', (chunk) => {
+                        global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
+
                     });
+                    res.on('end', ()=> {
+                        console.log("asset List",assetList);
+                    });
+                });
+                req.on('error', (e) => {
+                    console.error("error",e);
+                });
+                res.json(assetList);
+                req.end();
+
+                // handlers.SearchAssetHandler("telefonica", function(){
+                //         console.log("assets encontrados", assetList);
+                //     });
 
                 // res.json(assetsSearched);
 
