@@ -86,35 +86,84 @@ var https = require('https');
 //     }
 //
 // }
-
-
-var GetMyTAdvisorScreenerProductTypesHandler = function(){
-    console.log("Enter action");
-    var userCode="userCode", domain, language, token;
-    console.log("Cookies Servidor", cookies_s);
-    console.log("Cookies Servidor 1", cookies_s["userCode"]);
-    // console.log("Cookies Servidor 2", cookies_s.userCode);
-    console.log(cookiesm.checkCookieServer("userCode"));
-    console.log(cookiesm.checkCookieServer("tokenString"));
+var SearchAssetHandler = function(term){
+    var userCode="userCode", domain, language, token, numMaxResults, assetGroupsId, iAdvisor;
     if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
         userCode=cookiesm.readCookieServer("userCode");
         domain="TADVISOR";
         language="es-ES";
         token=cookiesm.readCookieServer("tokenString");
-        console.log("cookies read");
+        numMaxResults = 5;
+        assetGroupsId='';
+        iAdvisor= 1;
     }
     else{
         userCode='oyet6qi08k0axpiVx0tDBA==';
         domain="TADVISOR";
         language="es-ES";
         token='whatever';
-        console.log("new values for token");
+        numMaxResults = 5;
+        assetGroupsId='';
+        iAdvisor= 1;
     }
-    console.log("Cookies Ok userCode", userCode);
-    console.log("Cookies Ok domain", domain);
-    console.log("Cookies Ok language", language);
-    console.log("Cookies Ok token", token);
-    
+    var options = {
+        hostname: 'mytadvisor.com',
+        port: 443,
+        path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
+        method: 'POST'
+    };
+
+    var req = https.request(options, (res) => {
+        // console.log('statusCode:', res.statusCode);
+        // console.log('headers:', res.headers);
+        // console.log(res);
+
+        res.on('data', (chunk) => {
+            // console.log("data ready");
+            // console.log('BODY:', chunk);
+            // console.log(`BODY: ${chunk}`);
+            var assetList= JSON.parse(chunk.toString());
+            console.log("asset List",assetList.RSLT.DATA);
+            console.log("res https.request ",res);
+            // process.stdout.write(d);
+        });
+    });
+
+    req.on('error', (e) => {
+        console.error(e);
+        respond(messageInternalError);
+    });
+    req.end();
+
+
+}
+
+var GetMyTAdvisorScreenerProductTypesHandler = function(){
+    var userCode="userCode", domain, language, token;
+    // console.log("Cookies Servidor", cookies_s);
+    // console.log("Cookies Servidor 1", cookies_s["userCode"]);
+    // console.log("Cookies Servidor 2", cookies_s.userCode);
+    // console.log(cookiesm.checkCookieServer("userCode"));
+    // console.log(cookiesm.checkCookieServer("tokenString"));
+    if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
+        userCode=cookiesm.readCookieServer("userCode");
+        domain="TADVISOR";
+        language="es-ES";
+        token=cookiesm.readCookieServer("tokenString");
+        // console.log("cookies read");
+    }
+    else{
+        userCode='oyet6qi08k0axpiVx0tDBA==';
+        domain="TADVISOR";
+        language="es-ES";
+        token='whatever';
+        // console.log("new values for token");
+    }
+    // console.log("Cookies Ok userCode", userCode);
+    // console.log("Cookies Ok domain", domain);
+    // console.log("Cookies Ok language", language);
+    // console.log("Cookies Ok token", token);
+
     var options = {
         hostname: 'mytadvisor.com',
         port: 443,
@@ -128,12 +177,12 @@ var GetMyTAdvisorScreenerProductTypesHandler = function(){
         // console.log(res);
 
         res.on('data', (chunk) => {
-            console.log("data ready");
-            console.log('BODY:', chunk);
-            console.log(`BODY: ${chunk}`);
+            // console.log("data ready");
+            // console.log('BODY:', chunk);
+            // console.log(`BODY: ${chunk}`);
             var assetTypes_Ids= JSON.parse(chunk.toString());
-            // console.log("Asset Types",assetTypes_Ids);
-            console.log(assetTypes_Ids.RSLT.DATA);
+            console.log("asset Types",assetTypes_Ids.RSLT.DATA);
+            console.log("res https.request ",res);
             // process.stdout.write(d);
         });
     });
