@@ -335,6 +335,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             respond(dataObj,dataObjLinks);
         }
         if(webhookData){ // do something with webhook data
+
             if(webhookAction=="search_Asset"){
                 printAssets(webhookData);
             }
@@ -991,8 +992,9 @@ function printAssets(data){
 // "LastPriceDate": "/Date(1508367600000)/"
 // }
 // ]
-    $("<div class='checkboxes' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    $("<form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
-        $("<div id='checkbox"+i+1+""+printIndex+"'class='checkbox'><label><input type='checkbox' value=''>"+data[i].Name+"</label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+        $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value=''>"+data[i].Name+"</label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
+
 }

@@ -27,6 +27,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     }
     else {
         var action = body.result.action;
+        var assetSearched=body.result.parameters.assetSearched;
         var parameters = body.result.parameters;
         console.log('Action is: '+action);
         switch(action){
@@ -44,26 +45,26 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             case 'search_Asset':
                 console.log("SearchAssetHandler");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
-                if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
-                    userCode=cookiesm.readCookieServer("userCode");
-                    domain="TADVISOR";
-                    language="es-ES";
-                    token=cookiesm.readCookieServer("tokenString");
-                    term="telefonica";
-                    numMaxResults = 5;
-                    assetGroupsId='';
-                    iAdvisor= 1;
-                }
-                else{
+                // if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
+                //     userCode=cookiesm.readCookieServer("userCode");
+                //     domain="TADVISOR";
+                //     language="es-ES";
+                //     token=cookiesm.readCookieServer("tokenString");
+                //     term="telefonica";
+                //     numMaxResults = 5;
+                //     assetGroupsId='';
+                //     iAdvisor= 1;
+                // }
+                // else{
                     userCode='oyet6qi08k0axpiVx0tDBA==';
                     domain="TADVISOR";
                     language="es-ES";
                     token='whatever';
-                    term="telefonica";
+                    term=assetSearched;
                     numMaxResults = 5;
                     assetGroupsId='';
                     iAdvisor= 1;
-                }
+                // }
                 var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
@@ -73,7 +74,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var call = https.request(options, (response) => {
                     response.on('data', (chunk) => {
                         global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
-
+                        console.log(assetList);
                     });
                     response.on('end', ()=> {
                         console.log("asset List",assetList);
@@ -92,12 +93,10 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 // handlers.SearchAssetHandler("telefonica", function(){
                 //         console.log("assets encontrados", assetList);
                 //     });
-
-                // res.json(assetsSearched);
                 break;
         }
     }
-}
+};
  module.exports = {
      fulfillment
- }
+ };
