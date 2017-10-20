@@ -7,12 +7,13 @@ var handlers = require('./handlers.js');
 var https = require('https');
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
-function apiaiResponseFormat(){
+function apiaiResponseFormat(speech,displayText,data){
     return{
         "speech": speech,
         "display": displayText,
-        "source": "myServer",
-        "data": data
+        "data": data,
+        "source": "Tadvisor Server"
+
     }
 }
 
