@@ -22,7 +22,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
 
 
 });
-router.post('/searchassets', function(req, res) { //api.ai for nodejs
+router.post('/searchAssets', function(req, res) { //api.ai for nodejs
 
     var data=req.body.val; //texto a buscar
     console.log(data)
@@ -38,13 +38,13 @@ router.post('/searchassets', function(req, res) { //api.ai for nodejs
     //     iAdvisor= 1;
     // }
     // else{
-        userCode='oyet6qi08k0axpiVx0tDBA==';
+        userCode="oyet6qi08k0axpiVx0tDBA==";
         domain="TADVISOR";
         language="es-ES";
-        token='whatever';
+        token="whatever";
         term=data;
         numMaxResults = 5;
-        assetGroupsId='';
+        assetGroupsId="";
         iAdvisor= 1;
     // }
     var options = {
@@ -62,6 +62,7 @@ router.post('/searchassets', function(req, res) { //api.ai for nodejs
             console.log("asset List",assetList);
             // res.sendStatus(200);
             // var json = apiaiResponseFormat(speech='Searching Assets.', displayText='Searching Assets.');
+            res.send(assetList);
             res.json(assetList);
         });
     });
