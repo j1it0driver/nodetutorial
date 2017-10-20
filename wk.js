@@ -12,7 +12,7 @@ function apiaiResponseFormat(){
         "speech": speech,
         "display": displayText,
         "source": "myServer",
-        "data": {"List from webhook not from apiai"}
+        "data": {"datos": "List from webhook not from apiai"}
     }
 }
 
