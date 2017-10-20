@@ -12,7 +12,7 @@ function apiaiResponseFormat(speech,displayText,data){
     return{
         "speech": speech,
         "display": displayText,
-        "data": {data},
+        "data": data,
         "source": "Tadvisor Server"
     };
 }
