@@ -22,7 +22,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
 
 
 });
-router.post('/search_assets', function(req, res) { //api.ai for nodejs
+router.post('/searchassets', function(req, res) { //api.ai for nodejs
 
     var data=req.body.val; //texto a buscar
     console.log(data)

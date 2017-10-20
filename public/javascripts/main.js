@@ -876,7 +876,7 @@ function searchAssets(assetText){
     $.ajax({
         type: "POST",
         // url: baseUrl + "query?v=20170810",
-        url: "/webhook/search_assets",
+        url: "/webhook/searchassets",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         headers: {
