@@ -25,7 +25,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
 router.post('/searchAssets', function(req, res) { //api.ai for nodejs
 
     var data=req.body.val; //texto a buscar
-    console.log(data)
+    console.log(data);
     var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
     // if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
     //     userCode=cookiesm.readCookieServer("userCode");
