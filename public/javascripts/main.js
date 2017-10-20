@@ -992,21 +992,26 @@ function printAssets(data){
 // "LastPriceDate": "/Date(1508367600000)/"
 // }
 // ]
-    var isinAssetSearched;
+    var radiosId=[],radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
-        $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+        radiosId[i]="radio"+i+1+""+printIndex;
+        $("<div id='radio"+i+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
     addMessage("If the asset is not listed, please be more specific");
 
-    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSend' type=\"button\" style='width:100px'>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
-    $('#'+printIndex+'RadioBtnSend').attr('onClick', "sendAsset('"+printIndex+"')");
-    isinAssetSearched = $('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val();
+    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
+
+    $('#'+printIndex+'RadioBtnSendId').attr('onClick', "sendAsset('"+radioBtnSend+"','"+radiosId+"')");
+
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
-        alert(isinAssetSearched);
-        $speechInput.val(isinAssetSearched);
+        $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
+        $('#'+printIndex+'RadioBtnSendId').removeAttr('disabled')
     });
 }
-function sendAsset(index){
+function sendAsset(radioId,radiosId){
     console.log("sendAsset Function", index);
+    disableButtons(radioId,radiosId);
+    send_query();
+
 }
