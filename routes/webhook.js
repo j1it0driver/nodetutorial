@@ -55,6 +55,7 @@ router.post('/searchAssets', function(req, res) { //api.ai for nodejs
     };
     var call = https.request(options, (response) => {
         response.on('data', (chunk) => {
+            console.log(chunk);
             global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
 
         });
