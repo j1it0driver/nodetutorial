@@ -339,7 +339,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printAssets(webhookData);
             }
         }
-        if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
+        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
             if (spokenResponse[i].payload.username){
                 username=spokenResponse[i].payload.username;
