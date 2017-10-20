@@ -27,7 +27,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     }
     else {
         var action = body.result.action;
-        var assetSearched=body.result.parameters.assetSearched;
+        var assetSearched=body.result.parameters.assetSearched.toLowerCase();
         var parameters = body.result.parameters;
         console.log('Action is: '+action);
         switch(action){
