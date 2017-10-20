@@ -1010,7 +1010,8 @@ function printAssets(data){
     });
 }
 function sendAsset(radioId,radiosId){
-    console.log("sendAsset Function", radioId);
+    console.log("sendAsset Function", radiosId);
+    console.log(typeof radiosId);
     disableButtons([radioId],[radiosId]);
     send_query();
 

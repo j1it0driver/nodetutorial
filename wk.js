@@ -56,6 +56,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     iAdvisor= 1;
                 // }
                 // else{
+            console.log("asset searched", assetSearched);
                     userCode='oyet6qi08k0axpiVx0tDBA==';
                     domain="TADVISOR";
                     language="es-ES";
