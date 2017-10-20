@@ -2010,7 +2010,7 @@ function printAssets(data){
 // "LastPriceDate": "/Date(1508367600000)/"
 // }
 // ]
-    var radiosId=[],radioBtnSendId=""+printIndex+"RadioBtnSendId";
+    var radiosId,radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in data){
         radiosId[i]="radio"+i+""+printIndex;
