@@ -1011,7 +1011,7 @@ function printAssets(data){
 }
 function sendAsset(radioId,radiosId){
     console.log("sendAsset Function", radioId);
-    disableButtons(radioId,radiosId);
+    disableButtons([radioId],[radiosId]);
     send_query();
 
 }
