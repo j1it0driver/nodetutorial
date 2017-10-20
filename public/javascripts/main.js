@@ -992,17 +992,19 @@ function printAssets(data){
 // "LastPriceDate": "/Date(1508367600000)/"
 // }
 // ]
+    var isinAssetSearched;
     $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
         $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
     addMessage("If the asset is not listed, please be more specific");
-    $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSend' type=\"button\" style='width:100px'>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
+
+    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSend' type=\"button\" style='width:100px'>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $('#'+printIndex+'RadioBtnSend').attr('onClick', "sendAsset('"+printIndex+"')");
-
+    isinAssetSearched = $('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val();
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
-        alert($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
-
+        alert(isinAssetSearched);
+        $speechInput.val(isinAssetSearched);
     });
 }
 function sendAsset(index){
