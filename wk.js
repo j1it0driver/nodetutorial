@@ -12,13 +12,14 @@ function apiaiResponseFormat(speech,displayText,data){
     return{
         "speech": speech,
         "display": displayText,
-        "data": data,
+        "data": {data},
         "source": "Tadvisor Server"
     };
 }
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
+    var speech, displayText, data=[];
     // var cookies=req.cookies;
     // console.log(cookies);
     if (!body | !body.result.action){
@@ -31,7 +32,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
         switch(action){
             case 'my_action':
                 console.log("myaction");
-                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.', data='');
+                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
                 res.json(json);
                 break;
 
@@ -42,7 +43,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             //     break;
             case 'search_Asset':
                 console.log("SearchAssetHandler");
-                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, speech, displayText, data; //assetList;
+                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
                 if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
                     userCode=cookiesm.readCookieServer("userCode");
                     domain="TADVISOR";
