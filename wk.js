@@ -26,7 +26,6 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     else {
         var action = body.result.action;
         var parameters = body.result.parameters;
-        // var assetsSearched;
         console.log('Action is: '+action);
         switch(action){
             case 'my_action':
@@ -41,7 +40,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             //     console.log("exiting fullfilment");
             //     break;
             case 'search_Asset':
-                console.log("SearchAssetHandler ");
+                console.log("SearchAssetHandler");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
                 if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
                     userCode=cookiesm.readCookieServer("userCode");
@@ -77,7 +76,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     response.on('end', ()=> {
                         console.log("asset List",assetList);
                         // res.sendStatus(200);
-                        var json = apiaiResponseFormat(speech='Searching more Assets.', displayText='Searching more Assets.', data=assetList);
+                        var json = apiaiResponseFormat(speech='Searching more Assets.', displayText='Searching more Assets.', data="assetList");
                         res.json(json);
                     });
                 });
