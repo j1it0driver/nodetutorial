@@ -8,13 +8,13 @@ var https = require('https');
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
 function apiaiResponseFormat(speech,displayText,data){
+    console.log("response format");
     return{
         "speech": speech,
         "display": displayText,
         "data": data,
         "source": "Tadvisor Server"
-
-    }
+    };
 }
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
@@ -42,7 +42,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             //     break;
             case 'search_Asset':
                 console.log("SearchAssetHandler");
-                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
+                var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, speech, displayText, data; //assetList;
                 if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
                     userCode=cookiesm.readCookieServer("userCode");
                     domain="TADVISOR";
@@ -77,7 +77,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     response.on('end', ()=> {
                         console.log("asset List",assetList);
                         // res.sendStatus(200);
-                        var json = apiaiResponseFormat(speech='Searching more Assets.', displayText='Searching more Assets.', data="assetList");
+                        var json = apiaiResponseFormat(speech='Searching more Assets.', displayText='Searching more Assets.', data='assetList');
                         res.json(json);
                     });
                 });

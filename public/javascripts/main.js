@@ -311,12 +311,13 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     console.log("prepare response",val);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
-    if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
-        var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
-        var webhookAction = val.result.action;
-        console.log(webhookData);
-    }
-
+    var webhookData = val.result.fulfillment.data;
+    var webhookAction = val.result.action;
+    // if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
+    //     var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
+    //     var webhookAction = val.result.action;
+    // }
+    console.log(webhookData, webhookAction);
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
