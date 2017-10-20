@@ -1002,7 +1002,7 @@ function printAssets(data){
 
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
 
-    $('#'+printIndex+'RadioBtnSendId').attr('onClick', "sendAsset('"+radioBtnSend+"','"+radiosId+"')");
+    $('#'+printIndex+'RadioBtnSendId').attr('onClick', "sendAsset('"+radioBtnSendId+"','"+radiosId+"')");
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
