@@ -11,7 +11,8 @@ function apiaiResponseFormat(){
     return{
         "speech": speech,
         "display": displayText,
-        "source": "myServer"
+        "source": "myServer",
+        "data": {"List from webhook not from apiai"}
     }
 }
 

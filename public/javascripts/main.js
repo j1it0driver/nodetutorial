@@ -884,6 +884,7 @@ function searchAssets(assetText){
         },
         data: JSON.stringify({"val": assetText}),
         success: function(data) {
+            console.log(data);
             // datos=data.result.fulfillment.messages;
             prepareResponse(data);
         },
@@ -891,4 +892,11 @@ function searchAssets(assetText){
             respond(messageInternalError,null);
         }
     });
+}
+function apiaiResponseFormat(){
+    return{
+        "speech": speech,
+        "display": displayText,
+        "source": "myServer"
+    }
 }
