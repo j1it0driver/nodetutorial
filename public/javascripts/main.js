@@ -142,8 +142,7 @@ $(document).ready(function() {
         }
     });
     $(".debug_btn").on("click", function() { //function to manage DEBUG behavior
-        $(this).next().toggleClass("is-active"); //algo//     }
-.next() mira a los hermanos de algo. El siguiente tag
+        $(this).next().toggleClass("is-active"); //algo//     }.next() mira a los hermanos de algo. El siguiente tag
         $(this).toggleClass("is-active");
         $(".debug").toggleClass("is-active");
         return false;
