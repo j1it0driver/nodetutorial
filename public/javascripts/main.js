@@ -992,9 +992,9 @@ function printAssets(data){
 // "LastPriceDate": "/Date(1508367600000)/"
 // }
 // ]
-    $("<form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
+    $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
-        $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value=''>"+data[i].Name+"</label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+        $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value=''><p> "+data[i].Name+"</p><p> Last Price: "+data[i].LastPrice+"</p><p> ISIN: "+data[i].Isin+"</p></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
 
 }
