@@ -872,7 +872,7 @@ function changeMessage(messageToAdd, messageId){
     }
 }
 function searchAssets(assetText){
-    assetText="Hola JD";
+    assetText="HolaJD";
     $.ajax({
         type: "POST",
         // url: baseUrl + "query?v=20170810",
