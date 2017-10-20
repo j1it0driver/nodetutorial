@@ -12,7 +12,7 @@ function apiaiResponseFormat(){
         "speech": speech,
         "display": displayText,
         "source": "myServer",
-        "data": {"datos": "List from webhook not from apiai"}
+        "data": data
     }
 }
 
@@ -31,7 +31,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
         switch(action){
             case 'my_action':
                 console.log("myaction");
-                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
+                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.', data='');
                 res.json(json);
                 break;
 
@@ -77,7 +77,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     response.on('end', ()=> {
                         console.log("asset List",assetList);
                         // res.sendStatus(200);
-                        var json = apiaiResponseFormat(speech='Searching Assets.', displayText='Searching Assets.');
+                        var json = apiaiResponseFormat(speech='Searching more Assets.', displayText='Searching more Assets.', data="assetList");
                         res.json(json);
                     });
                 });

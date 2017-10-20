@@ -308,8 +308,15 @@ function send() {           //////////////////////////////////// SEND //////////
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
+    console.log("prepare response",val);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
+    if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
+        var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
+        var webhookAction = val.result.action;
+        console.log(webhookData);
+    }
+
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
@@ -318,13 +325,18 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             // messagePrint2= spokenResponse[i];
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             // messagesPrint+=  "> "+ dataObj + "<br />";
-            for (j=0;j< spokenResponse.length; j++){
+            for (j=0;j< spokenResponse.length; j++){ //add links on displayed text
                 if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
                     dataObjLinks=putLinks(spokenResponse[j].payload.links,dataObj);
                 }
             }
             // respond(messagePrint2);
             respond(dataObj,dataObjLinks);
+        }
+        if(webhookData){ // do something with webhook data
+            if(webhookAction=="search_Asset"){
+                printAssets(webhookData);
+            }
         }
         if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
@@ -662,7 +674,7 @@ function printImgAndText(name, data, text, link){
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    $("<div class='img-text-l#&ui-state=dialogink'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    $("<div class='img-text-l' &ui-state='dialogink'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv'"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
@@ -676,7 +688,7 @@ function printImgAndText(name, data, text, link){
         itemName="Ver detalle";
         $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-    searchAssets("prueba");
+    // searchAssets("prueba");
 }
 
 function printLogin(type, username,password) {
@@ -871,32 +883,115 @@ function changeMessage(messageToAdd, messageId){
         addMessage(messageToAdd);
     }
 }
-function searchAssets(assetText){
-    assetText="HolaJD";
-    $.ajax({
-        type: "POST",
-        // url: baseUrl + "query?v=20170810",
-        url: "/webhook/searchAssets",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        headers: {
-        //     "Authorization": "Bearer " + accessToken
-        },
-        data: JSON.stringify({"val": assetText}),
-        success: function(data) {
-            console.log(data);
-            // datos=data.result.fulfillment.messages;
-            prepareResponse(data);
-        },
-        error: function() {
-            respond(messageInternalError,null);
-        }
-    });
-}
-function apiaiResponseFormat(){
-    return{
-        "speech": speech,
-        "display": displayText,
-        "source": "myServer"
+// function searchAssets(assetText){
+//     assetText="HolaJD";
+//     $.ajax({
+//         type: "POST",
+//         // url: baseUrl + "query?v=20170810",
+//         url: "/webhook/searchAssets",
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         headers: {
+//         //     "Authorization": "Bearer " + accessToken
+//         },
+//         data: JSON.stringify({"val": assetText}),
+//         success: function(data) {
+//             console.log(data);
+//             // datos=data.result.fulfillment.messages;
+//             prepareResponse(data);
+//         },
+//         error: function() {
+//             respond(messageInternalError,null);
+//         }
+//     });
+// }
+// function apiaiResponseFormat(){
+//     return{
+//         "speech": speech,
+//         "display": displayText,
+//         "source": "myServer"
+//     }
+// }
+function printAssets(data){
+//     "DATA": [
+// {
+// "StocksId": "oI7Fgd+J69ndmVINZ8WU+w==",
+// "Name": "1 Kessler Casadevall FI/-/EUR",
+// "ProductCode": "EUR2371262090.TR",
+// "Isin": "ES0156304000",
+// "LastPrice": 9.56551,
+// "Currency": "EUR",
+// "PriceCotation": "P",
+// "MarketName": "GVC GestióN",
+// "Symbol": "239246848141058.43",
+// "Nominal": 1,
+// "StockType": "F",
+// "Behavior": "F",
+// "LastPriceDate": "/Date(1508108400000)/"
+// },
+// {
+// "StocksId": "5Ft6U4Wzk381AOLp8QJufQ==",
+// "Name": "1ST QUANTUM MINLS COM NPV",
+// "ProductCode": "CAD631236280.TR",
+// "Isin": "CA3359341052",
+// "LastPrice": 15.03,
+// "Currency": "CAD",
+// "PriceCotation": "P",
+// "MarketName": "TORONTO STOCK EXCHANGE",
+// "Symbol": "1_FM.TO",
+// "Nominal": 1,
+// "StockType": "S",
+// "Behavior": "S",
+// "LastPriceDate": "/Date(1508367600000)/"
+// },
+// {
+// "StocksId": "FlNTNzRh1mYf3OqpKuqGAQ==",
+// "Name": "AAC BALLARD POWERSYSTEMC INC",
+// "ProductCode": "CAD631253622.TR",
+// "Isin": "CA0585861085",
+// "LastPrice": 6.16,
+// "Currency": "CAD",
+// "PriceCotation": "P",
+// "MarketName": "TORONTO STOCK EXCHANGE",
+// "Symbol": "4889034TKF.61",
+// "Nominal": 1,
+// "StockType": "S",
+// "Behavior": "S",
+// "LastPriceDate": "/Date(1508367600000)/"
+// },
+// {
+// "StocksId": "3nye7nyNTqz9BkyciBn+uQ==",
+// "Name": "AAC CIPHER PHARMACEUTICALS INC",
+// "ProductCode": "CAD631253475.TR",
+// "Isin": "CA17253X1050",
+// "LastPrice": 4.5,
+// "Currency": "CAD",
+// "PriceCotation": "P",
+// "MarketName": "TORONTO STOCK EXCHANGE",
+// "Symbol": "CA17253X1050.61",
+// "Nominal": 1,
+// "StockType": "S",
+// "Behavior": "S",
+// "LastPriceDate": "/Date(1508367600000)/"
+// },
+// {
+// "StocksId": "6JpxA8Ly+kp9Q4gbp0RoRw==",
+// "Name": "AAC TEMBEC INC",
+// "ProductCode": "CAD631253540.TR",
+// "Isin": "CA87974D1006",
+// "LastPrice": 4.61,
+// "Currency": "CAD",
+// "PriceCotation": "P",
+// "MarketName": "TORONTO STOCK EXCHANGE",
+// "Symbol": "TBC.TO",
+// "Nominal": 1,
+// "StockType": "S",
+// "Behavior": "S",
+// "LastPriceDate": "/Date(1508367600000)/"
+// }
+// ]
+    $("<div class='checkboxes' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    for(i=0;i<data.length;i++){
+        $("<div id='checkbox"+i+1+""+printIndex+"'class='checkbox'><label><input type='checkbox' value=''>"+data[i].Name+"</label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
 }
