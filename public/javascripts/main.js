@@ -308,7 +308,7 @@ function send() {           //////////////////////////////////// SEND //////////
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
-    console.log("prepare response",val);
+    // console.log("prepare response",val);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;
@@ -317,7 +317,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     //     var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
     //     var webhookAction = val.result.action;
     // }
-    console.log(webhookData, webhookAction);
+
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
@@ -994,7 +994,7 @@ function printAssets(data){
 // ]
     $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
-        $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value=''><span>"+data[i].Name+"</span><p> Last Price: "+data[i].LastPrice+"</p><p> ISIN: "+data[i].Isin+"</p></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+        $("<div id='radio"+i+1+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value=''><span>&nbsp;&nbsp;&nbsp;"+data[i].Name+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;Last Price: "+data[i].LastPrice+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;ISIN: "+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
 
 }

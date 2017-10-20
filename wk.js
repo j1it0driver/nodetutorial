@@ -79,7 +79,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     response.on('end', ()=> {
                         console.log("asset List",assetList);
                         // res.sendStatus(200);
-                        var json = apiaiResponseFormat(speech='Showing 5 related Assets.', displayText='Showing 5 related Assets.', data=assetList);
+                        displayText=speech="Showing "+assetList.length+" results:"
+                        var json = apiaiResponseFormat(speech, displayText, assetList);
                         res.json(json);
                     });
                 });
