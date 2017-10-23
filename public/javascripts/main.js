@@ -1001,6 +1001,7 @@ function printAssets(data){
     for(i=0;i<data.length;i++){
         radiosId.push("radio"+i+""+printIndex);
         $("<div id='radio"+i+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+        console.log(radiosId[i]);
     }
     addMessage("If the asset is not listed, please be more specific");
 
