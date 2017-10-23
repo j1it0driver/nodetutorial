@@ -578,7 +578,7 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
 //     slider.oninput = function() {
 //         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
 //         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
-//     }
+//     }var
 // }
 function printSliderSelector(sliderName){
     // var printIndex = bubble_id-1;
@@ -995,10 +995,11 @@ function printAssets(data){
 // "LastPriceDate": "/Date(1508367600000)/"
 // }
 // ]
-    var radiosId=[],radioBtnSendId=""+printIndex+"RadioBtnSendId";
-    $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
+    var radiosId=[];
+    var radioBtnSendId=""+printIndex+"RadioBtnSendId";
+    $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
-        radiosId[i]="radio"+i+""+printIndex;
+        radiosId.push("radio"+i+""+printIndex);
         $("<div id='radio"+i+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
     addMessage("If the asset is not listed, please be more specific");
