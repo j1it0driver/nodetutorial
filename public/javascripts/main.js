@@ -549,6 +549,7 @@ function quickReplyF(stringItem,buttonId,buttonIds){
 
 function disableButtons(buttonIdSelected,buttonIdsToDisable){
     for(var i in buttonIdsToDisable){
+        console.log(buttonIdsToDisable[i]);
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
     }
     $('#'+buttonIdSelected).addClass("responseBtn");
@@ -1011,7 +1012,7 @@ function printAssets(data){
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
-        $('#'+printIndex+'RadioBtnSendId').removeAttr('disabled')
+        $('#'+printIndex+'RadioBtnSendId').disabled = false;
     });
 }
 function sendAsset(radioId,radiosId){
