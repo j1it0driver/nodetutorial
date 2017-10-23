@@ -7,6 +7,7 @@ var handlers = require('./handlers.js');
 var https = require('https');
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
+
 function apiaiResponseFormat(speech,displayText,data){
     console.log("response format");
     return{
@@ -86,7 +87,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     });
                 });
                 call.on('error', (e) => {
-                    console.error("error",e);
+                    console.error("error searching assets",e);
                 });
 
 
@@ -95,6 +96,15 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 // handlers.SearchAssetHandler("telefonica", function(){
                 //         console.log("assets encontrados", assetList);
                 //     });
+                break;
+            case 'addAssetToPortfolio':
+
+                if(body.result.parameters.assetToAdd)
+                    global.assetToAdd.push(body.result.parameters.assetToAdd);
+                    console.log(assetToAdd);
+                    displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
+                    data= {'items': ['Add more', 'Finish']};
+                    console.log(data);
                 break;
         }
     }

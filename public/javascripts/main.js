@@ -65,18 +65,20 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 //     }else if(attrName=='id'){
 //             alert('id changed');
 //     }else{
-//         //OTHER ATTR CHANGED
+//         //OTHER ATTR
 //     }
 //
 // });
 // });
-$(document).ready(function() {
+// document.addEventListener("DOMContentLoaded", function(){ //faster doesn t work on IE9-
+  // Handler when the DOM is fully loaded vs  $(document).ready(function() {
+
+// $(document).ready(function() {
     visits();
     username();
     sessionID=readCookie("sessionID");
     // eraseCookie("sessionID");
     //eraseCookie("visits");
-    // console.log(guid());
     $('[data-toggle="tooltip"]').tooltip();
     // $("[data-toggle=tooltip]").tooltip();
     // send_event('custom_event','Guest');
@@ -159,7 +161,7 @@ $(document).ready(function() {
     $("#close").on("click", function(){
         $( "#popupPanel" ).popup( "close" );
     });
-});
+// });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function visits(){
@@ -276,37 +278,6 @@ function setInput(text) {
 function updateRec() {
     $recBtn1.text(recognition ? "Listening" : "Rec");
     tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
-}
-
-function send() {           //////////////////////////////////// SEND ////////////////////////////////////
-    var text = $speechInput.val();
-    var toAppend;
-    if($speechInput.val() != ''){
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "query?v=20170810",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: {
-                "Authorization": "Bearer " + accessToken
-            },
-            data: JSON.stringify({query: text, lang: "en", sessionId: "cookiesssession"}), //yaydevdiner2
-            success: function(data) {
-                console.log(data);
-                datos=data.result.fulfillment.messages;
-                prepareResponse(data);
-            },
-            error: function() {
-                respond(messageInternalError,null);
-            }
-        });
-        $('#statusMessages').text("Message Send!");
-        disableBubbles();
-        toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
-        appendHtml("right",toAppend);
-        $speechInput.val("");
-        $speechInput.blur();
-    }
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
@@ -461,46 +432,20 @@ function jsonEscape(stringJSON)  {
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
 
-// function send_event(eventName,valor) {                //////////////////////////////////// SEND EVENT////////////////////////////////////
-//     $.ajax({
-//         type: "POST",
-//         url: baseUrl + "query?v=20170810",
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         headers: {
-//             "Authorization": "Bearer " + accessToken
-//         },
-//         data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}, lang: "en", sessionId: sessionID}),
-//         success: function(data) {
-//             prepareResponse(data);
-//         },
-//         error: function() {
-//             respond(messageInternalError,null);
-//         }
-//     });
-//     $('#statusMessages').text("Type the topic you are interested in");
-//     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 1000);
-// }
-
 function send_event(eventName,valor){
-    $.ajax({
-        type: "POST",
-        // url: baseUrl + "query?v=20170810",
-        url: "/api/event",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        headers: {
-        //     "Authorization": "Bearer " + accessToken
-        },
-        data: JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}}),
-        success: function(data) {
-            datos=data.result.fulfillment.messages;
-            prepareResponse(data);
-        },
-        error: function() {
-            respond(messageInternalError,null);
-        }
-    });
+    var r = new XMLHttpRequest();
+    r.open("POST", "/api/event", true);
+    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      var temporal=JSON.parse(r.responseText);
+    //   console.log(temporal);
+    //   alert("Success: " + temporal);
+      datos=temporal.result.fulfillment.messages;
+      prepareResponse(temporal);
+    };
+    r.send(JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}}));
+
     $('#statusMessages').text("Type the topic you are interested in");
     $speechInput.val("");
     $speechInput.blur();
@@ -537,7 +482,6 @@ function printButton(arrayList){
     }
     for(var k in arrayList){
     $("#"+buttonIds[k]).attr('onClick', "quickReplyF('"+arrayList[k]+"','"+buttonIds[k]+"',"+'buttonIds'+")");
-
     }
 }
 
@@ -561,28 +505,6 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
     return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"").replace(/,/g,"");
 }
 
-// function printSliderSelector(sliderName){
-//     var toAppend;
-//     var sliderId=createIdFromText(sliderName);
-//     var sliderButton ="<div id='slidecontainer px-2'>"+
-//                 "<input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'>"+
-//             "</div>";
-//     toAppend=
-//             "<div class='d-block text-center'>"+
-//                 sliderButton+
-//                 "<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" onclick=sendSlice('"+sliderId+"') style='width:100px'>"+
-//                 "</button>"+
-//             "</div>";
-//     appendHtml("left",toAppend);
-//     var slider = document.getElementById(sliderId);
-//     var output = document.getElementById(sliderId+"SliderBtnSend");
-//     output.innerHTML = slider.value;buttonIds[i]
-//     $speechInput.val(slider.value);
-//     slider.oninput = function() {
-//         output.innerHTML = this.value.toLocaleString(undefined, {maximumFractionDigits:2}); //toLocaleString to conver to money format
-//         $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
-//     }var
-// }
 function printSliderSelector(sliderName){
     // var printIndex = bubble_id-1;
     var sliderId = printIndex+createIdFromText(sliderName);
@@ -606,33 +528,6 @@ function sendSlice(sliderId){
     disableButtons([sliderId],[sliderId]);
     send_query();
  }
-
-// function printImgButton(imgBtnName, imgBtnList){
-//     var toAppend;
-//     var imgSrc;
-//     var imgButton_i="";
-//     datestr=getFormattedDate();
-//     for(i=0;i<imgBtnList.length;i++){
-//         imgBtnIds[i]=createIdFromText(imgBtnList[i]);
-//         imgBtnIdsSend[i]=imgBtnIds[i]+"ImgBtnSend";
-//         imgSrc=getImgSrc(imgBtnName, imgBtnList[i]);//busco la URL de la imagen de acuerdo al nombre. funcion para obtener los recursos src de la imagen
-//         imgBtnTemp=imgBtnList[i];
-//         imgButton_i+="<div class='img-button-container d-inline-block card text-center mw-50'>"+
-//                         "<img class='rounded-circle card-img-top mw-50' src='"+imgSrc+"' alt='"+imgBtnList[i]+"' id='"+imgBtnIds[i]+"' style='max-width:7.2rem;'>"+
-//                         "<div class='card-body p-2'>"+
-//                             // "<input type='image' src='"+imgSrc+"' class='imgBtn' id='"+imgBtnIds[i]+"'>"+
-//
-//                                 "<button class='listButton btn btn-outline-primary btn-sm m-0' id='"+imgBtnIds[i]+"ImgBtnSend' type=\"button\" onclick=\"sendImgBtn(\'"+imgBtnList[i]+"\',\'"+imgBtnIds[i]+"\',"+'imgBtnIds'+","+'imgBtnIdsSend'+")\" style=''>"+
-//                                     imgBtnList[i]+
-//                                 "</button>"+
-//                         "</div>"+
-//                     "</div>";
-//     }
-//     toAppend="<div class='d-block text-center'>"+
-//                 imgButton_i+
-//              "</div>"
-//     appendHtml("left",toAppend);
-// }
 
 function printImgButton(imgBtnName, imgBtnList){
     // var printIndex = bubble_id-1;
@@ -826,24 +721,40 @@ function send_query(){
     var toAppend;
     if($speechInput.val() != ''){
         window.speechSynthesis.cancel();
-        $.ajax({
-            type: "POST",
-            // url: baseUrl + "query?v=20170810",
-            url: "/api",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: {
-            //     "Authorization": "Bearer " + accessToken
-            },
-            data: JSON.stringify({"val": text}),
-            success: function(data) {
-                datos=data.result.fulfillment.messages;
-                prepareResponse(data);
-            },
-            error: function() {
-                respond(messageInternalError,null);
-            }
-        });
+
+        var s = new XMLHttpRequest();
+        s.open("POST", "/api", true);
+        s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        s.onreadystatechange = function () {
+          if (s.readyState != 4 || s.status != 200){
+            //   respond(messageInternalError,null);
+              return;
+          }
+          var data=JSON.parse(s.responseText);
+          console.log(data);
+        //   alert("Success: " + temporal);
+          datos=data.result.fulfillment.messages;
+          prepareResponse(data);
+        };
+        s.send(JSON.stringify({"val": text}));
+        // $.ajax({
+        //     type: "POST",
+        //     // url: baseUrl + "query?v=20170810",
+        //     url: "/api",
+        //     contentType: "application/json; charset=utf-8",
+        //     dataType: "json",
+        //     headers: {
+        //     //     "Authorization": "Bearer " + accessToken
+        //     },
+        //     data: JSON.stringify({"val": text}),
+        //     success: function(data) {
+        //         datos=data.result.fulfillment.messages;
+        //         prepareResponse(data);
+        //     },
+        //     error: function() {
+        //         respond(messageInternalError,null);
+        //     }
+        // });
         $('#statusMessages').text("Message Send!");
         disableBubbles();
         toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
@@ -921,83 +832,7 @@ function changeMessage(messageToAdd, messageId){
 //     }
 // }
 function printAssets(data){
-//     "DATA": [
-// {
-// "StocksId": "oI7Fgd+J69ndmVINZ8WU+w==",
-// "Name": "1 Kessler Casadevall FI/-/EUR",
-// "ProductCode": "EUR2371262090.TR",
-// "Isin": "ES0156304000",
-// "LastPrice": 9.56551,
-// "Currency": "EUR",
-// "PriceCotation": "P",
-// "MarketName": "GVC GestióN",
-// "Symbol": "239246848141058.43",
-// "Nominal": 1,
-// "StockType": "F",
-// "Behavior": "F",
-// "LastPriceDate": "/Date(1508108400000)/"
-// },
-// {
-// "StocksId": "5Ft6U4Wzk381AOLp8QJufQ==",
-// "Name": "1ST QUANTUM MINLS COM NPV",
-// "ProductCode": "CAD631236280.TR",
-// "Isin": "CA3359341052",
-// "LastPrice": 15.03,
-// "Currency": "CAD",
-// "PriceCotation": "P",
-// "MarketName": "TORONTO STOCK EXCHANGE",
-// "Symbol": "1_FM.TO",
-// "Nominal": 1,
-// "StockType": "S",
-// "Behavior": "S",
-// "LastPriceDate": "/Date(1508367600000)/"
-// },
-// {
-// "StocksId": "FlNTNzRh1mYf3OqpKuqGAQ==",
-// "Name": "AAC BALLARD POWERSYSTEMC INC",
-// "ProductCode": "CAD631253622.TR",
-// "Isin": "CA0585861085",
-// "LastPrice": 6.16,
-// "Currency": "CAD",
-// "PriceCotation": "P",
-// "MarketName": "TORONTO STOCK EXCHANGE",
-// "Symbol": "4889034TKF.61",
-// "Nominal": 1,
-// "StockType": "S",
-// "Behavior": "S",
-// "LastPriceDate": "/Date(1508367600000)/"
-// },
-// {
-// "StocksId": "3nye7nyNTqz9BkyciBn+uQ==",
-// "Name": "AAC CIPHER PHARMACEUTICALS INC",
-// "ProductCode": "CAD631253475.TR",
-// "Isin": "CA17253X1050",
-// "LastPrice": 4.5,
-// "Currency": "CAD",
-// "PriceCotation": "P",
-// "MarketName": "TORONTO STOCK EXCHANGE",
-// "Symbol": "CA17253X1050.61",
-// "Nominal": 1,
-// "StockType": "S",
-// "Behavior": "S",
-// "LastPriceDate": "/Date(1508367600000)/"
-// },
-// {
-// "StocksId": "6JpxA8Ly+kp9Q4gbp0RoRw==",
-// "Name": "AAC TEMBEC INC",
-// "ProductCode": "CAD631253540.TR",
-// "Isin": "CA87974D1006",
-// "LastPrice": 4.61,
-// "Currency": "CAD",
-// "PriceCotation": "P",
-// "MarketName": "TORONTO STOCK EXCHANGE",
-// "Symbol": "TBC.TO",
-// "Nominal": 1,
-// "StockType": "S",
-// "Behavior": "S",
-// "LastPriceDate": "/Date(1508367600000)/"
-// }
-// ]
+
     radiosId=[];
     var radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
@@ -1007,7 +842,7 @@ function printAssets(data){
         console.log(radiosId[i]);
     }
     // radiosId=radiosId.split(',');
-    console.log(radiosId);
+    console.log("radiosId", radiosId);
     addMessage("If the asset is not listed, please be more specific");
 
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
@@ -1018,115 +853,15 @@ function printAssets(data){
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
         $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
     });
+    if(radiosId.length==0){
+        console.log("send event to search again");
+        send_event("searchAgain", null);
+        return;
+    }
 }
 function sendAsset(radioId,radiosId){
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
     disableButtons(radioId,radiosId);
     send_query();
-
 }
-
-//
-// function printAssets(data){
-// //     "DATA": [
-// // {
-// // "StocksId": "oI7Fgd+J69ndmVINZ8WU+w==",
-// // "Name": "1 Kessler Casadevall FI/-/EUR",
-// // "ProductCode": "EUR2371262090.TR",
-// // "Isin": "ES0156304000",
-// // "LastPrice": 9.56551,
-// // "Currency": "EUR",
-// // "PriceCotation": "P",
-// // "MarketName": "GVC GestióN",
-// // "Symbol": "239246848141058.43",
-// // "Nominal": 1,
-// // "StockType": "F",
-// // "Behavior": "F",
-// // "LastPriceDate": "/Date(1508108400000)/"
-// // },
-// // {
-// // "StocksId": "5Ft6U4Wzk381AOLp8QJufQ==",
-// // "Name": "1ST QUANTUM MINLS COM NPV",
-// // "ProductCode": "CAD631236280.TR",
-// // "Isin": "CA3359341052",
-// // "LastPrice": 15.03,
-// // "Currency": "CAD",
-// // "PriceCotation": "P",
-// // "MarketName": "TORONTO STOCK EXCHANGE",
-// // "Symbol": "1_FM.TO",
-// // "Nominal": 1,
-// // "StockType": "S",
-// // "Behavior": "S",
-// // "LastPriceDate": "/Date(1508367600000)/"
-// // },
-// // {
-// // "StocksId": "FlNTNzRh1mYf3OqpKuqGAQ==",
-// // "Name": "AAC BALLARD POWERSYSTEMC INC",
-// // "ProductCode": "CAD631253622.TR",
-// // "Isin": "CA0585861085",
-// // "LastPrice": 6.16,
-// // "Currency": "CAD",
-// // "PriceCotation": "P",
-// // "MarketName": "TORONTO STOCK EXCHANGE",
-// // "Symbol": "4889034TKF.61",
-// // "Nominal": 1,
-// // "StockType": "S",
-// // "Behavior": "S",
-// // "LastPriceDate": "/Date(1508367600000)/"
-// // },
-// // {
-// // "StocksId": "3nye7nyNTqz9BkyciBn+uQ==",
-// // "Name": "AAC CIPHER PHARMACEUTICALS INC",
-// // "ProductCode": "CAD631253475.TR",
-// // "Isin": "CA17253X1050",
-// // "LastPrice": 4.5,
-// // "Currency": "CAD",
-// // "PriceCotation": "P",
-// // "MarketName": "TORONTO STOCK EXCHANGE",
-// // "Symbol": "CA17253X1050.61",
-// // "Nominal": 1,
-// // "StockType": "S",
-// // "Behavior": "S",
-// // "LastPriceDate": "/Date(1508367600000)/"
-// // },
-// // {
-// // "StocksId": "6JpxA8Ly+kp9Q4gbp0RoRw==",
-// // "Name": "AAC TEMBEC INC",
-// // "ProductCode": "CAD631253540.TR",
-// // "Isin": "CA87974D1006",
-// // "LastPrice": 4.61,
-// // "Currency": "CAD",
-// // "PriceCotation": "P",
-// // "MarketName": "TORONTO STOCK EXCHANGE",
-// // "Symbol": "TBC.TO",
-// // "Nominal": 1,
-// // "StockType": "S",
-// // "Behavior": "S",
-// // "LastPriceDate": "/Date(1508367600000)/"
-// // }
-// // ]
-//     var radiosId,radioBtnSendId=""+printIndex+"RadioBtnSendId";
-//     $("</br><form class='radios' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
-//     for(var i in data){
-//         radiosId[i]="radio"+i+""+printIndex;
-//         $("<div id='radio"+i+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
-//     }
-//     addMessage("If the asset is not listed, please be more specific");
-//
-//     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
-//
-//     $('#'+printIndex+'RadioBtnSendId').attr('onClick', "sendAsset('"+radioBtnSendId+"','"+radiosId+"')");
-//
-//     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
-//         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
-//         $('#'+printIndex+'RadioBtnSendId').removeAttr('disabled')
-//     });
-// }
-// function sendAsset(radioId,radiosId){
-//     console.log("sendAsset Function", radiosId);
-//     console.log(typeof radiosId);
-//     disableButtons(radioId,radiosId);
-//     send_query();
-//
-// }
