@@ -552,7 +552,9 @@ function disableButtons(buttonIdSelected,buttonIdsToDisable){
         console.log(buttonIdsToDisable[i]);
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
     }
-    $('#'+buttonIdSelected).addClass("responseBtn");
+    document.getElementById(buttonIdSelected).classList.add("responseBtn");
+    // $('#'+buttonIdSelected).addClass("responseBtn");
+    document.getElementById(buttonIdSelected).disabled = true;
 }
 
 function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
