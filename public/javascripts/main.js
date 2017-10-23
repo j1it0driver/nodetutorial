@@ -850,11 +850,11 @@ function printAssets(data){
     $('#'+printIndex+'RadioBtnSendId').attr("onClick", "sendAsset('"+radioBtnSendId+"',"+'radiosId'+")");
     $('#'+printIndex+'RadioBtnRepeatId').on("click", function(){
         if(radiosId.length>0){
-            disableButtons(radioBtnSendId,radiosId, function(){
-                $speechInput.val("");
-                send_query();
-                send_event("searchAgain",null);
-            });
+            $speechInput.val("");
+            disableButtons(radioBtnSendId,radiosId);
+
+            // send_query();
+            send_event("searchAgain",null);
 
         }
         $('#'+printIndex+'RadioBtnRepeatId')[0].disabled=true;
