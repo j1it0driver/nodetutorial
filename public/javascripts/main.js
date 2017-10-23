@@ -1000,7 +1000,7 @@ function printAssets(data){
     var radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
     for(i=0;i<data.length;i++){
-        radiosId[i]=("radio"+i+""+printIndex);
+        radiosId[i]=('radio'+i+printIndex);
         $("<div id='radio"+i+""+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Isin+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
         console.log(radiosId[i]);
     }
@@ -1010,7 +1010,7 @@ function printAssets(data){
 
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Send Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
 
-    $('#'+printIndex+'RadioBtnSendId').attr('onClick', "sendAsset('"+radioBtnSendId+"','"+radiosId+"')");
+    $('#'+printIndex+'RadioBtnSendId').attr('onClick', "sendAsset('"+radioBtnSendId+"',"+radiosId+")");
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
