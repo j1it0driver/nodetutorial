@@ -1012,7 +1012,7 @@ function printAssets(data){
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
-        $('#'+printIndex+'RadioBtnSendId').disabled = false;
+        $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
     });
 }
 function sendAsset(radioId,radiosId){
