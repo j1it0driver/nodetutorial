@@ -45,6 +45,20 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             //     handlers.GetMyTAdvisorScreenerProductTypesHandler();
             //     console.log("exiting fullfilment");
             //     break;
+
+            case 'add_Asset':
+                console.log("add asset to portfolio");
+                if(param.assetToAdd){
+                    global.assetToAdd.push(param.assetToAdd);
+                    console.log("AddAsset_Portfolio", assetToAdd);
+                    displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
+                    data= {'items': ['Add more', 'Finish']};
+                    console.log(data);
+                    var json = apiaiResponseFormat(speech, displayText, data);
+                    res.json(json);
+                }
+                break;
+
             case 'search_Asset':
                 console.log("SearchAssetHandler");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
@@ -59,7 +73,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     iAdvisor= 1;
                 // }
                 // else{
-                    console.log("asset searched", assetSearched);
+                    console.log("asset searched2", assetSearched);
                     userCode='oyet6qi08k0axpiVx0tDBA==';
                     domain="TADVISOR";
                     language="es-ES";
@@ -91,27 +105,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.on('error', (e) => {
                     console.error("error searching assets",e);
                 });
-
-
-
                 call.end();
                 // handlers.SearchAssetHandler("telefonica", function(){
                 //         console.log("assets encontrados", assetList);
                 //     });
                 break;
 
-            case 'add_Asset':
-                console.log('add asset to portfolio');
-                if(param.assetToAdd){
-                    global.assetToAdd.push(param.assetToAdd);
-                    console.log("AddAsser_Portfolio", assetToAdd);
-                    displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
-                    data= {'items': ['Add more', 'Finish']};
-                    console.log(data);
-                    var json = apiaiResponseFormat(speech, displayText, data);
-                    res.json(json);
-                }
-                break;
+
 
             // case 'show_Portfolio':
             //     displayText=speech='show portfolio';
