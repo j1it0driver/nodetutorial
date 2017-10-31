@@ -376,7 +376,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
     }
     // sentences=val.split(".");
     sentences=val;
-    sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"");//.replace(/&quot;/,"\'"); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
+    sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
@@ -508,16 +508,17 @@ function printSliderSelector(sliderName){
     // var printIndex = bubble_id-1;
     var sliderId = printIndex+createIdFromText(sliderName);
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
-    $("<div class='slidecontainer px-2'><input type='range' min='0' max='100000' step='5000' value='10000' class='slider w-100' id='"+sliderId+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $("<div class='slidecontainer px-2'><input type='range' min='0' max='100000' step='5000' value='30000' class='slider w-100' id='"+sliderId+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='sliderButton btn btn-outline-primary btn-sm m-1' id='"+sliderId+"SliderBtnSend' type=\"button\" style='width:100px'></button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $('#'+sliderId+'SliderBtnSend').attr('onClick', "sendSlice('"+sliderId+"')");
     var slider = $("#"+sliderId)[0];// DOM obj
     var output = $("#"+sliderId+"SliderBtnSend");//jQuery obj
-    output.html(slider.value);
+    output.html(addCommas(slider.value));
     $speechInput.val(slider.value);
     slider.oninput = function() {
-        output.html(this.value.toLocaleString(undefined, {maximumFractionDigits:2})); //toLocaleString to conver to money format
-        $speechInput.val(this.value.toLocaleString(undefined, {maximumFractionDigits:2}));
+          output.html(addCommas(this.value));
+        // output.html(this.value.toLocaleString("en", {maximumFractionDigits:2,minimumFractionDigits: 2})); //toLocaleString to conver to money format
+        $speechInput.val(this.value);
     }
 }
 
@@ -551,7 +552,7 @@ function getImgSrc(refName, imgName){
     return srcAddress;
 }
 
-function sendImgBtn(imgBtnItem, dialogm, imgBtnName, imgBtnIds, imgBtnIdsSend){
+function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
     $speechInput.val(imgBtnItem);
     disableButtons(imgBtnName+"ImgBtnSend", imgBtnIdsSend);
     disableButtons(imgBtnName, imgBtnIds);
@@ -875,4 +876,17 @@ function sendAsset(radioId,radiosId){
     console.log(typeof radiosId);
     disableButtons(radioId,radiosId);
     send_query();
+}
+
+function addCommas(nStr)
+{
+    nStr += '';
+    var x = nStr.split('.');
+    var x1 = x[0];
+    var x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
 }

@@ -98,13 +98,17 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     });
                 break;
             case 'addAssetToPortfolio':
-
+                console.log('add asset to portfolio');
                 if(body.result.parameters.assetToAdd)
                     global.assetToAdd.push(body.result.parameters.assetToAdd);
                     console.log(assetToAdd);
                     displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     data= {'items': ['Add more', 'Finish']};
                     console.log(data);
+                break;
+
+            case 'showPortfolio':
+
                 break;
         }
     }
