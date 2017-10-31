@@ -28,10 +28,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     }
     else {
         var action = body.result.action;
-        var param = body.result.parameters;
-        console.log(param);
+        if (body.result.parameters){
+            var param = body.result.parameters;
+            console.log("parameters: ", param);
+        }
+
         console.log('Action is: '+action);
-        var assetSearched=param.assetSearched.toLowerCase();
+
 
         console.log('Action is: '+action);
         switch(action){
@@ -61,6 +64,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
 
             case 'search_Asset':
+                var assetSearched=param.assetSearched.toLowerCase();
                 console.log("SearchAssetHandler");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
                 // if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
