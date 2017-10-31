@@ -57,7 +57,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     iAdvisor= 1;
                 // }
                 // else{
-            console.log("asset searched", assetSearched);
+                    console.log("asset searched", assetSearched);
                     userCode='oyet6qi08k0axpiVx0tDBA==';
                     domain="TADVISOR";
                     language="es-ES";
@@ -97,14 +97,18 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //         console.log("assets encontrados", assetList);
                 //     });
                 break;
+
             case 'addAssetToPortfolio':
                 console.log('add asset to portfolio');
-                if(body.result.parameters.assetToAdd)
+                if(body.result.parameters.assetToAdd){}
                     global.assetToAdd.push(body.result.parameters.assetToAdd);
                     console.log(assetToAdd);
                     displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     data= {'items': ['Add more', 'Finish']};
                     console.log(data);
+                    var json = apiaiResponseFormat(speech, displayText, data);
+                    res.json(json);
+                }
                 break;
 
             case 'showPortfolio':
