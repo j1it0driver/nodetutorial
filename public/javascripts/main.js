@@ -312,6 +312,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             if(webhookAction=="search_Asset"){
                 printAssets(webhookData);
             }
+            else if(webhookAction=="add_Asset"){
+                printButton(webhookData.items);
+            }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
@@ -733,7 +736,8 @@ function send_query(){
           var data=JSON.parse(s.responseText);
         //   console.log(data);
         //   alert("Success: " + temporal);
-          datos=data.result.fulfillment.messages;
+        //   datos=data.result.fulfillment.messages;
+          console.log(data);
           prepareResponse(data);
         };
         s.send(JSON.stringify({"val": text}));
