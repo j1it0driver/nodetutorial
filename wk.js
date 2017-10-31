@@ -28,9 +28,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     }
     else {
         var action = body.result.action;
-        var parameters = body.result.parameters;
+        var param = body.result.parameters;
         console.log('Action is: '+action);
-        var assetSearched=parameters.assetSearched.toLowerCase();
+        var assetSearched=param.assetSearched.toLowerCase();
 
         console.log('Action is: '+action);
         switch(action){
@@ -100,11 +100,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     });
                 break;
 
-            case 'addAsset_Portfolio':
+            case 'add_Asset':
                 console.log('add asset to portfolio');
-                if(parameters.assetToAdd){
-                    global.assetToAdd.push(parameters.assetToAdd);
-                    console.log(assetToAdd);
+                if(param.assetToAdd){
+                    global.assetToAdd.push(param.assetToAdd);
+                    console.log("AddAsser_Portfolio", assetToAdd);
                     displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     data= {'items': ['Add more', 'Finish']};
                     console.log(data);
@@ -113,7 +113,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
                 break;
 
-            case 'showPortfolio':
+            case 'show_Portfolio':
                 displayText=speech='show portfolio';
                 var json = apiaiResponseFormat(speech, displayText, null);
                 res.json(json);
