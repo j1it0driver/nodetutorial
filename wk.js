@@ -8,6 +8,7 @@ var https = require('https');
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
 
+
 function apiaiResponseFormat(speech,displayText,data){
     console.log("response format");
     return{
