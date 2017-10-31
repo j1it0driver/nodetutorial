@@ -53,6 +53,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             case 'add_Asset':
                 console.log("add asset to portfolio");
                 if(param.assetToAdd){
+                    console.log("inside if");
                     global.assetToAdd.push(param.assetToAdd);
                     console.log("AddAsset_Portfolio", assetToAdd);
                     displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
