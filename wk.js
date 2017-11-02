@@ -55,7 +55,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 console.log("add asset to portfolio");
                 if(param.assetToAdd){
                     console.log("inside if");
-                    assetToAdd = param.assetToAdd;
+                    var assetToAdd = param.assetToAdd;
                     assetsToAdd.push(assetToAdd);
                     console.log("AddAsset_Portfolio", assetToAdd);
                     console.log(assetsToAdd);
