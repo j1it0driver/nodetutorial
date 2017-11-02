@@ -18,7 +18,7 @@ router.get('/', function(req,res){
   res.cookie("sessionID",cookiesm.guid(),{expire : new Date() + 9999});
   global.cookies_s = cookie.parse(req.headers.cookie || '');
   global.assetsToAdd=[];
-  console.log(assetsToAdd);
+  console.log("from index root", assetsToAdd);
   res.render('index');
 });
 /////// EXAMPLE FOR ROUTING

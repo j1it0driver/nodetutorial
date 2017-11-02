@@ -33,10 +33,6 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             var param = body.result.parameters;
             console.log("parameters: ", param);
         }
-
-        console.log('Action is: '+action);
-
-
         console.log('Action is: '+action);
         switch(action){
             case 'my_action':
@@ -56,7 +52,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 if(param.assetToAdd){
                     console.log("inside if");
                     var assetToAdd = param.assetToAdd;
-                    // assetsToAdd.push(assetToAdd);
+                    assetsToAdd.push(assetToAdd);
                     console.log("AddAsset_Portfolio", assetToAdd);
                     console.log(assetsToAdd);
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
