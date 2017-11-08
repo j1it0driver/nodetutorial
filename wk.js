@@ -9,19 +9,20 @@ var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
 
 
-function apiaiResponseFormat(speech,displayText,data){
+function apiaiResponseFormat(speech,displayText,data, contextOut){
     console.log("response format");
     return{
         "speech": speech,
         "display": displayText,
         "data": data,
-        "source": "Tadvisor Server"
+        "source": "Tadvisor Server",
+        "contextOut": contextOut
     };
 }
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
-    var speech, displayText, data=[];
+    var speech, displayText, data=[],  contextOut=[];
     // var cookies=req.cookies;
     // console.log(cookies);
     if (!body | !body.result.action){
@@ -58,8 +59,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     displayText=speech= "Asset with ISIN: "+assetToAdd+ " was added to your portfolio. Do you want to add more assets2?";
                     data= {"items": ["Add more", "Finish"]};
+                    contextOut=["asset_to_add","create_portfolio", "existing_portfolio","existingportfoliointention2-followup","existing_portfolio_intention2-followup"]
                     console.log(data);
-                    var json = apiaiResponseFormat(speech, displayText, data);
+                    var json = apiaiResponseFormat(speech, displayText, data, contextOut);
                     res.json(json);
                 }
                 break;
