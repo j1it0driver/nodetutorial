@@ -59,7 +59,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     displayText=speech= "Asset with ISIN: "+assetToAdd+ " was added to your portfolio. Do you want to add more assets2?";
                     data= {"items": ["Add more", "Finish"]};
-                    contextOut=[{"name":"asset_to_add","lifespan":"1", "parameters":{"assetSearched":assetsToAdd}},{"name":"create_portfolio","lifespan":"1", "parameters":{"assetSearched":assetsToAdd}},{"name":"existing_portfolio","lifespan":"1", "parameters":{"assetSearched":assetsToAdd}},{"name":"existingportfoliointention2-followup","lifespan":"1", "parameters":{"assetSearched":assetsToAdd}},{"name":"existing_portfolio_intention2-followup","lifespan":"1", "parameters":{"assetSearched":assetsToAdd}}]
+                    contextOut=[{"name":"asset_to_add","lifespan":"1", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
+                    {"name":"create_portfolio","lifespan":"1", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
+                    {"name":"existing_portfolio","lifespan":"1", "parameters":{"assetSearched":"'"+assetsToAdd+"'"}},
+                    {"name":"existingportfoliointention2-followup","lifespan":"2", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
+                    {"name":"existing_portfolio_intention2-followup","lifespan":"2", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}}];
                     console.log(data);
                     var json = apiaiResponseFormat(speech, displayText, data, contextOut);
                     res.json(json);
