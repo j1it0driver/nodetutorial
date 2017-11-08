@@ -849,8 +849,12 @@ function printAssets(data){
     console.log("radiosId", radiosId);
     addMessage("If the asset is not listed, please be more specific");
 
+    $("</br><input id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='text' placeholder='Enter amount'></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button>").appendTo('#chatBubbleDivDiv'+printIndex);
+
+
 
     $('#'+printIndex+'RadioBtnSendId').attr("onClick", "sendAsset('"+radioBtnSendId+"',"+'radiosId'+")");
     $('#'+printIndex+'RadioBtnRepeatId').on("click", function(){
