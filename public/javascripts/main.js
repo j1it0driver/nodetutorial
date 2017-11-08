@@ -28,6 +28,7 @@ var x, i, j, k;
 var visits;
 var sessionID=null;
 var username;
+var sonido= false;
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -381,9 +382,10 @@ function respond(val, valLinks) { // function to print a text into chat message 
     sentences=val;
     sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
+
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
-        if (val !== messageRecording) {
+        if (sonido && val !== messageRecording) {
             var msg = new SpeechSynthesisUtterance(sentence);
             msg.voiceURI = "native";
             msg.pitch = 1.1;
