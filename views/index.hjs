@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/backgrounds.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootmain.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/popup.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/buttononoff.css">
     <link href="/images/tadvisor.ico" rel="shortcut icon">
     <title>BoT-advisor</title>
     <meta charset="utf-8">
@@ -48,7 +49,7 @@
     <div data-history="false" data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
         <div class="container h-100">
             <div class="row border-0 header">
-                <div class="col-11 pt-2 pb-2">
+                <div class="col-9 pt-2 pb-2">
                     <div class="media">
                         <img class="d-flex align-self-top mr-4 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
                         <div class="media-body">
@@ -61,9 +62,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-2 p-0 pt-2">
+                    <label class="small">ON/OFF SOUND</label>
+                    <!-- Rounded switch -->
+                    <label class="switch">
+                      <input name="sound" id="sound" type="checkbox">
+                      <span class="slider1 round"></span>
+                    </label>
+                </div>
                 <div class="col-1 p-0 pt-2">
                     <div class="row w-100 m-0 d-flex justify-content-center">
-                        <button class="red-tooltip barButton btn close p-0 border-0 rounded-circle align-self-center" data-toggle="tooltip" data-placement="left" title="Hide chat" value="Close"  id="close"><img src="" alt="" >&times;</button>
+                        <button class="red-tooltip barButton btn close p-0 border-0 rounded-circle align-self-center" data-toggle="" data-placement="left" title="Hide chat" value="Close"  id="close"><img src="" alt="" >&times;</button>
                     </div>
                     <div class="row w-100 m-0 d-flex justify-content-center">
                         <button class="red-tooltip barButton btn btn-sm p-0 border-0 rounded-circle align-self-center" data-toggle="tooltip" data-placement="left" title="Reload chat" value="Restart" onClick="window.location.reload()" id="restart"><img src="/images/restart.png" alt="" ></button>

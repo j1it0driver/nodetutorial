@@ -26,6 +26,8 @@ var visits;
 var sessionID=null;
 var username;
 var sonido= false;
+var iOS=iOS();
+var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -71,7 +73,9 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 // document.addEventListener("DOMContentLoaded", function(){ //faster doesn t work on IE9-
   // Handler when the DOM is fully loaded vs  $(document).ready(function() {
 
-// $(document).ready(function() {
+$(document).ready(function() {
+    console.log("iOS", iOS);
+    console.log("iOS device", _iOSDevice);
     visits();
     username();
     sessionID=readCookie("sessionID");
@@ -159,9 +163,39 @@ navigator.getUserMedia  = navigator.getUserMedia ||
     $("#close").on("click", function(){
         $( "#popupPanel" ).popup( "close" );
     });
-// });
+
+    $("#sound").change(function ()
+      {
+    // alert('I have been checked');
+       sonido=!sonido;
+       console.log(sonido);
+       if(!sonido)
+       window.speechSynthesis.cancel();
+    });
+
+});
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function iOS() {
+
+  var iDevices = [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ];
+
+  if (!!navigator.platform) {
+    while (iDevices.length) {
+      if (navigator.platform === iDevices.pop()){ return true; }
+    }
+  }
+
+  return false;
+}
+
 function visits(){
     if(!checkCookie("visits")){
         console.log("primera visita");
@@ -384,13 +418,31 @@ function respond(val, valLinks) { // function to print a text into chat message 
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
             var msg = new SpeechSynthesisUtterance(sentence);
+            var voices = speechSynthesis.getVoices();
+            console.log("voices", voices);
+            // var voices = window.speechSynthesis.getVoices();
+            msg.voice = voices[2];
             msg.voiceURI = "native";
+            msg.volume = 0.2;
             msg.pitch = 1.1;
-            msg.rate = 1.1;
+            msg.rate = 1.15;
             msg.text = sentence;
             msg.lang = "en-GB";
-            window.speechSynthesis.speak(msg);
+            speechSynthesis.speak(msg);
+            // window.speechSynthesis.speak(msg);
+            if(iOS){
+                console.log("I'm iOS");
+
+            }
         }
+    }
+
+    if ('speechSynthesis' in window) {
+     // Synthesis support. Make your web apps talk!
+    }
+
+    if ('SpeechRecognition' in window) {
+      // Speech recognition support. Talk to your apps!
     }
     // dataObj = eval('\"'+ jsonEscape(valor) +'\"');
     // valor=putLinks(val.payload.links,valor);
