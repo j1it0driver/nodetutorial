@@ -434,7 +434,10 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.lang = "en-GB";
             synth.speak(msg);
             // window.speechSynthesis.speak(msg);
-
+            msg.onerror = function(event) {
+                console.log('An error has occurred with the speech synthesis: ' + event.error);
+                alert("Error Speaking: "+ event.error);
+            }
             if(iOS){
                 console.log("I'm iOS");
 
