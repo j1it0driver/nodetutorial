@@ -437,6 +437,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
             synth.speak(msg);
             // window.speechSynthesis.speak(msg);
             msg.onerror = function(event) {
+                console.log(event);
                 console.log('An error has occurred with the speech synthesis: ' + event.error);
                 alert("Error Speaking: "+ event.error);
             }
@@ -948,8 +949,7 @@ function sendAsset(radioId,radiosId){
     send_query();
 }
 
-function addCommas(nStr)
-{
+function addCommas(nStr){
     nStr += '';
     var x = nStr.split('.');
     var x1 = x[0];
