@@ -424,10 +424,11 @@ function respond(val, valLinks) { // function to print a text into chat message 
 
             var msg = new SpeechSynthesisUtterance(sentence);
             console.log("Msg", msg);
-            // var voices = speechSynthesis.getVoices();
-            // console.log("voices", voices);
+            var voices = synth.getVoices();
+            console.log("voices", voices);
             // var voices = window.speechSynthesis.getVoices();
-            // msg.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Female'; })[0];
+            //msg.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Female'; })[0];
+            msg.voice = voices[0];
             msg.voiceURI = "native";
             msg.volume = 0.2;
             msg.pitch = 1.1;
