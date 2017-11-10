@@ -74,6 +74,7 @@ navigator.getUserMedia  = navigator.getUserMedia ||
   // Handler when the DOM is fully loaded vs  $(document).ready(function() {
 
 $(document).ready(function() {
+    window.speechSynthesis.cancel();
     console.log(bowser.name);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
@@ -211,6 +212,7 @@ function visits(){
         console.log(readCookie("visits"));
     }
 }
+
 function username(){
     if(!checkCookie("username")){
         username="New Guest";
@@ -432,6 +434,8 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.lang = "en-GB";
             synth.speak(msg);
             // window.speechSynthesis.speak(msg);
+            console.log("is speaking", synth.speaking);
+            alert("Speaking"+ synth.speaking);
             if(iOS){
                 console.log("I'm iOS");
 
