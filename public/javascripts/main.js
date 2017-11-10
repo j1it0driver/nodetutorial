@@ -74,6 +74,7 @@ navigator.getUserMedia  = navigator.getUserMedia ||
   // Handler when the DOM is fully loaded vs  $(document).ready(function() {
 
 $(document).ready(function() {
+    console.log(bowser.name);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
     visits();

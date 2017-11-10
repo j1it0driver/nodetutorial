@@ -37,6 +37,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous" defer></script>
     <script type="application/javascript" src="/javascripts/popup.js" defer></script>
     <script type="application/javascript" src="/javascripts/main.js" defer></script>
+    <script type="application/javascript" src="/javascripts/bowser.js" defer></script>
 </head>
 <body class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
     <div class="row">
