@@ -75,7 +75,7 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 
 $(document).ready(function() {
     window.speechSynthesis.cancel();
-    console.log(bowser.name);
+    console.log("Browser/OS:", bowser.name, bowser.osname);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
     visits();
@@ -168,9 +168,9 @@ $(document).ready(function() {
 
     $("#sound").change(function ()
       {
-    // alert('I have been checked');
+
        sonido=!sonido;
-       console.log(sonido);
+       console.log("Sonido: ",sonido);
        if(!sonido)
        window.speechSynthesis.cancel();
     });
@@ -207,9 +207,9 @@ function visits(){
     }else{
         visits=Number(readCookie("visits"));
         visits += 1;
-        console.log(visits);
+        console.log("Visits var: ",visits);
         createCookie("visits", visits, 1);
-        console.log(readCookie("visits"));
+        console.log("Visits cookie: ", readCookie("visits"));
     }
 }
 
@@ -417,13 +417,15 @@ function respond(val, valLinks) { // function to print a text into chat message 
     sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
     var synth= window.speechSynthesis;
+    console.log("synth",synth);
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
 
             var msg = new SpeechSynthesisUtterance(sentence);
+            console.log("Msg", msg);
             // var voices = speechSynthesis.getVoices();
-            console.log("voices", voices);
+            // console.log("voices", voices);
             // var voices = window.speechSynthesis.getVoices();
             // msg.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Female'; })[0];
             msg.voiceURI = "native";
@@ -444,8 +446,8 @@ function respond(val, valLinks) { // function to print a text into chat message 
             }
         }
     }
-    console.log("is speaking", synth.speaking);
-    alert("Speaking"+ synth.speaking);
+    console.log("is speaking: ", synth.speaking);
+    alert("Speaking: "+ synth.speaking);
 
     if ('speechSynthesis' in window) {
      // Synthesis support. Make your web apps talk!
@@ -798,7 +800,6 @@ function send_query(){
         //   console.log(data);
         //   alert("Success: " + temporal);
         //   datos=data.result.fulfillment.messages;
-          console.log(data);
           prepareResponse(data);
         };
         s.send(JSON.stringify({"val": text}));
