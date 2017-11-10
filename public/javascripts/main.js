@@ -416,11 +416,11 @@ function respond(val, valLinks) { // function to print a text into chat message 
     sentences=val;
     sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
-
+    var synth= window.speechSynthesis;
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
-            var synth= window.speechSynthesis;
+
             var msg = new SpeechSynthesisUtterance(sentence);
             // var voices = speechSynthesis.getVoices();
             console.log("voices", voices);
@@ -434,14 +434,15 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.lang = "en-GB";
             synth.speak(msg);
             // window.speechSynthesis.speak(msg);
-            console.log("is speaking", synth.speaking);
-            alert("Speaking"+ synth.speaking);
+
             if(iOS){
                 console.log("I'm iOS");
 
             }
         }
     }
+    console.log("is speaking", synth.speaking);
+    alert("Speaking"+ synth.speaking);
 
     if ('speechSynthesis' in window) {
      // Synthesis support. Make your web apps talk!
