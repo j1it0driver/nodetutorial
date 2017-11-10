@@ -418,6 +418,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
+            var synth= window.speechSynthesis;
             var msg = new SpeechSynthesisUtterance(sentence);
             // var voices = speechSynthesis.getVoices();
             console.log("voices", voices);
@@ -429,7 +430,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.rate = 1.15;
             msg.text = sentence;
             msg.lang = "en-GB";
-            speechSynthesis.speak(msg);
+            synth.speak(msg);
             // window.speechSynthesis.speak(msg);
             if(iOS){
                 console.log("I'm iOS");
