@@ -428,8 +428,8 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.rate = 1.15;
             msg.text = sentence;
             msg.lang = "en-GB";
-            speechSynthesis.speak(msg);
-            // window.speechSynthesis.speak(msg);
+            // speechSynthesis.speak(msg);
+            window.speechSynthesis.speak(msg);
             if(iOS){
                 console.log("I'm iOS");
 
