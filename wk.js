@@ -42,12 +42,6 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 res.json(json);
                 break;
 
-            // case 'get_assetType_Ids':
-            //     console.log("Cookies GetMyTAdvisorScreenerProductTypesHandler: ");
-            //     handlers.GetMyTAdvisorScreenerProductTypesHandler();
-            //     console.log("exiting fullfilment");
-            //     break;
-
             case 'add_Asset':
                 console.log("add asset to portfolio");
                 if(param.assetToAdd){
@@ -70,7 +64,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
                 break;
 
-            case 'send_email':
+            case 'send_Email':
                 console.log('send email from server');
                 displayText=speech="Sending Email";
                 var json=apiaiResponseFormat(speech, displayText,null,null);

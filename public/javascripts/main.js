@@ -350,7 +350,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             else if(webhookAction=="add_Asset"){
                 printButton(webhookData.items);
             }
-            else if(webhookAction=="send_email"){
+            else if(webhookAction=="send_Email"){
                 printSendEmail();
             }
         }
@@ -376,14 +376,6 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.login) { //type 4 is a custompayload
             appendHtml("left");
             printLogin('login', spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.create) { //type 4 is a custompayload
-            appendHtml("left");
-            printLogin('create', spokenResponse[i].payload.create.username, spokenResponse[i].payload.create.password); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.forgot) { //type 4 is a custompayload
-            appendHtml("left");
-            printLogin('forgot', spokenResponse[i].payload.forgot.username, null); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.lists) { //type 4 is a custompayload
             display_lists(); //envio el nombre y los datos del payload
