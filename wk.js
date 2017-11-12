@@ -22,6 +22,7 @@ function apiaiResponseFormat(speech,displayText,data, contextOut){
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
+    console.log("body wh request",body);
     var speech, displayText, data=[],  contextOut=[];
     // var cookies=req.cookies;
     // console.log(cookies);
