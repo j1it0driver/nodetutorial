@@ -64,10 +64,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
                 break;
 
-            case 'send_Email':
+            case "send_Email":
                 console.log('send email from server');
                 displayText=speech="Sending Email";
-                var json=apiaiResponseFormat(speech, displayText,{"nada":"vacio"},null);
+                data={"nada":"vacio"};
+                var json=apiaiResponseFormat(speech, displayText,data,null);
                 res.json(json);
                 break;
 
