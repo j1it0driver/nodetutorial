@@ -317,6 +317,7 @@ function updateRec() {
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // console.log("prepare response",val);
+    console.log(val);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;
