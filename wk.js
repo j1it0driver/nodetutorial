@@ -123,7 +123,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     });
                 break;
 
-
+            case 'send_email':
+                displayText=speech='Sendin Email';
+                json=apiaiResponseFormat(speech, displayText,null);
+                res.json(json);
+                break;
 
             // case 'show_Portfolio':
             //     displayText=speech='show portfolio';

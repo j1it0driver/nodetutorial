@@ -27,7 +27,7 @@ img{
     height: 100%;
 }
 .chat-messages{
-    height:calc(100vh - 9.0rem);
+    height:calc(100vh - 8.5rem);
 }
 .chat-message{
 

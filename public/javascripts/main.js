@@ -350,6 +350,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             else if(webhookAction=="add_Asset"){
                 printButton(webhookData.items);
             }
+            else if(webhookAction=="send_email"){
+                printSendEmail();
+            }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
@@ -440,7 +443,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
             msg.onerror = function(event) {
                 console.log(event);
                 console.log('An error has occurred with the speech synthesis: ' + event.error);
-                alert("Error Speaking: "+ event.error);
+                // alert("Error Speaking: "+ event.error);
             }
             if(iOS){
                 console.log("I'm iOS");
@@ -449,7 +452,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
         }
     }
     console.log("is speaking: ", synth.speaking);
-    alert("Speaking: "+ synth.speaking);
+    // alert("Speaking: "+ synth.speaking);
 
     if ('speechSynthesis' in window) {
      // Synthesis support. Make your web apps talk!
@@ -960,4 +963,7 @@ function addCommas(nStr){
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
+}
+function printSendEmail (){
+    $("</br><form method='POST' action='mailto:jdortiz@techrules.com enctype='text/plain' 'class='email"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName' value='Enter name'><br><label for='email'>Email:</label><br><input type='email' name='email' id='sendEmailEmail' value='Enter Email'><br><label for='subejct'>Subject:</label><br><input type='text' name='subject' id='sendEmailsubject' value='Subject '><br><label for='text'>Message:</label><br><textarea name='body' id='sendEmailBody' value='Write your message'></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
