@@ -70,6 +70,12 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
                 break;
 
+            case 'send_email':
+                displayText=speech='Sending Email';
+                var json=apiaiResponseFormat(speech, displayText,null,null);
+                res.json(json);
+                break;
+
             case 'search_Asset':
                 var assetSearched=param.assetSearched.toLowerCase();
                 console.log("SearchAssetHandler");
@@ -123,11 +129,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     });
                 break;
 
-            case 'send_email':
-                displayText=speech='Sendin Email';
-                json=apiaiResponseFormat(speech, displayText,null);
-                res.json(json);
-                break;
+
 
             // case 'show_Portfolio':
             //     displayText=speech='show portfolio';
