@@ -342,8 +342,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             // respond(messagePrint2);
             respond(dataObj,dataObjLinks);
         }
+        console.log("webhook data",webhookData);
         if(webhookData){ // do something with webhook data
-
+            console.log("webhook data",webhookData);
             if(webhookAction=="search_Asset"){
                 printAssets(webhookData);
             }
