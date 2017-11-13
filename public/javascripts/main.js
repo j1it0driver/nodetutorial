@@ -979,6 +979,8 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId ){
         var temporal=JSON.parse(r.responseText);
         console.log(temporal);
     alert("Reference Number: " + temporal);
+    toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal+"</h6>";
+    appendHtml("right",toAppend);
     send_event('custom_event', username);
     //   datos=temporal.result.fulfillment.messages;
     //   prepareResponse(temporal);
