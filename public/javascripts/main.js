@@ -343,7 +343,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             // respond(messagePrint2);
             respond(dataObj,dataObjLinks);
         }
-        console.log("webhook data",webhookData);
+        // console.log("webhook data",webhookData);
         if(webhookData){ // do something with webhook data
             console.log("webhook data",webhookData);
             if(webhookAction=="search_Asset"){
@@ -966,7 +966,7 @@ function addCommas(nStr){
     return x1 + x2;
 }
 function printSendEmail (){
-    $("</br><form method='POST' action='/sayHello' enctype='text/plain' 'class='email"+printIndex+"' id='form"+printIndex+"'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendEmailEmail' placeholder='Enter Email' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendEmailsubject' placeholder='Subject '><br><label for='text'>Message:</label><textarea name='body' id='sendEmailBody' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
+    $("</br><form method='POST' action='/sayHello' enctype='text/plain' 'class='email"+printIndex+"' id='form"+printIndex+"'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName' placeholder='Enter name' value='Juan Ortiz' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendEmailEmail' placeholder='Enter Email' value='jdortiz@techrules.com' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendEmailsubject' placeholder='Subject' value='Test from chatbot' ><br><label for='text'>Message:</label><textarea name='body' id='sendEmailBody' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
 // function sendEmail(mail, name, subject, text){
 //     var r = new XMLHttpRequest();
