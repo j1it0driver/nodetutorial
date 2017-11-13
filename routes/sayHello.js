@@ -6,7 +6,7 @@ var router = express.Router();
 router.post('/', function(req,res){
     console.log("print body", req.body);
     var transporter = nodemailer.createTransport({
-        host: "smtp-mail.outlook.com", // hostname
+        host: "smtp.live.com", // hostname
         secureConnection: false, // TLS requires secureConnection to be false
         port: 587, // port for secure SMTP
         tls: {
