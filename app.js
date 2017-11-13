@@ -49,7 +49,7 @@ app.use('/', index); // path and function to execute (routes)
 app.use('/api', api.router);
 app.use('/users', users);
 app.use('/webhook', webhook);
-app.use('sayHello', mailing);
+app.use('/sayHello', mailing);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
