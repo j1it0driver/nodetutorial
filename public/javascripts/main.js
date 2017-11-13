@@ -28,6 +28,7 @@ var username;
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
+var toDisable=[];
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -661,8 +662,8 @@ function printImgAndText(name, data, text, link){
 function printLogin(type, username,password) {
     // var printIndex = bubble_id-1;
     if(type=='login'){
-        $("<div class='loginForm'><label><b>Username</b></label><input id='uname' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
-        $("<div class='' style=''><button class='formBtn' type='submit' onclick=send_login()>Login</button>&nbsp;&nbsp;<button class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
+        $("<div class='loginForm'><label><b>Username</b></label><input id='uname"+printIndex+"' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' id='password"+printIndex+"' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
+        $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login('uname"+printIndex+"','password"+printIndex+"', 'loginBtn"+printIndex+"', 'cancelLoginBtn"+printIndex+"')>Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
         if(checkCookie("user")){
             $("input[name='uname']").val(readCookie("user"));
         }
@@ -704,7 +705,8 @@ function printLogin(type, username,password) {
 //     appendHtml("left",toAppend);
 // }
 
-function send_login(){
+function send_login(unameId, pswId, loginId, cancelLoginId){
+    var toDisable=[unameId, pswId, loginId, cancelLoginId];
     if(checkCookie("user")){
         uname=$("input[name='uname']").val();
     }else{
@@ -715,6 +717,7 @@ function send_login(){
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
     login(uname,psw,domain,language);
+    disableButtons(loginId, toDisable);
 }
 
 function disableBubbles(){
@@ -970,7 +973,7 @@ function printSendEmail (){
     $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' 'class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' value='Juan Ortiz' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' value='jdortiz@techrules.com' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' value='Test from chatbot' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
 function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId){
-    var toDisable=[formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId]
+    toDisable=[formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId]
     console.log("sendEmail function client");
     var r = new XMLHttpRequest();
     r.open("POST", "/sayHello", true);
@@ -1004,4 +1007,10 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
     $('#statusMessages').text("Sending message");
     $speechInput.val("");
     $speechInput.blur();
+}
+
+function reload_menu(){
+    disableButtons(toDisable[toDisable.push(toDisable.pop()-1)], toDisable);
+    send_event('custom_event', username);
+    toDisable=[];
 }
