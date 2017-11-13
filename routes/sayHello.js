@@ -5,13 +5,11 @@ var router = express.Router();
 /* GET users listing. */
 router.post('/', function(req,res){
     console.log("print body", req.body);
-    var transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // upgrade later with STARTTLS
+    var transporter = nodemailer.createTransport("SMTP", {
+        service: 'hotmail',
         auth: {
-            user: 'j1it0driver@gmail.com', // Your email id
-            pass: 'Judaor82$go' // Your password
+            user: 'juanxdario@hotmail.com', // Your email id
+            pass: 'KellyMarie2017$ho' // Your password
         }
     });
 
