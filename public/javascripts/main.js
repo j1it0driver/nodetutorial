@@ -1025,5 +1025,4 @@ function reload_menu(){
     disableButtons(toDisable[le-1], toDisable);
     send_event('custom_event', username);
     toDisable=[];
-    
 }
