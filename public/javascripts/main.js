@@ -720,7 +720,7 @@ function send_login(){
     language= navigator.language || navigator.userLanguage;
     // login(uname,psw,domain,language);
     login(uname,psw,domain,language,function(){
-        reload_menu()
+        reload_menu();
     }); //handlers.js
 }
 
