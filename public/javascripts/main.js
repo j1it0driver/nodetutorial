@@ -716,8 +716,8 @@ function send_login(unameId, pswId, loginId, cancelLoginId){
     psw=$("input[name='psw']").val();
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
-    login(uname,psw,domain,language);
-    disableButtons(loginId, toDisable);
+    login(uname,psw,domain,language,disableButtons,loginId, toDisable); //handlers.js
+
 }
 
 function disableBubbles(){
