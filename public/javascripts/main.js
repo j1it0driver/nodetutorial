@@ -668,7 +668,7 @@ function printLogin(type, username,password) {
             $("input[name='uname']").val(readCookie("user"));
         }
 
-        var toDisable=["uname"+printIndex ,"password"+printIndex,"loginBtn"+printIndex,"cancelLoginBtn"+printIndex];
+        toDisable=["uname"+printIndex ,"password"+printIndex,"loginBtn"+printIndex,"cancelLoginBtn"+printIndex];
         // clientHandler();
         // var toAppend;
         // toAppend="<div class='loginForm'>"+
