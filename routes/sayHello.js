@@ -11,8 +11,8 @@ router.post('/', function(req,res){
     nodemailer.createTestAccount((err, account) => {
         var transporter = nodemailer.createTransport({
             host: "smtp.ethereal.com", // hostname
-            port: 587, // port for secure SMTP
-            secure: false, // TLS requires secureConnection to be false
+            port: 465, // port for secure SMTP
+            secure: true, // TLS requires secureConnection to be false
             auth: {
                 user: 'account.user',
                 pass: 'account.pass'
