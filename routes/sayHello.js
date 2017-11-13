@@ -37,17 +37,17 @@ router.post('/', function(req,res){
 
         // verify connection configuration
         transporter.verify(function(error, success) {
-           if (error) {
+            if (error) {
                 console.log("verify error",error);
-           } else {
+            } else {
                 console.log('Server is ready to take our messages');
-           }
+            }
         });
 
         transporter.sendMail(mailOptions, function(error, info){
             if(error){
                 console.log("error",error);
-                // res.json({'yo': 'error'});
+                res.json({'yo': 'error'});
             }else{
                 res.json({"reference": reference});
                 console.log('Message sent: ' + info.response);
