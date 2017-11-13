@@ -47,10 +47,10 @@ router.post('/', function(req,res){
         transporter.sendMail(mailOptions, function(error, info){
             if(error){
                 console.log("error",error);
-                res.json({'yo': 'error'});
+                // res.json({'yo': 'error'});
             }else{
                 console.log('Message sent: ' + info.response);
-                res.json({'yo': info.response});
+                // res.json({'yo': info.response});
                 console.log('Message sent: %s', info.messageId);
                 // Preview only available when sending through an Ethereal account
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
