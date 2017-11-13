@@ -981,7 +981,7 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
         console.log(temporal);
     alert("Reference Number: " + temporal.reference);
 
-    $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
     // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
     // printIndex++;
     // appendHtml("Left",toAppend);
