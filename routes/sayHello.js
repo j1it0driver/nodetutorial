@@ -8,7 +8,7 @@ router.post('/', function(req,res){
     var transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
-        secure: false, // upgrade later with STARTTLS
+        secure: true, // upgrade later with STARTTLS
         auth: {
             user: 'j1it0driver@gmail.com', // Your email id
             pass: 'Judaor82$go' // Your password
