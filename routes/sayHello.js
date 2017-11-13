@@ -49,6 +49,7 @@ router.post('/', function(req,res){
                 console.log("error",error);
                 // res.json({'yo': 'error'});
             }else{
+                res.json({"reference": generateReference()});
                 console.log('Message sent: ' + info.response);
                 // res.json({'yo': info.response});
                 console.log('Message sent: %s', info.messageId);
@@ -60,6 +61,10 @@ router.post('/', function(req,res){
             };
         });
     });
+    function generateReference(){
+        return 123456;
+
+    }
 });
 
 module.exports = router;
