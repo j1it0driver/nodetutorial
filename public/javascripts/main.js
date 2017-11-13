@@ -976,9 +976,9 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId ){
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
-    //   var temporal=JSON.parse(r.responseText);
-    //   console.log(temporal);
-    //   alert("Success: " + temporal);
+    var temporal=JSON.parse(r.responseText);
+    console.log(temporal);
+    alert("Success: " + temporal);
     //   datos=temporal.result.fulfillment.messages;
     //   prepareResponse(temporal);
     };
