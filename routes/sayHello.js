@@ -9,13 +9,18 @@ router.post('/', function(req,res){
     // Generate test SMTP service account from ethereal.email
 // Only needed if you don't have a real mail account for testing
     nodemailer.createTestAccount((err, account) => {
+        if (err) {
+            console.error('Failed to create a testing account. ' + err.message);
+            return process.exit(1);
+        }
+        console.log('Credentials obtained, sending message...');
         var transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.com", // hostname
-            port: 465, // port for secure SMTP
-            secure: true, // TLS requires secureConnection to be false
+            host: account.smtp.host, // hostname
+            port: account.smtp.port, // port for secure SMTP
+            secure: account.smtp.secure, // TLS requires secureConnection to be false
             auth: {
-                user: 'account.user',
-                pass: 'account.pass'
+                user: account.user,
+                pass: account.pass
             }
         });
 
