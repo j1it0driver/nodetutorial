@@ -1,5 +1,5 @@
 // function login(userCode,userPass,domain,language, callback, param1, param2) {
-function login(userCode,userPass,domain,language) {
+function login(userCode,userPass,domain,language, callback) {
     // userCode="juann@techrules.com";
     // userPass="Sebastian1.";
     // domain="TADVISOR";
@@ -33,6 +33,7 @@ function login(userCode,userPass,domain,language) {
                 changeMessage("Succesful Login",printIndex);
                 console.log("Succesful Login");
                 clientHandler();
+                callback();
                 // callback(param1,param2);
             }else {
                 changeMessage("Error Login",printIndex);
