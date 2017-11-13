@@ -21,23 +21,23 @@ function login(userCode,userPass,domain,language, callback, param1, param2) {
         //},
         // data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
         success: function(data) {
-        // userId=data1.RSLT.UserId;
-        // userCode=data1.RSLT.UserCode;
-        // tokenString=data1.RSLT.TokenString;
-        if ($("#checkbox"+printIndex)[0].checked && data.RSLT.ERROR.CODE=='Error_NoError'){
-            createCookie("user",userCode)
-            createCookie("userId",data.RSLT.UserId);
-            createCookie("userCode",data.RSLT.UserCode);
-            createCookie("tokenString",data.RSLT.TokenString);
-            // respond("Succesful Login");
-            changeMessage("Succesful Login",printIndex);
-            console.log("Succesful Login");
-            clientHandler();
-            callback(param1,param2);
-        }else {
-            changeMessage("Error Login",printIndex);
-            // respond("Error on Login");
-        }
+            // userId=data1.RSLT.UserId;
+            // userCode=data1.RSLT.UserCode;
+            // tokenString=data1.RSLT.TokenString;
+            if ($("#checkbox"+printIndex)[0].checked && data.RSLT.ERROR.CODE=='Error_NoError'){
+                createCookie("user",userCode)
+                createCookie("userId",data.RSLT.UserId);
+                createCookie("userCode",data.RSLT.UserCode);
+                createCookie("tokenString",data.RSLT.TokenString);
+                // respond("Succesful Login");
+                changeMessage("Succesful Login",printIndex);
+                console.log("Succesful Login");
+                clientHandler();
+                callback(param1,param2);
+            }else {
+                changeMessage("Error Login",printIndex);
+                // respond("Error on Login");
+            }
         // session_cookies=("UserCode="+userCode+"; UserId="+userId+"; token="+tokenString);
         // console.log(session_cookies);
             // prepareResponse_h(data);

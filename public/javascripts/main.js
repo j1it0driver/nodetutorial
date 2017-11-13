@@ -663,7 +663,7 @@ function printLogin(type, username,password) {
     // var printIndex = bubble_id-1;
     if(type=='login'){
         $("<div class='loginForm'><label><b>Username</b></label><input id='uname"+printIndex+"' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' id='password"+printIndex+"' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
-        $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login('uname"+printIndex+"','password"+printIndex+"', 'loginBtn"+printIndex+"', 'cancelLoginBtn"+printIndex+"')>Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
+        $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login('uname"+printIndex+"','password"+printIndex+"', 'loginBtn"+printIndex+"', 'cancelLoginBtn"+printIndex+"') >Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
         if(checkCookie("user")){
             $("input[name='uname']").val(readCookie("user"));
         }
@@ -717,7 +717,6 @@ function send_login(unameId, pswId, loginId, cancelLoginId){
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
     login(uname,psw,domain,language,disableButtons,loginId, toDisable); //handlers.js
-
 }
 
 function disableBubbles(){
