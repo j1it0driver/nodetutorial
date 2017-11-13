@@ -23,12 +23,12 @@ router.post('/', function(req,res){
                 pass: account.pass
             }
         });
-
+        var reference=generateReference();
         var mailOptions = {
             // from: '"'+req.body.Name+'" <'+req.body.email+'>', // sender address
             from: req.body.email,
             to: 'jdortiz@techrules.com', // list of receivers
-            subject: req.body.subject+" from user: " +req.body.name, // Subject line
+            subject: req.body.subject+" User: " +req.body.name+ ". Reference #: "+reference, // Subject line
             text: req.body.body //, // plaintext body
             // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
         };
@@ -49,7 +49,7 @@ router.post('/', function(req,res){
                 console.log("error",error);
                 // res.json({'yo': 'error'});
             }else{
-                res.json({"reference": generateReference()});
+                res.json({"reference": reference});
                 console.log('Message sent: ' + info.response);
                 // res.json({'yo': info.response});
                 console.log('Message sent: %s', info.messageId);
