@@ -32,7 +32,7 @@ function login(userCode,userPass,domain,language, callback) {
                 // respond("Succesful Login");
                 changeMessage("Succesful Login",printIndex);
                 console.log("Succesful Login");
-                clientHandler();
+                clientHandler(showPersonalInfo);
                 callback();
                 // callback(param1,param2);
             }else {
@@ -48,7 +48,7 @@ function login(userCode,userPass,domain,language, callback) {
         }
     });
 }
-function clientHandler() {
+function clientHandler(callback) {
     if(checkCookie("userCode") && checkCookie("tokenString")){
         userCode=readCookie("userCode");
         domain="TADVISOR";
@@ -69,7 +69,8 @@ function clientHandler() {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function(data) {
         // email=data.RSLT.Client.PersonalInformation.Email;
-            showPersonalInfo(data);
+            // showPersonalInfo(data);
+            callback(data);
             var clientCode=data.RSLT.DATA.Client.PersonalInformation.ClientCode;
         console.log(email);
             // prepareResponse_h(data);

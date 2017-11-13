@@ -557,13 +557,14 @@ function quickReplyF(stringItem,buttonId,buttonIds){
     send_query();
 }
 
-function disableButtons(buttonIdSelected,buttonIdsToDisable){
+function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){
     for(var i in buttonIdsToDisable){
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
     }
     document.getElementById(buttonIdSelected).classList.add("responseBtn");
     // $('#'+buttonIdSelected).addClass("responseBtn");
     document.getElementById(buttonIdSelected).disabled = true;
+    callback();
 }
 
 function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
