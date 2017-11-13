@@ -20,7 +20,8 @@ router.post('/', function(req,res){
         });
 
         var mailOptions = {
-            from: '"'+req.body.Name+'" <'+req.body.email+'>', // sender address
+            // from: '"'+req.body.Name+'" <'+req.body.email+'>', // sender address
+            from: req.body.email,
             to: 'jdortiz@techrules.com', // list of receivers
             subject: req.body.subject+" from user: " +req.body.Name, // Subject line
             text: req.body.body //, // plaintext body
