@@ -978,7 +978,7 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId ){
       if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
         console.log(temporal);
-    alert("Success: " + temporal);
+    alert("Reference Number: " + temporal);
     //   datos=temporal.result.fulfillment.messages;
     //   prepareResponse(temporal);
     };
