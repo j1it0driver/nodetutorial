@@ -564,7 +564,10 @@ function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){
     document.getElementById(buttonIdSelected).classList.add("responseBtn");
     // $('#'+buttonIdSelected).addClass("responseBtn");
     document.getElementById(buttonIdSelected).disabled = true;
-    callback();
+    if(callback) {
+        callback();
+    }
+
 }
 
 function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
