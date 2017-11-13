@@ -970,6 +970,7 @@ function printSendEmail (){
     $("</br><form method='POST' onsubmit='sendEmail('sendEmailName"+printIndex+"','sendEmailEmail"+printIndex+"','sendEmailSubject"+printIndex+"','sendEmailBody"+printIndex+"')' enctype='text/plain' 'class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName"+printIndex+"' placeholder='Enter name' value='Juan Ortiz' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendEmailEmail"+printIndex+"' placeholder='Enter Email' value='jdortiz@techrules.com' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendEmailSubject"+printIndex+"' placeholder='Subject' value='Test from chatbot' ><br><label for='text'>Message:</label><textarea name='body' id='sendEmailBody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
 function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId ){
+    console.log("sendEmail function client");
     var r = new XMLHttpRequest();
     r.open("POST", "/sayHello", true);
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

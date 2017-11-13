@@ -103,8 +103,8 @@
         </div>
     </div>
     <!-- redirecting form action (senEmail) -->
-    <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="application/javascript" src="/javascripts/fullscreen.js"></script>
     <script type="application/javascript" src="/javascripts/main.js"></script>
     <script type="application/javascript" src="/javascripts/handlers.js"></script>
