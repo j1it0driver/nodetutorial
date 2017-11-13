@@ -980,8 +980,11 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
         var temporal=JSON.parse(r.responseText);
         console.log(temporal);
     alert("Reference Number: " + temporal.reference);
-    toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
-    appendHtml("Left",toAppend);
+
+    $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+    // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
+    // printIndex++;
+    // appendHtml("Left",toAppend);
     disableButtons(formSendButtonId, toDisable);
     send_event('custom_event', username);
 
