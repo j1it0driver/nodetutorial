@@ -17,6 +17,7 @@
     "mongoose": "^4.11.5",
     "morgan": "~1.8.1",
     "mustache": "^2.3.0",
+    "nodemailer": "^4.4.0",
     "popper.js": "^1.12.5",
     "serve-favicon": "~2.4.2"
   }
