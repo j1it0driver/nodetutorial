@@ -967,31 +967,31 @@ function addCommas(nStr){
 }
 
 function printSendEmail (){
-    $("</br><form method='POST' action='https://tadvisorchatbottest.herokuapp.com/sayHello' enctype='text/plain' 'class='email"+printIndex+"' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName' placeholder='Enter name' value='Juan Ortiz' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendEmailEmail' placeholder='Enter Email' value='jdortiz@techrules.com' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendEmailsubject' placeholder='Subject' value='Test from chatbot' ><br><label for='text'>Message:</label><textarea name='body' id='sendEmailBody' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
+    $("</br><form method='POST' onsubmit='sendEmail('sendEmailName"+printIndex+"','sendEmailEmail"+printIndex+"','sendEmailSubject"+printIndex+"','sendEmailBody"+printIndex+"')' enctype='text/plain' 'class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName"+printIndex+"' placeholder='Enter name' value='Juan Ortiz' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendEmailEmail"+printIndex+"' placeholder='Enter Email' value='jdortiz@techrules.com' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendEmailSubject"+printIndex+"' placeholder='Subject' value='Test from chatbot' ><br><label for='text'>Message:</label><textarea name='body' id='sendEmailBody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
-// function sendEmail(mail, name, subject, text){
-//     var r = new XMLHttpRequest();
-//     r.open("POST", "/sayHello", true);
-//     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//     r.onreadystatechange = function () {
-//       if (r.readyState != 4 || r.status != 200) return;
-//     //   var temporal=JSON.parse(r.responseText);
-//     //   console.log(temporal);
-//     //   alert("Success: " + temporal);
-//     //   datos=temporal.result.fulfillment.messages;
-//     //   prepareResponse(temporal);
-//     };
-//     var mailOptions = {
-//         from: '"'+name+'" <'+mail+'>', // sender address
-//         to: 'jdortiz@techrules.com', // list of receivers
-//         subject: subject+" from user: " +name, // Subject line
-//         text: text //, // plaintext body
-//         // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-//     };
-//     console.log("mailOptions",mailOptions);
-//     r.send(JSON.stringify(mailOptions));
-//
-//     $('#statusMessages').text("Type the topic you are interested in");
-//     $speechInput.val("");
-//     $speechInput.blur();
-// }
+function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId ){
+    var r = new XMLHttpRequest();
+    r.open("POST", "/sayHello", true);
+    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+    //   var temporal=JSON.parse(r.responseText);
+    //   console.log(temporal);
+    //   alert("Success: " + temporal);
+    //   datos=temporal.result.fulfillment.messages;
+    //   prepareResponse(temporal);
+    };
+    var mailOptions = {'body':{
+        'name': document.getElementById(formNameId).value, // sender address
+        'email': document.getElementById(formEmailId).value, // list of receivers
+        'subject': document.getElementById(formSubjectId).value, // Subject line
+        'body': document.getElementById(formBodyId).value //, // plaintext body
+        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    }};
+    console.log("mailOptions",mailOptions);
+    r.send(JSON.stringify(mailOptions));
+
+    $('#statusMessages').text("Sending message");
+    $speechInput.val("");
+    $speechInput.blur();
+}

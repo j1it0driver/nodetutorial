@@ -28,7 +28,7 @@ router.post('/', function(req,res){
             // from: '"'+req.body.Name+'" <'+req.body.email+'>', // sender address
             from: req.body.email,
             to: 'jdortiz@techrules.com', // list of receivers
-            subject: req.body.subject+" from user: " +req.body.Name, // Subject line
+            subject: req.body.subject+" from user: " +req.body.name, // Subject line
             text: req.body.body //, // plaintext body
             // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
         };
