@@ -5,11 +5,16 @@ var router = express.Router();
 /* GET users listing. */
 router.post('/', function(req,res){
     console.log("print body", req.body);
-    var transporter = nodemailer.createTransport("SMTP", {
-        service: 'hotmail',
+    var transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com", // hostname
+        secureConnection: false, // TLS requires secureConnection to be false
+        port: 587, // port for secure SMTP
+        tls: {
+           ciphers:'SSLv3'
+        },
         auth: {
-            user: 'juanxdario@hotmail.com', // Your email id
-            pass: 'KellyMarie2017$ho' // Your password
+            user: 'juanxdario@hotmail.com',
+            pass: 'KellyMarie2017$ho'
         }
     });
 
