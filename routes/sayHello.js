@@ -6,7 +6,9 @@ var router = express.Router();
 router.post('/', function(req,res){
     console.log("print body", req.body);
     var transporter = nodemailer.createTransport({
-        service: 'Gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: false, // upgrade later with STARTTLS
         auth: {
             user: 'j1it0driver@gmail.com', // Your email id
             pass: 'Judaor82$go' // Your password
