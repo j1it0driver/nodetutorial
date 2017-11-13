@@ -982,13 +982,13 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId ){
     //   datos=temporal.result.fulfillment.messages;
     //   prepareResponse(temporal);
     };
-    var mailOptions = {'body':{
+    var mailOptions = {
         'name': document.getElementById(formNameId).value, // sender address
         'email': document.getElementById(formEmailId).value, // list of receivers
         'subject': document.getElementById(formSubjectId).value, // Subject line
         'body': document.getElementById(formBodyId).value //, // plaintext body
         // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-    }};
+    };
     console.log("mailOptions",mailOptions);
     r.send(JSON.stringify(mailOptions));
 
