@@ -663,10 +663,12 @@ function printLogin(type, username,password) {
     // var printIndex = bubble_id-1;
     if(type=='login'){
         $("<div class='loginForm'><label><b>Username</b></label><input id='uname"+printIndex+"' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' id='password"+printIndex+"' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
-        $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login('uname"+printIndex+"','password"+printIndex+"','loginBtn"+printIndex+"','cancelLoginBtn"+printIndex+"') >Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
+        $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login() >Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
         if(checkCookie("user")){
             $("input[name='uname']").val(readCookie("user"));
         }
+
+        var toDisable=["uname"+printIndex ,"password"+printIndex,"loginBtn"+printIndex,"cancelLoginBtn"+printIndex];
         // clientHandler();
         // var toAppend;
         // toAppend="<div class='loginForm'>"+
@@ -705,8 +707,8 @@ function printLogin(type, username,password) {
 //     appendHtml("left",toAppend);
 // }
 
-function send_login(unameId, pswId, loginId, cancelLoginId){
-    var toDisable=[unameId, pswId, loginId, cancelLoginId];
+function send_login(){
+
     if(checkCookie("user")){
         uname=$("input[name='uname']").val();
     }else{
@@ -716,10 +718,10 @@ function send_login(unameId, pswId, loginId, cancelLoginId){
     psw=$("input[name='psw']").val();
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
-    login(uname,psw,domain,language);
-    // login(uname,psw,domain,language,function(){
-    //     disableButtons(loginId, toDisable);
-    // }); //handlers.js
+    // login(uname,psw,domain,language);
+    login(uname,psw,domain,language,function(){
+        reload_menu()
+    }); //handlers.js
 }
 
 function disableBubbles(){
@@ -1012,7 +1014,11 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
 }
 
 function reload_menu(){
-    disableButtons(toDisable[toDisable.push(toDisable.pop()-1)], toDisable);
+    var le=toDisable.length
+    console.log(toDisable);
+    console.log(le);
+    console.log(toDisable[le-1]);
+    disableButtons(toDisable[le-1], toDisable);
     send_event('custom_event', username);
     toDisable=[];
 }
