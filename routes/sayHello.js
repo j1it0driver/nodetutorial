@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/', function(req,res){
-    console.log(req);
+    console.log("print body", req.body);
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -21,11 +21,11 @@ router.post('/', function(req,res){
     };
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
-            console.log(error);
-            res.json({yo: 'error'});
+            console.log("error",error);
+            res.json({'yo': 'error'});
         }else{
             console.log('Message sent: ' + info.response);
-            res.json({yo: info.response});
+            res.json({'yo': info.response});
         };
     });
 });
