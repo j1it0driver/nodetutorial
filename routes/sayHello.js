@@ -14,6 +14,7 @@ router.post('/', function(req,res){
             pass: 'Judaor82$go' // Your password
         }
     });
+
     var mailOptions = {
         from: '"'+req.body.Name+'" <'+req.body.email+'>', // sender address
         to: 'jdortiz@techrules.com', // list of receivers
@@ -21,7 +22,18 @@ router.post('/', function(req,res){
         text: req.body.body //, // plaintext body
         // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
     };
+
     console.log("mailOptions", mailOptions);
+
+    // verify connection configuration
+    transporter.verify(function(error, success) {
+       if (error) {
+            console.log("verify error",error);
+       } else {
+            console.log('Server is ready to take our messages');
+       }
+    });
+
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
             console.log("error",error);
