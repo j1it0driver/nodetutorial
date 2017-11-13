@@ -15,6 +15,8 @@ var index = require('./routes/index'); //JDO Cuando requiero este archivo (index
 var api = require('./routes/api');
 var users = require('./routes/users');
 var webhook = require('./routes/webhook');
+var mailing = require('./routes/sayHello');
+
 
 //console.log('The value of PORT is:', process.env);
 var app = express(); // JDO la aplicacion arranca aca cuando ejecutamos express.
@@ -47,6 +49,8 @@ app.use('/', index); // path and function to execute (routes)
 app.use('/api', api.router);
 app.use('/users', users);
 app.use('/webhook', webhook);
+app.use('sayHello', mailing);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

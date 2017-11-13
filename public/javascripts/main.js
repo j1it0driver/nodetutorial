@@ -776,11 +776,13 @@ function hideUpper(){
         $("#chatUpper").css("height","0").css("display","none");
     }
 }
+
 function putLinks(arrayLinks, val){
     for (var i in arrayLinks)
         val=val.replace(i,arrayLinks[i])
     return val
 }
+
 function send_query(){
     var text = $speechInput.val();
     var toAppend;
@@ -828,6 +830,7 @@ function send_query(){
         $speechInput.blur();
     }
 }
+
 function display_lists(){
 
     // var printIndex = bubble_id-1;
@@ -850,6 +853,7 @@ function display_lists(){
     }
 
 }
+
 function addMessage(message, bubble){
     if(!bubble){
         $("<div id='bubbleMessage"+printIndex+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+printIndex);
@@ -858,6 +862,7 @@ function addMessage(message, bubble){
         $("<div id='bubbleMessage"+bubble+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+bubble);
     }
 }
+
 function changeMessage(messageToAdd, messageId){
     if($("#bubbleMessage"+messageId).length){
         $("#bubbleMessage"+messageId).text(messageToAdd).css('font-weight', 'bold').css('font-style', 'italic');
@@ -896,6 +901,7 @@ function changeMessage(messageToAdd, messageId){
 //         "source": "myServer"
 //     }
 // }
+
 function printAssets(data){
 
     radiosId=[];
@@ -940,6 +946,7 @@ function printAssets(data){
         return;
     }
 }
+
 function sendAsset(radioId,radiosId){
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
@@ -959,5 +966,31 @@ function addCommas(nStr){
     return x1 + x2;
 }
 function printSendEmail (){
-    $("</br><form method='POST' action='mailto:jdortiz@techrules.com enctype='text/plain' 'class='email"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName' value='Enter name'><br><label for='email'>Email:</label><br><input type='email' name='email' id='sendEmailEmail' value='Enter Email'><br><label for='subejct'>Subject:</label><br><input type='text' name='subject' id='sendEmailsubject' value='Subject '><br><label for='text'>Message:</label><br><textarea name='body' id='sendEmailBody' value='Write your message'></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
+    $("</br><form method='POST' action='/sayHello' enctype='text/plain' 'class='email"+printIndex+"' id='form"+printIndex+"'><label for='name'>Name:</label><input type='text' name='Name' id='sendEmailName' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendEmailEmail' placeholder='Enter Email' required><br><label for='subejct'>Subject:</label><input type='text' name='subject' id='sendEmailsubject' placeholder='Subject '><br><label for='text'>Message:</label><textarea name='body' id='sendEmailBody' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
+// function sendEmail(mail, name, subject, text){
+//     var r = new XMLHttpRequest();
+//     r.open("POST", "/sayHello", true);
+//     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//     r.onreadystatechange = function () {
+//       if (r.readyState != 4 || r.status != 200) return;
+//     //   var temporal=JSON.parse(r.responseText);
+//     //   console.log(temporal);
+//     //   alert("Success: " + temporal);
+//     //   datos=temporal.result.fulfillment.messages;
+//     //   prepareResponse(temporal);
+//     };
+//     var mailOptions = {
+//         from: '"'+name+'" <'+mail+'>', // sender address
+//         to: 'jdortiz@techrules.com', // list of receivers
+//         subject: subject+" from user: " +name, // Subject line
+//         text: text //, // plaintext body
+//         // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+//     };
+//     console.log("mailOptions",mailOptions);
+//     r.send(JSON.stringify(mailOptions));
+//
+//     $('#statusMessages').text("Type the topic you are interested in");
+//     $speechInput.val("");
+//     $speechInput.blur();
+// }
