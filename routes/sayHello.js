@@ -21,6 +21,7 @@ router.post('/', function(req,res){
         text: req.body.body //, // plaintext body
         // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
     };
+    console.log("mailOptions", mailOptions);
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
             console.log("error",error);
