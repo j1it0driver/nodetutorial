@@ -61,7 +61,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     console.log("AddAsset_Portfolio", assetToAdd);
                     console.log(assetsToAdd);
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
-                    displayText=speech= "You invested "+portfolio_currency+" "+amount+"Asset with ISIN: "+assetToAdd+ " was added to your portfolio. Do you want to add more assets2?";
+                    displayText=speech= "You investment of "+portfolio_currency+" "+amount+" on asset with ISIN: "+assetToAdd+ ", was added to your portfolio. Do you want to add more assets2?";
                     data= {"items": ["Add more", "Finish"]};
                     contextOut=[{"name":"asset_to_add","lifespan":"1", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
                     {"name":"create_portfolio","lifespan":"1", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
