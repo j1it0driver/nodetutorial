@@ -371,7 +371,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.sendEvent) { //type 4 is a custompayload
-            prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data ); //envio el nombre y los datos del payload
+            prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data); //envio el nombre y los datos del payload
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
             printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
@@ -632,13 +632,20 @@ function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
 function prepare_event(eventName,data){
     switch(eventName){
         case "wait_time":
-            wait_time(data.timer);
+            wait_time(data.timer);// sens event to call intent
+            break;
+        case "just_wait"
+            just_wait(data.timer);
             break;
     }
 }
 
 function wait_time(timer){
     timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
+}
+
+function just_wait(timer){
+    timeout2 = setTimeout(function () {console.log("just_wait finish");}, timer);
 }
 
 function printImgAndText(name, data, text, link){
@@ -1023,6 +1030,6 @@ function reload_menu(){
     console.log(le);
     console.log(toDisable[le-1]);
     disableButtons(toDisable[le-1], toDisable);
-    send_event('custom_event', username);
+    send_event('custom_event2', username);
     toDisable=[];
 }
