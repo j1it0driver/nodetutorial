@@ -181,6 +181,13 @@ $(document).ready(function() {
     // }
     //});
 
+    $("#"+printIndex+"InputAmountId").click(function(event) {
+      if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+
+
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -962,11 +969,11 @@ function printAssets(data){
     $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button>").appendTo('#chatBubbleDivDiv'+printIndex);
 
-    $("#"+printIndex+"InputAmountId").click(function(event) {
-      if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
+    // $("#"+printIndex+"InputAmountId").click(function(event) {
+    //   if (event.keyCode == 13) {
+    //         event.preventDefault();
+    //     }
+    // });
 
     $('#'+printIndex+'RadioBtnSendId').attr("onClick", "sendAsset('"+radioBtnSendId+"',"+'radiosId'+")");
     $('#'+printIndex+'RadioBtnRepeatId').on("click", function(){
