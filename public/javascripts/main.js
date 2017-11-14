@@ -634,8 +634,12 @@ function prepare_event(eventName,data){
         case "wait_time":
             wait_time(data.timer);// sens event to call intent
             break;
-        case "just_wait"
+        case "just_wait":
             just_wait(data.timer);
+            break;
+        case "custom_event2":
+            just_wait(data.timer, function(){
+                reload_menu();});
             break;
     }
 }
@@ -644,8 +648,11 @@ function wait_time(timer){
     timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
 }
 
-function just_wait(timer){
+function just_wait(timer, callback){
     timeout2 = setTimeout(function () {console.log("just_wait finish");}, timer);
+    if(callback) {
+        callback();
+    }
 }
 
 function printImgAndText(name, data, text, link){
