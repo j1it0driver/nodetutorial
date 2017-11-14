@@ -1035,7 +1035,7 @@ function reload_menu(){
     console.log(toDisable);
     console.log(le);
     console.log(toDisable[le-1]);
-    disableButtons(toDisable[le-1], toDisable);
+    if(le!=0){disableButtons(toDisable[le-1], toDisable);}
     send_event('custom_event2', username);
     toDisable=[];
 }
