@@ -994,13 +994,11 @@ function sendAsset(radioId,radiosId){
     if($speechInput.val() != ''){
         $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
     }
-
-
     console.log("amount from input",amount);
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
     disableButtons(radioId,radiosId);
-    send_query(amount);
+    send_query();
 }
 
 function addCommas(nStr){

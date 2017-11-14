@@ -49,12 +49,12 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     var amount=0, array;
                     console.log("inside if");
                     var assetToAdd = param.assetToAdd;
-                    // if(assetToAdd.match(" - ")){
-                    //     array=assetToAdd.split(" - ");
-                    //     assetToAdd=array[0];
-                    //     amount=array[1];
-                    //
-                    // }
+                    if(assetToAdd.match(" - ")){
+                        array=assetToAdd.split(" - ");
+                        assetToAdd=array[0];
+                        amount=array[1];
+
+                    }
                     console.log("assettoadd y amount",assetToAdd,amount);
                     assetsToAdd.push(assetToAdd);
                     console.log("AddAsset_Portfolio", assetToAdd);
