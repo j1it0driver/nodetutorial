@@ -638,8 +638,7 @@ function prepare_event(eventName,data){
             just_wait(data.timer);
             break;
         case "custom_event2":
-            just_wait(data.timer, function(){
-                reload_menu();});
+            just_wait(data.timer,reload_menu);
             break;
     }
 }
