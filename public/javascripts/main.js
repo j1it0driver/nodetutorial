@@ -981,8 +981,8 @@ function printAssets(data){
     $("#"+printIndex+"InputAmountId input").on('change',function(){
         if($speechInput.val() != ''){
             $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
-        });
-    }
+        }
+    });
     //////////
     if(radiosId.length==0){
         console.log("send event to search again");
