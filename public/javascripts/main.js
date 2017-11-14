@@ -978,11 +978,7 @@ function printAssets(data){
     });
     /////////
 
-    $("#"+printIndex+"InputAmountId input").on('change',function(){
-        if($speechInput.val() != ''){
-            $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
-        }
-    });
+
     //////////
     if(radiosId.length==0){
         console.log("send event to search again");
@@ -995,6 +991,11 @@ function sendAsset(radioId,radiosId){
     // var juju=""+printIndex+"InputAmountId";
     // console.log("juju",juju);
     var amount = document.getElementById(""+printIndex+"InputAmountId").value;
+    if($speechInput.val() != ''){
+        $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
+    }
+
+
     console.log("amount from input",amount);
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
