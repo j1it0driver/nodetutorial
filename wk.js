@@ -53,9 +53,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         array=assetToAdd.split(" - ");
                         assetToAdd=array[0];
                         amount=array[1];
-                        console.log("assettoadd y amount",assetToAdd,amount);
-                    }
 
+                    }
+                    console.log("assettoadd y amount",assetToAdd,amount);
                     assetsToAdd.push(assetToAdd);
                     console.log("AddAsset_Portfolio", assetToAdd);
                     console.log(assetsToAdd);
@@ -90,9 +90,10 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
 
             case 'search_Asset':
-                if(param.portfolio_currency && param.portfolio_name){
-                    global.portfolio_name=param.portfolio_name;
-                    global.portfolio_currency=param.portfolio_currency;
+                console.log("SearchAssetHandler");
+                if(param.portfolio-currency && param.portfolio-name){
+                    global.portfolio_name=param.portfolio-name;
+                    global.portfolio_currency=param.portfolio-currency;
 
                 }
 
@@ -100,7 +101,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 console.log("currency for portfolio", portfolio_currency);
                 var assetSearched=param.assetSearched.toLowerCase();
                 assetsSearched.push(assetSearched);
-                console.log("SearchAssetHandler");
+
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
                 // if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){
                 //     userCode=cookiesm.readCookieServer("userCode");
