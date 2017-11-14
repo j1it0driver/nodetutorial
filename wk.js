@@ -91,9 +91,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
             case 'search_Asset':
                 console.log("SearchAssetHandler");
-                if(param.portfolio-currency && param.portfolio-name){
-                    global.portfolio_name=param.portfolio-name;
-                    global.portfolio_currency=param.portfolio-currency;
+                if(param.portfolio_currency && param.portfolio_name){
+                    global.portfolio_name=param.portfolio_name;
+                    global.portfolio_currency=param.portfolio_currency;
 
                 }
 
