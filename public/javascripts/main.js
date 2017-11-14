@@ -646,7 +646,7 @@ function printImgAndText(name, data, text, link){
     var imgSrc;
     var imgButton_i="";
     var itemName;
-    $("<div class='img-text-l' &ui-state='dialogink'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv'"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
+    $("<div class='img-text-l' &ui-state='dialogink'style= 'clear: right; text-align:center;width: 90%;' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     if(data["imgsrc"]){
         itemName=createIdFromText(name+data["imgsrc"]);
         imgSrc=getImgSrc(name, data["imgsrc"]);
@@ -747,7 +747,7 @@ function toggleFullScreen() {
   }
 }
 
-function appendHtml(bubbleSide, toAppend){
+function appendHtml(bubbleSide, toAppend){//append bubble
     datestr=getFormattedDate();
     if(!toAppend){
         chatHistoryDiv.append(
