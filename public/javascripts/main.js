@@ -973,9 +973,16 @@ function printAssets(data){
     });
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
-        $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
+        $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val()+" - "+);
         $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
     });
+    /////////
+    if($speechInput.val() != ''){
+        $("#"+printIndex+"InputAmountId input").on('change',function(){
+            $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
+        });
+    }
+    //////////
     if(radiosId.length==0){
         console.log("send event to search again");
         send_event("searchAgain", null);
