@@ -984,8 +984,8 @@ function printAssets(data){
 }
 
 function sendAsset(radioId,radiosId){
-    var juju=""+printIndex+"InputAmountId";
-    console.log("juju",juju);
+    // var juju=""+printIndex+"InputAmountId";
+    // console.log("juju",juju);
     var amount = document.getElementById(""+printIndex+"InputAmountId").value;
     console.log("amount from input",amount);
     console.log("sendAsset Function", radiosId);
