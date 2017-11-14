@@ -1078,3 +1078,7 @@ function reload_menu(){
     send_event('custom_event2', username);
     toDisable=[];
 }
+
+function printPortfolio(data){
+
+}
