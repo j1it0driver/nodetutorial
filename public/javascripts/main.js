@@ -361,7 +361,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             else if(webhookAction=="send_Email"){
                 printSendEmail();
             }
-            else if(webhook=="show_portfolio"){
+            else if(webhookAction=="show_portfolio"){
                 console.log("print show portfolio", webhoohData);
             }
         }
@@ -815,8 +815,12 @@ function putLinks(arrayLinks, val){
     return val
 }
 
-function send_query(){
+function send_query(other){
     var text = $speechInput.val();
+    var otherData=null;
+    if(other){
+        otherData=other;
+    }
     var toAppend;
     if($speechInput.val() != ''){
         window.speechSynthesis.cancel();
@@ -835,7 +839,7 @@ function send_query(){
         //   datos=data.result.fulfillment.messages;
           prepareResponse(data);
         };
-        s.send(JSON.stringify({"val": text}));
+        s.send(JSON.stringify({"val": text, "data": otherData}));
         // $.ajax({
         //     type: "POST",
         //     // url: baseUrl + "query?v=20170810",
@@ -980,10 +984,12 @@ function printAssets(data){
 }
 
 function sendAsset(radioId,radiosId){
+    var amount = document.getElementById("'"+printIndex+"'InputAmountId").value;
+    console.log("amount from input",amount);
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
     disableButtons(radioId,radiosId);
-    send_query();
+    send_query(amount);
 }
 
 function addCommas(nStr){
