@@ -17,6 +17,7 @@ router.get('/', function(req,res){
   // cookies_s = cookie.parse(req.headers.cookie || '');
   res.cookie("sessionID",cookiesm.guid(),{expire : new Date() + 9999});
   global.cookies_s = cookie.parse(req.headers.cookie || '');
+  global.assetsSearched=[];
   global.assetsToAdd=[];
   console.log("from index root", assetsToAdd);
   res.render('index');
