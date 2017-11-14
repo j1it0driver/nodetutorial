@@ -74,6 +74,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
 
             case 'search_Asset':
+                if(param.portfolio_currency && param.portfolio_name){
+                    global.portfolio_name=param.portfolio_name;
+                    global.portfolio_currency=param.portfolio_currency;
+
+                }
+                console.log("name of portfolio", portfolio_name);
+                console.log("currency for portfolio", portfolio_currency);
                 var assetSearched=param.assetSearched.toLowerCase();
                 console.log("SearchAssetHandler");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
