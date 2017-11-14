@@ -362,7 +362,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printSendEmail();
             }
             else if(webhookAction=="show_portfolio"){
-                console.log("print show portfolio", webhoohData);
+                console.log("print show portfolio", webhookData);
             }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
