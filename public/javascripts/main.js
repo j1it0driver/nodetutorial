@@ -977,8 +977,9 @@ function printAssets(data){
         $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
     });
     /////////
-    if($speechInput.val() != ''){
-        $("#"+printIndex+"InputAmountId input").on('change',function(){
+
+    $("#"+printIndex+"InputAmountId input").on('change',function(){
+        if($speechInput.val() != ''){
             $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
         });
     }
