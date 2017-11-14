@@ -954,7 +954,7 @@ function printAssets(data){
 
     $("</br><input id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='text' placeholder='Enter amount'></br>").appendTo('#chatBubbleDivDiv'+printIndex);
 
-    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"button\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button>").appendTo('#chatBubbleDivDiv'+printIndex);
 
 
