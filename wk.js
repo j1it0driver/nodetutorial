@@ -73,15 +73,26 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 res.json(json);
                 break;
 
+            case "show_portfolio":
+                console.log("Showing portfolio");
+                displayText=speech="This is your portfolio: "+portfolio_name;
+                data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched}
+                json=apiaiResponseFormat(speech, displayText,data,null);
+                res.json(json);
+                break;
+
             case 'search_Asset':
+                global.assetsSearched=[];
                 if(param.portfolio_currency && param.portfolio_name){
                     global.portfolio_name=param.portfolio_name;
                     global.portfolio_currency=param.portfolio_currency;
 
                 }
+
                 console.log("name of portfolio", portfolio_name);
                 console.log("currency for portfolio", portfolio_currency);
                 var assetSearched=param.assetSearched.toLowerCase();
+                assetsSearched.push(assetSearched);
                 console.log("SearchAssetHandler");
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
                 // if (cookiesm.checkCookieServer("userCode") && cookiesm.checkCookieServer("tokenString")){

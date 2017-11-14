@@ -361,6 +361,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             else if(webhookAction=="send_Email"){
                 printSendEmail();
             }
+            else if(webhook=="show_portfolio"){
+                console.log("print show portfolio", webhoohData);
+            }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
