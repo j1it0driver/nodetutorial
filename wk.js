@@ -50,7 +50,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     console.log("inside if");
                     var assetToAdd = param.assetToAdd;
                     if(assetToAdd.match(" - ")){
-                        array=assetToAdd.split("-");
+                        array=assetToAdd.split(' - ');
                         assetToAdd=array[0];
                         amount=array[1];
                         console.log("array", array)
