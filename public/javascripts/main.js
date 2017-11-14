@@ -973,7 +973,7 @@ function printAssets(data){
     });
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
-        $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val()+" - "+);
+        $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
         $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
     });
     /////////
