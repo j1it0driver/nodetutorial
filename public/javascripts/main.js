@@ -187,7 +187,7 @@ $(document).ready(function() {
         }
     });
 
-    $(""+printIndex+"InputAmountId").keyup(function(){
+    $("#"+printIndex+"InputAmountId").keyup(function(){
         var n = parseInt(this.val().replace(/\D/g,''),10);
         $(this).val(n.toLocaleString());
     });
@@ -997,10 +997,14 @@ function printAssets(data,parameters){
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
-        if($("#"+printIndex+"InputAmountId").val()!=""){
-            $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
+    },function(){
+        if($speechInput.val()!=""){
+            if($("#"+printIndex+"InputAmountId").val() != ""){
+                $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
+            }
         }
     });
+
     /////////
 
     // fnf = document.getElementById(""+printIndex+"InputAmountId");
