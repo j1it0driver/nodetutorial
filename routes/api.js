@@ -19,7 +19,7 @@ router.post('/', function(req, res) { //api.ai for nodejs
     var data = req.body.val;
     // console.log(data);
     comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
-        console.log("datos from SDK", datos);
+        // console.log("datos from SDK", datos);
         res.send(datos);
     });
     // console.log('cookies from api: ', cookies_s);
