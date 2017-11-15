@@ -340,6 +340,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;
     var webhookAction = val.result.action;
+    var webhookParameters = val.result.parameters;
     // if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
     //     var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
     //     var webhookAction = val.result.action;
@@ -365,7 +366,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         if(webhookData){ // do something with webhook data
             console.log("webhook data",webhookData);
             if(webhookAction=="search_Asset"){
-                printAssets(webhookData);
+                printAssets(webhookData,webhookParameters);
             }
             else if(webhookAction=="add_Asset"){
                 printButton(webhookData.items);
@@ -951,7 +952,7 @@ function changeMessage(messageToAdd, messageId){
 //     }
 // }
 
-function printAssets(data){
+function printAssets(data,parameters){
 
     radiosId=[];
     var radioBtnSendId=""+printIndex+"RadioBtnSendId";
@@ -965,7 +966,7 @@ function printAssets(data){
     console.log("radiosId", radiosId);
     addMessage("If the asset is not listed, please be more specific");
 
-    $("</br><label for='"+printIndex+"InputAmountId'>Amount to Invest:</label><input id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='text' placeholder='Enter amount'></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><input id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='text' placeholder='Enter amount'><span>"+parameters.portfolio_currency+"</span></br>").appendTo('#chatBubbleDivDiv'+printIndex);
 
     $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"submit\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button>").appendTo('#chatBubbleDivDiv'+printIndex);
