@@ -189,9 +189,9 @@ $(document).ready(function() {
     });
 
     document.getElementById(""+printIndex+"InputAmountId").onkeyup = function(){
-        var n = parseInt(this.value.replace(/\D/g,''),10);
+        var n = parseInt(document.getElementById(""+printIndex+"InputAmountId").value.replace(/\D/g,''),10);
         document.getElementById(""+printIndex+"InputAmountId").value = n.toLocaleString();
-    }, false);
+    }
 
 
 });
