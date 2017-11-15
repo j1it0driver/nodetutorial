@@ -29,7 +29,6 @@ var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
 var toDisable=[];
-var fnf = document.getElementById(""+printIndex+"InputAmountId");
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -188,7 +187,7 @@ $(document).ready(function() {
         }
     });
 
-    $(""+printIndex+"InputAmountId").on('keyup', function(){
+    $(""+printIndex+"InputAmountId").keyup(function(){
         var n = parseInt(this.val().replace(/\D/g,''),10);
         $(this).val(n.toLocaleString());
     });
@@ -1090,8 +1089,8 @@ function reload_menu(){
 
 function printPortfolio(data){
     var key;
-    $("</br><span>You have created a new portfolio: "+data.portfolioName+"</span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
+    $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
     for(key in data.addedAssets){
-        $("</br><span>Asset: "+data.addedAssets[key].asset+" -> </span><span>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</span><br>").appendTo('#chatBubbleDiv'+printIndex);
+        $("</br><span>Asset: <b>"+data.addedAssets[key].asset+" -> </b></span><span><i>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</i></span><br>").appendTo('#chatBubbleDiv'+printIndex);
     }
 }
