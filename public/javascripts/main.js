@@ -29,6 +29,7 @@ var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
 var toDisable=[];
+var fnf = document.getElementById(""+printIndex+"InputAmountId");
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -186,6 +187,11 @@ $(document).ready(function() {
             event.preventDefault();
         }
     });
+
+    fnf.addEventListener('keyup', function(evt){
+        var n = parseInt(this.value.replace(/\D/g,''),10);
+        fnf.value = n.toLocaleString();
+    }, false);
 
 
 });
@@ -1012,11 +1018,7 @@ function sendAsset(radioId,radiosId){
     if($speechInput.val() != ''){
         $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
     }
-    var fnf = document.getElementById(""+printIndex+"InputAmountId");
-        fnf.addEventListener('keyup', function(evt){
-            var n = parseInt(this.value.replace(/\D/g,''),10);
-            fnf.value = n.toLocaleString();
-        }, false);
+
     console.log("amount from input",amount);
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
