@@ -964,13 +964,13 @@ function printAssets(data,parameters){
     }
     // radiosId=radiosId.split(',');
     console.log("radiosId", radiosId);
-    addMessage("If the asset is not listed, please be more specific");
 
-    $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><input id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='text' placeholder='Enter amount'><span>"+parameters.portfolio_currency+"</span></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+
+    $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><input id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='text' placeholder='Enter amount'><span> "+parameters.portfolio_currency+"</span></br>").appendTo('#chatBubbleDivDiv'+printIndex);
 
     $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"submit\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
-    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button>").appendTo('#chatBubbleDivDiv'+printIndex);
-
+    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+    addMessage("If the asset is not listed, please be more specific");
     // $("#"+printIndex+"InputAmountId").click(function(event) {
     //   if (event.keyCode == 13) {
     //         event.preventDefault();
@@ -1012,6 +1012,11 @@ function sendAsset(radioId,radiosId){
     if($speechInput.val() != ''){
         $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
     }
+    var fnf = document.getElementById(""+printIndex+"InputAmountId");
+        fnf.addEventListener('keyup', function(evt){
+            var n = parseInt(this.value.replace(/\D/g,''),10);
+            fnf.value = n.toLocaleString();
+        }, false);
     console.log("amount from input",amount);
     console.log("sendAsset Function", radiosId);
     console.log(typeof radiosId);
