@@ -1093,4 +1093,6 @@ function printPortfolio(data){
     for(key in data.addedAssets){
         $("</br><span>Asset: <b>"+data.addedAssets[key].asset+" -> </b></span><span><i>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</i></span><br>").appendTo('#chatBubbleDiv'+printIndex);
     }
+    $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
+    reload_menu();
 }
