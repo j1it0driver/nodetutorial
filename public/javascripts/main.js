@@ -188,10 +188,10 @@ $(document).ready(function() {
         }
     });
 
-    document.getElementById(""+printIndex+"InputAmountId").onkeyup = function(){
-        var n = parseInt(document.getElementById(""+printIndex+"InputAmountId").value.replace(/\D/g,''),10);
-        document.getElementById(""+printIndex+"InputAmountId").value = n.toLocaleString();
-    }
+    $(""+printIndex+"InputAmountId").on('keyup', function(){
+        var n = parseInt(this.val().replace(/\D/g,''),10);
+        $(this).val(n.toLocaleString());
+    });
 
 
 });
