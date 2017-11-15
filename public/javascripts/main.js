@@ -1084,6 +1084,6 @@ function printPortfolio(data){
     var key;
     $("</br><span>You have created a new portfolio: "+data.portfolioName+"</span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
     for(key in data.addedAssets){
-        $("</br><span>Asset: "+data.addedAssets[key].asset+"</span><span>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</span><br>").appendTo('#chatBubbleDiv'+printIndex);
+        $("</br><span>Asset: "+data.addedAssets[key].asset+" -> </span><span>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</span><br>").appendTo('#chatBubbleDiv'+printIndex);
     }
 }
