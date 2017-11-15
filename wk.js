@@ -59,7 +59,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     console.log("assettoadd y amount",assetToAdd,amount);
                     assetsToAdd.push({assetToAdd : amount});
                     console.log("AddAsset_Portfolio", assetToAdd);
-                    console.log(assetsToAdd);
+                    console.log("Assets to add", assetsToAdd);
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     displayText=speech= "You investment of "+portfolio_currency+" "+amount+" on asset with ISIN: "+assetToAdd+ ", was added to your portfolio. Do you want to add more assets2?";
                     data= {"items": ["Add more", "Finish"]};
