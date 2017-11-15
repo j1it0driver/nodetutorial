@@ -88,7 +88,12 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsToAdd, "searchedAssets": assetsSearched};
                 // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
                 json=apiaiResponseFormat(speech, displayText,data,null);
-                res.json(json);
+                res.json(json, function(){
+                    assetsToAdd=[];
+                    assetsSearched=[];
+                    portfolio_name=portfolio_currency=null;
+                });
+
                 break;
 
             case 'search_Asset':
