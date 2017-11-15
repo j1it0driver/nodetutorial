@@ -997,13 +997,18 @@ function printAssets(data,parameters){
 
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
-    },function(){
-        if($speechInput.val()!=""){
-            if($("#"+printIndex+"InputAmountId").val() != ""){
-                $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
-            }
-        }
     });
+
+        // if($speechInput.val()!=""){
+        //     if($("#"+printIndex+"InputAmountId").val() != ""){
+        //         $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
+        //     }
+        // }
+    $("#"+printIndex+"InputAmountId").keyup(function(){
+         if($speechInput.val()!=""){
+             $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
+         }
+    })
 
     /////////
 
