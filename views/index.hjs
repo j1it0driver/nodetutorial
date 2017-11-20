@@ -66,8 +66,8 @@
         });
     </script>
 </head>
- <body class="bodyBckg">  "send_event('start_event','test')send_event('custom_event','Jaime')"
-<!--    <div class="row">
+ <body class="bodyBckg">  <!--"send_event('start_event','test')send_event('custom_event','Jaime')"
+    <div class="row">
         <div class="col-12">
             <div class="">
                     <a class="chat-icon red-tooltip" id="chat-button" href="#popupPanel" data-toggle="tooltip" data-placement="left" title="Let's chat" value="chatbutton" data-rel="popup" data-transition="slide up" data-position-to="window" data-role="button" onclick=""><img class="rounded-circle w-100" style="" src="/images/chaticon.png" alt="" ></a>
