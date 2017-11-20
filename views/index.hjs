@@ -60,7 +60,7 @@
                     height="100vh";
                 }
                 else{ height="6rem";}
-                event.source.postMessage({"FrameHeight": height, }, "*");
+                event.source.postMessage({"FrameHeight": height}, "*");
                 console.log("height",height);
             }
         });
