@@ -81,6 +81,7 @@ $(document).ready(function() {
     console.log("iOS device", _iOSDevice);
     visits();
     username();
+    send_event('custom_event', username);
     sessionID=readCookie("sessionID");
     // eraseCookie("sessionID");
     //eraseCookie("visits");
