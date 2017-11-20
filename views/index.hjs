@@ -15,7 +15,7 @@
     <link href="/images/tadvisor.ico" rel="shortcut icon">
     <title>BoT-advisor</title>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="manifest" href="manifest.json">
 
@@ -66,15 +66,15 @@
         });
     </script>
 </head>
-<body class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
+<!-- <body class="bodyBckg">  "send_event('start_event','test')send_event('custom_event','Jaime')"
     <div class="row">
         <div class="col-12">
             <div class="">
                     <a class="chat-icon red-tooltip" id="chat-button" href="#popupPanel" data-toggle="tooltip" data-placement="left" title="Let's chat" value="chatbutton" data-rel="popup" data-transition="slide up" data-position-to="window" data-role="button" onclick=""><img class="rounded-circle w-100" style="" src="/images/chaticon.png" alt="" ></a>
             </div>
         </div>
-    </div>
-    <div data-history="false" data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+    </div> -->
+    <!-- <div data-history="false" data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0"> -->
         <div class="container h-100">
             <div class="row border-0 header">
                 <div class="col-9 pt-2 pb-2">
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     <!-- redirecting form action (senEmail) -->
     <!-- <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
