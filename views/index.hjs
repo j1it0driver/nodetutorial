@@ -56,11 +56,11 @@
                 var body = document.body, html= document.documentElement;
                 var height=0;
                 if(document.getElementById("chat-button").style.display!='none'){
-                    height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-
+                    // height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+                    height="100vh";
                 }
-                else{ height='6rem'}
-                event.source.postMessage({"FrameHeight": height }, "*");
+                else{ height="6rem";}
+                event.source.postMessage({"FrameHeight": height, }, "*");
                 console.log("height",height);
             }
         });
