@@ -54,8 +54,12 @@
         window.addEventListener('message', function(event){
             if(event.data == "FrameHeight"){
                 var body = document.body, html= document.documentElement;
-                if()
-                var height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+                var height=0;
+                if(document.getElementById("chat-button").style.display!='none'){
+                    height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+                }
+                else{ height='6rem'}
                 event.source.postMessage({"FrameHeight": height }, "*");
             }
         });
