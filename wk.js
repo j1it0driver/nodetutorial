@@ -101,7 +101,6 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 if(param.portfolio_currency && param.portfolio_name){
                     global.portfolio_name=param.portfolio_name;
                     global.portfolio_currency=param.portfolio_currency;
-
                 }
 
                 console.log("name of portfolio", portfolio_name);

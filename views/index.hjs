@@ -46,12 +46,25 @@
     <script type="application/javascript" src="/javascripts/popup.js" defer></script>
     <script type="application/javascript" src="/javascripts/main.js" defer></script>
     <script type="application/javascript" src="/javascripts/bowser.js" defer></script>
+    <script>
+        // function resize(){
+        //     var height=document.getElementsByTagName("html")[0].scrollHeight;
+        //     window.parent.postMessage(["setHeight",height],"*");
+        // }
+        window.addEventListener('message', function(event){
+            if(event.data == "FrameHeight"){
+                var body = document.body, html= document.documentElement;
+                var height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+                event.source.postMessage({"FrameHeight": height }, "*");
+            }
+        });
+    </script>
 </head>
 <body class="bodyBckg"> <!-- "send_event('start_event','test')send_event('custom_event','Jaime')" -->
     <div class="row">
         <div class="col-12">
             <div class="">
-                    <a class="chat-icon red-tooltip" id="chat-button" href="#popupPanel" data-toggle="tooltip" data-placement="left" title="Let's chat" value="chatbutton" data-rel="popup" data-transition="slide up" data-position-to="window" data-role="button"><img class="rounded-circle w-100" style="" src="/images/chaticon.png" alt="" ></a>
+                    <a class="chat-icon red-tooltip" id="chat-button" href="#popupPanel" data-toggle="tooltip" data-placement="left" title="Let's chat" value="chatbutton" data-rel="popup" data-transition="slide up" data-position-to="window" data-role="button" onclick="resize()"><img class="rounded-circle w-100" style="" src="/images/chaticon.png" alt="" ></a>
             </div>
         </div>
     </div>
