@@ -2,6 +2,7 @@
 <html lang="en">
 <!--Código de Github https://github.com/sitepoint-editors/Api-AI-Personal-Assistant-Demo/blob/master/index.html  -->
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
     <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> esta linea es para accesar el .css como archivo externo -->
@@ -53,6 +54,7 @@
         // }
         window.addEventListener('message', function(event){
             if(event.data == "FrameHeight"){
+                console.log("event.data",event.data);
                 var body = document.body, html= document.documentElement;
                 var height=0;
                 if(document.getElementById("chat-button").style.display!='none'){
