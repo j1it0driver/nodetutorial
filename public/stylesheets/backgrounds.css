@@ -3,13 +3,13 @@
 
 }
 .chatBckg{
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255,255,255,0.8);
 }
 .bubble-left{
     background-color: white;
 }
 .bubble-right{
-    background-color: #007bff;
+    background-color: #1688c6; /*#007bff;*/
     color: white;
 }
 .header{
@@ -24,8 +24,8 @@
 .slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    background: #007bff; /* color background */
+    background: #1688c6; /* color background #007bff; */
 }
 .slider::-moz-range-thumb {
-    background: #007bff; /* color background */
+    background: #1688c6; /* color background #007bff;*/
 }

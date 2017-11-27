@@ -92,10 +92,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2 p-0 pt-2">
-                    <label class="small">ON/OFF SOUND</label>
+                <div class="red-tooltip col-2 p-0 pt-2" data-toggle="tooltip" data-placement="left" title="ON/OFF speech sound">
+                    <label class="text-center small">ON/OFF SOUND</label>
                     <!-- Rounded switch -->
-                    <label class="switch">
+                    <label class="mx-auto switch">
                       <input name="sound" id="sound" type="checkbox">
                       <span class="slider1 round"></span>
                     </label>

@@ -10,6 +10,10 @@ body{
     max-width: 5rem;
     min-width: 3rem;
 }
+#rec:hover{
+    background-color: #43bd5d;
+    border-color:  #43bd5d;
+}
 #restart{
     height: 1.2rem;
     background-color: white;
@@ -65,13 +69,13 @@ h6{
     appearance: none;
 
     height: 0.8srem;
-    border: 1px solid #007bff;
+    border: 1px solid #1688c6;
     /*color: : black;*/
 }
 .slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
     /*-webkit-appearance: none; /* Override default look */
     /*appearance: none;*/
-    border: 1px solid #007bff;
+    border: 1px solid #1688c6;
     width: 0.8rem; /* Set a specific slider handle width */
     height: 1.2rem; /* Slider handle height */
     background: #007bff; /* color background */
@@ -80,7 +84,7 @@ h6{
 .slider::-moz-range-thumb {
     width: 0.8rem; /* Set a specific slider handle width */
     height: 1.2rem; /* Slider handle height */
-    background: #007bff; /* color background */
+    background: #1688c6; /* color background */
     cursor: pointer; /* Cursor on hover */
 }
 .slider::-webkit-slider-thumb:hover {
@@ -102,4 +106,29 @@ h6{
     bottom: 0;
     z-index: 1000;
     right: 0.4rem;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus{
+    color: #ffffff;
+    background-color: #1688c6;
+    border-color: #1688c6;
+}
+.btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+    color: #1688c6;;
+    border-color: #1688c6;
+}
+.btn-primary:hover,
+.btn-primary:focus{
+    color: #1688c6;
+    border-color: #1688c6;
+}
+.btn-primary,
+.btn-primary:active,
+.btn-primary.active {
+  color: #ffffff;
+  background-color: #1688c6;
+  border-color: #1688c6;
 }
