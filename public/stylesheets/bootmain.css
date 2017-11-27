@@ -33,6 +33,7 @@ img{
 }
 .chat-messages{
     /*height:calc(100vh - 9rem);*/
+    min-height: calc(100vh - 9.2rem);
 }
 .chat-message{
 
