@@ -69,7 +69,7 @@
     </script>
     <script>
     $(document).ready(function(){
-        myFunction();
+        setTimeout(myFunction(),50);
         function myFunction(){
             var elem1 = document.getElementById("elem1");
             var elem2 = document.getElementById("elem2");
