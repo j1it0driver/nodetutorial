@@ -67,7 +67,7 @@
             }
         });
     </script>
-    <script>
+    <!-- <script>
     $(document).ready(function(){
         setTimeout(myFunction(),50);
         function myFunction(){
@@ -86,7 +86,7 @@
             $("#elem0").height(h);
         }
     });
-    </script>
+    </script> -->
 
 </head>
  <body class="bodyBckg" id="bodyId">  <!--"send_event('start_event','test')send_event('custom_event','Jaime')"
