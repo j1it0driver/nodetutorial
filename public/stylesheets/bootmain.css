@@ -1,6 +1,7 @@
 body{
     font-family:"Open Sans","Helvetica Neue", "Roboto", Helvetica,Arial,sans-serif !important;
     font-size: 12px;
+    height:100%;
 }
 /*button{
     all: none;
