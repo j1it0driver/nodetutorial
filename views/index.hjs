@@ -67,9 +67,26 @@
             }
         });
     </script>
+    <script>
+    $(document).ready(function(){
+        myFunction();
+        function myFunction(){
+            var elem1 = document.getElementById("elem1");
+            var elem2 = document.getElementById("elem2");
+            var bodyh = document.getElementById("bodyId");
+            var h1 = window.getComputedStyle(elem1, null).getPropertyValue("height");
+            var h2 = window.getComputedStyle(elem2, null).getPropertyValue("height");
+            var ht = window.getComputedStyle(bodyh, null).getPropertyValue("height");
+            var h=parseFloat(ht)-parseFloat(h1)-parseFloat(h2)+'px';
+
+            console.log(ht,h1,h2,h);
+            $("#elem0").height(h);
+        }
+    });
+    </script>
 
 </head>
- <body class="bodyBckg" id="body">  <!--"send_event('start_event','test')send_event('custom_event','Jaime')"
+ <body class="bodyBckg" id="bodyId">  <!--"send_event('start_event','test')send_event('custom_event','Jaime')"
     <div class="row">
         <div class="col-12">
             <div class="">
@@ -132,23 +149,7 @@
                 </div>
             </div>
         </div>
-        <script>
-        $(document).ready(function(){
-            myFunction();
-            function myFunction(){
-                var elem1 = document.getElementById("elem1");
-                var elem2 = document.getElementById("elem2");
-                var bodyh = document.getElementById("body");
-                var h1 = window.getComputedStyle(elem1, null).getPropertyValue("height");
-                var h2 = window.getComputedStyle(elem2, null).getPropertyValue("height");
-                var ht = window.getComputedStyle(bodyh, null).getPropertyValue("height");
-                var h=parseFloat(ht)-parseFloat(h1)-parseFloat(h2)+'px';
 
-                console.log(ht,h1,h2,h);
-                $("#elem0").height(h);
-            }
-        });
-        </script>
     <!-- </div> -->
     <!-- redirecting form action (senEmail) -->
     <!-- <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
