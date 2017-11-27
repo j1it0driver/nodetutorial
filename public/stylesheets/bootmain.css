@@ -32,7 +32,7 @@ img{
     height: 100%;
 }
 .chat-messages{
-    height:calc(100vh - 9rem);
+    /*height:calc(100vh - 9rem);*/
 }
 .chat-message{
 
