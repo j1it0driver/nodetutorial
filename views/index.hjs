@@ -73,10 +73,13 @@
         function myFunction(){
             var elem1 = document.getElementById("elem1");
             var elem2 = document.getElementById("elem2");
-            var bodyh = document.getElementById("bodyId");
+            // var bodyh = document.getElementById("bodyId");
+            var bodyh=$(window).height();
+            console.log(bodyh);
             var h1 = window.getComputedStyle(elem1, null).getPropertyValue("height");
             var h2 = window.getComputedStyle(elem2, null).getPropertyValue("height");
-            var ht = window.getComputedStyle(bodyh, null).getPropertyValue("height");
+            // var ht = window.getComputedStyle(bodyh, null).getPropertyValue("height");
+            var ht= bodyh;
             var h=parseFloat(ht)-parseFloat(h1)-parseFloat(h2)+'px';
 
             console.log(ht,h1,h2,h);
