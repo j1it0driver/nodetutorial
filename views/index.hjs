@@ -141,7 +141,7 @@
                 var h1 = window.getComputedStyle(elem1, null).getPropertyValue("height");
                 var h2 = window.getComputedStyle(elem2, null).getPropertyValue("height");
                 var ht = window.getComputedStyle(bodyh, null).getPropertyValue("height");
-                var h=parseFloat(ht)-parseFloat(h1)-parseFloat(h2)+2+'px';
+                var h=parseFloat(ht)-parseFloat(h1)-parseFloat(h2)+'px';
 
                 console.log(ht,h1,h2,h);
                 $("#elem0").height(h);
