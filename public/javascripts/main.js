@@ -79,6 +79,7 @@ $(document).ready(function() {
     console.log("Browser/OS:", bowser.name, bowser.osname);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
+    console.log(uSession);
     visits();
     username();
     send_event('custom_event', username);
