@@ -73,17 +73,19 @@
         var serverEvent;
         function sendGetData(event){
             event.source.postMessage(myClientData, "*");
-            console.log("sendGetDAta function", event);
+            console.log("sendGetData function on client", event);
             // event.source.postMessage(myClientData, event.origin);
         }
         window.addEventListener('message', function(event){
             serverEvent=event;
-            console.log("event from server", event);
+            console.log("event from server on client", event);
             if(event.data == "serverData"){
                 myServerData=event.data;
-                console.log("myServerData",myServerData);
+                console.log("myServerData on client",myServerData);
             }
-
+        });
+        $(document).ready(function(){
+            sendGetData(serverEvent);
         });
         // sendGetData(serverEvent);
     </script>
