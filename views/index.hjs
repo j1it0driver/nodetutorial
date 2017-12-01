@@ -73,10 +73,12 @@
         var serverEvent;
         function sendGetData(event){
             event.source.postMessage(myClientData, "*");
+            console.log("sendGetDAta function", event);
             // event.source.postMessage(myClientData, event.origin);
         }
         window.addEventListener('message', function(event){
             serverEvent=event;
+            console.log("event from server", event);
             if(event.data == "serverData"){
                 myServerData=event.data;
                 console.log("myServerData",myServerData);
