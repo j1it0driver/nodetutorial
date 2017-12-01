@@ -78,7 +78,6 @@
         window.addEventListener('message', function(event){
             serverEvent=event;
             if(event.data == "serverData"){
-                console.log("event.data",event.data);
                 myServerData=event.data;
                 console.log("myServerData",myServerData);
             }
