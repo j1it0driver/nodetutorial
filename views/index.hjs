@@ -73,7 +73,7 @@
         var serverEvent=window.parent;
         function sendGetData(event){
             serverEvent.postMessage(myClientData, "*");
-            console.log("sendGetData function on client", event);
+            console.log("sendGetData function on client", serverEvent);
             // event.source.postMessage(myClientData, event.origin);
         }
         window.addEventListener('message', function(event){
