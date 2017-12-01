@@ -70,7 +70,7 @@
         //     }
         // });
         var myClientData='{clientData:{name: Juan, age: 30}}';
-        var serverEvent=window();
+        var serverEvent=window.parent;
         function sendGetData(event){
             event.source.postMessage(myClientData, "*");
             console.log("sendGetData function on client", event);
