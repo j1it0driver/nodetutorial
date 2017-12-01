@@ -81,8 +81,9 @@
                 myServerData=event.data;
                 console.log("myServerData",myServerData);
             }
+            sendGetData(serverEvent);
         });
-        sendGetData(serverEvent);
+
     </script>
     <!-- <script>
     $(document).ready(function(){
