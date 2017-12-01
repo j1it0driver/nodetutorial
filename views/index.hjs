@@ -73,7 +73,7 @@
         var myServerData;
         var serverEvent=window.parent;
         function sendGetData(event){
-            serverEvent.postMessage(myClientData, "*");
+            serverEvent.postMessage(myClientData, "localhost:22035");
             //console.log("sendGetData function on client", serverEvent);
             // event.source.postMessage(myClientData, event.origin);
         }
@@ -81,8 +81,10 @@
             //serverEvent=event;
             //console.log("event from server on client", event);
             //if(event.data == "serverData"){
-                myServerData=event.data;
-                console.log("myServerData on client",myServerData);
+            if(event.origin!=="localhost:22035")
+            return;
+            myServerData=event.data;
+            console.log("myServerData on client",myServerData);
             //}
         });
         $(document).ready(function(){
