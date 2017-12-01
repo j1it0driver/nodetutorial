@@ -69,7 +69,7 @@
         //         console.log("height",height);
         //     }
         // });
-        var myClientData=JSONstringify({clientData:{name: "Juan", age: 30}});
+        var myClientData=JSON.stringify({clientData:{name: "Juan", age: 30}});
         var myServerData;
         var serverEvent=window.parent;
         function sendGetData(event){
