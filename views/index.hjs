@@ -52,18 +52,30 @@
         //     var height=document.getElementsByTagName("html")[0].scrollHeight;
         //     window.parent.postMessage(["setHeight",height],"*");
         // }
+        // window.addEventListener('message', function(event){
+        //     datapost=event;
+        //     console.log(datapost);
+        //     event.source.postMessage({"testJDO": 9999}, "*");
+        //     if(event.data == "FrameHeight"){
+        //         console.log("event.data",event.data);
+        //         var body = document.body, html= document.documentElement;
+        //         var height=0;
+        //         if(document.getElementById("chat-button").style.display!='none'){
+        //             // height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        //             height="100vh";
+        //         }
+        //         else{ height="6rem";}
+        //         event.source.postMessage({"FrameHeight": height}, "*");
+        //         console.log("height",height);
+        //     }
+        // });
+        var myClientData='{clientData:{name: Juan, age: 30}}';
         window.addEventListener('message', function(event){
-            if(event.data == "FrameHeight"){
+            event.source.postMessage(myClientData, "*");
+            if(event.data == "serverData"){
                 console.log("event.data",event.data);
-                var body = document.body, html= document.documentElement;
-                var height=0;
-                if(document.getElementById("chat-button").style.display!='none'){
-                    // height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-                    height="100vh";
-                }
-                else{ height="6rem";}
-                event.source.postMessage({"FrameHeight": height}, "*");
-                console.log("height",height);
+                myServerData=event.data;
+                console.log("myServerData",myServerData);
             }
         });
     </script>
