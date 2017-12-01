@@ -81,7 +81,7 @@
             //serverEvent=event;
             //console.log("event from server on client", event);
             //if(event.data == "serverData"){
-                myServerData=event.data.serverData;
+                myServerData=event.data;
                 console.log("myServerData on client",myServerData);
             //}
         });
