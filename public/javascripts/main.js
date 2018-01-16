@@ -541,6 +541,7 @@ function send_event(eventName,valor){
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
       var temporal2=JSON.parse(r);
+      console.log("send_event 2");
     console.log("temporal2",temporal2);
     //alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
