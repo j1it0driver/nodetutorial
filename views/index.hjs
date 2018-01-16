@@ -74,6 +74,7 @@
         var serverEvent=window.parent;
         function sendGetData(event){
             serverEvent.postMessage(myClientData, "localhost:22035");
+            serverEvent.postMessage(myClientData, "towersoa.wmptech.com");
             //console.log("sendGetData function on client", serverEvent);
             // event.source.postMessage(myClientData, event.origin);
         }

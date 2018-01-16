@@ -10,7 +10,7 @@ console.log("api route");
 
 /* GET users listing. */
 router.post('/', function(req, respond) { //https://stackoverflow.com/questions/5797852/in-node-js-how-do-i-include-functions-from-my-other-files
-    var baseUrl = "https://api.dialogflow.com/v1/", version="20170810";
+    var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";//version="20170810";
     var accessToken="aba2ecdbb9e744ba8b37ec6cf6a175d9";
     var _http = this.secure ? https : http;
     var datos="";
@@ -19,7 +19,8 @@ router.post('/', function(req, respond) { //https://stackoverflow.com/questions/
     var options = {
             hostname: "api.dialogflow.com",
             port: 443,
-            path: "/v1/query?v=20170810",
+            // path: "/v1/query?v=20170810",
+            path: "/v1/query?v=20170712" //segun documentacion API
             method: "POST",
             headers: {
                     "Authorization": "Bearer " + accessToken,

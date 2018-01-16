@@ -2,7 +2,7 @@
   'use strict';
 
 //var baseUrl = "https://api.api.ai/v1/", version="20170810";
-var baseUrl = "https://api.dialogflow.com/v1/", version="20170810";
+var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";
 var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
 var recognition,
 messageRecording = "Recording...",
@@ -336,6 +336,27 @@ function setInput(text) {
     send_query();
 }
 
+function getFormattedDate() {
+    var date = new Date();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    month = (month < 10 ? "0" : "") + month;
+    day = (day < 10 ? "0" : "") + day;
+    hour = (hour < 10 ? "0" : "") + hour;
+    min = (min < 10 ? "0" : "") + min;
+    sec = (sec < 10 ? "0" : "") + sec;
+    var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
+    chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
+    return str;
+}
+
+function jsonEscape(stringJSON)  {
+    return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
+}
+
 function updateRec() {
     $recBtn1.text(recognition ? "Listening" : "Rec");
     tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
@@ -507,26 +528,9 @@ function spokenRespond (val){
     $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
 }
 
-function getFormattedDate() {
-    var date = new Date();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
-    month = (month < 10 ? "0" : "") + month;
-    day = (day < 10 ? "0" : "") + day;
-    hour = (hour < 10 ? "0" : "") + hour;
-    min = (min < 10 ? "0" : "") + min;
-    sec = (sec < 10 ? "0" : "") + sec;
-    var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
-    chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
-    return str;
-}
 
-function jsonEscape(stringJSON)  {
-    return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
-}
+
+
 
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
