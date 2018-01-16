@@ -74,7 +74,7 @@
         var serverEvent=window.parent;
         function sendGetData(event){
             //serverEvent.postMessage(myClientData, "localhost:22035");
-            serverEvent.postMessage(myClientData, "towersoa.wmptech.com");
+            serverEvent.postMessage(myClientData, "towersoa.wmptech.com/soa20");
             //console.log("sendGetData function on client", serverEvent);
             // event.source.postMessage(myClientData, event.origin);
         }
@@ -82,7 +82,7 @@
             //serverEvent=event;
             //console.log("event from server on client", event);
             //if(event.data == "serverData"){
-            if(event.origin!=="localhost:22035")
+            if(event.origin!=="towersoa.wmptech.com/soa20")
             return;
             myServerData=event.data;
             console.log("myServerData on client",myServerData);
