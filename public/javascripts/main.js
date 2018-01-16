@@ -539,12 +539,12 @@ function send_event(eventName,valor){
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
-    //   console.log(temporal);
-    //   alert("Success: " + temporal);
+    console.log(temporal);
+    alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
       prepareResponse(temporal);
     };
-    r.send(JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}}));
+    r.send(JSON.stringify({'event': {'name': eventName, 'data':{'valor': valor}}}));
 
     $('#statusMessages').text("Type the topic you're interested in");
     $speechInput.val("");
