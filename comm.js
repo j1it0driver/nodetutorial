@@ -10,7 +10,7 @@ module.exports = {
             // console.log("Session ID: " + cookies_s.sessionID);
             // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
             // var app = apiai(accessToken);
-            var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9");
+            var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9"); //t-advisor-test on DialogFlow
             var datos;
 
             if(data.event){

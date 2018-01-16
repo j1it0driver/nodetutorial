@@ -1,7 +1,8 @@
 // (function(){
   'use strict';
 
-var baseUrl = "https://api.api.ai/v1/", version="20170810";
+//var baseUrl = "https://api.api.ai/v1/", version="20170810";
+var baseUrl = "https://api.dialogflow.com/v1/", version="20170810";
 var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
 var recognition,
 messageRecording = "Recording...",
@@ -67,7 +68,7 @@ navigator.getUserMedia  = navigator.getUserMedia ||
 //             alert('id changed');
 //     }else{
 //         //OTHER ATTR
-//     }
+//     }version
 //
 // });
 // });
