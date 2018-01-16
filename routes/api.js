@@ -28,7 +28,7 @@ router.post('/event', function(req,res) {
     cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionId= cookies_s.sessionID;
     var data = req.body;
-    // console.log(data);
+    console.log("data from api/event",data);
     comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
         res.send(datos);
     });
