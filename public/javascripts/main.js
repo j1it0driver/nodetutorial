@@ -571,6 +571,7 @@ function send_event(eventName,valor){
 //     toAppend="<div class='quick-reply-button d-block text-center'>"+
 //                 printButton_i+
 //             "</div>";
+
 //     appendHtml(toAppend,"left");
 // }
 function printButton(arrayList){
