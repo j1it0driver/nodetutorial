@@ -535,12 +535,13 @@ function spokenRespond (val){
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
     r.open("POST", "/api/event", true);
+    console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
       var temporal2=JSON.parse(r);
-    console.log(temporal2);
+    console.log("temporal2",temporal2);
     //alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
       prepareResponse(temporal);
