@@ -1,3 +1,5 @@
+//Archivo con función que 
+
 module.exports = {
 
     process_req: function (data, sessionID) {
@@ -7,10 +9,10 @@ module.exports = {
             var cookie = require('cookie');
             var cookiesm= require('./cookies.js')
             // var cookies_s = cookie.parse(req.headers.cookie || '');
-            // console.log("Session ID: " + cookies_s.sessionID);
+            console.log("Session ID: " + cookies_s.sessionID);
             // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
             // var app = apiai(accessToken);
-            var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9"); //t-advisor-test on DialogFlow
+            var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9"); // aba2ecdbb9e744ba8b37ec6cf6a175d9 t-advisor-test on DialogFlow
             var datos;
 
             if(data.event){
