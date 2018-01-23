@@ -2,7 +2,8 @@
   'use strict';
 
 //var baseUrl = "https://api.api.ai/v1/", version="20170810";
-var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";
+var baseUrl = "https://api.api.ai/v1/", version="20170712";
+//var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";
 var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
 var recognition,
 messageRecording = "Recording...",
@@ -14,8 +15,8 @@ var str="", datos, bubble_id=0, printIndex=bubble_id-1;
 var datestr;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 var uname, psw;
-var baseUrl_H="https://towersoa.wmptech.com/SOA/tower4customers/";
-var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
+//var baseUrl_H="https://towersoa.wmptech.com/SOA/tower4customers/";
+//var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
 var language=null, userId=null, userCode=null, userPass=null, tokenString=null, views=null, clientId=null, token=null, email=null;
 var chat_bubbleId=[];

@@ -16,7 +16,7 @@ module.exports = {
             var datos;
 
             if(data.event){
-                // console.log(data);
+                console.log("comm.js",data.event);
                 var request = app.eventRequest(data.event, {
                     sessionId: sessionID
                 });

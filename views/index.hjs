@@ -73,7 +73,7 @@
         console.log("is in iframe",isInIframe);
 
         if(isInIframe){
-            targetOrigin="http://towersoa.wmptech.com"
+            targetOrigin="http://towersoa.wmptech.com" //
         }
         else{
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/"
@@ -104,7 +104,7 @@
                 sendGetData(serverEvent);
             });
 
-        // sendGetData(serverEvent);
+     
     </script>
     <!-- <script>
     $(document).ready(function(){
