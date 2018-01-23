@@ -19,7 +19,7 @@ module.exports = {
             if(data.event){
                
                 var request = app.eventRequest(data.event, {
-                    "sessionId" : sessionID
+                    sessionId : sessionID
                 });
                 // console.log("comm.js data.event",data.event);
                 // console.log("comm.js request",request);
@@ -27,8 +27,8 @@ module.exports = {
 
             } else{
                 console.log("es un text requests y el data es:", data);
-                var request = app.textRequest(data, {
-                    "sessionId" : sessionID
+                var request = app.textRequest(data.text, {
+                    sessionId : sessionID
                 });
             }
             request.on('response', function(response) {

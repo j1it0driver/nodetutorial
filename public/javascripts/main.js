@@ -536,7 +536,7 @@ function spokenRespond (val){
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
     //r.open("POST", "/api/event", true);
-    r.open("POST", "/api", true);
+    r.open("POST", "/api/event", true);
     console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
@@ -861,19 +861,24 @@ function send_query(other){
 
         var s = new XMLHttpRequest();
         s.open("POST", "/api", true);
+        console.log("send_query 1", typeof(JSON.stringify(text)));
         s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         s.onreadystatechange = function () {
+            console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
           if (s.readyState != 4 || s.status != 200){
             //   respond(messageInternalError,null);
               return;
           }
-          var data=JSON.parse(s.responseText);
+          var temporal=JSON.parse(s.responseText);
+          console.log("temporal",temporal);
         //   console.log(data);
         //   alert("Success: " + temporal);
         //   datos=data.result.fulfillment.messages;
-          prepareResponse(data);
+          prepareResponse(temporal);
         };
-        s.send(JSON.stringify({"val": text, "data": otherData}));
+        //s.send(JSON.stringify({"val": text, "data": otherData}));
+        s.send(JSON.stringify({text}));
+        //s.send(text);
         // $.ajax({
         //     type: "POST",
         //     // url: baseUrl + "query?v=20170810",
