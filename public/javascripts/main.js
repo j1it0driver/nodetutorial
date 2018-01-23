@@ -535,16 +535,21 @@ function spokenRespond (val){
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
     r.open("POST", "/api/event", true);
+    console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
+        console.log("send_event 2",r.readyState,r.status);
+
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
-    //   console.log(temporal);
-    //   alert("Success: " + temporal);
+      var temporal2=JSON.parse(r);
+
+    console.log("temporal2",temporal2);
+    //alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
       prepareResponse(temporal);
     };
-    r.send(JSON.stringify({'event': {'name': eventName, data:{'valor': valor}}}));
+    r.send(JSON.stringify({'event': {'name': eventName, 'data':{'valor': valor}}}));
 
     $('#statusMessages').text("Type the topic you're interested in");
     $speechInput.val("");
@@ -567,6 +572,7 @@ function send_event(eventName,valor){
 //     toAppend="<div class='quick-reply-button d-block text-center'>"+
 //                 printButton_i+
 //             "</div>";
+
 //     appendHtml(toAppend,"left");
 // }
 function printButton(arrayList){

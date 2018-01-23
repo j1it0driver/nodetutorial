@@ -50,7 +50,7 @@ app.use('/api', api.router);
 app.use('/users', users);
 app.use('/webhook', webhook);
 app.use('/sayHello', mailing);
-
+console.log("ok app.js");
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
