@@ -19,7 +19,7 @@ router.get('/', function(req,res){
   global.cookies_s = cookie.parse(req.headers.cookie || '');
   global.assetsSearched=[];
   global.assetsToAdd=[];
-  console.log("from index root", assetsToAdd);
+  console.log("from index root assetsToAdd & assetsSearched", assetsToAdd);
   res.render('index');
 });
 /////// EXAMPLE FOR ROUTING
