@@ -9,21 +9,26 @@ module.exports = {
             var cookie = require('cookie');
             var cookiesm= require('./cookies.js')
             // var cookies_s = cookie.parse(req.headers.cookie || '');
-            console.log("Session ID: " + sessionID);
+            //console.log("Session ID: " + sessionID);
             // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
             // var app = apiai(accessToken);
             var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9"); // aba2ecdbb9e744ba8b37ec6cf6a175d9 t-advisor-test on DialogFlow
-            console.log("comm.js app",app)
+            // console.log("comm.js app",app)
             //var datos;
 
             if(data.event){
-                console.log("comm.js data.event",data.event);
+               
                 var request = app.eventRequest(data.event, {
-                    sessionId: sessionID
+                    "sessionId" : sessionID
                 });
+                // console.log("comm.js data.event",data.event);
+                // console.log("comm.js request",request);
+                
+
             } else{
+                console.log("es un text requests y el data es:", data);
                 var request = app.textRequest(data, {
-                    sessionId: sessionID
+                    "sessionId" : sessionID
                 });
             }
             request.on('response', function(response) {

@@ -69,42 +69,44 @@
         //         console.log("height",height);
         //     }
         // });
-        var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
-        console.log("is in iframe",isInIframe);
 
-        if(isInIframe){
-            targetOrigin="http://towersoa.wmptech.com" //
-        }
-        else{
-            targetOrigin="https://tadvisorchatbottest.herokuapp.com/"
-        }
-            var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
+        // IFRAME START
 
-            myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
+//        var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
+//        console.log("is in iframe",isInIframe);
+//
+//        if(isInIframe){
+//            targetOrigin="http://towersoa.wmptech.com"; //
+//        }
+//        else{
+//            targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
+//        }
+//        var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
 
-            var myServerData;
-            var serverEvent=window.parent;
-            function sendGetData(event){
-                //serverEvent.postMessage(myClientData, "localhost:22035");
-                serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
-                //console.log("sendGetData function on client", serverEvent);
-                // event.source.postMessage(myClientData, event.origin);
-            }
-            window.addEventListener('message', function(event){
-                //serverEvent=event;
-                //console.log("event from server on client", event);
-                //if(event.data == "serverData"){
-                if(event.origin!=="http://towersoa.wmptech.com")
-                return;
-                myServerData=event.data;
-                console.log("myServerData on client",myServerData);
-                //}
-            });
-            $(document).ready(function(){
-                sendGetData(serverEvent);
-            });
+//        myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
 
-     
+//        var myServerData;
+//        var serverEvent=window.parent;
+//        function sendGetData(event){
+//            //serverEvent.postMessage(myClientData, "localhost:22035");
+//            serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
+//            //console.log("sendGetData function on client", serverEvent);
+//            // event.source.postMessage(myClientData, event.origin);
+//        }
+//        window.addEventListener('message', function(event){
+//            //serverEvent=event;
+//            //console.log("event from server on client", event);
+//            //if(event.data == "serverData"){
+//            if(event.origin!=="http://towersoa.wmptech.com")
+//            return;
+//            myServerData=event.data;
+//            console.log("myServerData on client",myServerData);
+//            //}
+//        });
+//        $(document).ready(function(){
+//            sendGetData(serverEvent);
+//        }); 
+    //IFRAME END
     </script>
     <!-- <script>
     $(document).ready(function(){

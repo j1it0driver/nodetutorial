@@ -17,11 +17,40 @@ router.post('/', function(req, res) { //api.ai for nodejs
     var sessionId= cookies_s.sessionID;
     console.log("api.js sessionId",cookies_s.sessionID);
     var data = req.body.val;
-    console.log("api.js data",data);
-    comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
-        console.log("api.js datos from SDK", datos);
-        res.send(datos);
+    console.log("api.js data",req.body);
+
+    /////
+    if(data.event){     
+        var request = app.eventRequest(data.event, {
+            "sessionId" : sessionID
+        });
+        // console.log("comm.js data.event",data.event);
+        // console.log("comm.js request",request);
+    } else{
+        console.log("es un text requests y el data es:", data);
+        var request = app.textRequest(data, {
+            "sessionId" : sessionID
+        });
+    }
+    request.on('response', function(response) {
+        // response = [
+        // { name: "contextName" }
+        // ]
+        console.log(response);
+        res.send(response);
     });
+
+    request.on('error', function(error) {
+        console.log("errorrrrr",error);
+    });
+
+    request.end();
+
+//////7
+//    comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
+//        console.log("api.js datos from SDK", datos);
+//        res.send(datos);
+//    });
     // console.log('cookies from api: ', cookies_s);
 });
 router.post('/event', function(req,res) {

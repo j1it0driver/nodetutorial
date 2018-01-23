@@ -15,8 +15,8 @@ var str="", datos, bubble_id=0, printIndex=bubble_id-1;
 var datestr;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 var uname, psw;
-//var baseUrl_H="https://towersoa.wmptech.com/SOA/tower4customers/";
-//var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
+var baseUrl_H="https://towersoa.wmptech.com/SOA/tower4customers/";
+var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
 var language=null, userId=null, userCode=null, userPass=null, tokenString=null, views=null, clientId=null, token=null, email=null;
 var chat_bubbleId=[];
@@ -84,7 +84,7 @@ $(document).ready(function() {
     // console.log(uSession);
     visits();
     username();
-    send_event('custom_event', username);
+    //send_event('custom_event', username); // evento que acciona el primer intent de intro
     sessionID=readCookie("sessionID");
     // eraseCookie("sessionID");
     //eraseCookie("visits");
@@ -872,7 +872,7 @@ function send_query(other){
         //   datos=data.result.fulfillment.messages;
           prepareResponse(data);
         };
-        s.send(JSON.stringify({"val": text, "data": otherData}));
+        s.send(JSON.stringify({val: text, data: otherData}));
         // $.ajax({
         //     type: "POST",
         //     // url: baseUrl + "query?v=20170810",

@@ -1,6 +1,6 @@
 
 module.exports = {process_req: function (data) { // is called with process_req(val).success(function(data){}); or .error() https://stackoverflow.com/questions/5150571/javascript-function-that-returns-ajax-call-data
-    var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";
+    var baseUrl = "https://api.api.ai/v1/", version="20170712";
     var accessToken="aba2ecdbb9e744ba8b37ec6cf6a175d9";        //////////////////////////////////// SEND ////////////////////////////////////
     console.log("function")
 ;    return $.ajax({
