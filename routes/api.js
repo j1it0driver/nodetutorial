@@ -14,36 +14,41 @@ var router = express.Router();
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
     cookies_s = cookie.parse(req.headers.cookie || '');
-    var sessionId= cookies_s.sessionID;
+    var sessionID= cookies_s.sessionID;
     console.log("api.js sessionId",cookies_s.sessionID);
-    var data = req.body.val;
+    //var data = req.body.val;
+    var data = req.body;
     console.log("api.js data",req.body);
 
     /////
     if(data.event){     
+        console.log("comm.js data.event",data.event);
         var request = app.eventRequest(data.event, {
-            "sessionId" : sessionID
+            sessionId: sessionID
         });
         // console.log("comm.js data.event",data.event);
-        // console.log("comm.js request",request);
+         //console.log("comm.js request",request);
     } else{
         console.log("es un text requests y el data es:", data);
         var request = app.textRequest(data, {
-            "sessionId" : sessionID
+            sessionId : sessionID
         });
+        //console.log("requests y es:", request);
     }
+    console.log("requests y es:", request);
     request.on('response', function(response) {
         // response = [
         // { name: "contextName" }
         // ]
         console.log(response);
-        res.send(response);
+        res.send('200');
     });
 
     request.on('error', function(error) {
         console.log("errorrrrr",error);
+        res.send('200');
     });
-
+    res.send('200');
     request.end();
 
 //////7
@@ -59,9 +64,43 @@ router.post('/event', function(req,res) {
     var sessionId= cookies_s.sessionID;
     var data = req.body;
     console.log("api.js data from api/event",data);
-    comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
-        res.send(datos);
+
+    /////
+    if(data.event){     
+        var request = app.eventRequest(data.event, {
+            sessionId : sessionID
+        });
+        // console.log("comm.js data.event",data.event);
+        // console.log("comm.js request",request);
+    } else{
+        console.log("es un text requests y el data es:", data);
+        var request = app.textRequest(data, {
+            sessionId : sessionID
+        });
+        //console.log("requests y es:", request);
+    }
+    console.log("requests y es:", request);
+    request.on('response', function(response) {
+        // response = [
+        // { name: "contextName" }
+        // ]
+        console.log(response);
+        res.send(200);
     });
+
+    request.on('error', function(error) {
+        console.log("errorrrrr",error);
+        res.send(200);
+    });
+    res.send(200);
+    request.end();
+
+//////7
+
+
+//    comm.process_req(data, sessionId).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
+//        res.send(datos);
+//    });
     // console.log('cookies from api/event: ', cookies_s);
 });
 

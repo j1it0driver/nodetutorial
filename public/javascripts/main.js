@@ -1,8 +1,8 @@
 // (function(){
   'use strict';
 
-//var baseUrl = "https://api.api.ai/v1/", version="20170810";
-var baseUrl = "https://api.api.ai/v1/", version="20170712";
+var baseUrl = "https://api.api.ai/v1/", version="20170810";
+//var baseUrl = "https://api.api.ai/v1/", version="20170712";
 //var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";
 var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
 var recognition,
@@ -84,7 +84,7 @@ $(document).ready(function() {
     // console.log(uSession);
     visits();
     username();
-    //send_event('custom_event', username); // evento que acciona el primer intent de intro
+    send_event('custom_event', username); // evento que acciona el primer intent de intro
     sessionID=readCookie("sessionID");
     // eraseCookie("sessionID");
     //eraseCookie("visits");
@@ -535,22 +535,23 @@ function spokenRespond (val){
 
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
-    r.open("POST", "/api/event", true);
+    //r.open("POST", "/api/event", true);
+    r.open("POST", "/api", true);
     console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
-        console.log("send_event 2",r.readyState,r.status);
+        console.log("send_event 2",r.readyState,r.status, r.statusText, r.responseText);
 
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
-      var temporal2=JSON.parse(r);
+      //var temporal2=JSON.parse(r);
 
-    console.log("temporal2",temporal2);
+    console.log("temporal",temporal);
     //alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
       prepareResponse(temporal);
     };
-    r.send(JSON.stringify({'event': {'name': eventName, 'data':{'valor': valor}}}));
+    r.send(JSON.stringify({event: {name: eventName, data:{valor: valor}}}));
 
     $('#statusMessages').text("Type the topic you're interested in");
     $speechInput.val("");
@@ -872,7 +873,7 @@ function send_query(other){
         //   datos=data.result.fulfillment.messages;
           prepareResponse(data);
         };
-        s.send(JSON.stringify({val: text, data: otherData}));
+        s.send(JSON.stringify({"val": text, "data": otherData}));
         // $.ajax({
         //     type: "POST",
         //     // url: baseUrl + "query?v=20170810",
