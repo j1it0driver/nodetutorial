@@ -3,7 +3,7 @@
 
 }
 .chatBckg{
-    background-color: rgba(22,136,198,0,3);
+    background-color: rgba(22,136,198,0.3);
 }
 .bubble-left{
     background-color: white;
