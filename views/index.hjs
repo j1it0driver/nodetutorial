@@ -104,6 +104,7 @@
             return;
             myServerData=event.data;
             console.log("myServerData on client",myServerData, typeof(myServerData));
+            console.log("User Name from server",myServerData.Name);
             //}
         });
         $(document).ready(function(){
