@@ -71,17 +71,18 @@
         // });
 
         // IFRAME START
-
+        var originHost="localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
-        console.log("is in iframe",isInIframe);
+        //console.log("is in iframe",isInIframe);
 
         if(isInIframe){
-            targetOrigin="http://towersoa.wmptech.com"; //
+            //targetOrigin="http://towersoa.wmptech.com"; //
+            targetOrigin=originHost; // el host que contiene el Iframe
         }
         else{
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
         }
-        var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
+        var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}}); //variable con info de prueba
 
         myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
 
@@ -89,7 +90,8 @@
         var serverEvent=window.parent;
         function sendGetData(event){
             //serverEvent.postMessage(myClientData, "localhost:22035");
-            serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
+            //serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
+            serverEvent.postMessage(myClientData, originHost);
             //console.log("sendGetData function on client", serverEvent);
             // event.source.postMessage(myClientData, event.origin);
         }
@@ -97,7 +99,8 @@
             //serverEvent=event;
             //console.log("event from server on client", event);
             //if(event.data == "serverData"){
-            if(event.origin!=="http://towersoa.wmptech.com")
+            //if(event.origin!=="http://towersoa.wmptech.com")
+            if(event.origin!==originHost)
             return;
             myServerData=event.data;
             console.log("myServerData on client",myServerData);
