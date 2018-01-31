@@ -81,6 +81,7 @@ $(document).ready(function() {
     console.log("Browser/OS:", bowser.name, bowser.osname);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
+    sendGetData(serverEvent);
     console.log("prueba inside main",myServerData); 
     // console.log(uSession);
     visits();
