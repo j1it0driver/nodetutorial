@@ -38,15 +38,7 @@
             });
     </script>
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script> -->
-    <script type="application/javascript" src="/javascripts/jquery.mobile-1.4.5.min.js" defer></script>
-    <script type="application/javascript" src="/javascripts/fullscreen.js" defer></script>
-    <script type="application/javascript" src="/javascripts/handlers.js" defer></script>
-    <script type="application/javascript" src="/javascripts/cookies.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous" defer></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous" defer></script>
-    <script type="application/javascript" src="/javascripts/popup.js" defer></script>
-    
-    <script type="application/javascript" src="/javascripts/bowser.js" defer></script>
+
     <script>
         // function resize(){
         //     var height=document.getElementsByTagName("html")[0].scrollHeight;
@@ -156,6 +148,15 @@
     //IFRAME END /////////////////////////////////////
 
     </script>
+    <script type="application/javascript" src="/javascripts/jquery.mobile-1.4.5.min.js" defer></script>
+    <script type="application/javascript" src="/javascripts/fullscreen.js" defer></script>
+    <script type="application/javascript" src="/javascripts/handlers.js" defer></script>
+    <script type="application/javascript" src="/javascripts/cookies.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous" defer></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous" defer></script>
+    <script type="application/javascript" src="/javascripts/popup.js" defer></script>
+    
+    <script type="application/javascript" src="/javascripts/bowser.js" defer></script>
     <script type="application/javascript" src="/javascripts/main.js" defer></script>
     <!-- <script>
     $(document).ready(function(){
