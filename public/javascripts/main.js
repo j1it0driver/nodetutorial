@@ -265,7 +265,7 @@ function printLink(dato, dato2) {
 function startRecognition() {
     var final_transcript;
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-    console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
+    //console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
     if (!('webkitSpeechRecognition' in window)) {
         console.log("no webkit");
         // upgrade();
@@ -296,7 +296,7 @@ function startRecognition() {
             stopRecognition();
         };
         recognition.onerror = function(event){
-            console.log("error "+ event.error);
+            console.log("error of recognition"+ event.error);
             respond(event.error,null);
         };
         recognition.onend = function() {
@@ -365,7 +365,7 @@ function updateRec() {
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // console.log("prepare response",val);
-    console.log(val);
+    console.log("prepare response",val);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;
@@ -473,7 +473,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
         if (sonido && val !== messageRecording) {
 
             var msg = new SpeechSynthesisUtterance(sentence);
-            console.log("Msg", msg);
+            console.log("Speech Synth Msg", msg);
             var voices = synth.getVoices();
             console.log("voices", voices);
             // var voices = window.speechSynthesis.getVoices();
@@ -537,16 +537,16 @@ function send_event(eventName,valor){
     var r = new XMLHttpRequest();
     //r.open("POST", "/api/event", true);
     r.open("POST", "/api/event", true);
-    console.log("send_event 1");
+    //console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
-        console.log("send_event 2",r.readyState,r.status, r.statusText, r.responseText);
+        //console.log("send_event 2",r.readyState,r.status, r.statusText, r.responseText);
 
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
       //var temporal2=JSON.parse(r);
 
-    console.log("temporal",temporal);
+    //console.log("temporal",temporal);
     //alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
       prepareResponse(temporal);
@@ -690,7 +690,9 @@ function wait_time(timer){
 }
 
 function just_wait(timer, callback){
-    timeout2 = setTimeout(function () {console.log("just_wait finish");}, timer);
+    timeout2 = setTimeout(function () {
+        //console.log("just_wait finish");
+}, timer);
     if(callback) {
         callback();
     }
@@ -861,16 +863,16 @@ function send_query(other){
 
         var s = new XMLHttpRequest();
         s.open("POST", "/api", true);
-        console.log("send_query 1", typeof(JSON.stringify(text)));
+        //console.log("send_query 1", typeof(JSON.stringify(text)));
         s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         s.onreadystatechange = function () {
-            console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
+            //console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
           if (s.readyState != 4 || s.status != 200){
             //   respond(messageInternalError,null);
               return;
           }
           var temporal=JSON.parse(s.responseText);
-          console.log("temporal",temporal);
+         // console.log("temporal",temporal);
         //   console.log(data);
         //   alert("Success: " + temporal);
         //   datos=data.result.fulfillment.messages;
@@ -985,10 +987,10 @@ function printAssets(data,parameters){
     for(i=0;i<data.length;i++){
         radiosId[i]=('radio'+i+printIndex);
         $("<div id='radio"+i+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Name+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Market:&nbsp;&nbsp;&nbsp;</i>"+data[i].MarketName+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Date:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPriceDate+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
-        console.log(radiosId[i]);
+        //console.log(radiosId[i]);
     }
     // radiosId=radiosId.split(',');
-    console.log("radiosId", radiosId);
+    //console.log("radiosId", radiosId);
 
 
     $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><div class='hide-inputbtns p-2 row'><div class='col-8 input-group input-group-sm'><span class='input-group-addon' id='sizing-addon2'>"+parameters.portfolio_currency+"</span><input class='form-control' number-to-fixed='2' id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='number' min='0.00' max='1000000.00' placeholder='Enter amount'></div></div></br>").appendTo('#chatBubbleDivDiv'+printIndex);
@@ -1035,7 +1037,7 @@ function printAssets(data,parameters){
     // fnf = document.getElementById(""+printIndex+"InputAmountId");
     //////////
     if(radiosId.length==0){
-        console.log("send event to search again");
+        //console.log("send event to search again");
         send_event("searchAgain", null);
         return;
     }
@@ -1050,8 +1052,8 @@ function sendAsset(radioId,radiosId){
     }
 
     console.log("amount from input",amount);
-    console.log("sendAsset Function", radiosId);
-    console.log(typeof radiosId);
+    //console.log("sendAsset Function", radiosId);
+    //console.log(typeof radiosId);
     disableButtons(radioId,radiosId);
     send_query();
 }
@@ -1110,9 +1112,9 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
 
 function reload_menu(){
     var le=toDisable.length
-    console.log(toDisable);
-    console.log(le);
-    console.log(toDisable[le-1]);
+    //console.log(toDisable);
+    //console.log(le);
+    //console.log(toDisable[le-1]);
     if(le!=0){disableButtons(toDisable[le-1], toDisable);}
     send_event('custom_event2', username);
     toDisable=[];
