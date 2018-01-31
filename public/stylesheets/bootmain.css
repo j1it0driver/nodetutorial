@@ -105,7 +105,7 @@ h6{
     /*vertical-align: center;*/
 }
 .statusToUser{
-
+ font-size: 100%;
 }
 .timestamp-right{
     position: absolute;
@@ -143,5 +143,5 @@ h6{
 }
 
 .titleChat{
-    font-family: "Roboto", Helvetica, sans-serif;
+    font-family: "OpenSansLight","OpenSans", "Roboto", Helvetica, sans-serif;
 }
