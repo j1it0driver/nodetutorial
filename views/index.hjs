@@ -102,7 +102,7 @@
             //if(event.origin!=="http://towersoa.wmptech.com")
             if(event.origin!==originHost)
             return;
-            console.log("event.data", even.data, typeof(event.data));
+            console.log("event.data", event.data, typeof(event.data));
             console.log("parse event.data",JSON.parse(event.data));
 
             myServerData=JSON.stringify(eval('('+event.data+')'));
