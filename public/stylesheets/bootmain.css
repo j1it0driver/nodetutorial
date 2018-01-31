@@ -1,7 +1,8 @@
 body{
     font-family:"Open Sans","Helvetica Neue", "Roboto", Helvetica,Arial,sans-serif !important;
     font-size: 12px;
-    height:100%;
+    /*height:100%;*/
+    height: 100vh;
 }
 /*button{
     all: none;
@@ -32,8 +33,9 @@ img{
     height: 100%;
 }
 .chat-messages{
-    /*height:calc(100vh - 9rem);*/
-    min-height: calc(100vh - 9.2rem);
+    height:calc(100vh - 9rem);
+    /*min-height: calc(100% - 9.2rem);/*inicial*/
+    /*min-height: calc(100vh - 9.2rem);*/
 }
 .chat-message{
 
