@@ -83,8 +83,9 @@
         else{
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
         }
-        var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}}); //variable con info de prueba
-
+        --}}
+        //var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}}); //variable con info de prueba
+    {{!--
         myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
 
         var myServerData;
@@ -116,7 +117,7 @@
             sendGetData(serverEvent);
         }); 
     //IFRAME END 
-    --}}
+     --}}
 
         // IFRAME START////////////////////////////////
 
