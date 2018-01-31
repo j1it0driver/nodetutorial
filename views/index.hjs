@@ -146,7 +146,7 @@
                         <img class="d-flex align-self-top mr-4 rounded-circle" src="/images/avatartadvisor0.png" alt="Generic placeholder image" height="50">
                         <div class="media-body">
                             <div class="row d-flex justify-content-between w-100 ml-0 mt-1">
-                                <h5 class="mt-0">T-Advisor</h5>
+                                <h5 class="mt-0 titleChat">T-Advisor</h5>
                             </div>
                             <div class="row d-flex justify-content-between w-100 ml-0 status">
                                 <label class="statusToUser small font-italic" id="statusMessages">Let's start a conversation...</label>

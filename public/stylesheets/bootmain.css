@@ -58,10 +58,12 @@ img{
     max-width: 90%;
 }
 h6{
-    font-size: 0.875rem;
+    /* font-size: 0.875rem; */
+    font-size: 0.8rem;
 }
 .listButton{
-    font-size: 0.875srem;
+    /* font-size: 0.875rem; */
+    font-size: 0.8rem;
     line-height: 1.2rem;
 }
 .barButton{
@@ -135,4 +137,11 @@ h6{
   color: #ffffff;
   background-color: #1688c6;
   border-color: #1688c6;
+}
+.form-control {
+    font-size: 0.8rem;
+}
+
+.titleChat{
+    font-family: "Roboto", Helvetica, sans-serif;
 }
