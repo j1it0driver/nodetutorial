@@ -103,7 +103,7 @@
             if(event.origin!==originHost)
             return;
             myServerData=event.data;
-            console.log("myServerData on client",myServerData);
+            console.log("myServerData on client",myServerData, typeof(myServerData));
             //}
         });
         $(document).ready(function(){
