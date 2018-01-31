@@ -71,7 +71,7 @@
         // });
 
         // IFRAME START
-        var originHost="localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
+        var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
         //console.log("is in iframe",isInIframe);
 
