@@ -103,6 +103,7 @@
             if(event.origin!==originHost)
             return;
             myServerData=JSON.stringify(eval('('+event.data+')'));
+            myServerData=JSON.stringify(event.data);
             console.log("myServerData on client",myServerData, typeof(myServerData));
             console.log("User Name from server",myServerData.Name);
             //}
