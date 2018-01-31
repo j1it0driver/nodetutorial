@@ -70,54 +70,54 @@
         //     }
         // });
 
-        {{!-- // IFRAME START
+         // IFRAME START
 
-        var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
-        var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
-        //console.log("is in iframe",isInIframe);
+//        var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
+//        var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
+//        //console.log("is in iframe",isInIframe);
 
-        if(isInIframe){
+ //       if(isInIframe){
             //targetOrigin="http://towersoa.wmptech.com"; //
-            targetOrigin=originHost; // el host que contiene el Iframe
-        }
-        else{
-            targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
-        }
-        --}}
-        //var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}}); //variable con info de prueba
-    {{!--
-        myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
+//            targetOrigin=originHost; // el host que contiene el Iframe
+//        }
+//        else{
+//            targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
+//        }
+//        --}}
+//        //var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}}); //variable con info de prueba
+//    {{!--
+//        myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
 
-        var myServerData;
-        var serverEvent=window.parent;
-        function sendGetData(event){
-            //serverEvent.postMessage(myClientData, "localhost:22035");
-            //serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
-            serverEvent.postMessage(myClientData, originHost);
-            //console.log("sendGetData function on client", serverEvent);
-            // event.source.postMessage(myClientData, event.origin);
-        }
-        window.addEventListener('message', function(event){
-            //serverEvent=event;
-            //console.log("event from server on client", event);
-            //if(event.data == "serverData"){
-            //if(event.origin!=="http://towersoa.wmptech.com")
-            if(event.origin!==originHost)
-            return;
-            //console.log("event.data", event.data, typeof(event.data));
-            //console.log("parse event.data",JSON.parse(event.data));
-
-            //myServerData=JSON.stringify(eval('('+event.data+')'));
-            myServerData=JSON.parse(event.data);
-            console.log("myServerData on client",myServerData, typeof(myServerData));
-            console.log("User Name from server",myServerData.Name);
-            //}
-        });
-        $(document).ready(function(){
-            sendGetData(serverEvent);
-        }); 
-    //IFRAME END 
-     --}}
+//        var myServerData;
+//        var serverEvent=window.parent;
+//        function sendGetData(event){
+//            //serverEvent.postMessage(myClientData, "localhost:22035");
+//            //serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
+//            serverEvent.postMessage(myClientData, originHost);
+//            //console.log("sendGetData function on client", serverEvent);
+//            // event.source.postMessage(myClientData, event.origin);
+//        }
+//        window.addEventListener('message', function(event){
+//            //serverEvent=event;
+//            //console.log("event from server on client", event);
+//            //if(event.data == "serverData"){
+//            //if(event.origin!=="http://towersoa.wmptech.com")
+//            if(event.origin!==originHost)
+//            return;
+//            //console.log("event.data", event.data, typeof(event.data));
+//            //console.log("parse event.data",JSON.parse(event.data));
+//
+//            //myServerData=JSON.stringify(eval('('+event.data+')'));
+//            myServerData=JSON.parse(event.data);
+//            console.log("myServerData on client",myServerData, typeof(myServerData));
+//            console.log("User Name from server",myServerData.Name);
+//            //}
+//        });
+//        $(document).ready(function(){
+//            sendGetData(serverEvent);
+//        }); 
+//    //IFRAME END 
+//     --}}
 
         // IFRAME START////////////////////////////////
 
@@ -150,9 +150,9 @@
             console.log("User Name from server",myServerData.Name);
             //}
         });
-        $(document).ready(function(){
-            sendGetData(serverEvent);
-        }); 
+        //$(document).ready(function(){
+        //    sendGetData(serverEvent);
+        //});
     //IFRAME END /////////////////////////////////////
 
     </script>
