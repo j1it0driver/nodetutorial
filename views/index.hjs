@@ -70,7 +70,8 @@
         //     }
         // });
 
-        // IFRAME START
+        {{!-- // IFRAME START
+
         var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
         //console.log("is in iframe",isInIframe);
@@ -102,8 +103,8 @@
             //if(event.origin!=="http://towersoa.wmptech.com")
             if(event.origin!==originHost)
             return;
-            console.log("event.data", event.data, typeof(event.data));
-            console.log("parse event.data",JSON.parse(event.data));
+            //console.log("event.data", event.data, typeof(event.data));
+            //console.log("parse event.data",JSON.parse(event.data));
 
             //myServerData=JSON.stringify(eval('('+event.data+')'));
             myServerData=JSON.parse(event.data);
@@ -114,7 +115,45 @@
         $(document).ready(function(){
             sendGetData(serverEvent);
         }); 
-    //IFRAME END
+    //IFRAME END 
+    --}}
+
+        // IFRAME START////////////////////////////////
+
+        var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
+        var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
+
+        if(isInIframe){
+
+            targetOrigin=originHost; 
+        }
+        else{
+            targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
+        }
+        var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
+
+        myClientData=JSON.parse(JSON.stringify(myClientData)); 
+
+        var myServerData;
+        var serverEvent=window.parent;
+        function sendGetData(event){
+            serverEvent.postMessage(myClientData, originHost);
+        }
+        window.addEventListener('message', function(event){
+
+            if(event.origin!==originHost)
+            return;
+
+            myServerData=JSON.parse(event.data);
+            console.log("myServerData on client",myServerData, typeof(myServerData));
+            console.log("User Name from server",myServerData.Name);
+            //}
+        });
+        $(document).ready(function(){
+            sendGetData(serverEvent);
+        }); 
+    //IFRAME END /////////////////////////////////////
+
     </script>
     <!-- <script>
     $(document).ready(function(){
