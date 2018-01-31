@@ -105,8 +105,8 @@
             console.log("event.data", event.data, typeof(event.data));
             console.log("parse event.data",JSON.parse(event.data));
 
-            myServerData=JSON.stringify(eval('('+event.data+')'));
-            myServerData=JSON.stringify(event.data);
+            //myServerData=JSON.stringify(eval('('+event.data+')'));
+            myServerData=JSON.parse(event.data);
             console.log("myServerData on client",myServerData, typeof(myServerData));
             console.log("User Name from server",myServerData.Name);
             //}
