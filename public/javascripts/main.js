@@ -26,7 +26,8 @@ var toAppend;
 var x, i, j, k;
 var visits;
 var sessionID=null;
-var username, investedBefore, saveTopic;
+// INTRO option: responses from user
+var username, investedBefore, saveTopic, goal;
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
