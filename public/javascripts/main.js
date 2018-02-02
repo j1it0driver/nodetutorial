@@ -26,7 +26,7 @@ var toAppend;
 var x, i, j, k;
 var visits;
 var sessionID=null;
-var username, investedBefore;
+var username, investedBefore, saveTopic;
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
@@ -423,6 +423,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             if (spokenResponse[i].payload.investedBefore){
                 investedBefore=spokenResponse[i].payload.investedBefore;
                 createCookie("investedBefore",investedBefore,365);
+            }
+            if (spokenResponse[i].payload.saveTopic){
+                saveTopic=spokenResponse[i].payload.saveTopic;
+                createCookie("saveTopic",saveTopic,365);
             }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
