@@ -420,6 +420,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 username=spokenResponse[i].payload.username;
                 createCookie("username",username,365);
             }
+            if (spokenResponse[i].payload.investedBefore){
+                investedBefore=spokenResponse[i].payload.investedBefore;
+                createCookie("investedBefore",investedBefore,365);
+            }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             printSliderSelector(spokenResponse[i].payload.slide.name);
