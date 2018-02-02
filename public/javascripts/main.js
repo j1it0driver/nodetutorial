@@ -31,7 +31,7 @@ var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
 var toDisable=[];
-sendGetData(serverEvent);
+sendGetData(serverEvent);// to get user data from iframe host.
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -83,7 +83,7 @@ $(document).ready(function() {
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
     //sendGetData(serverEvent);
-     
+    console.log("prueba inside main/prepareResponse()",myServerDataJS); 
     // console.log(uSession);
     visits();
     username();
@@ -369,7 +369,7 @@ function updateRec() {
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // console.log("prepare response",val);
     console.log("prepare response",val);
-    console.log("prueba inside main/prepareResponse()",myServerDataJS);
+    console.log("prueba inside main/prepareResponse()2",myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;
