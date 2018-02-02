@@ -26,7 +26,7 @@ var toAppend;
 var x, i, j, k;
 var visits;
 var sessionID=null;
-var username;
+var username, investedBefore;
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
