@@ -245,7 +245,8 @@ function visits(){
 
 function username(){
     if(!checkCookie("username")){
-        username="New Guest";
+        //username="New Guest";
+        username=myServerDataJS.Name;
     }else{
         username=readCookie("username");
     }
