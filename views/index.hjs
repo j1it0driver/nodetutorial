@@ -125,7 +125,7 @@
         }
         var myClientDataJS=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
 
-        myClientDataJS=JSON.parse(JSON.stringify(myClientData)); 
+        myClientDataJS=JSON.parse(JSON.stringify(myClientDataJS)); 
 
         var myServerDataJS;
         var serverEvent=window.parent;
