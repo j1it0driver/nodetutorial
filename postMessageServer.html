@@ -1,0 +1,120 @@
+<!-- CHATBOT -->
+<div id="chatbot">
+    <div class="">
+        <a  id="chat-button" href="#popupPanel"><img id="chat-buttonImg"class="rounded-circle" width="100%" style="border-radius: 3rem;" src="<%= Url.Content("~/Content/Chatbot/img/avatartadvisor0.png")%>" alt="" ></a>
+    </div>
+    <div  id="popupPanel" style="display: none">
+        <iframe id="chatbotFrame" allow="microphone" src="https://tadvisorchatbottest.herokuapp.com" scrolling="no" style="position:fixed; bottom:0px; right:0px; margin:0; padding:0; overflow:hidden; overflow-y:hidden; z-index:999999; border-radius: 4px;"></iframe>
+    </div> 
+</div>
+   <script type="text/javascript">
+       $(document).ready(function () {
+           $('[data-toggle="tooltip"]').tooltip();
+           // $("#close").on("click", function () {
+           //   $("#popupPanel").popup("close");
+           // });
+
+           $("#chat-buttonImg").bind("click", function () {
+               $(this).hide();
+               $("#popupPanel").show();
+           });
+
+           $("#chat-button").click(function (event) {
+               event.preventDefault();
+           });
+           // $("#popupPanel").bind({
+           //   popupafterclose: function (event, ui) { $("#chat-button").show(); }
+           // });
+
+           $(document).click(function (e) { //hide when click outside
+               // check that your clicked
+               // element has no id=popupPanel or chat-button
+               if (e.target.id != 'chat-buttonImg' && e.target.id != 'popupPanel' && !$('#popupPanel').find(e.target).length) {
+                   $("#popupPanel").hide();
+                   $("#chat-buttonImg").show();
+               }
+           });
+           //////////// POSTMESSAGE//////////
+           var uName = '<%=((User)Session["user"]).Name%>'
+           var uSurname = '<%=((User)Session["user"]).Surname%>'
+           var uClientCode = '<%=((User)Session["user"]).ClientCode%>'
+           var uCode = '<%=((User)Session["user"]).Code%>'
+           var uLanguage = '<%=((User)Session["user"]).Language%>'
+           var uCountry = '<%=((User)Session["user"]).Country%>'
+           var uId = '<%=((User)Session["user"]).Id%>'
+           var uType = '<%=((User)Session["user"]).Type%>'
+           var uEmail = '<%=((User)Session["user"]).Email%>'
+           var uLoginName = '<%=((User)Session["user"]).LoginName%>'1
+           var uPassword= '<%=((User)Session["user"]).Password%>'
+           var uBirthDate = '<%=((User)Session["user"]).BirthDate%>'
+           var uLastLoginDate = '<%=((User)Session["user"]).LastLoginDate%>'
+
+
+//                 var uSession = { Name: '" + uName + "', ClientCode: '" + uClientCode + "', Code: '" + uCode + "', Language: '" + uLanguage + "', Country: '" + uCountry + "' };
+
+           var uSession = { Name: uName,
+
+                            Surname: uSurname,
+
+                            ClientCode: uClientCode,
+
+                            Code: uCode,
+
+                            Language: uLanguage, 
+
+                            Country: uCountry,
+
+                            Id: uId,
+
+                            Type: uType,
+
+                            Email: uEmail,
+
+                            LoginName: uLoginName,
+
+                            Password: uPassword,
+
+                            BirthDate: uBirthDate,
+
+                            LastLoginDate: uLastLoginDate };
+
+           console.log("uSesion variable", uSession);
+
+           //console.log(uName);
+
+           // var uSession = <%=((Techrules.SOA.Structures.IAdvisor.User) Session["user"])%>;
+
+           //var myServerData = JSON.stringify({ "serverData": { "name": "server", "age": "6months"} });
+
+           var myServerData = JSON.stringify(uSession);
+
+           var myClientData;
+
+           window.addEventListener('message', function (event) {
+
+               //if (event.data.hasOwnProperty("clientData")) {
+
+               if (event.origin !== "https://tadvisorchatbottest.herokuapp.com")
+
+                   return;
+
+               myClientData = JSON.parse(event.data); //data from client: json ={clientData: {...data}
+
+               console.log("Client Data on server", myClientData);
+
+               console.log("Client Data on server", myClientData.clientData.name);
+
+               //}
+
+               $("#chatbotFrame")[0].contentWindow.postMessage(myServerData, "https://tadvisorchatbottest.herokuapp.com");
+     
+
+           });
+//                   $("#chatbotFrame").load(function () {
+//                       $("#chatbotFrame")[0].contentWindow.postMessage(myServerData, "*");
+//                   });
+       });
+       ///////// END POST-MESSAGE/////////////
+
+   </script>
+<!-- END CHATBOT -->
