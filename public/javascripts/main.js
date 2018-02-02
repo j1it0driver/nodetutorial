@@ -428,6 +428,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 saveTopic=spokenResponse[i].payload.saveTopic;
                 createCookie("saveTopic",saveTopic,365);
             }
+            if (spokenResponse[i].payload.goal){
+                goal=spokenResponse[i].payload.goal;
+                createCookie("goal",goal,365);
+            }
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
             printSliderSelector(spokenResponse[i].payload.slide.name);
