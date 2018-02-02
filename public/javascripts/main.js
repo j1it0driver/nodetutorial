@@ -31,6 +31,7 @@ var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
 var toDisable=[];
+sendGetData(serverEvent);
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -81,7 +82,7 @@ $(document).ready(function() {
     console.log("Browser/OS:", bowser.name, bowser.osname);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
-    sendGetData(serverEvent);
+    //sendGetData(serverEvent);
      
     // console.log(uSession);
     visits();
