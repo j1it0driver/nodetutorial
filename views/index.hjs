@@ -123,23 +123,23 @@
         else{
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
         }
-        var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
+        var myClientDataJS=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
 
-        myClientData=JSON.parse(JSON.stringify(myClientData)); 
+        myClientDataJS=JSON.parse(JSON.stringify(myClientData)); 
 
-        var myServerData;
+        var myServerDataJS;
         var serverEvent=window.parent;
         function sendGetData(event){
-            serverEvent.postMessage(myClientData, originHost);
+            serverEvent.postMessage(myClientDataJS, originHost);
         }
         window.addEventListener('message', function(event){
 
             if(event.origin!==originHost)
             return;
 
-            myServerData=JSON.parse(event.data);
-            console.log("myServerData on client",myServerData, typeof(myServerData));
-            console.log("User Name from server",myServerData.Name);
+            myServerDataJS=JSON.parse(event.data);
+            console.log("myServerData on client",myServerDataJS, typeof(myServerDataJS));
+            console.log("User Name from server",myServerDataJS.Name);
             //}
         });
         //$(document).ready(function(){

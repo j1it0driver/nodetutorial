@@ -82,7 +82,7 @@ $(document).ready(function() {
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
     sendGetData(serverEvent);
-    console.log("prueba inside main",myServerData); 
+    console.log("prueba inside main",myServerDataJS); 
     // console.log(uSession);
     visits();
     username();
