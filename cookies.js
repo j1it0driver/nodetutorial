@@ -1,5 +1,27 @@
 module.exports = {
 
+    guid: function () {
+        function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      },
+      readCookieServer: function(name){
+          if(cookies_s[name]){
+              return cookies_s[name];
+          }
+          return null;
+      },
+      checkCookieServer: function(name){
+          if (cookies_s[name]){
+              return true;
+          }
+          else{return false;}
+      }
+
     // setCookie: function (cname, cvalue, exdays) {
     //     var d = new Date();
     //     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -35,15 +57,6 @@ module.exports = {
     //     }
     // },
 
-    guid: function () {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-    },
 
     // createCookie: function (name,value,days) {
     // 	if (days) {
@@ -54,7 +67,7 @@ module.exports = {
     // 	else var expires = "";
     // 	document.cookie = name+"="+value+expires+"; path=/"; //usar escape() para hacer que el texto no contenga caracteres no validos
     // },
-    //
+    
     // readCookie: function (name) {
     // 	var nameEQ = name + "=";
     // 	var ca = document.cookie.split(';');
@@ -65,20 +78,9 @@ module.exports = {
     // 	}
     // 	return null;
     // },
-    //
+    
     // eraseCookie: function (name) {
     // 	createCookie(name,"",-1);
     // }
-    readCookieServer: function(name){
-        if(cookies_s[name]){
-            return cookies_s[name];
-        }
-        return null;
-    },
-    checkCookieServer: function(name){
-        if (cookies_s[name]){
-            return true;
-        }
-        else{return false;}
-    }
+
 }
