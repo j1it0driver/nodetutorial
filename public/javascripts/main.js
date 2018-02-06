@@ -1195,7 +1195,7 @@ function updateUserData(myServerDataJS){ // send info from tadvisor-server to No
     r.onreadystatechange = function () {
         if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
-        console.log("response updateUserData",temporal);
+        console.log("CCmain response updateUserData",temporal);
         alert("user Data updated " + temporal);
 
         // $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
@@ -1211,6 +1211,6 @@ function updateUserData(myServerDataJS){ // send info from tadvisor-server to No
     //     'body': document.getElementById(formBodyId).value //, // plaintext body
     //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
     // };
-    console.log("ServerData",myServerDataJS);
+    console.log("CCmain ServerData",myServerDataJS);
     r.send(JSON.stringify(myServerDataJS));
 }
