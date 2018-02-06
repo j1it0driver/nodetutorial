@@ -1187,3 +1187,30 @@ function evaluateUser(questionsResponses){
     // console.log("mailOptions",mailOptions);
     // r.send(JSON.stringify(mailOptions));
 }
+
+function updateUserData(myServerDataJS){ // send info from tadvisor-server to NodeJS Server
+    var r = new XMLHttpRequest();
+    r.open("POST", "/serverData", true);
+    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    r.onreadystatechange = function () {
+        if (r.readyState != 4 || r.status != 200) return;
+        var temporal=JSON.parse(r.responseText);
+        console.log("response updateUserData",temporal);
+        alert("user Data updated " + temporal);
+
+        // $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
+
+        // disableButtons(formSendButtonId, toDisable);
+        // send_event('custom_event', username);
+
+    };
+    var mailOptions = {
+        'name': document.getElementById(formNameId).value, // sender address
+        'email': document.getElementById(formEmailId).value, // list of receivers
+        'subject': document.getElementById(formSubjectId).value, // Subject line
+        'body': document.getElementById(formBodyId).value //, // plaintext body
+        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    };
+    console.log("ServerData",myServerDataJS);
+    r.send(JSON.stringify(myServerDataJS));
+}
