@@ -9,7 +9,7 @@ var router = express.Router();
 //   res.render('index', { title: 'Express' });
 // });
 router.get('/', function(req,res){
-  console.log("es la llamada a route index.js",req);
+  console.log("es la llamada a route index.js");
   // console.log("Cookies :  ", req.cookies);
   // var cookies_s = cookie.parse(req.headers.cookie || '');
   // console.log(cookies_s.visits);
