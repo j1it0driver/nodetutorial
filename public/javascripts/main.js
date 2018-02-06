@@ -85,7 +85,7 @@ $(document).ready(function() {
     console.log("iOS device", _iOSDevice);
     //sendGetData(serverEvent);
     console.log("prueba inside main/prepareResponse()",myServerDataJS); 
-    updateUserData(myServerData);
+    updateUserData(myServerDataJS);
     // console.log(uSession);
     visits();
     username();
