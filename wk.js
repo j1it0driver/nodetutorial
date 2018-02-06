@@ -129,6 +129,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 // else{
                     console.log("SSwk asset searched2", assetSearched);
                     userCode='oyet6qi08k0axpiVx0tDBA==';
+                    userCode=serverData.Code;
                     domain="TADVISOR";
                     language="es-ES";
                     token='whatever';

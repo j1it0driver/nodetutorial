@@ -6,7 +6,8 @@ router.post('/', function(req,res){
     console.log("print body from client myServerData on server", req.body,typeof(req.body));
 global.serverData=req.body;
 
-// var uSession = { Name: uName,
+// var uSession = {
+//     Name: uName,
 //     Surname: uSurname,
 //     ClientCode: uClientCode,
 //     Code: uCode,
