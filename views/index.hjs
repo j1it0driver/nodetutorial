@@ -133,7 +133,6 @@
 
         function sendGetData(event){
             serverEvent.postMessage(myClientDataJS, originHost);
-            updateUserData(myServerDataJS);
         }
         
         window.addEventListener('message', function(event){
