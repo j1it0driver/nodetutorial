@@ -1111,7 +1111,7 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
-        console.log("response SendEmail ACtion"temporal);
+        console.log("response SendEmail ACtion",temporal);
     alert("Reference Number: " + temporal.reference);
 
     $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
