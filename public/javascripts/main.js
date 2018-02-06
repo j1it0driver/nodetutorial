@@ -27,7 +27,7 @@ var x, i, j, k;
 var visits;
 var sessionID=null;
 // INTRO option: responses from user
-var username, investedBefore, saveTopic, goal, profileQuestions;
+var username, investedBefore, saveTopic, goal, profileQuestions={};
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
@@ -458,7 +458,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 }
                 if (payload.dataVar.profileQuestions){
                     //profileQuestions[payload.dataVar.profileQuestions[1]]=payload.dataVar.profileQuestions;
-                    rofileQuestions=Object.assign(profileQuestions,payload.dataVar.profileQuestions);
+                    profileQuestions=Object.assign(profileQuestions,payload.dataVar.profileQuestions);
                     console.log('profileQuestions',profileQuestions);
                     // createCookie("goal",goal,365);
                 }
