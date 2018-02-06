@@ -27,7 +27,7 @@ var x, i, j, k;
 var visits;
 var sessionID=null;
 // INTRO option: responses from user
-var username, investedBefore, saveTopic, goal, profileQuestions={};
+var username, investedBefore, saveTopic, goal, profileQuestions={}, createPortfolio={};
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
@@ -370,25 +370,89 @@ function updateRec() {
 }
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
+    // Esta función toma la respuesta de DialogFlow y la prepara para mostrarla en pantalla al usuario.
+/* {
+  "id": "3622be70-cb49-4796-a4fa-71f16f7b5600",
+  "lang": "en",
+  "result": {
+    "action": "pickFruit",
+    "actionIncomplete": false,
+    "contexts": [
+      "shop"
+    ],
+    "fulfillment": {
+      "messages": [
+        {
+          "platform": "google",
+          "textToSpeech": "Okay how many apples?",
+          "type": "simple_response"
+        },
+        {
+          "platform": "google",
+          "textToSpeech": "Okay. How many apples?",
+          "type": "simple_response"
+        },
+        {
+          "speech": "Okay how many apples?",
+          "type": 0
+        }
+      ],
+      "speech": "Okay how many apples?"
+    },
+    "metadata": {
+      "intentId": "21478be9-bea6-449b-bcca-c5f009c0a5a1",
+      "intentName": "add-to-list",
+      "webhookForSlotFillingUsed": "false",
+      "webhookUsed": "false"
+    },
+    "parameters": {
+      "fruit": [
+        "apples"
+      ]
+    },
+    "resolvedQuery": "I need apples",
+    "score": 1,
+    "source": "agent"
+  },
+  "sessionId": "12345",
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "timestamp": "2017-09-19T21:16:44.832Z"
+} */
+
     // console.log("prepare response",val);
     console.log("prepare response",val);
     //console.log("prueba inside main/prepareResponse()2",myServerDataJS);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
-    var webhookData = val.result.fulfillment.data;//?????? parece que no existe
+   /*  "messages": [
+        {
+          "speech": "Text response",
+          "type": 0
+        }
+      ] */
+    var webhookData = val.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
     var webhookAction = val.result.action;
     var webhookParameters = val.result.parameters;
-    // if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
-    //     var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
-    //     var webhookAction = val.result.action;
-    // }
+  /*   if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
+        var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
+        var webhookAction = val.result.action;
+    } */
     
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
-    for (i=0;i< spokenResponse.length; i++){
-        var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow
-        if(spokenResponse[i].type==0){ //type 0 is a SPEECH
+    for (i=0;i< spokenResponse.length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
+        var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
+         /*  "messages": [
+                {
+                "payload": custom JSON,
+                "type": 4
+                }
+             ] */
+        if(spokenResponse[i].type==0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
             messagePrint2= spokenResponse[i].speech;
             // messagePrint2= spokenResponse[i];
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
@@ -402,7 +466,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             respond(dataObj,dataObjLinks);
         }
         // console.log("webhook data",webhookData);
-        if(webhookData){ // do something with webhook data, but action are called directly from DialogFlow with webhook referenced to /webhook/action
+        if(webhookData){ // do something with data returned by webhook  , but action are called directly from DialogFlow with webhook referenced to /webhook/action
             console.log("webhook data",webhookData);
             if(webhookAction=="search_Asset"){
                 printAssets(webhookData,webhookParameters);
@@ -468,6 +532,12 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                     console.log('profileQuestions',profileQuestions);
                     // createCookie("goal",goal,365);
                 }
+                if (payload.dataVar.createPortfolio){
+                    //profileQuestions[payload.dataVar.profileQuestions[1]]=payload.dataVar.profileQuestions;
+                    createPortfolio=Object.assign(createPortfolio,payload.dataVar.createPortfolio);
+                    console.log('Create Portfolio vars',createPortfolio);
+                    // createCookie("goal",goal,365);
+                }
             }
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
@@ -487,7 +557,7 @@ function debugRespond(val) {
     $("#response").text(val);
 }
 
-function respond(val, valLinks) { // function to print a text into chat message and to speech the text outloud
+function respond(val, valLinks) { // function to print text into chat message and to speech the text outloud
     // valor=val.speech;
 
     var toAppend, sentences=null, sentence=null, sentencesArray;

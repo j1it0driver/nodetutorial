@@ -18,6 +18,15 @@ function apiaiResponseFormat(speech,displayText,data, contextOut){
         "source": "Tadvisor Server",
         "contextOut": contextOut
     };
+    // or: to trigger an event but the previous json is omitted(speech, display, etc)
+    // {
+    //     "followupEvent": {
+    //        "name": "<EVENT_NAME>",
+    //        "data": {
+    //           "<PARAMETER_NAME>":"<PARAMETER_VALUE>"
+    //        }
+    //     }
+    //  }
 }
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
