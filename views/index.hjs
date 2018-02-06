@@ -131,8 +131,9 @@
         var myServerDataJS;
         var serverEvent=window.parent;
 
-        function sendGetData(event){
+        function sendGetData(event, callback){
             serverEvent.postMessage(myClientDataJS, originHost);
+            callback();
         }
         
         window.addEventListener('message', function(event){

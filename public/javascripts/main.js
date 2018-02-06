@@ -32,7 +32,7 @@ var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
 var toDisable=[];
-sendGetData(serverEvent).then(updateUserData(myServerDataJS));// to get user data from iframe host.
+sendGetData(serverEvent,updateUserData(myServerDataJS));// to get user data from iframe host.
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
