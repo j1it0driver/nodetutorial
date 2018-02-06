@@ -84,8 +84,8 @@ $(document).ready(function() {
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
     //sendGetData(serverEvent);
-    console.log("prueba inside main/prepareResponse()",myServerDataJS); 
-    updateUserData(myServerDataJS);
+    //console.log("prueba inside main/prepareResponse()",myServerDataJS); 
+    //updateUserData(myServerDataJS);
     // console.log(uSession);
     visits();
     username();
@@ -569,7 +569,7 @@ function spokenRespond (val){
 
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
-    //r.open("POST", "/api/event", true);
+    
     r.open("POST", "/api/event", true);
     //console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

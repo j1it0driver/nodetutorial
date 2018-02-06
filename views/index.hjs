@@ -133,6 +133,7 @@
 
         function sendGetData(event){
             serverEvent.postMessage(myClientDataJS, originHost);
+            updateUserData(myServerDataJS);
         }
         
         window.addEventListener('message', function(event){
@@ -141,7 +142,7 @@
             return;
 
             myServerDataJS=JSON.parse(event.data);
-            console.log("myServerData on client",myServerDataJS, typeof(myServerDataJS));
+            //console.log("myServerData on client",myServerDataJS, typeof(myServerDataJS));
             console.log("User Name from server",myServerDataJS.Name);
             //}
         });
