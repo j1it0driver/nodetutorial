@@ -1204,13 +1204,13 @@ function updateUserData(myServerDataJS){ // send info from tadvisor-server to No
         // send_event('custom_event', username);
 
     };
-    var mailOptions = {
-        'name': document.getElementById(formNameId).value, // sender address
-        'email': document.getElementById(formEmailId).value, // list of receivers
-        'subject': document.getElementById(formSubjectId).value, // Subject line
-        'body': document.getElementById(formBodyId).value //, // plaintext body
-        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-    };
+    // var mailOptions = {
+    //     'name': document.getElementById(formNameId).value, // sender address
+    //     'email': document.getElementById(formEmailId).value, // list of receivers
+    //     'subject': document.getElementById(formSubjectId).value, // Subject line
+    //     'body': document.getElementById(formBodyId).value //, // plaintext body
+    //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    // };
     console.log("ServerData",myServerDataJS);
     r.send(JSON.stringify(myServerDataJS));
 }
