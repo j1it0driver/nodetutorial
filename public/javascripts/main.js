@@ -374,7 +374,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     //console.log("prueba inside main/prepareResponse()2",myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
-    var webhookData = val.result.fulfillment.data;
+    var webhookData = val.result.fulfillment.data;//?????? parece que no existe
     var webhookAction = val.result.action;
     var webhookParameters = val.result.parameters;
     // if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
@@ -414,6 +414,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             else if(webhookAction=="show_portfolio"){
                 console.log("print show portfolio", webhookData);
                 printPortfolio(webhookData);
+            }
+            else if(webhookAction=="user_Evaluation"){
+                console.log('userEvaluation fuction',webhookParameters);
+                evaluateUser(webhookParameters);
             }
         }
         else if (spokenResponse[i].type==4) { //type 4 is a custompayload
@@ -1071,7 +1075,6 @@ function printAssets(data,parameters){
         return;
     }
 }
-
 function sendAsset(radioId,radiosId){
     // var juju=""+printIndex+"InputAmountId";
     // console.log("juju",juju);
@@ -1086,7 +1089,6 @@ function sendAsset(radioId,radiosId){
     disableButtons(radioId,radiosId);
     send_query();
 }
-
 function addCommas(nStr){
     nStr += '';
     var x = nStr.split('.');
@@ -1098,7 +1100,6 @@ function addCommas(nStr){
     }
     return x1 + x2;
 }
-
 function printSendEmail (){
     $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
@@ -1112,17 +1113,17 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
       if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
         console.log("response SendEmail ACtion",temporal);
-    alert("Reference Number: " + temporal.reference);
+        alert("Reference Number: " + temporal.reference);
 
-    $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
-    // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
-    // printIndex++;
-    // appendHtml("Left",toAppend);
-    disableButtons(formSendButtonId, toDisable);
-    send_event('custom_event', username);
+        $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
+        // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
+        // printIndex++;
+        // appendHtml("Left",toAppend);
+        disableButtons(formSendButtonId, toDisable);
+        send_event('custom_event', username);
 
-    //   datos=temporal.result.fulfillment.messages;
-    //   prepareResponse(temporal);
+        //   datos=temporal.result.fulfillment.messages;
+        //   prepareResponse(temporal);
     };
     var mailOptions = {
         'name': document.getElementById(formNameId).value, // sender address
@@ -1138,7 +1139,6 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
     $speechInput.val("");
     $speechInput.blur();
 }
-
 function reload_menu(){
     var le=toDisable.length
     //console.log(toDisable);
@@ -1148,7 +1148,6 @@ function reload_menu(){
     send_event('custom_event2', username);
     toDisable=[];
 }
-
 function printPortfolio(data){
     var key;
     $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
@@ -1157,4 +1156,34 @@ function printPortfolio(data){
     }
     $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
     reload_menu();
+}
+function evaluateUser(questionsResponses){
+    // var r = new XMLHttpRequest();
+    // r.open("POST", "/sayHello", true);
+    // r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    // r.onreadystatechange = function () {
+    //   if (r.readyState != 4 || r.status != 200) return;
+    //     var temporal=JSON.parse(r.responseText);
+    //     console.log("response SendEmail ACtion",temporal);
+    //     alert("Reference Number: " + temporal.reference);
+
+    //     $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
+    //     // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
+    //     // printIndex++;
+    //     // appendHtml("Left",toAppend);
+    //     disableButtons(formSendButtonId, toDisable);
+    //     send_event('custom_event', username);
+
+    //     //   datos=temporal.result.fulfillment.messages;
+    //     //   prepareResponse(temporal);
+    // };
+    // var mailOptions = {
+    //     'name': document.getElementById(formNameId).value, // sender address
+    //     'email': document.getElementById(formEmailId).value, // list of receivers
+    //     'subject': document.getElementById(formSubjectId).value, // Subject line
+    //     'body': document.getElementById(formBodyId).value //, // plaintext body
+    //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    // };
+    // console.log("mailOptions",mailOptions);
+    // r.send(JSON.stringify(mailOptions));
 }

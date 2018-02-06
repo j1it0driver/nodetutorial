@@ -37,6 +37,12 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
         }
         console.log('Action is: '+action);
         switch(action){
+            case 'user_Evaluation':
+                console.log("user_Evaluation from wk", param);
+                var json = apiaiResponseFormat(speech='This is an userEvaluation test.', displayText='This is an userEvaluation test.');
+                res.json(json);
+                break;
+
             case 'my_action':
                 console.log("myaction");
                 var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
