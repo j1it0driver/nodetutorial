@@ -400,7 +400,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             respond(dataObj,dataObjLinks);
         }
         // console.log("webhook data",webhookData);
-        if(webhookData){ // do something with webhook data
+        if(webhookData){ // do something with webhook data, but action are called directly from DialogFlow with webhook referenced to /webhook/action
             console.log("webhook data",webhookData);
             if(webhookAction=="search_Asset"){
                 printAssets(webhookData,webhookParameters);
