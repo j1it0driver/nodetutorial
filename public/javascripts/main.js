@@ -416,8 +416,11 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printPortfolio(webhookData);
             }
         }
-        else if (spokenResponse[i].type==4 && payload.items) { //type 4 is a custompayload
-            printButton(payload.items);
+        else if (spokenResponse[i].type==4) { //type 4 is a custompayload
+            if(payload.items){
+                printButton(payload.items);
+            }
+            
             // if (payload.dataVar.username){
             //     username=payload.dataVar.username;
             //     createCookie("username",username,365);
@@ -438,46 +441,47 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             //     goal=payload.dataVar.goal;
             //     createCookie("goal",goal,365);
             // }
-        }
-        else if (spokenResponse[i].type==4 && payload.slide) { //type 4 is a custompayload
-            printSliderSelector(payload.slide.name);
-        }
-        else if (spokenResponse[i].type==4 && payload.imgButton) { //type 4 is a custompayload
-            printImgButton(payload.imgButton.name,payload.imgButton.data); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && payload.sendEvent) { //type 4 is a custompayload
-            prepare_event(payload.sendEvent.name, payload.sendEvent.data); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && payload.img) { //type 4 is a custompayload
-            printImgAndText(payload.img.name, payload.img.data, payload.img.data["text"],payload.img.data["link"]); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && payload.login) { //type 4 is a custompayload
-            appendHtml("left");
-            printLogin('login', payload.login.username, payload.login.password); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && payload.lists) { //type 4 is a custompayload
-            display_lists(); //envio el nombre y los datos del payload
-        }
-        else if(spokenResponse[i].type==4 && payload.dataVar){
-            if (payload.dataVar.username){
-                username=payload.dataVar.username;
-                createCookie("username",username,365);
+        
+            if (payload.slide) { //type 4 is a custompayload
+                printSliderSelector(payload.slide.name);
             }
-            if (payload.dataVar.investedBefore){
-                investedBefore=payload.dataVar.investedBefore;
-                createCookie("investedBefore",investedBefore,365);
+            if (payload.imgButton) { //type 4 is a custompayload
+                printImgButton(payload.imgButton.name,payload.imgButton.data); //envio el nombre y los datos del payload
             }
-            if (payload.dataVar.saveTopic){
-                saveTopic=payload.dataVar.saveTopic;
-                createCookie("saveTopic",saveTopic,365);
+            if (payload.sendEvent) { //type 4 is a custompayload
+                prepare_event(payload.sendEvent.name, payload.sendEvent.data); //envio el nombre y los datos del payload
             }
-            if (payload.dataVar.goal){
-                goal=payload.dataVar.goal;
-                createCookie("goal",goal,365);
+            if (payload.img) { //type 4 is a custompayload
+                printImgAndText(payload.img.name, payload.img.data, payload.img.data["text"],payload.img.data["link"]); //envio el nombre y los datos del payload
             }
-            if (payload.dataVar.goal){
-                goal=payload.dataVar.goal;
-                createCookie("goal",goal,365);
+            if (payload.login) { //type 4 is a custompayload
+                appendHtml("left");
+                printLogin('login', payload.login.username, payload.login.password); //envio el nombre y los datos del payload
+            }
+            if (payload.lists) { //type 4 is a custompayload
+                display_lists(); //envio el nombre y los datos del payload
+            }
+            if(payload.dataVar){
+                if (payload.dataVar.username){
+                    username=payload.dataVar.username;
+                    createCookie("username",username,365);
+                }
+                if (payload.dataVar.investedBefore){
+                    investedBefore=payload.dataVar.investedBefore;
+                    createCookie("investedBefore",investedBefore,365);
+                }
+                if (payload.dataVar.saveTopic){
+                    saveTopic=payload.dataVar.saveTopic;
+                    createCookie("saveTopic",saveTopic,365);
+                }
+                if (payload.dataVar.goal){
+                    goal=payload.dataVar.goal;
+                    createCookie("goal",goal,365);
+                }
+                if (payload.dataVar.goal){
+                    goal=payload.dataVar.goal;
+                    createCookie("goal",goal,365);
+                }
             }
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
