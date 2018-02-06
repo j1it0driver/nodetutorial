@@ -417,24 +417,24 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
-            if (spokenResponse[i].payload.data.username){
-                username=spokenResponse[i].payload.data.username;
+            if (spokenResponse[i].payload.dataVar.username){
+                username=spokenResponse[i].payload.dataVar.username;
                 createCookie("username",username,365);
             }
-            if (spokenResponse[i].payload.data.investedBefore){
-                investedBefore=spokenResponse[i].payload.data.investedBefore;
+            if (spokenResponse[i].payload.dataVar.investedBefore){
+                investedBefore=spokenResponse[i].payload.dataVar.investedBefore;
                 createCookie("investedBefore",investedBefore,365);
             }
-            if (spokenResponse[i].payload.data.saveTopic){
-                saveTopic=spokenResponse[i].payload.data.saveTopic;
+            if (spokenResponse[i].payload.dataVar.saveTopic){
+                saveTopic=spokenResponse[i].payload.dataVar.saveTopic;
                 createCookie("saveTopic",saveTopic,365);
             }
-            if (spokenResponse[i].payload.data.goal){
-                goal=spokenResponse[i].payload.data.goal;
+            if (spokenResponse[i].payload.dataVar.goal){
+                goal=spokenResponse[i].payload.dataVar.goal;
                 createCookie("goal",goal,365);
             }
-            if (spokenResponse[i].payload.data.goal){
-                goal=spokenResponse[i].payload.data.goal;
+            if (spokenResponse[i].payload.dataVar.goal){
+                goal=spokenResponse[i].payload.dataVar.goal;
                 createCookie("goal",goal,365);
             }
         }
