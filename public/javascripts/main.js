@@ -458,7 +458,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 }
                 if (payload.dataVar.profileQuestions){
                     //profileQuestions[payload.dataVar.profileQuestions[1]]=payload.dataVar.profileQuestions;
-                    Object.assign(profileQuestions,payload.dataVar.profileQuestions);
+                    rofileQuestions=Object.assign(profileQuestions,payload.dataVar.profileQuestions);
                     console.log('profileQuestions',profileQuestions);
                     // createCookie("goal",goal,365);
                 }
