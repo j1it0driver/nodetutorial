@@ -898,16 +898,16 @@ function send_query(other){
 
         var s = new XMLHttpRequest();
         s.open("POST", "/api", true);
-        //console.log("send_query 1", typeof(JSON.stringify(text)));
+        console.log("send_query 1", typeof(JSON.stringify(text)));
         s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         s.onreadystatechange = function () {
-            //console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
+            console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
           if (s.readyState != 4 || s.status != 200){
             //   respond(messageInternalError,null);
               return;
           }
           var temporal=JSON.parse(s.responseText);
-         // console.log("temporal",temporal);
+         console.log("CCmain temporal",temporal);
         //   console.log(data);
         //   alert("Success: " + temporal);
         //   datos=data.result.fulfillment.messages;

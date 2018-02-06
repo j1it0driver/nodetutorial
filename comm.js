@@ -3,7 +3,7 @@
 module.exports = {
 
     process_req: function (data, sessionID) {
-        console.log("process_req");
+        console.log("SScomm process_req");
         return new Promise(function(resolve,reject){
             var apiai = require('apiai');
             var cookie = require('cookie');

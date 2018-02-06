@@ -10,7 +10,7 @@ var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
 
 function apiaiResponseFormat(speech,displayText,data, contextOut){
-    console.log("response format");
+    console.log("SSwkresponse format");
     return{
         "speech": speech,
         "display": displayText,
@@ -22,7 +22,7 @@ function apiaiResponseFormat(speech,displayText,data, contextOut){
 
 var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenger
     var body = req.body;
-    console.log("body wh request",body);
+    console.log("SSwk body wh request",body);
     var speech, displayText, data=[],  contextOut=[];
     // var cookies=req.cookies;
     // console.log(cookies);
@@ -129,7 +129,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 // else{
                     console.log("SSwk asset searched2", assetSearched);
                     userCode='oyet6qi08k0axpiVx0tDBA==';
-                    userCode=serverData.Code;
+                    //userCode=serverData.Code;
                     domain="TADVISOR";
                     language="es-ES";
                     token='whatever';
