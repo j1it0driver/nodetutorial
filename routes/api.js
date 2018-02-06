@@ -75,5 +75,5 @@ router.post('/event', function(req,res) {
 
 
 // module.exports.cookies_s = cookies_s;
-module.exports = router; 
-//module.exports.router = router; 
+//module.exports = router; 
+module.exports.router = router; 
