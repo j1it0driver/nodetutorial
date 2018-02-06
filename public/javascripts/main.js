@@ -417,10 +417,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         }
         else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
             printButton(spokenResponse[i].payload.items);
-            if (spokenResponse[i].payload.dataVar.username){
-                username=spokenResponse[i].payload.dataVar.username;
-                createCookie("username",username,365);
-            }
+            // if (spokenResponse[i].payload.dataVar.username){
+            //     username=spokenResponse[i].payload.dataVar.username;
+            //     createCookie("username",username,365);
+            // }
             if (spokenResponse[i].payload.dataVar.investedBefore){
                 investedBefore=spokenResponse[i].payload.dataVar.investedBefore;
                 createCookie("investedBefore",investedBefore,365);
