@@ -26,19 +26,19 @@ module.exports = {
                 
 
             } else{
-                console.log("es un text requests y el data es:", data);
+                console.log("SScomm es un text requests y el data es:", data);
                 var request = app.textRequest(data.text, {
                     sessionId : sessionID
                 });
             }
             request.on('response', function(response) {
-                console.log("La respuesta" + response);
+                console.log("SScommLa respuesta" + response);
                 resolve(response);
                 // console.log(datos);
             });
             request.on('error', function(error) {
                 reject(error);
-                console.log('Error in comm.js: '+error);
+                console.log('SScomm Error in comm.js: '+error);
             });
             request.end();
         });
