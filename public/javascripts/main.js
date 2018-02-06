@@ -371,7 +371,7 @@ function updateRec() {
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // console.log("prepare response",val);
     console.log("prepare response",val);
-    console.log("prueba inside main/prepareResponse()2",myServerDataJS);
+    //console.log("prueba inside main/prepareResponse()2",myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;
@@ -496,7 +496,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
     sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
     var synth= window.speechSynthesis;
-    console.log("synth",synth);
+    //console.log("synth",synth);
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
@@ -527,7 +527,7 @@ function respond(val, valLinks) { // function to print a text into chat message 
             }
         }
     }
-    console.log("is speaking: ", synth.speaking);
+    //console.log("is speaking: ", synth.speaking);
     // alert("Speaking: "+ synth.speaking);
 
     if ('speechSynthesis' in window) {
@@ -1111,7 +1111,7 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
-        console.log(temporal);
+        console.log("response SendEmail ACtion"temporal);
     alert("Reference Number: " + temporal.reference);
 
     $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
