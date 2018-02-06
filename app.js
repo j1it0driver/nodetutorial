@@ -16,6 +16,7 @@ var api = require('./routes/api');
 var users = require('./routes/users');
 var webhook = require('./routes/webhook');
 var mailing = require('./routes/sayHello');
+var serverData = require('./routes/serverData');
 
 
 //console.log('The value of PORT is:', process.env);
@@ -50,6 +51,7 @@ app.use('/api', api.router);
 app.use('/users', users);
 app.use('/webhook', webhook);
 app.use('/sayHello', mailing);
+app.use('/serverData', mailing);
 console.log("ok app.js");
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
