@@ -1196,7 +1196,7 @@ function updateUserData(myServerDataJS){ // send info from tadvisor-server to No
         if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
         console.log("CCmain response updateUserData",temporal);
-        alert("user Data updated " + temporal);
+        alert("user Data updated " + JSON.stringify(temporal));
 
         // $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
 
