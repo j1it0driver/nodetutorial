@@ -420,28 +420,6 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             if(payload.items){
                 printButton(payload.items);
             }
-            
-            // if (payload.dataVar.username){
-            //     username=payload.dataVar.username;
-            //     createCookie("username",username,365);
-            // }
-            // if (payload.dataVar.investedBefore){
-            //     investedBefore=payload.dataVar.investedBefore;
-            //     createCookie("investedBefore",investedBefore,365);
-            // }
-            // if (payload.dataVar.saveTopic){
-            //     saveTopic=payload.dataVar.saveTopic;
-            //     createCookie("saveTopic",saveTopic,365);
-            // }
-            // if (payload.dataVar.goal){
-            //     goal=payload.dataVar.goal;
-            //     createCookie("goal",goal,365);
-            // }
-            // if (payload.dataVar.goal){
-            //     goal=payload.dataVar.goal;
-            //     createCookie("goal",goal,365);
-            // }
-        
             if (payload.slide) { //type 4 is a custompayload
                 printSliderSelector(payload.slide.name);
             }
@@ -479,7 +457,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                     createCookie("goal",goal,365);
                 }
                 if (payload.dataVar.profileQuestions){
-                    profileQuestions=payload.dataVar.profileQuestions;
+                    //profileQuestions[payload.dataVar.profileQuestions[1]]=payload.dataVar.profileQuestions;
+                    Object.assign(profileQuestions,payload.dataVar.profileQuestions);
+                    console.log('profileQuestions',profileQuestions);
                     // createCookie("goal",goal,365);
                 }
             }
