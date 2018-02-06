@@ -15,10 +15,10 @@ var router = express.Router();
 router.post('/', function(req, res) { //api.ai for nodejs
     cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionID= cookies_s.sessionID;
-    console.log("api.js sessionId",cookies_s.sessionID);
+    console.log("SSapi api.js sessionId",cookies_s.sessionID);
     //var data = req.body.val;
     var data = req.body;
-    console.log("api.js data from /api ",req.body);
+    console.log("SSapi api.js data from /api ",req.body);
 
     /////
     // if(data.event){     
@@ -53,17 +53,17 @@ router.post('/', function(req, res) { //api.ai for nodejs
 
 //////7
     comm.process_req(data, sessionID).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript
-        console.log("api.js datos from SDK", datos);
+        console.log("SSapi api.js datos from SDK", datos);
         res.send(datos);
     });
     // console.log('cookies from api: ', cookies_s);
 });
 router.post('/event', function(req,res) {
-    console.log("api.js api/event");
+    console.log("SSapi api.js api/event");
     cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionID= cookies_s.sessionID;
     var data = req.body;
-    console.log("api.js data from api/event",data);
+    console.log("SSapi api.js data from api/event",data);
 
 
     comm.process_req(data, sessionID).then(function(datos){ //https://www.pluralsight.com/guides/front-end-javascript/introduction-to-asynchronous-javascript

@@ -47,12 +47,12 @@ app.use(lessMiddleware(path.join(__dirname, 'public'))); //middleware from less-
 app.use(express.static(path.join(__dirname, 'public'))); //middleware from express (to asign a public directorie for easy access:static to resources)
 
 app.use('/', index); // path and function to execute (routes)
-app.use('/api', api.router);
+app.use('/api', api);
 app.use('/users', users);
 app.use('/webhook', webhook);
 app.use('/sayHello', mailing);
 app.use('/serverData', serverData);
-console.log("SSok app.js");
+console.log("SSapp app.js");
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

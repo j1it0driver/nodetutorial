@@ -27,40 +27,40 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     // var cookies=req.cookies;
     // console.log(cookies);
     if (!body | !body.result.action){
-        console.log('SSmissing action in: '+body.result.metadata.intentName+' intent');
+        console.log('SSwk missing action in: '+body.result.metadata.intentName+' intent');
     }
     else {
         var action = body.result.action;
         if (body.result.parameters){
             var param = body.result.parameters;
-            console.log("SSparameters: ", param);
+            console.log("SSwk parameters: ", param);
         }
-        console.log('SSAction is: '+action);
+        console.log('SSwk Action is: '+action);
         switch(action){
             case 'user_Evaluation':
-                console.log('SSprint user data',username);
-                console.log("SSuser_Evaluation from wk", param);
+                console.log('SSwk print user data',username);
+                console.log("SSwk user_Evaluation from wk", param);
                 var json = apiaiResponseFormat(speech='This is an userEvaluation test.', displayText='This is an userEvaluation test.');
                 res.json(json);//response to be print on chat.
                 break;
 
             case 'my_action':
-                console.log("SSmyaction");
+                console.log("SSwk myaction");
                 var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
                 res.json(json);
                 break;
 
             case 'add_Asset':
-                console.log("SSadd asset to portfolio");
+                console.log("SSwk add asset to portfolio");
                 if(param.assetToAdd){
                     var amount=0, array;
-                    console.log("SSinside if");
+                    console.log("SSwk inside if");
                     var assetToAdd = param.assetToAdd;
                     if(assetToAdd.match(" - ")){
                         array=assetToAdd.split(' - ');
                         assetToAdd=array[0];
                         amount=array[1];
-                        console.log("SSarray", array)
+                        console.log("SSwk array", array)
 
                     }
                     console.log("SSwk assettoadd y amount",assetToAdd,amount);
