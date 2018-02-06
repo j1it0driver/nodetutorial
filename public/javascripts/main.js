@@ -27,7 +27,7 @@ var x, i, j, k;
 var visits;
 var sessionID=null;
 // INTRO option: responses from user
-var username, investedBefore, saveTopic, goal;
+var username, investedBefore, saveTopic, goal, profileQuestions;
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
@@ -478,9 +478,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                     goal=payload.dataVar.goal;
                     createCookie("goal",goal,365);
                 }
-                if (payload.dataVar.goal){
-                    goal=payload.dataVar.goal;
-                    createCookie("goal",goal,365);
+                if (payload.dataVar.profileQuestions){
+                    profileQuestions=payload.dataVar.profileQuestions;
+                    // createCookie("goal",goal,365);
                 }
             }
         }
