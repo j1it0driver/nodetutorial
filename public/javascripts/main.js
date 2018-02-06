@@ -373,6 +373,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     // console.log("prepare response",val);
     console.log("prepare response",val);
     //console.log("prueba inside main/prepareResponse()2",myServerDataJS);
+    updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
     var webhookData = val.result.fulfillment.data;//?????? parece que no existe

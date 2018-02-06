@@ -132,7 +132,7 @@
         var serverEvent=window.parent;
 
         function sendGetData(event){
-            serverEvent.postMessage(myClientDataJS, originHost).then(updateUserData(myServerDataJS));
+            serverEvent.postMessage(myClientDataJS, originHost);
         }
         
         window.addEventListener('message', function(event){
