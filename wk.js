@@ -27,46 +27,46 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
     // var cookies=req.cookies;
     // console.log(cookies);
     if (!body | !body.result.action){
-        console.log('missing action in: '+body.result.metadata.intentName+' intent');
+        console.log('SSmissing action in: '+body.result.metadata.intentName+' intent');
     }
     else {
         var action = body.result.action;
         if (body.result.parameters){
             var param = body.result.parameters;
-            console.log("parameters: ", param);
+            console.log("SSparameters: ", param);
         }
-        console.log('Action is: '+action);
+        console.log('SSAction is: '+action);
         switch(action){
             case 'user_Evaluation':
-                console.log('print user data',username);
-                console.log("user_Evaluation from wk", param);
+                console.log('SSprint user data',username);
+                console.log("SSuser_Evaluation from wk", param);
                 var json = apiaiResponseFormat(speech='This is an userEvaluation test.', displayText='This is an userEvaluation test.');
                 res.json(json);//response to be print on chat.
                 break;
 
             case 'my_action':
-                console.log("myaction");
+                console.log("SSmyaction");
                 var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
                 res.json(json);
                 break;
 
             case 'add_Asset':
-                console.log("add asset to portfolio");
+                console.log("SSadd asset to portfolio");
                 if(param.assetToAdd){
                     var amount=0, array;
-                    console.log("inside if");
+                    console.log("SSinside if");
                     var assetToAdd = param.assetToAdd;
                     if(assetToAdd.match(" - ")){
                         array=assetToAdd.split(' - ');
                         assetToAdd=array[0];
                         amount=array[1];
-                        console.log("array", array)
+                        console.log("SSarray", array)
 
                     }
-                    console.log("assettoadd y amount",assetToAdd,amount);
+                    console.log("SSwk assettoadd y amount",assetToAdd,amount);
                     assetsToAdd.push({"asset" : assetToAdd, "amount": amount});
-                    console.log("AddAsset_Portfolio", assetToAdd);
-                    console.log("Assets to add", assetsToAdd);
+                    console.log("SSwk AddAsset_Portfolio", assetToAdd);
+                    console.log("SSwk Assets to add", assetsToAdd);
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
                     displayText=speech= "You investment of <i>"+portfolio_currency+" "+amount+"</i> on asset: <b>"+assetToAdd+"</b>, was added to your portfolio. Do you want to add more assets?";
                     data= {"items": ["Add more", "Finish"]};
@@ -75,14 +75,14 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     {"name":"existing_portfolio","lifespan":"1", "parameters":{"assetSearched":"'"+assetsToAdd+"'"}},
                     {"name":"existingportfoliointention2-followup","lifespan":"2", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
                     {"name":"existing_portfolio_intention2-followup","lifespan":"2", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}}];
-                    console.log(data);
+                    console.log("SSwk add_asset data",data);
                     var json = apiaiResponseFormat(speech, displayText, data, contextOut);
                     res.json(json);
                 }
                 break;
 
             case "send_Email":
-                console.log('send email from server');
+                console.log('SSwk send email from server');
                 displayText=speech="Sending Email";
                 data={"nada":"vacio"};
                 var json=apiaiResponseFormat(speech, displayText,data,null);
@@ -90,7 +90,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
 
             case "show_portfolio":
-                console.log("Showing portfolio");
+                console.log("SSwk Showing portfolio");
                 displayText=speech="SUMMARY";
                 data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsToAdd, "searchedAssets": assetsSearched};
                 // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
@@ -104,14 +104,14 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
 
             case 'search_Asset':
-                console.log("SearchAssetHandler");
+                console.log("SSwk SearchAssetHandler");
                 if(param.portfolio_currency && param.portfolio_name){
                     global.portfolio_name=param.portfolio_name;
                     global.portfolio_currency=param.portfolio_currency;
                 }
 
-                console.log("name of portfolio", portfolio_name);
-                console.log("currency for portfolio", portfolio_currency);
+                console.log("SSwk name of portfolio", portfolio_name);
+                console.log("SSwk currency for portfolio", portfolio_currency);
                 var assetSearched=param.assetSearched.toLowerCase();
                 assetsSearched.push(assetSearched);
 
@@ -127,7 +127,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     iAdvisor= 1;
                 // }
                 // else{
-                    console.log("asset searched2", assetSearched);
+                    console.log("SSwk asset searched2", assetSearched);
                     userCode='oyet6qi08k0axpiVx0tDBA==';
                     domain="TADVISOR";
                     language="es-ES";
@@ -157,7 +157,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     });
                 });
                 call.on('error', (e) => {
-                    console.error("error searching assets",e);
+                    console.error("SSwk error searching assets",e);
                 });
                 call.end();
                 // handlers.SearchAssetHandler("telefonica", function(){

@@ -52,7 +52,7 @@ app.use('/users', users);
 app.use('/webhook', webhook);
 app.use('/sayHello', mailing);
 app.use('/serverData', mailing);
-console.log("ok app.js");
+console.log("SSok app.js");
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
