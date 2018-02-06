@@ -85,6 +85,7 @@ $(document).ready(function() {
     console.log("iOS device", _iOSDevice);
     //sendGetData(serverEvent);
     console.log("prueba inside main/prepareResponse()",myServerDataJS); 
+    updateUserData(myServerData);
     // console.log(uSession);
     visits();
     username();
@@ -1188,7 +1189,7 @@ function evaluateUser(questionsResponses){
     // r.send(JSON.stringify(mailOptions));
 }
 
-function updateUserData(myServerDataJS){ // send info from tadvisor-server to NodeJS Server
+function updateUserData(myServerData){ // send info from tadvisor-server to NodeJS Server
     var r = new XMLHttpRequest();
     r.open("POST", "/serverData", true);
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -1211,6 +1212,6 @@ function updateUserData(myServerDataJS){ // send info from tadvisor-server to No
     //     'body': document.getElementById(formBodyId).value //, // plaintext body
     //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
     // };
-    console.log("CCmain ServerData",myServerDataJS);
-    r.send(JSON.stringify(myServerDataJS));
+    console.log("CCmain ServerData",myServerData);
+    r.send(JSON.stringify(myServerData));
 }
