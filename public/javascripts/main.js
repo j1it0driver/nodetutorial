@@ -381,10 +381,11 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     //     var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
     //     var webhookAction = val.result.action;
     // }
-
+    
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){
+        var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH
             messagePrint2= spokenResponse[i].speech;
             // messagePrint2= spokenResponse[i];
@@ -415,47 +416,69 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printPortfolio(webhookData);
             }
         }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.items) { //type 4 is a custompayload
-            printButton(spokenResponse[i].payload.items);
-            // if (spokenResponse[i].payload.dataVar.username){
-            //     username=spokenResponse[i].payload.dataVar.username;
+        else if (spokenResponse[i].type==4 && payload.items) { //type 4 is a custompayload
+            printButton(payload.items);
+            // if (payload.dataVar.username){
+            //     username=payload.dataVar.username;
             //     createCookie("username",username,365);
             // }
-            if (spokenResponse[i].payload.dataVar.investedBefore){
-                investedBefore=spokenResponse[i].payload.dataVar.investedBefore;
+            // if (payload.dataVar.investedBefore){
+            //     investedBefore=payload.dataVar.investedBefore;
+            //     createCookie("investedBefore",investedBefore,365);
+            // }
+            // if (payload.dataVar.saveTopic){
+            //     saveTopic=payload.dataVar.saveTopic;
+            //     createCookie("saveTopic",saveTopic,365);
+            // }
+            // if (payload.dataVar.goal){
+            //     goal=payload.dataVar.goal;
+            //     createCookie("goal",goal,365);
+            // }
+            // if (payload.dataVar.goal){
+            //     goal=payload.dataVar.goal;
+            //     createCookie("goal",goal,365);
+            // }
+        }
+        else if (spokenResponse[i].type==4 && payload.slide) { //type 4 is a custompayload
+            printSliderSelector(payload.slide.name);
+        }
+        else if (spokenResponse[i].type==4 && payload.imgButton) { //type 4 is a custompayload
+            printImgButton(payload.imgButton.name,payload.imgButton.data); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && payload.sendEvent) { //type 4 is a custompayload
+            prepare_event(payload.sendEvent.name, payload.sendEvent.data); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && payload.img) { //type 4 is a custompayload
+            printImgAndText(payload.img.name, payload.img.data, payload.img.data["text"],payload.img.data["link"]); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && payload.login) { //type 4 is a custompayload
+            appendHtml("left");
+            printLogin('login', payload.login.username, payload.login.password); //envio el nombre y los datos del payload
+        }
+        else if (spokenResponse[i].type==4 && payload.lists) { //type 4 is a custompayload
+            display_lists(); //envio el nombre y los datos del payload
+        }
+        else if(spokenResponse[i].type==4 && payload.dataVar){
+            if (payload.dataVar.username){
+                username=payload.dataVar.username;
+                createCookie("username",username,365);
+            }
+            if (payload.dataVar.investedBefore){
+                investedBefore=payload.dataVar.investedBefore;
                 createCookie("investedBefore",investedBefore,365);
             }
-            if (spokenResponse[i].payload.dataVar.saveTopic){
-                saveTopic=spokenResponse[i].payload.dataVar.saveTopic;
+            if (payload.dataVar.saveTopic){
+                saveTopic=payload.dataVar.saveTopic;
                 createCookie("saveTopic",saveTopic,365);
             }
-            if (spokenResponse[i].payload.dataVar.goal){
-                goal=spokenResponse[i].payload.dataVar.goal;
+            if (payload.dataVar.goal){
+                goal=payload.dataVar.goal;
                 createCookie("goal",goal,365);
             }
-            if (spokenResponse[i].payload.dataVar.goal){
-                goal=spokenResponse[i].payload.dataVar.goal;
+            if (payload.dataVar.goal){
+                goal=payload.dataVar.goal;
                 createCookie("goal",goal,365);
             }
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.slide) { //type 4 is a custompayload
-            printSliderSelector(spokenResponse[i].payload.slide.name);
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.imgButton) { //type 4 is a custompayload
-            printImgButton(spokenResponse[i].payload.imgButton.name,spokenResponse[i].payload.imgButton.data); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.sendEvent) { //type 4 is a custompayload
-            prepare_event(spokenResponse[i].payload.sendEvent.name, spokenResponse[i].payload.sendEvent.data); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.img) { //type 4 is a custompayload
-            printImgAndText(spokenResponse[i].payload.img.name, spokenResponse[i].payload.img.data, spokenResponse[i].payload.img.data["text"],spokenResponse[i].payload.img.data["link"]); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.login) { //type 4 is a custompayload
-            appendHtml("left");
-            printLogin('login', spokenResponse[i].payload.login.username, spokenResponse[i].payload.login.password); //envio el nombre y los datos del payload
-        }
-        else if (spokenResponse[i].type==4 && spokenResponse[i].payload.lists) { //type 4 is a custompayload
-            display_lists(); //envio el nombre y los datos del payload
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
