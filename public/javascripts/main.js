@@ -1,9 +1,6 @@
-// (function(){
+
   'use strict';
 
-//var baseUrl = "https://api.api.ai/v1/", version="20170810";
-//var baseUrl = "https://api.api.ai/v1/", version="20170712";
-//var baseUrl = "https://api.dialogflow.com/v1/", version="20170712";
 var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
 var recognition,
 messageRecording = "Recording...",
@@ -15,8 +12,6 @@ var str="", datos, bubble_id=0, printIndex=bubble_id-1;
 var datestr;
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
 var uname, psw;
-//var baseUrl_H="https://towersoa.wmptech.com/SOA/tower4customers/";
-//var baseUrl_P="https://mytadvisor.com/SOA/tower4customers/";
 var domain="TADVISOR";
 var language=null, userId=null, userCode=null, userPass=null, tokenString=null, views=null, clientId=null, token=null, email=null;
 var chat_bubbleId=[];
@@ -37,71 +32,23 @@ navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
-// window.onload = maxWindow;
-
-// $(function() {
-// (function($) {
-//     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-//
-//     $.fn.attrchange = function(callback) {
-//         if (MutationObserver) {
-//             var options = {
-//                 subtree: false,
-//                 attributes: true
-//             };
-//
-//             var observer = new MutationObserver(function(mutations) {
-//                 mutations.forEach(function(e) {
-//                     callback.call(e.target, e.attributeName);
-//                 });
-//             });
-//
-//             return this.each(function() {
-//                 observer.observe(this, options);
-//             });
-//
-//         }
-//     }
-// })(jQuery);
-// $("#popupPanel-screen").attrchange(function(attrName) {
-//
-//     if(attrName=='class'){
-//             alert('class changed');
-//     }else if(attrName=='id'){
-//             alert('id changed');
-//     }else{
-//         //OTHER ATTR
-//     }version
-//
-// });
-// });
-// document.addEventListener("DOMContentLoaded", function(){ //faster doesn t work on IE9-
-  // Handler when the DOM is fully loaded vs  $(document).ready(function() {
 
 $(document).ready(function() {
     window.speechSynthesis.cancel();
     console.log("Browser/OS:", bowser.name, bowser.osname);
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
-    //sendGetData(serverEvent);
-    //console.log("prueba inside main/prepareResponse()",myServerDataJS); 
-    //updateUserData(myServerDataJS);
-    // console.log(uSession);
+
     visits();
     username();
     send_event('custom_event', username); // evento que acciona el primer intent de intro
     sessionID=readCookie("sessionID");
-    // eraseCookie("sessionID");
-    //eraseCookie("visits");
+
     $('[data-toggle="tooltip"]').tooltip();
-    // $("[data-toggle=tooltip]").tooltip();
-    // send_event('custom_event','Guest');
-    // $("#popupPanel-screen").bind('DOMSubtreeModified', function(e) {
-    //     alert('class changed');
-    // });
+
     x = {
       bubble_idInternal: bubble_id,
-      bubble_idListener: function(val) {},//     }
+      bubble_idListener: function(val) {},
 
       set bubble_id(val) {
         this.bubble_idInternal = val;
@@ -184,11 +131,6 @@ $(document).ready(function() {
        if(!sonido)
        window.speechSynthesis.cancel();
     });
-    // $("").click(function(event) {
-    //     if (event.keyCode == 13) {
-    //     event.preventDefault();
-    // }
-    //});
 
     $("#"+printIndex+"InputAmountId").click(function(event) {
       if (event.keyCode == 13) {
@@ -247,7 +189,7 @@ function visits(){
 
 function username(){
     if(!checkCookie("username")){
-        //username="New Guest";
+
         username=myServerDataJS.Name;
     }else{
         username=readCookie("username");
@@ -422,9 +364,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
   "timestamp": "2017-09-19T21:16:44.832Z"
 } */
 
-    // console.log("prepare response",val);
+
     console.log("prepare response",val);
-    //console.log("prueba inside main/prepareResponse()2",myServerDataJS);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
@@ -437,10 +378,6 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     var webhookData = val.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
     var webhookAction = val.result.action;
     var webhookParameters = val.result.parameters;
-  /*   if (val.result.action!="" && val.result.fulfillment.data!=""){ //evaluates if there is an action from apiai (webhook)
-        var webhookData = val.result.fulfillment.data; //Extract data sended from webhook
-        var webhookAction = val.result.action;
-    } */
     
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
@@ -454,18 +391,16 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
              ] */
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
             messagePrint2= spokenResponse[i].speech;
-            // messagePrint2= spokenResponse[i];
+    
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-            // messagesPrint+=  "> "+ dataObj + "<br />";
+
             for (j=0;j< spokenResponse.length; j++){ //add links on displayed text
                 if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
                     dataObjLinks=putLinks(spokenResponse[j].payload.links,dataObj);
                 }
             }
-            // respond(messagePrint2);
             respond(dataObj,dataObjLinks);
         }
-        // console.log("webhook data",webhookData);
         if(webhookData){ // do something with data returned by webhook  , but action are called directly from DialogFlow with webhook referenced to /webhook/action
             console.log("webhook data",webhookData);
             if(webhookAction=="search_Asset"){
@@ -527,16 +462,13 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                     createCookie("goal",goal,365);
                 }
                 if (payload.dataVar.profileQuestions){
-                    //profileQuestions[payload.dataVar.profileQuestions[1]]=payload.dataVar.profileQuestions;
                     profileQuestions=Object.assign(profileQuestions,payload.dataVar.profileQuestions);
                     console.log('profileQuestions',profileQuestions);
-                    // createCookie("goal",goal,365);
                 }
                 if (payload.dataVar.createPortfolio){
-                    //profileQuestions[payload.dataVar.profileQuestions[1]]=payload.dataVar.profileQuestions;
+
                     createPortfolio=Object.assign(createPortfolio,payload.dataVar.createPortfolio);
                     console.log('Create Portfolio vars',createPortfolio);
-                    // createCookie("goal",goal,365);
                 }
             }
         }
@@ -558,7 +490,6 @@ function debugRespond(val) {
 }
 
 function respond(val, valLinks) { // function to print text into chat message and to speech the text outloud
-    // valor=val.speech;
 
     var toAppend, sentences=null, sentence=null, sentencesArray;
     if (valLinks==null){
@@ -567,12 +498,10 @@ function respond(val, valLinks) { // function to print text into chat message an
     if (valLinks == "") {
         valLinks = messageSorry;
     }
-    // sentences=val.split(".");
     sentences=val;
     sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
     var synth= window.speechSynthesis;
-    //console.log("synth",synth);
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
@@ -581,8 +510,6 @@ function respond(val, valLinks) { // function to print text into chat message an
             console.log("Speech Synth Msg", msg);
             var voices = synth.getVoices();
             console.log("voices", voices);
-            // var voices = window.speechSynthesis.getVoices();
-            //msg.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Female'; })[0];
             msg.voice = voices[0];
             msg.voiceURI = "native";
             msg.volume = 0.2;
@@ -591,11 +518,9 @@ function respond(val, valLinks) { // function to print text into chat message an
             msg.text = sentence;
             msg.lang = "en-GB";
             synth.speak(msg);
-            // window.speechSynthesis.speak(msg);
             msg.onerror = function(event) {
                 console.log(event);
                 console.log('An error has occurred with the speech synthesis: ' + event.error);
-                // alert("Error Speaking: "+ event.error);
             }
             if(iOS){
                 console.log("I'm iOS");
@@ -603,27 +528,18 @@ function respond(val, valLinks) { // function to print text into chat message an
             }
         }
     }
-    //console.log("is speaking: ", synth.speaking);
-    // alert("Speaking: "+ synth.speaking);
 
     if ('speechSynthesis' in window) {
-     // Synthesis support. Make your web apps talk!
+
     }
 
     if ('SpeechRecognition' in window) {
       // Speech recognition support. Talk to your apps!
     }
-    // dataObj = eval('\"'+ jsonEscape(valor) +'\"');
-    // valor=putLinks(val.payload.links,valor);
+
     toAppend="<h6 class='mb-0 d-block'>"+valLinks+"</h6>";
     appendHtml("left",toAppend);
     $speechInput.blur();
-    // $speechInput.focus();
-
-// setTimeout(function() { //function to avoid speak stops after 15-seg's bug.
-//   speechSynthesis.pause();
-//   speechSynthesis.resume();
-// }, 10000);
 }
 
 function spokenRespond (val){
@@ -634,25 +550,14 @@ function spokenRespond (val){
     $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
 }
 
-
-
-
-
 function send_event(eventName,valor){
     var r = new XMLHttpRequest();
     
     r.open("POST", "/api/event", true);
-    //console.log("send_event 1");
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
-        //console.log("send_event 2",r.readyState,r.status, r.statusText, r.responseText);
-
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
-      //var temporal2=JSON.parse(r);
-
-    //console.log("temporal",temporal);
-    //alert("Success: " + temporal);
       datos=temporal.result.fulfillment.messages;
       prepareResponse(temporal);
     };
@@ -663,30 +568,7 @@ function send_event(eventName,valor){
     $speechInput.blur();
 }
 
-// function printButton(arrayList){
-//     var printButton_i="";
-//     var toAppend;
-//     buttonIds[i]=null;
-//     for(var i in arrayList){
-//     // for(i=0;i<arrayList.length;i++){
-//         buttonIds[i]=createIdFromText(var data = req.body.val;arrayList[i]);
-//         printButton_i+=
-//                 "<button class='listButton btn btn-outline-primary btn-sm m-1' id='"+buttonIds[i]+"' name='listButton"+i+"' onclick=\"quickReplyF('"+arrayList[i]+"','"+buttonIds[i]+"',"+'buttonIds'+")\" style='display: inline-block;'>"+
-//                     arrayList[i]+
-//                 "</button>";
-//         // $("#"+buttonIds[i]).onclick= quickReplyF(arrayList[i], buttonIds[i], buttonIds);
-//     }
-//     toAppend="<div class='quick-reply-button d-block text-center'>"+
-//                 printButton_i+
-//             "</div>";
-
-//     appendHtml(toAppend,"left");
-// }
 function printButton(arrayList){
-    // appendHtml("left");
-    // var printButton_i="";
-    // var toAppend="";
-    // var printIndex= bubble_id-1;
     buttonIds=[];
     $("<div class='quick-reply-button d-var data = req.body.val;block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in arrayList){
@@ -709,7 +591,6 @@ function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
     }
     document.getElementById(buttonIdSelected).classList.add("responseBtn");
-    // $('#'+buttonIdSelected).addClass("responseBtn");
     document.getElementById(buttonIdSelected).disabled = true;
     if(callback) {
         callback();
@@ -722,7 +603,6 @@ function createIdFromText(idText){// idText viene en Formato de texto tal y como
 }
 
 function printSliderSelector(sliderName){
-    // var printIndex = bubble_id-1;
     var sliderId = printIndex+createIdFromText(sliderName);
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     $("<div class='slidecontainer px-2'><input type='range' min='0' max='100000' step='5000' value='30000' class='slider w-100' id='"+sliderId+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
@@ -733,8 +613,7 @@ function printSliderSelector(sliderName){
     output.html(addCommas(slider.value));
     $speechInput.val(slider.value);
     slider.oninput = function() {
-          output.html(addCommas(this.value));
-        // output.html(this.value.toLocaleString("en", {maximumFractionDigits:2,minimumFractionDigits: 2})); //toLocaleString to conver to money format
+        output.html(addCommas(this.value));
         $speechInput.val(this.value);
     }
 }
@@ -747,7 +626,6 @@ function sendSlice(sliderId){
  }
 
 function printImgButton(imgBtnName, imgBtnList){
-    // var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
@@ -796,7 +674,6 @@ function wait_time(timer){
 
 function just_wait(timer, callback){
     timeout2 = setTimeout(function () {
-        //console.log("just_wait finish");
 }, timer);
     if(callback) {
         callback();
@@ -804,7 +681,6 @@ function just_wait(timer, callback){
 }
 
 function printImgAndText(name, data, text, link){
-    // var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     var itemName;
@@ -822,11 +698,9 @@ function printImgAndText(name, data, text, link){
         itemName="Ver detalle";
         $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-    // searchAssets("prueba");
 }
 
 function printLogin(type, username,password) {
-    // var printIndex = bubble_id-1;
     if(type=='login'){
         $("<div class='loginForm'><label><b>Username</b></label><input id='uname"+printIndex+"' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' id='password"+printIndex+"' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
         $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login() >Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
@@ -835,43 +709,8 @@ function printLogin(type, username,password) {
         }
 
         toDisable=["uname"+printIndex ,"password"+printIndex,"loginBtn"+printIndex,"cancelLoginBtn"+printIndex];
-        // clientHandler();
-        // var toAppend;
-        // toAppend="<div class='loginForm'>"+
-        //     // "<form action="">"+
-        //     "<label><b>Username</b></label>"+
-        //     "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
-        //     "<label><b>Password</b></label>"+
-        //     "<input type='password' placeholder='Enter Password' name='psw' required>"+
-        //     "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
-        //     "<label><input type='checkbox' checked='checked'> Remember me</label>"+
-        // // "</form>"+
-        // "</div>"+
-        // "<div class='' style=''>"+
-        //   "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
-        //   "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
-        // "</div>";
-        // appendHtml("left",toAppend);
     }
 }
-// function printLogin(type, username,password) {
-//     var toAppend;
-//     toAppend="<div class='loginForm'>"+
-//         // "<form action="">"+
-//         "<label><b>Username</b></label>"+
-//         "<input id='uname' type='text' placeholder='Enter Username' name='uname' required>"+
-//         "<label><b>Password</b></label>"+
-//         "<input type='password' placeholder='Enter Password' name='psw' required>"+
-//         "<button class='formBtn' type='submit' onclick=send_login()>Login</button>"+
-//         "<label><input type='checkbox' checked='checked'> Remember me</label>"+
-//     // "</form>"+
-//     "</div>"+
-//     "<div class='' style=''>"+
-//       "<button class='formBtn' type='button' class='cancelbtn'>Cancel</button>"+
-//       "<span class='psw'>Forgot <a href='#'>password?</a></span>"+
-//     "</div>";
-//     appendHtml("left",toAppend);
-// }
 
 function send_login(){
 
@@ -884,7 +723,6 @@ function send_login(){
     psw=$("input[name='psw']").val();
     domain="TADVISOR";
     language= navigator.language || navigator.userLanguage;
-    // login(uname,psw,domain,language);
     login(uname,psw,domain,language,function(){
         reload_menu();
     }); //handlers.js
@@ -915,7 +753,6 @@ function appendHtml(bubbleSide, toAppend){//append bubble
         chatHistoryDiv.append(
             "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
                 "<div class='media col-12 pr-4'>"+
-                    // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
                     "<div class='media-body my-3' id='chatBubbleDiv"+bubble_id+"'>"+
                         "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
                     "</div>"+
@@ -927,7 +764,6 @@ function appendHtml(bubbleSide, toAppend){//append bubble
         chatHistoryDiv.append(
             "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
                 "<div class='media col-12 pr-4'>"+
-                    // "<img class='d-flex align-self-center mr-5 rounded-circle' src='/images/avatartadvisor0.png' alt='Generic placeholder image' height='50'>"+
                     "<div class='media-body my-3' id='chatBubbleDiv"+bubble_id+"'>"+
                         toAppend+
                         "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
@@ -972,38 +808,16 @@ function send_query(other){
         s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         s.onreadystatechange = function () {
             console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
-          if (s.readyState != 4 || s.status != 200){
+            if (s.readyState != 4 || s.status != 200){
             //   respond(messageInternalError,null);
               return;
-          }
-          var temporal=JSON.parse(s.responseText);
-         console.log("CCmain temporal",temporal);
-        //   console.log(data);
-        //   alert("Success: " + temporal);
-        //   datos=data.result.fulfillment.messages;
-          prepareResponse(temporal);
+            }
+            var temporal=JSON.parse(s.responseText);
+            console.log("CCmain temporal",temporal);
+
+            prepareResponse(temporal);
         };
-        //s.send(JSON.stringify({"val": text, "data": otherData}));
         s.send(JSON.stringify({text}));
-        //s.send(text);
-        // $.ajax({
-        //     type: "POST",
-        //     // url: baseUrl + "query?v=20170810",
-        //     url: "/api",
-        //     contentType: "application/json; charset=utf-8",
-        //     dataType: "json",
-        //     headers: {
-        //     //     "Authorization": "Bearer " + accessToken
-        //     },
-        //     data: JSON.stringify({"val": text}),
-        //     success: function(data) {
-        //         datos=data.result.fulfillment.messages;
-        //         prepareResponse(data);
-        //     },
-        //     error: function() {
-        //         respond(messageInternalError,null);
-        //     }
-        // });
         $('#statusMessages').text("Message Send!");
         disableBubbles();
         toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
@@ -1014,8 +828,6 @@ function send_query(other){
 }
 
 function display_lists(){
-
-    // var printIndex = bubble_id-1;
     var imgSrc;
     var imgButton_i="";
     var itemName;
@@ -1054,36 +866,6 @@ function changeMessage(messageToAdd, messageId){
     }
 }
 
-// function searchAssets(assetText){
-//     assetText="HolaJD";
-//     $.ajax({
-//         type: "POST",
-//         // url: baseUrl + "query?v=20170810",
-//         url: "/webhook/searchAssets",
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         headers: {
-//         //     "Authorization": "Bearer " + accessToken
-//         },
-//         data: JSON.stringify({"val": assetText}),
-//         success: function(data) {
-//             console.log(data);
-//             // datos=data.result.fulfillment.messages;
-//             prepareResponse(data);
-//         },
-//         error: function() {
-//             respond(messageInternalError,null);
-//         }
-//     });
-// }
-// function apiaiResponseFormat(){
-//     return{
-//         "speech": speech,
-//         "display": displayText,
-//         "source": "myServer"
-//     }
-// }
-
 function printAssets(data,parameters){
 
     radiosId=[];
@@ -1092,32 +874,17 @@ function printAssets(data,parameters){
     for(i=0;i<data.length;i++){
         radiosId[i]=('radio'+i+printIndex);
         $("<div id='radio"+i+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Name+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Market:&nbsp;&nbsp;&nbsp;</i>"+data[i].MarketName+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Date:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPriceDate+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
-        //console.log(radiosId[i]);
     }
-    // radiosId=radiosId.split(',');
-    //console.log("radiosId", radiosId);
-
-
     $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><div class='hide-inputbtns p-2 row'><div class='col-8 input-group input-group-sm'><span class='input-group-addon' id='sizing-addon2'>"+parameters.portfolio_currency+"</span><input class='form-control' number-to-fixed='2' id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='number' min='0.00' max='1000000.00' placeholder='Enter amount'></div></div></br>").appendTo('#chatBubbleDivDiv'+printIndex);
-
     $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"submit\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button></br>").appendTo('#chatBubbleDivDiv'+printIndex);
     addMessage("If the asset is not listed, please be more specific");
-    // $("#"+printIndex+"InputAmountId").click(function(event) {
-    //   if (event.keyCode == 13) {
-    //         event.preventDefault();
-    //     }
-    // });
-
     $('#'+printIndex+'RadioBtnSendId').attr("onClick", "sendAsset('"+radioBtnSendId+"',"+'radiosId'+")");
     $('#'+printIndex+'RadioBtnRepeatId').on("click", function(){
         if(radiosId.length>0){
             $speechInput.val("");
             disableButtons(radioBtnSendId,radiosId);
-
-            // send_query();
             send_event("searchAgain",null);
-
         }
         $('#'+printIndex+'RadioBtnRepeatId')[0].disabled=true;
     });
@@ -1125,39 +892,23 @@ function printAssets(data,parameters){
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
     });
-
-        // if($speechInput.val()!=""){
-        //     if($("#"+printIndex+"InputAmountId").val() != ""){
-        //         $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
-        //     }
-        // }
+ }
     $("#"+printIndex+"InputAmountId").keyup(function(){
          if($speechInput.val()!=""){
              $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
          }
     })
-
-    /////////
-
-    // fnf = document.getElementById(""+printIndex+"InputAmountId");
-    //////////
     if(radiosId.length==0){
-        //console.log("send event to search again");
         send_event("searchAgain", null);
         return;
     }
 }
 function sendAsset(radioId,radiosId){
-    // var juju=""+printIndex+"InputAmountId";
-    // console.log("juju",juju);
     var amount = document.getElementById(""+printIndex+"InputAmountId").value;
     if($speechInput.val() != ''){
         $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
     }
-
     console.log("amount from input",amount);
-    //console.log("sendAsset Function", radiosId);
-    //console.log(typeof radiosId);
     disableButtons(radioId,radiosId);
     send_query();
 }
@@ -1188,34 +939,23 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
         alert("Reference Number: " + temporal.reference);
 
         $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
-        // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
-        // printIndex++;
-        // appendHtml("Left",toAppend);
         disableButtons(formSendButtonId, toDisable);
         send_event('custom_event', username);
-
-        //   datos=temporal.result.fulfillment.messages;
-        //   prepareResponse(temporal);
     };
     var mailOptions = {
         'name': document.getElementById(formNameId).value, // sender address
         'email': document.getElementById(formEmailId).value, // list of receivers
         'subject': document.getElementById(formSubjectId).value, // Subject line
         'body': document.getElementById(formBodyId).value //, // plaintext body
-        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
     };
     console.log("mailOptions",mailOptions);
     r.send(JSON.stringify(mailOptions));
-
     $('#statusMessages').text("Sending message");
     $speechInput.val("");
     $speechInput.blur();
 }
 function reload_menu(){
-    var le=toDisable.length
-    //console.log(toDisable);
-    //console.log(le);
-    //console.log(toDisable[le-1]);
+    var le=toDisable.length;
     if(le!=0){disableButtons(toDisable[le-1], toDisable);}
     send_event('custom_event2', username);
     toDisable=[];
@@ -1268,21 +1008,7 @@ function updateUserData(myServerData){ // send info from tadvisor-server to Node
         if (r.readyState != 4 || r.status != 200) return;
         var temporal=JSON.parse(r.responseText);
         console.log("CCmain response updateUserData",temporal);
-        //alert("user Data updated " + JSON.stringify(temporal));
-
-        // $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
-
-        // disableButtons(formSendButtonId, toDisable);
-        // send_event('custom_event', username);
-
     };
-    // var mailOptions = {
-    //     'name': document.getElementById(formNameId).value, // sender address
-    //     'email': document.getElementById(formEmailId).value, // list of receivers
-    //     'subject': document.getElementById(formSubjectId).value, // Subject line
-    //     'body': document.getElementById(formBodyId).value //, // plaintext body
-    //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-    // };
     console.log("CCmain ServerData",myServerData);
     r.send(JSON.stringify(myServerData));
 }
