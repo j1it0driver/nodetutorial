@@ -1,14 +1,14 @@
 var http = require ('http');
 var https = require ('https');
 var express = require('express');
-var apiai = require('apiai');
+//var apiai = require('apiai');
 var comm = require('../comm.js');
 var cookie = require('cookie');
 
 //console.log("api.js");
 // var accessToken = process.env.APIAI_TOKEN_TADVISOR_TEST;
 // var app = apiai(accessToken);
-var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9");
+//var app = apiai("aba2ecdbb9e744ba8b37ec6cf6a175d9");
 var router = express.Router();
 
 /* GET ex:"users" listing. */

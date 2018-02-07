@@ -3,7 +3,7 @@ var express = require('express');
 var cookie = require('cookie');
 var cookiesm= require('./cookies.js');
 var api = require('./routes/api');
-var handlers = require('./handlers.js');
+//var handlers = require('./handlers.js');
 var https = require('https');
 var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
