@@ -149,15 +149,12 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function printLink(dato, dato2) {
-        $('#testing').text('');
-        $('#testing').append(dato);
-}
 
+
+//////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
 function startRecognition() {
     var final_transcript;
-    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-    //console.log("StartRecFunc ok");   //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;  
     if (!('webkitSpeechRecognition' in window)) {
         console.log("no webkit");
         // upgrade();
@@ -205,7 +202,6 @@ function startRecognition() {
         recognition.start();
     }
 }
-
 function stopRecognition() {
     if (recognition) {
         recognition.stop();
@@ -214,7 +210,6 @@ function stopRecognition() {
     $recBtn.removeClass("is-actived");
     updateRec();
 }
-
 function switchRecognition() {
     if (recognition) {
         stopRecognition();
@@ -223,33 +218,6 @@ function switchRecognition() {
         startRecognition();
     }
 }
-
-function setInput(text) {
-    $speechInput.val(text);
-    send_query();
-}
-
-function getFormattedDate() {
-    var date = new Date();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
-    month = (month < 10 ? "0" : "") + month;
-    day = (day < 10 ? "0" : "") + day;
-    hour = (hour < 10 ? "0" : "") + hour;
-    min = (min < 10 ? "0" : "") + min;
-    sec = (sec < 10 ? "0" : "") + sec;
-    var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
-    chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
-    return str;
-}
-
-function jsonEscape(stringJSON)  {
-    return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
-}
-
 function updateRec() {
     $recBtn1.text(recognition ? "Listening" : "Rec");
     tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
@@ -257,58 +225,56 @@ function updateRec() {
 
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // Esta función toma la respuesta de DialogFlow y la prepara para mostrarla en pantalla al usuario.
-/* {
-  "id": "3622be70-cb49-4796-a4fa-71f16f7b5600",
-  "lang": "en",
-  "result": {
-    "action": "pickFruit",
-    "actionIncomplete": false,
-    "contexts": [
-      "shop"
-    ],
-    "fulfillment": {
-      "messages": [
-        {
-          "platform": "google",
-          "textToSpeech": "Okay how many apples?",
-          "type": "simple_response"
+    /*{
+        "id": "3622be70-cb49-4796-a4fa-71f16f7b5600",
+        "lang": "en",
+        "result": {
+            "action": "pickFruit",
+            "actionIncomplete": false,
+            "contexts": [
+            "shop"
+            ],
+            "fulfillment": {
+            "messages": [
+                {
+                "platform": "google",
+                "textToSpeech": "Okay how many apples?",
+                "type": "simple_response"
+                },
+                {
+                "platform": "google",
+                "textToSpeech": "Okay. How many apples?",
+                "type": "simple_response"
+                },
+                {
+                "speech": "Okay how many apples?",
+                "type": 0
+                }
+            ],
+            "speech": "Okay how many apples?"
+            },
+            "metadata": {
+            "intentId": "21478be9-bea6-449b-bcca-c5f009c0a5a1",
+            "intentName": "add-to-list",
+            "webhookForSlotFillingUsed": "false",
+            "webhookUsed": "false"
+            },
+            "parameters": {
+            "fruit": [
+                "apples"
+            ]
+            },
+            "resolvedQuery": "I need apples",
+            "score": 1,
+            "source": "agent"
         },
-        {
-          "platform": "google",
-          "textToSpeech": "Okay. How many apples?",
-          "type": "simple_response"
+        "sessionId": "12345",
+        "status": {
+            "code": 200,
+            "errorType": "success"
         },
-        {
-          "speech": "Okay how many apples?",
-          "type": 0
-        }
-      ],
-      "speech": "Okay how many apples?"
-    },
-    "metadata": {
-      "intentId": "21478be9-bea6-449b-bcca-c5f009c0a5a1",
-      "intentName": "add-to-list",
-      "webhookForSlotFillingUsed": "false",
-      "webhookUsed": "false"
-    },
-    "parameters": {
-      "fruit": [
-        "apples"
-      ]
-    },
-    "resolvedQuery": "I need apples",
-    "score": 1,
-    "source": "agent"
-  },
-  "sessionId": "12345",
-  "status": {
-    "code": 200,
-    "errorType": "success"
-  },
-  "timestamp": "2017-09-19T21:16:44.832Z"
-} */
-
-
+        "timestamp": "2017-09-19T21:16:44.832Z"
+    }*/ 
     console.log("prepare response",val);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
@@ -322,7 +288,6 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     var webhookData = val.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
     var webhookAction = val.result.action;
     var webhookParameters = val.result.parameters;
-    
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     debugRespond(debugJSON); //function to print string in debug window response from API
     for (i=0;i< spokenResponse.length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
@@ -335,9 +300,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
              ] */
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
             messagePrint2= spokenResponse[i].speech;
-    
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-
             for (j=0;j< spokenResponse.length; j++){ //add links on displayed text
                 if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
                     dataObjLinks=putLinks(spokenResponse[j].payload.links,dataObj);
@@ -429,12 +392,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     }
 }
 
-function debugRespond(val) {
-    $("#response").text(val);
-}
-
 function respond(val, valLinks) { // function to print text into chat message and to speech the text outloud
-
     var toAppend, sentences=null, sentence=null, sentencesArray;
     if (valLinks==null){
         valLinks=val;
@@ -449,7 +407,6 @@ function respond(val, valLinks) { // function to print text into chat message an
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
         if (sonido && val !== messageRecording) {
-
             var msg = new SpeechSynthesisUtterance(sentence);
             console.log("Speech Synth Msg", msg);
             var voices = synth.getVoices();
@@ -472,26 +429,14 @@ function respond(val, valLinks) { // function to print text into chat message an
             }
         }
     }
-
     if ('speechSynthesis' in window) {
-
     }
-
     if ('SpeechRecognition' in window) {
       // Speech recognition support. Talk to your apps!
     }
-
     toAppend="<h6 class='mb-0 d-block'>"+valLinks+"</h6>";
     appendHtml("left",toAppend);
     $speechInput.blur();
-}
-
-function spokenRespond (val){
-    if (val == "") {
-        val = messageSorry;
-    }
-    $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
-    $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
 }
 
 function send_event(eventName,valor){
@@ -506,10 +451,158 @@ function send_event(eventName,valor){
       prepareResponse(temporal);
     };
     r.send(JSON.stringify({event: {name: eventName, data:{valor: valor}}}));
-
     $('#statusMessages').text("Type the topic you're interested in");
     $speechInput.val("");
     $speechInput.blur();
+}
+
+function send_query(other){
+    var text = $speechInput.val();
+    var otherData=null;
+    if(other){
+        otherData=other;
+    }
+    var toAppend;
+    if($speechInput.val() != ''){
+        window.speechSynthesis.cancel();
+
+        var s = new XMLHttpRequest();
+        s.open("POST", "/api", true);
+        console.log("send_query 1", typeof(JSON.stringify(text)));
+        s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        s.onreadystatechange = function () {
+            console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
+            if (s.readyState != 4 || s.status != 200){
+            //   respond(messageInternalError,null);
+              return;
+            }
+            var temporal=JSON.parse(s.responseText);
+            console.log("CCmain temporal",temporal);
+
+            prepareResponse(temporal);
+        };
+        s.send(JSON.stringify({text}));
+        $('#statusMessages').text("Message Send!");
+        disableBubbles();
+        toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
+        appendHtml("right",toAppend);
+        $speechInput.val("");
+        $speechInput.blur();
+    }
+}
+
+function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId){
+    toDisable=[formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId]
+    console.log("sendEmail function client");
+    var r = new XMLHttpRequest();
+    r.open("POST", "/sayHello", true);
+    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+        var temporal=JSON.parse(r.responseText);
+        console.log("response SendEmail ACtion",temporal);
+        alert("Reference Number: " + temporal.reference);
+
+        $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
+        disableButtons(formSendButtonId, toDisable);
+        send_event('custom_event', username);
+    };
+    var mailOptions = {
+        'name': document.getElementById(formNameId).value, // sender address
+        'email': document.getElementById(formEmailId).value, // list of receivers
+        'subject': document.getElementById(formSubjectId).value, // Subject line
+        'body': document.getElementById(formBodyId).value //, // plaintext body
+    };
+    console.log("mailOptions",mailOptions);
+    r.send(JSON.stringify(mailOptions));
+    $('#statusMessages').text("Sending message");
+    $speechInput.val("");
+    $speechInput.blur();
+}
+
+function send_login(){
+
+    if(checkCookie("user")){
+        uname=$("input[name='uname']").val();
+    }else{
+        uname=$("input[name='uname']").val();
+    }
+
+    psw=$("input[name='psw']").val();
+    domain="TADVISOR";
+    language= navigator.language || navigator.userLanguage;
+    login(uname,psw,domain,language,function(){
+        reload_menu();
+    }); //handlers.js
+}
+
+function updateUserData(myServerData){ // send info from tadvisor-server to NodeJS Server
+    var r = new XMLHttpRequest();
+    r.open("POST", "/serverData", true);
+    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    r.onreadystatechange = function () {
+        if (r.readyState != 4 || r.status != 200) return;
+        var temporal=JSON.parse(r.responseText);
+        console.log("CCmain response updateUserData",temporal);
+    };
+    console.log("CCmain ServerData",myServerData);
+    r.send(JSON.stringify(myServerData));
+}
+
+function evaluateUser(questionsResponses){
+    // var r = new XMLHttpRequest();
+    // r.open("POST", "/sayHello", true);
+    // r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    // r.onreadystatechange = function () {
+    //   if (r.readyState != 4 || r.status != 200) return;
+    //     var temporal=JSON.parse(r.responseText);
+    //     console.log("response SendEmail ACtion",temporal);
+    //     alert("Reference Number: " + temporal.reference);
+
+    //     $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
+    //     // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
+    //     // printIndex++;
+    //     // appendHtml("Left",toAppend);
+    //     disableButtons(formSendButtonId, toDisable);
+    //     send_event('custom_event', username);
+
+    //     //   datos=temporal.result.fulfillment.messages;
+    //     //   prepareResponse(temporal);
+    // };
+    // var mailOptions = {
+    //     'name': document.getElementById(formNameId).value, // sender address
+    //     'email': document.getElementById(formEmailId).value, // list of receivers
+    //     'subject': document.getElementById(formSubjectId).value, // Subject line
+    //     'body': document.getElementById(formBodyId).value //, // plaintext body
+    //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    // };
+    // console.log("mailOptions",mailOptions);
+    // r.send(JSON.stringify(mailOptions));
+}
+
+
+
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
+function setInput(text) {
+    $speechInput.val(text);
+    send_query();
+}
+function printLink(dato, dato2) {
+    $('#testing').text('');
+    $('#testing').append(dato);
+}
+function debugRespond(val) {
+    $("#response").text(val);
+}
+
+function spokenRespond (val){
+    if (val == "") {
+        val = messageSorry;
+    }
+    $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+    $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
 }
 
 function printButton(arrayList){
@@ -539,7 +632,6 @@ function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){
     if(callback) {
         callback();
     }
-
 }
 
 function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
@@ -598,31 +690,9 @@ function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
     send_query();
 }
 
-function prepare_event(eventName,data){
-    switch(eventName){
-        case "wait_time":
-            wait_time(data.timer);// sens event to call intent
-            break;
-        case "just_wait":
-            just_wait(data.timer);
-            break;
-        case "custom_event2":
-            just_wait(data.timer,reload_menu);
-            break;
-    }
-}
 
-function wait_time(timer){
-    timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
-}
 
-function just_wait(timer, callback){
-    timeout2 = setTimeout(function () {
-}, timer);
-    if(callback) {
-        callback();
-    }
-}
+
 
 function printImgAndText(name, data, text, link){
     var imgSrc;
@@ -656,41 +726,11 @@ function printLogin(type, username,password) {
     }
 }
 
-function send_login(){
-
-    if(checkCookie("user")){
-        uname=$("input[name='uname']").val();
-    }else{
-        uname=$("input[name='uname']").val();
-    }
-
-    psw=$("input[name='psw']").val();
-    domain="TADVISOR";
-    language= navigator.language || navigator.userLanguage;
-    login(uname,psw,domain,language,function(){
-        reload_menu();
-    }); //handlers.js
-}
-
 function disableBubbles(){
     for(i=0;i<chat_bubbleId.length;i++){
         $(chat_bubbleId[i]).css("opacity","0.4");
     }
 }
-
-function toggleFullScreen() {
-  var doc = window.document;
-  var docEl = doc.documentElement; // documentElement= body? -> no, is different
-  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-    requestFullScreen.call(docEl);
-  }
-  else {
-    cancelFullScreen.call(doc);
-  }
-}
-
 function appendHtml(bubbleSide, toAppend){//append bubble
     datestr=getFormattedDate();
     if(!toAppend){
@@ -722,55 +762,11 @@ function appendHtml(bubbleSide, toAppend){//append bubble
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200); //autoscroll to the end of content
     hideUpper();
 }
-
-function hideUpper(){
-    if (($("#chatHistory").get(0).scrollHeight > $("#chatHistory").height()) && ($("#chatUpper").css("display")!="none")) {
-        $("#chatHistory").css("max-height","+=42px");
-        $("#chatUpper").css("height","0").css("display","none");
-    }
-}
-
 function putLinks(arrayLinks, val){
     for (var i in arrayLinks)
         val=val.replace(i,arrayLinks[i])
     return val
 }
-
-function send_query(other){
-    var text = $speechInput.val();
-    var otherData=null;
-    if(other){
-        otherData=other;
-    }
-    var toAppend;
-    if($speechInput.val() != ''){
-        window.speechSynthesis.cancel();
-
-        var s = new XMLHttpRequest();
-        s.open("POST", "/api", true);
-        console.log("send_query 1", typeof(JSON.stringify(text)));
-        s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        s.onreadystatechange = function () {
-            console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
-            if (s.readyState != 4 || s.status != 200){
-            //   respond(messageInternalError,null);
-              return;
-            }
-            var temporal=JSON.parse(s.responseText);
-            console.log("CCmain temporal",temporal);
-
-            prepareResponse(temporal);
-        };
-        s.send(JSON.stringify({text}));
-        $('#statusMessages').text("Message Send!");
-        disableBubbles();
-        toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
-        appendHtml("right",toAppend);
-        $speechInput.val("");
-        $speechInput.blur();
-    }
-}
-
 function display_lists(){
     var imgSrc;
     var imgButton_i="";
@@ -789,7 +785,6 @@ function display_lists(){
         itemName="Ver detalle";
         $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-
 }
 
 function addMessage(message, bubble){
@@ -809,9 +804,7 @@ function changeMessage(messageToAdd, messageId){
         addMessage(messageToAdd);
     }
 }
-
 function printAssets(data,parameters){
-
     radiosId=[];
     var radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
@@ -855,6 +848,44 @@ function sendAsset(radioId,radiosId){
     disableButtons(radioId,radiosId);
     send_query();
 }
+function printPortfolio(data){ //Imprime los assets del portafolio
+    var key;
+    $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
+    for(key in data.addedAssets){
+        $("</br><span>Asset: <b>"+data.addedAssets[key].asset+" -> </b></span><span><i>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</i></span><br>").appendTo('#chatBubbleDiv'+printIndex);
+    }
+    $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
+    reload_menu();
+}
+
+
+function printSendEmail (){
+    $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
+}
+
+function hideUpper(){
+    if (($("#chatHistory").get(0).scrollHeight > $("#chatHistory").height()) && ($("#chatUpper").css("display")!="none")) {
+        $("#chatHistory").css("max-height","+=42px");
+        $("#chatUpper").css("height","0").css("display","none");
+    }
+}
+
+function jsonEscape(stringJSON)  {
+    return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
+}
+function reloadChat(){
+    document.getElementById("chatHistory").innerHTML="";
+    send_event('custom_event', username);
+}
+function reload_menu(){
+    var le=toDisable.length;
+    if(le!=0){disableButtons(toDisable[le-1], toDisable);}
+    send_event('custom_event2', username);
+    toDisable=[];
+}
+
+/* OTRAS FUNCIONES */
+
 function addCommas(nStr){
     nStr += '';
     var x = nStr.split('.');
@@ -866,102 +897,26 @@ function addCommas(nStr){
     }
     return x1 + x2;
 }
-function printSendEmail (){
-    $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
-}
-function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId){
-    toDisable=[formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId]
-    console.log("sendEmail function client");
-    var r = new XMLHttpRequest();
-    r.open("POST", "/sayHello", true);
-    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    r.onreadystatechange = function () {
-      if (r.readyState != 4 || r.status != 200) return;
-        var temporal=JSON.parse(r.responseText);
-        console.log("response SendEmail ACtion",temporal);
-        alert("Reference Number: " + temporal.reference);
-
-        $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
-        disableButtons(formSendButtonId, toDisable);
-        send_event('custom_event', username);
-    };
-    var mailOptions = {
-        'name': document.getElementById(formNameId).value, // sender address
-        'email': document.getElementById(formEmailId).value, // list of receivers
-        'subject': document.getElementById(formSubjectId).value, // Subject line
-        'body': document.getElementById(formBodyId).value //, // plaintext body
-    };
-    console.log("mailOptions",mailOptions);
-    r.send(JSON.stringify(mailOptions));
-    $('#statusMessages').text("Sending message");
-    $speechInput.val("");
-    $speechInput.blur();
-}
-
-function printPortfolio(data){
-    var key;
-    $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
-    for(key in data.addedAssets){
-        $("</br><span>Asset: <b>"+data.addedAssets[key].asset+" -> </b></span><span><i>"+data.portfolioCurrency+" "+data.addedAssets[key].amount+"</i></span><br>").appendTo('#chatBubbleDiv'+printIndex);
-    }
-    $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
-    reload_menu();
-}
-function evaluateUser(questionsResponses){
-    // var r = new XMLHttpRequest();
-    // r.open("POST", "/sayHello", true);
-    // r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    // r.onreadystatechange = function () {
-    //   if (r.readyState != 4 || r.status != 200) return;
-    //     var temporal=JSON.parse(r.responseText);
-    //     console.log("response SendEmail ACtion",temporal);
-    //     alert("Reference Number: " + temporal.reference);
-
-    //     $("</br><h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6></br>").appendTo('#chatBubbleDiv'+printIndex);
-    //     // toAppend= "<h6 class='mb-0 d-block'>Reference Number: "+temporal.reference+"</h6>";
-    //     // printIndex++;
-    //     // appendHtml("Left",toAppend);
-    //     disableButtons(formSendButtonId, toDisable);
-    //     send_event('custom_event', username);
-
-    //     //   datos=temporal.result.fulfillment.messages;
-    //     //   prepareResponse(temporal);
-    // };
-    // var mailOptions = {
-    //     'name': document.getElementById(formNameId).value, // sender address
-    //     'email': document.getElementById(formEmailId).value, // list of receivers
-    //     'subject': document.getElementById(formSubjectId).value, // Subject line
-    //     'body': document.getElementById(formBodyId).value //, // plaintext body
-    //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-    // };
-    // console.log("mailOptions",mailOptions);
-    // r.send(JSON.stringify(mailOptions));
-}
-
-function updateUserData(myServerData){ // send info from tadvisor-server to NodeJS Server
-    var r = new XMLHttpRequest();
-    r.open("POST", "/serverData", true);
-    r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    r.onreadystatechange = function () {
-        if (r.readyState != 4 || r.status != 200) return;
-        var temporal=JSON.parse(r.responseText);
-        console.log("CCmain response updateUserData",temporal);
-    };
-    console.log("CCmain ServerData",myServerData);
-    r.send(JSON.stringify(myServerData));
-}
-
-
-
-
-/* OTRAS FUNCIONES */
-
-
 
 function calcVH() {
     $('body').innerHeight( $(this).innerHeight() );
 }
-
+function getFormattedDate() {
+    var date = new Date();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    month = (month < 10 ? "0" : "") + month;
+    day = (day < 10 ? "0" : "") + day;
+    hour = (hour < 10 ? "0" : "") + hour;
+    min = (min < 10 ? "0" : "") + min;
+    sec = (sec < 10 ? "0" : "") + sec;
+    var str = /*date.getFullYear() + "/" + month + "/" + day + " " +*/  hour + ":" + min; /*+ ":" + sec;*/
+    chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
+    return str;
+}
 function hasGetUserMedia() {
     return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
@@ -981,18 +936,18 @@ function iOS() {
     }
     return false;
 }
-
-function reloadChat(){
-    document.getElementById("chatHistory").innerHTML="";
-    send_event('custom_event', username);
-}
-
-function reload_menu(){
-    var le=toDisable.length;
-    if(le!=0){disableButtons(toDisable[le-1], toDisable);}
-    send_event('custom_event2', username);
-    toDisable=[];
-}
+function toggleFullScreen() {
+    var doc = window.document;
+    var docEl = doc.documentElement; // documentElement= body? -> no, is different
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+      requestFullScreen.call(docEl);
+    }
+    else {
+      cancelFullScreen.call(doc);
+    }
+  }
 
 function username(){
     if(!checkCookie("username")){
@@ -1018,3 +973,29 @@ function visits(){
         console.log("Visits cookie: ", readCookie("visits"));
     }
 }
+
+function wait_time(timer){
+    timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
+}
+
+function just_wait(timer, callback){
+    timeout2 = setTimeout(function () {
+}, timer);
+    if(callback) {
+        callback();
+    }
+}
+function prepare_event(eventName,data){
+    switch(eventName){
+        case "wait_time":
+            wait_time(data.timer);// sens event to call intent
+            break;
+        case "just_wait":
+            just_wait(data.timer);
+            break;
+        case "custom_event2":
+            just_wait(data.timer,reload_menu);
+            break;
+    }
+}
+
