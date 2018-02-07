@@ -147,63 +147,7 @@ $(document).ready(function() {
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function reloadChat(){
-    document.getElementById("chatHistory").innerHTML="";
-    send_event('custom_event', username);
-}
 
-function iOS() {
-
-  var iDevices = [
-    'iPad Simulator',
-    'iPhone Simulator',
-    'iPod Simulator',
-    'iPad',
-    'iPhone',
-    'iPod'
-  ];
-
-  if (!!navigator.platform) {
-    while (iDevices.length) {
-      if (navigator.platform === iDevices.pop()){ return true; }
-    }
-  }
-
-  return false;
-}
-
-function visits(){
-    if(!checkCookie("visits")){
-        console.log("primera visita");
-        visits=0;
-        createCookie("visits", 1, 1);
-        console.log(readCookie("visits"));
-    }else{
-        visits=Number(readCookie("visits"));
-        visits += 1;
-        console.log("Visits var: ",visits);
-        createCookie("visits", visits, 1);
-        console.log("Visits cookie: ", readCookie("visits"));
-    }
-}
-
-function username(){
-    if(!checkCookie("username")){
-
-        username=myServerDataJS.Name;
-    }else{
-        username=readCookie("username");
-    }
-    createCookie("username", username, 1);
-}
-
-function hasGetUserMedia() {
-  return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-}
-
-function calcVH() {
-    $('body').innerHeight( $(this).innerHeight() );
-}
 
 function printLink(dato, dato2) {
         $('#testing').text('');
@@ -892,7 +836,6 @@ function printAssets(data,parameters){
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
     });
- }
     $("#"+printIndex+"InputAmountId").keyup(function(){
          if($speechInput.val()!=""){
              $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
@@ -954,12 +897,7 @@ function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendB
     $speechInput.val("");
     $speechInput.blur();
 }
-function reload_menu(){
-    var le=toDisable.length;
-    if(le!=0){disableButtons(toDisable[le-1], toDisable);}
-    send_event('custom_event2', username);
-    toDisable=[];
-}
+
 function printPortfolio(data){
     var key;
     $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
@@ -1011,4 +949,72 @@ function updateUserData(myServerData){ // send info from tadvisor-server to Node
     };
     console.log("CCmain ServerData",myServerData);
     r.send(JSON.stringify(myServerData));
+}
+
+
+
+
+/* OTRAS FUNCIONES */
+
+
+
+function calcVH() {
+    $('body').innerHeight( $(this).innerHeight() );
+}
+
+function hasGetUserMedia() {
+    return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+}
+function iOS() {
+    var iDevices = [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ];
+    if (!!navigator.platform) {
+      while (iDevices.length) {
+        if (navigator.platform === iDevices.pop()){ return true; }
+      }
+    }
+    return false;
+}
+
+function reloadChat(){
+    document.getElementById("chatHistory").innerHTML="";
+    send_event('custom_event', username);
+}
+
+function reload_menu(){
+    var le=toDisable.length;
+    if(le!=0){disableButtons(toDisable[le-1], toDisable);}
+    send_event('custom_event2', username);
+    toDisable=[];
+}
+
+function username(){
+    if(!checkCookie("username")){
+
+        username=myServerDataJS.Name;
+    }else{
+        username=readCookie("username");
+    }
+    createCookie("username", username, 1);
+}
+
+function visits(){
+    if(!checkCookie("visits")){
+        console.log("primera visita");
+        visits=0;
+        createCookie("visits", 1, 1);
+        console.log(readCookie("visits"));
+    }else{
+        visits=Number(readCookie("visits"));
+        visits += 1;
+        console.log("Visits var: ",visits);
+        createCookie("visits", visits, 1);
+        console.log("Visits cookie: ", readCookie("visits"));
+    }
 }
