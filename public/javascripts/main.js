@@ -897,7 +897,7 @@ function printAssets(data,parameters){
          if($speechInput.val()!=""){
              $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
          }
-    })
+    });
     if(radiosId.length==0){
         send_event("searchAgain", null);
         return;
