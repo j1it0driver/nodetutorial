@@ -167,7 +167,7 @@ h6{
     left: 0.64rem;
     top: calc(100% + 0.03rem);
     border: 0.8rem solid;
-    border-color: #666 transparent transparent #666;
+    border-color: #ccc transparent transparent #ccc;
 
   }
   .chat-message-left:after {
@@ -189,7 +189,7 @@ h6{
     right: 0.64rem;
     top: calc(100% + 0.03rem);
     border: 0.8rem solid;
-    border-color: #666 #666 transparent transparent ;
+    border-color: #ccc #ccc transparent transparent ;
 
   }
   .chat-message-right:after {
