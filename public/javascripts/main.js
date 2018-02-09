@@ -394,7 +394,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
-    spokenRespond(messagesPrint);
+    //spokenRespond(messagesPrint);
+
+
     /* if(val.result.metadata.intentName == "location"){
         location_c = val.result.parameters["geo-country"]; //por el dash "-" no se usa . punto
         news_country="https://news.google.com/news/search/section/q/"+location_c+"/"+location_c+"?hl=es-419&ned=es_co";
