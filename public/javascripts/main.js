@@ -22,7 +22,7 @@ var x, i, j, k;
 var visits;
 var sessionID=null;
 // INTRO option: responses from user
-var username, investedBefore, saveTopic, goal, profileQuestions={}, createPortfolio={};
+var username="New User", investedBefore, saveTopic, goal, profileQuestions={}, createPortfolio={};
 var sonido= false;
 var iOS=iOS();
 var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
@@ -39,8 +39,8 @@ $(document).ready(function() {
     console.log("iOS", iOS);
     console.log("iOS device", _iOSDevice);
 
-    visits();
-    username();
+    //visits();
+    //username();
     send_event('custom_event', username); // evento que acciona el primer intent de intro
     sessionID=readCookie("sessionID");
 
@@ -223,6 +223,11 @@ function updateRec() {
     tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
 }
 
+function setInput(text) {// for Speech Recognition: startRecgnition Function
+    $speechInput.val(text);
+    send_query();
+}
+
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // Esta función toma la respuesta de DialogFlow y la prepara para mostrarla en pantalla al usuario.
     /*{
@@ -289,7 +294,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     var webhookAction = val.result.action;
     var webhookParameters = val.result.parameters;
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
-    debugRespond(debugJSON); //function to print string in debug window response from API
+    /*debugRespond(debugJSON); //function to print string in debug window response from API */
     for (i=0;i< spokenResponse.length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
         var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
          /*  "messages": [
@@ -339,7 +344,15 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printImgButton(payload.imgButton.name,payload.imgButton.data); //envio el nombre y los datos del payload
             }
             if (payload.sendEvent) { //type 4 is a custompayload
-                prepare_event(payload.sendEvent.name, payload.sendEvent.data); //envio el nombre y los datos del payload
+                prepare_event(payload.sendEvent.name, payload.sendEvent.data); //evento enviado hacia el cliente (ej:un timer), envio el nombre y los datos del payload
+                /* {
+                    "sendEvent": {
+                        "name": "just_wait",
+                        "data": {
+                            "timer": 1000
+                        }
+                    }
+                } */
             }
             if (payload.img) { //type 4 is a custompayload
                 printImgAndText(payload.img.name, payload.img.data, payload.img.data["text"],payload.img.data["link"]); //envio el nombre y los datos del payload
@@ -348,9 +361,9 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 appendHtml("left");
                 printLogin('login', payload.login.username, payload.login.password); //envio el nombre y los datos del payload
             }
-            if (payload.lists) { //type 4 is a custompayload
+            /* if (payload.lists) { //type 4 is a custompayload    ej: assets??? en existing_portfolio_intention3
                 display_lists(); //envio el nombre y los datos del payload
-            }
+            } */
             if(payload.dataVar){
                 if (payload.dataVar.username){
                     username=payload.dataVar.username;
@@ -382,15 +395,20 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
     spokenRespond(messagesPrint);
-    if(val.result.metadata.intentName == "location"){
+    /* if(val.result.metadata.intentName == "location"){
         location_c = val.result.parameters["geo-country"]; //por el dash "-" no se usa . punto
         news_country="https://news.google.com/news/search/section/q/"+location_c+"/"+location_c+"?hl=es-419&ned=es_co";
         link_country="<a href = "+news_country+" target =\"right_side\">News from "+location_c+"</a>";
         prueba="https://www.w3schools.com";
         frame_country="<iframe name=\"right_side\" src =\"\" width=\"300\" height=\"100\">mmmhhh</iframe>";
         printLink(link_country,frame_country);
-    }
+    } */
 }
+
+/* function printLink(dato, dato2) { //for print link of location: prepareResponse
+    $('#testing').text('');
+    $('#testing').append(dato);
+} */
 
 function respond(val, valLinks) { // function to print text into chat message and to speech the text outloud
     var toAppend, sentences=null, sentence=null, sentencesArray;
@@ -585,27 +603,22 @@ function evaluateUser(questionsResponses){
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 
-function setInput(text) {
-    $speechInput.val(text);
-    send_query();
-}
-function printLink(dato, dato2) {
-    $('#testing').text('');
-    $('#testing').append(dato);
-}
-function debugRespond(val) {
-    $("#response").text(val);
-}
 
-function spokenRespond (val){
+/* function debugRespond(val) {
+    $("#response").text(val);
+} */
+
+/* function spokenRespond (val){
     if (val == "") {
         val = messageSorry;
     }
     $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
     $("#spokenResponseTitle").addClass("is-actived").find(".responseLabel").html("API Response");
-}
+} */
 
-function printButton(arrayList){
+///////// quickReply //////////
+
+function printButton(arrayList){ //Imprime los botones de quickReply, con sus funciones y crea sus Ids
     buttonIds=[];
     $("<div class='quick-reply-button d-var data = req.body.val;block text-center mt-1' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     for(var i in arrayList){
@@ -617,28 +630,15 @@ function printButton(arrayList){
     }
 }
 
-function quickReplyF(stringItem,buttonId,buttonIds){
+function quickReplyF(stringItem,buttonId,buttonIds){ // funciones de los quickReply buttons
     $speechInput.val(stringItem);
     disableButtons(buttonId,buttonIds);
     send_query();
 }
 
-function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){
-    for(var i in buttonIdsToDisable){
-        document.getElementById(buttonIdsToDisable[i]).disabled = true;
-    }
-    document.getElementById(buttonIdSelected).classList.add("responseBtn");
-    document.getElementById(buttonIdSelected).disabled = true;
-    if(callback) {
-        callback();
-    }
-}
+/////// slideSelector ////////
 
-function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas)
-    return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"").replace(/,/g,"");
-}
-
-function printSliderSelector(sliderName){
+function printSliderSelector(sliderName){ // Imprimir el slider
     var sliderId = printIndex+createIdFromText(sliderName);
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
     $("<div class='slidecontainer px-2'><input type='range' min='0' max='100000' step='5000' value='30000' class='slider w-100' id='"+sliderId+"'></div>").appendTo('#chatBubbleDivDiv'+printIndex);
@@ -654,14 +654,16 @@ function printSliderSelector(sliderName){
     }
 }
 
-function sendSlice(sliderId){
+function sendSlice(sliderId){  // funcion para el slider
     var sliderIdbtnSend=sliderId+"SliderBtnSend";
     disableButtons([sliderIdbtnSend],[sliderIdbtnSend]);
     disableButtons([sliderId],[sliderId]);
     send_query();
  }
 
-function printImgButton(imgBtnName, imgBtnList){
+ /////////// Images /////////////
+
+function printImgButton(imgBtnName, imgBtnList){ // Imprimir imagen + boton 
     var imgSrc;
     var imgButton_i="";
     $("<div class='d-block text-center' id='chatBubbleDivDiv"+printIndex+"'></div>").appendTo('#chatBubbleDiv'+printIndex);
@@ -677,13 +679,13 @@ function printImgButton(imgBtnName, imgBtnList){
     }
 }
 
-function getImgSrc(refName, imgName){
+function getImgSrc(refName, imgName){ // busca en un archivo de rutas srcAddresses la ruta de una imagen {key: img name, value: source address}
     var srcAddress,ref;
     srcAddress=srcAddresses[refName][imgName].src;
     return srcAddress;
 }
 
-function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
+function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){ //funciones de los botones + imagen
     $speechInput.val(imgBtnItem);
     disableButtons(imgBtnName+"ImgBtnSend", imgBtnIdsSend);
     disableButtons(imgBtnName, imgBtnIds);
@@ -691,10 +693,7 @@ function sendImgBtn(imgBtnItem, imgBtnName, imgBtnIds, imgBtnIdsSend){
 }
 
 
-
-
-
-function printImgAndText(name, data, text, link){
+function printImgAndText(name, data, text, link){ //Imprimir imagen + texto + link
     var imgSrc;
     var imgButton_i="";
     var itemName;
@@ -714,7 +713,7 @@ function printImgAndText(name, data, text, link){
     }
 }
 
-function printLogin(type, username,password) {
+function printLogin(type, username,password) { // Imprimir formulario para login
     if(type=='login'){
         $("<div class='loginForm'><label><b>Username</b></label><input id='uname"+printIndex+"' type='text' placeholder='Enter Username' name='uname' required><label><b>Password</b></label><input type='password' id='password"+printIndex+"' placeholder='Enter Password' name='psw' required><label><input id='checkbox"+printIndex+"' type='checkbox' checked='checked'> Remember me</label></div>").appendTo('#chatBubbleDiv'+printIndex);
         $("<div class='' style=''><button id='loginBtn"+printIndex+"' class='formBtn' type='submit' onclick=send_login() >Login</button>&nbsp;&nbsp;<button id='cancelLoginBtn"+printIndex+"' onclick=reload_menu() class='formBtn' type='button' class='cancelbtn'>Cancel</button></br><span class='psw'>Forgot <a  href='https://www.mytadvisor.com/password-recovery/' target='_blank' >password?</a></span></div></br>").appendTo('#chatBubbleDiv'+printIndex);
@@ -726,16 +725,31 @@ function printLogin(type, username,password) {
     }
 }
 
-function disableBubbles(){
+function disableBubbles(){ /// desactiva las nubes de los mensajes del chat
     for(i=0;i<chat_bubbleId.length;i++){
         $(chat_bubbleId[i]).css("opacity","0.4");
     }
 }
-function appendHtml(bubbleSide, toAppend){//append bubble
+
+function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){ // desactiva lo botones de las bubes del chat
+    for(var i in buttonIdsToDisable){
+        document.getElementById(buttonIdsToDisable[i]).disabled = true;
+    }
+    document.getElementById(buttonIdSelected).classList.add("responseBtn");
+    document.getElementById(buttonIdSelected).disabled = true;
+    if(callback) {
+        callback();
+    }
+}
+
+function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas): "But_ton, to print" -> "buttontoprint"
+    return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"").replace(/,/g,"");
+}
+function appendHtml(bubbleSide, toAppend){//append bubble con contenido o sin contenido
     datestr=getFormattedDate();
     if(!toAppend){
         chatHistoryDiv.append(
-            "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
+            "<div class='chat-message-"+bubbleSide+" float-"+bubbleSide+" bubble-"+bubbleSide+" my-1' id='chatBubble"+bubble_id+"'>"+
                 "<div class='media col-12 pr-4'>"+
                     "<div class='media-body my-3' id='chatBubbleDiv"+bubble_id+"'>"+
                         "<h6 class='timestamp-right float-right mb-0 d-block'><small>"+datestr+"</small></h6>"+
@@ -746,7 +760,7 @@ function appendHtml(bubbleSide, toAppend){//append bubble
     }
     else {
         chatHistoryDiv.append(
-            "<div class='chat-message float-"+bubbleSide+" bubble-"+bubbleSide+" my-1 rounded' id='chatBubble"+bubble_id+"'>"+
+            "<div class='chat-message-"+bubbleSide+" float-"+bubbleSide+" bubble-"+bubbleSide+" my-1' id='chatBubble"+bubble_id+"'>"+
                 "<div class='media col-12 pr-4'>"+
                     "<div class='media-body my-3' id='chatBubbleDiv"+bubble_id+"'>"+
                         toAppend+
@@ -762,12 +776,12 @@ function appendHtml(bubbleSide, toAppend){//append bubble
     $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200); //autoscroll to the end of content
     hideUpper();
 }
-function putLinks(arrayLinks, val){
+function putLinks(arrayLinks, val){ //para convertir en links ciertas palabras dentro del texto que se muestra en el chat
     for (var i in arrayLinks)
         val=val.replace(i,arrayLinks[i])
     return val
 }
-function display_lists(){
+function display_lists(){ // Imprimir listas?????? puede ser para imprimir por ejemplo los assets
     var imgSrc;
     var imgButton_i="";
     var itemName;
@@ -787,7 +801,7 @@ function display_lists(){
     }
 }
 
-function addMessage(message, bubble){
+function addMessage(message, bubble){ //adiciona un mensaje (bubbleMessage) a un bubble especifico o al último
     if(!bubble){
         $("<div id='bubbleMessage"+printIndex+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+printIndex);
     }
@@ -796,7 +810,7 @@ function addMessage(message, bubble){
     }
 }
 
-function changeMessage(messageToAdd, messageId){
+function changeMessage(messageToAdd, messageId){ // cambia un mensaje especifico (bubbleMessage) creado con addMessage
     if($("#bubbleMessage"+messageId).length){
         $("#bubbleMessage"+messageId).text(messageToAdd).css('font-weight', 'bold').css('font-style', 'italic');
     }
@@ -804,7 +818,7 @@ function changeMessage(messageToAdd, messageId){
         addMessage(messageToAdd);
     }
 }
-function printAssets(data,parameters){
+function printAssets(data,parameters){ //data: es un alista de activos y su info, y parameters son el nombre y la moneda del portafolio
     radiosId=[];
     var radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
@@ -825,7 +839,6 @@ function printAssets(data,parameters){
         }
         $('#'+printIndex+'RadioBtnRepeatId')[0].disabled=true;
     });
-
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
     });
@@ -839,7 +852,8 @@ function printAssets(data,parameters){
         return;
     }
 }
-function sendAsset(radioId,radiosId){
+
+function sendAsset(radioId,radiosId){ //funcion de los botones de enviar asset con monto.
     var amount = document.getElementById(""+printIndex+"InputAmountId").value;
     if($speechInput.val() != ''){
         $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
@@ -848,7 +862,8 @@ function sendAsset(radioId,radiosId){
     disableButtons(radioId,radiosId);
     send_query();
 }
-function printPortfolio(data){ //Imprime los assets del portafolio
+
+function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     var key;
     $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
     for(key in data.addedAssets){
@@ -859,9 +874,10 @@ function printPortfolio(data){ //Imprime los assets del portafolio
 }
 
 
-function printSendEmail (){
+function printSendEmail (){ //imprime formulario para enviar correo
     $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
+
 
 function hideUpper(){
     if (($("#chatHistory").get(0).scrollHeight > $("#chatHistory").height()) && ($("#chatUpper").css("display")!="none")) {
@@ -870,23 +886,24 @@ function hideUpper(){
     }
 }
 
-function jsonEscape(stringJSON)  {
+function jsonEscape(stringJSON)  { // convierte los saltos de linea \n a saltos en HTML <br />
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
-function reloadChat(){
+function reloadChat(){ //recarga el chat enviando custom_event a la api, la cual llama al primer INTENT.
     document.getElementById("chatHistory").innerHTML="";
     send_event('custom_event', username);
 }
-function reload_menu(){
+function reload_menu(){ // revisar si se usa PENDIENTE
     var le=toDisable.length;
     if(le!=0){disableButtons(toDisable[le-1], toDisable);}
+    //prepare_event('custom_event2', username));
     send_event('custom_event2', username);
     toDisable=[];
 }
 
 /* OTRAS FUNCIONES */
 
-function addCommas(nStr){
+function addCommas(nStr){ //adicionar comas de miles a un numero.
     nStr += '';
     var x = nStr.split('.');
     var x1 = x[0];
@@ -898,10 +915,11 @@ function addCommas(nStr){
     return x1 + x2;
 }
 
-function calcVH() {
+/* function calcVH() { // calcula las unidades VH
     $('body').innerHeight( $(this).innerHeight() );
-}
-function getFormattedDate() {
+} */
+
+function getFormattedDate() { // le da formato a la fecha y la retorna
     var date = new Date();
     var month = date.getMonth() + 1;
     var day = date.getDate();
@@ -917,10 +935,10 @@ function getFormattedDate() {
     chat_bubbleId[bubble_id]="#chatBubble"+bubble_id;
     return str;
 }
-function hasGetUserMedia() {
+function hasGetUserMedia() { //comprueba si se pueden usar los medios camara y microfono
     return !!(navigator.getUserMedia|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
-function iOS() {
+function iOS() { // funcion para determinar si esta usando un device con iOS
     var iDevices = [
       'iPad Simulator',
       'iPhone Simulator',
@@ -936,7 +954,7 @@ function iOS() {
     }
     return false;
 }
-function toggleFullScreen() {
+/* function toggleFullScreen() { //Función de test para pasar a FullScreen
     var doc = window.document;
     var docEl = doc.documentElement; // documentElement= body? -> no, is different
     var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
@@ -947,19 +965,19 @@ function toggleFullScreen() {
     else {
       cancelFullScreen.call(doc);
     }
-  }
+  } */
 
-function username(){
+function username(){ //Actualiza la variable username con el valor en la info que viene de postMessage (cross-paltform iframe) o el valor de la cookie
     if(!checkCookie("username")){
-
         username=myServerDataJS.Name;
     }else{
         username=readCookie("username");
+        //return;
     }
     createCookie("username", username, 1);
 }
 
-function visits(){
+/* function visits(){ //Cuantifica el numero de visitas PENDIENTE: resetear el contador con cambio de usuario
     if(!checkCookie("visits")){
         console.log("primera visita");
         visits=0;
@@ -972,23 +990,38 @@ function visits(){
         createCookie("visits", visits, 1);
         console.log("Visits cookie: ", readCookie("visits"));
     }
-}
+} */
 
-function wait_time(timer){
+function wait_time(timer){ //Contador de tiempo que envia evento para activar un INTENT.
     timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
 }
 
-function just_wait(timer, callback){
+function just_wait(timer, callback){ // solo espera un tiempo para continuar
     timeout2 = setTimeout(function () {
 }, timer);
     if(callback) {
         callback();
     }
 }
-function prepare_event(eventName,data){
+function prepare_event(eventName,data){// solo para timers. De acuerdo a lo que se solicite desde la API.
+            /* {   //enviado desde la API, quiere esperar 1000ms  ej: risk_profile_intention6
+                    "sendEvent": {
+                        "name": "just_wait",
+                        "data": {
+                            "timer": 1000
+                        }
+                    }
+                } 
+                    "sendEvent": { //ej: risk_profile_intention5
+                        "name": "wait_time",
+                        "data": {
+                             "timer": 100
+                        }
+                    } 
+                */
     switch(eventName){
         case "wait_time":
-            wait_time(data.timer);// sens event to call intent
+            wait_time(data.timer);// sens event to call intent. data.timer captura el tiempo que se trae de la API en el payload
             break;
         case "just_wait":
             just_wait(data.timer);

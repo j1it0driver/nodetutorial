@@ -1,6 +1,7 @@
 body{
     font-family:"Open Sans","Helvetica Neue", "Roboto", Helvetica,Arial,sans-serif !important;
     font-size: 10px;
+    line-height: 1.1;
     /*height:100%;*/
     height: 100vh;
 }
@@ -37,8 +38,20 @@ img{
     /*min-height: calc(100% - 9.2rem);/*inicial*/
     /*min-height: calc(100vh - 9.2rem);*/
 }
-.chat-message{
-
+.chat-message-left,.chat-message-right {/*code for look similar to speech bubble https://www.sitepoint.com/pure-css3-speech-bubbles/*/
+    position: relative;
+    /* width: 200px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    background-color: #fff;*/
+    border: 0.4rem solid #666;
+    -webkit-border-radius: 1.5rem;
+    -moz-border-radius: 1.5rem;
+    border-radius: 1.5rem;
+    -webkit-box-shadow: 0.2rem 0.2rem 0.4rem #888;
+    -moz-box-shadow: 0.2rem 0.2rem 0.4rem #888;
+    box-shadow: 0.2rem 0.2rem 0.4rem #888;
 }
 .chat-icon{
     position: fixed;
@@ -109,9 +122,9 @@ h6{
 }
 .timestamp-right{
     position: absolute;
-    bottom: 0;
+    bottom: 0.1rem;
     z-index: 1000;
-    right: 0.4rem;
+    right: 0.5rem;
 }
 
 .btn-outline-primary:hover,
@@ -145,3 +158,47 @@ h6{
 .titleChat{
     font-family: "OpenSansLight","OpenSans", "Roboto", Helvetica, sans-serif;
 }
+
+.chat-message-left:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0.64rem;
+    top: calc(100% + 0.03rem);
+    border: 0.8rem solid;
+    border-color: #666 transparent transparent #666;
+
+  }
+  .chat-message-left:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 1rem;
+    top: 100%;
+    border: 0.4rem solid;
+    border-color: #fff transparent transparent #fff;
+  }
+
+  .chat-message-right:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 0.64rem;
+    top: calc(100% + 0.03rem);
+    border: 0.8rem solid;
+    border-color: #666 #666 transparent transparent ;
+
+  }
+  .chat-message-right:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 1rem;
+    top: 100%;
+    border: 0.4rem solid;
+    border-color: #1688c6 #1688c6 transparent transparent ;
+  }

@@ -98,19 +98,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 res.json(json);
                 break;
 
-            case "show_portfolio":
-                console.log("SSwk Showing portfolio");
-                displayText=speech="SUMMARY";
-                data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsToAdd, "searchedAssets": assetsSearched};
-                // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
-                json=apiaiResponseFormat(speech, displayText,data,null);
-                res.json(json, function(){
-                    assetsToAdd=[];
-                    assetsSearched=[];
-                    portfolio_name=portfolio_currency=null;
-                });
-
-                break;
+       
 
             case 'search_Asset':
                 console.log("SSwk SearchAssetHandler");
@@ -175,7 +163,19 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     });
                 break;
 
+            case "show_portfolio":
+                console.log("SSwk Showing portfolio");
+                displayText=speech="SUMMARY";
+                data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsToAdd, "searchedAssets": assetsSearched};
+                // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
+                json=apiaiResponseFormat(speech, displayText,data,null);
+                res.json(json, function(){
+                    assetsToAdd=[];
+                    assetsSearched=[];
+                    portfolio_name=portfolio_currency=null;
+                });
 
+                break;
 
             // case 'show_Portfolio':
             //     displayText=speech='show portfolio';

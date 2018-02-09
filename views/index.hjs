@@ -115,6 +115,7 @@
         //From http://blog.teamtreehouse.com/cross-domain-messaging-with-postmessage
 
         var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
+        //var originHost="http://localhost:3000";
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
 
         if(isInIframe){
@@ -123,6 +124,7 @@
         }
         else{
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
+            //targetOrigin="http://localhost:3000";
         }
         var myClientDataJS=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
 
@@ -228,7 +230,6 @@
                 <div class="chatBckg col-12 p-0">
                     <div class="scrollable chat-messages p-1 mh-100" id="chatHistory">
                     </div>
-
                 </div>
             </div>
             <div class="row border footer" id="elem2">
