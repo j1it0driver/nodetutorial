@@ -874,7 +874,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     myClientDataJS.push({
                         show_portfolio:{
                             rslt:{
-                                AssetCodes: data.addedAssets.values(), 
+                                AssetCodes: Object.values(data.addedAssets), 
                                 PortfolioName: data.portfolioName,
                                 Currency: data.portfolioCurrency
                             },
