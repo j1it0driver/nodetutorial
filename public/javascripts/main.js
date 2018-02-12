@@ -871,6 +871,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     }
     $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
     reload_menu();
+    myClientDataJS=JSON.parse(myClientDataJS);
     myClientDataJS.push({
                         show_portfolio:{
                             rslt:{
