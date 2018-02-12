@@ -48,7 +48,7 @@ img{
     text-align: center;
     line-height: 100px;
     background-color: #fff;*/
-    border: 0.2rem solid #ffffff;
+    border: 0.1rem solid #ffffff;
     -webkit-border-radius: 1.5rem;
     -moz-border-radius: 1.5rem;
     border-radius: 1.5rem;
@@ -63,7 +63,7 @@ img{
     text-align: center;
     line-height: 100px;
     background-color: #fff;*/
-    border: 0.2rem solid #1688c6;
+    border: 0.1rem solid #1688c6;
     -webkit-border-radius: 1.5rem;
     -moz-border-radius: 1.5rem;
     border-radius: 1.5rem;
@@ -144,9 +144,11 @@ h6{
     position: absolute;
     bottom: 0.1rem;
     z-index: 1000;
-    right: 0.5rem;
+    right: 0.7rem;
 }
-
+.timestamp-right small {
+    font-size: 70%;
+}
 .btn-outline-primary:hover,
 .btn-outline-primary:focus{
     color: #ffffff;
