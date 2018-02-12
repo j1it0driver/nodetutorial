@@ -44,72 +44,6 @@
         //     var height=document.getElementsByTagName("html")[0].scrollHeight;
         //     window.parent.postMessage(["setHeight",height],"*");
         // }
-        // window.addEventListener('message', function(event){
-        //     datapost=event;
-        //     console.log(datapost);
-        //     event.source.postMessage({"testJDO": 9999}, "*");
-        //     if(event.data == "FrameHeight"){
-        //         console.log("event.data",event.data);
-        //         var body = document.body, html= document.documentElement;
-        //         var height=0;
-        //         if(document.getElementById("chat-button").style.display!='none'){
-        //             // height= Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        //             height="100vh";
-        //         }
-        //         else{ height="6rem";}
-        //         event.source.postMessage({"FrameHeight": height}, "*");
-        //         console.log("height",height);
-        //     }
-        // });
-
-         // IFRAME START
-
-//        var originHost="http://localhost:38183"; //"https://tadvisorchatbottest.herokuapp.com/";
-//        var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
-//        //console.log("is in iframe",isInIframe);
-
- //       if(isInIframe){
-            //targetOrigin="http://towersoa.wmptech.com"; //
-//            targetOrigin=originHost; // el host que contiene el Iframe
-//        }
-//        else{
-//            targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
-//        }
-//        --}}
-//        //var myClientData=JSON.stringify({"clientData":{"name": "Juan", "age": 30}}); //variable con info de prueba
-//    {{!--
-//        myClientData=JSON.parse(JSON.stringify(myClientData)); //https://stackoverflow.com/questions/42376464/uncaught-domexception-failed-to-execute-postmessage-on-window-an-object-co/42376465
-
-//        var myServerData;
-//        var serverEvent=window.parent;
-//        function sendGetData(event){
-//            //serverEvent.postMessage(myClientData, "localhost:22035");
-//            //serverEvent.postMessage(myClientData, "http://towersoa.wmptech.com");
-//            serverEvent.postMessage(myClientData, originHost);
-//            //console.log("sendGetData function on client", serverEvent);
-//            // event.source.postMessage(myClientData, event.origin);
-//        }
-//        window.addEventListener('message', function(event){
-//            //serverEvent=event;
-//            //console.log("event from server on client", event);
-//            //if(event.data == "serverData"){
-//            //if(event.origin!=="http://towersoa.wmptech.com")
-//            if(event.origin!==originHost)
-//            return;
-//            //console.log("event.data", event.data, typeof(event.data));
-//            //console.log("parse event.data",JSON.parse(event.data));
-//
-//            //myServerData=JSON.stringify(eval('('+event.data+')'));
-//            myServerData=JSON.parse(event.data);
-//            console.log("myServerData on client",myServerData, typeof(myServerData));
-//            console.log("User Name from server",myServerData.Name);
-//            //}
-//        });
-//        $(document).ready(function(){
-//            sendGetData(serverEvent);
-//        }); 
-//    //IFRAME END 
-//     --}}
 
         // IFRAME START////////////////////////////////
         //From http://blog.teamtreehouse.com/cross-domain-messaging-with-postmessage
@@ -144,7 +78,7 @@
 
             myServerDataJS=JSON.parse(event.data);
             //console.log("myServerData on client",myServerDataJS, typeof(myServerDataJS));
-            console.log("User Name from server",myServerDataJS.Name);
+            console.log("IndexUser Name from server",myServerDataJS.Name);
             //}
         });
         //$(document).ready(function(){
@@ -163,26 +97,6 @@
     
     <script type="application/javascript" src="/javascripts/bowser.js" defer></script>
     <script type="application/javascript" src="/javascripts/main.js" defer></script>
-    <!-- <script>
-    $(document).ready(function(){
-        setTimeout(myFunction(),50);
-        function myFunction(){
-            var elem1 = document.getElementById("elem1");
-            var elem2 = document.getElementById("elem2");
-            var bodyh = document.getElementById("bodyId");
-            // var bodyh=$(window).height();
-            console.log(bodyh);
-            var h1 = window.getComputedStyle(elem1, null).getPropertyValue("height");
-            var h2 = window.getComputedStyle(elem2, null).getPropertyValue("height");
-            var ht = window.getComputedStyle(bodyh, null).getPropertyValue("height");
-            // var ht= bodyh;
-            var h=parseFloat(ht)-parseFloat(h1)-parseFloat(h2)+'px';
-
-            console.log(ht,h1,h2,h);
-            $("#elem0").height(h);
-        }
-    });
-    </script> -->
 
 </head>
  <body class="bodyBckg" id="bodyId">  <!--"send_event('start_event','test')send_event('custom_event','Jaime')"

@@ -222,12 +222,10 @@ function updateRec() {
     $recBtn1.text(recognition ? "Listening" : "Rec");
     tiempoStop = setTimeout(function () {if($recBtn1.text() == "Rec"){$recBtn1.text("Speak");}}, 4000);
 }
-
 function setInput(text) {// for Speech Recognition: startRecgnition Function
     $speechInput.val(text);
     send_query();
 }
-
 function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // Esta función toma la respuesta de DialogFlow y la prepara para mostrarla en pantalla al usuario.
     /*{
@@ -284,12 +282,12 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var spokenResponse = val.result.fulfillment.messages;
-   /*  "messages": [
+    /*"messages": [
         {
           "speech": "Text response",
           "type": 0
         }
-      ] */
+    ] */
     var webhookData = val.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
     var webhookAction = val.result.action;
     var webhookParameters = val.result.parameters;
@@ -297,12 +295,12 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     /*debugRespond(debugJSON); //function to print string in debug window response from API */
     for (i=0;i< spokenResponse.length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
         var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
-         /*  "messages": [
-                {
+        /*"messages": [
+            {
                 "payload": custom JSON,
                 "type": 4
-                }
-             ] */
+            }
+        ]*/
         if(spokenResponse[i].type==0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
             messagePrint2= spokenResponse[i].speech;
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
@@ -820,7 +818,7 @@ function changeMessage(messageToAdd, messageId){ // cambia un mensaje especifico
         addMessage(messageToAdd);
     }
 }
-function printAssets(data,parameters){ //data: es un alista de activos y su info, y parameters son el nombre y la moneda del portafolio
+function printAssets(data,parameters){ //data: es una lista de activos y su info, y parameters son el nombre y la moneda del portafolio
     radiosId=[];
     var radioBtnSendId=""+printIndex+"RadioBtnSendId";
     $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
@@ -873,6 +871,17 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     }
     $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
     reload_menu();
+    myClientData.push({
+                        show_portfolio:{
+                            rslt:{
+                                AssetCodes: data.addedAssets.values(), 
+                                PortfolioName: data.portfolioName,
+                                Currency: data.portfolioCurrency
+                            },
+                            function: "actToPortolioNew"
+                        }
+                    });
+    console.log("main.js myClientData en show_portfolio", myClientData);
 }
 
 function printSendEmail (){ //imprime formulario para enviar correo
