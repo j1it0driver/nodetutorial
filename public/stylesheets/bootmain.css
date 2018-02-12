@@ -292,3 +292,11 @@ h6{
   -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
+input:hover {
+  outline: none;
+  border-color: #AAA;
+}
+input:focus {
+  outline: none;
+  border-color: #888;
+}
