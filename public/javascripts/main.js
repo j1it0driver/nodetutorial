@@ -881,8 +881,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
                                 Currency: data.portfolioCurrency
                             },
                             function: "actToPortolioNew"
-                        }
-                    };
+                        };
     console.log("main.js myClientData en show_portfolio", myClientDataJS);
 }
 
