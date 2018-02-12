@@ -871,7 +871,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     }
     $("</br><a  href='https://www.mytadvisor.com/' target='_blank' >Link to portfolio</a>").appendTo('#chatBubbleDiv'+printIndex);
     reload_menu();
-    myClientData.push({
+    myClientDataJS.push({
                         show_portfolio:{
                             rslt:{
                                 AssetCodes: data.addedAssets.values(), 
@@ -881,7 +881,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
                             function: "actToPortolioNew"
                         }
                     });
-    console.log("main.js myClientData en show_portfolio", myClientData);
+    console.log("main.js myClientData en show_portfolio", myClientDataJS);
 }
 
 function printSendEmail (){ //imprime formulario para enviar correo
