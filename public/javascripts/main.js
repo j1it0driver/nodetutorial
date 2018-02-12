@@ -659,7 +659,7 @@ function sendSlice(sliderId){  // funcion para el slider
     disableButtons([sliderIdbtnSend],[sliderIdbtnSend]);
     disableButtons([sliderId],[sliderId]);
     send_query();
- }
+}
 
  /////////// Images /////////////
 
@@ -730,7 +730,6 @@ function disableBubbles(){ /// desactiva las nubes de los mensajes del chat
         $(chat_bubbleId[i]).css("opacity","0.4");
     }
 }
-
 function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){ // desactiva lo botones de las bubes del chat
     for(var i in buttonIdsToDisable){
         document.getElementById(buttonIdsToDisable[i]).disabled = true;
@@ -741,7 +740,6 @@ function disableButtons(buttonIdSelected,buttonIdsToDisable, callback){ // desac
         callback();
     }
 }
-
 function createIdFromText(idText){// idText viene en Formato de texto tal y como se debe imprimir (con espacios y mayusculas): "But_ton, to print" -> "buttontoprint"
     return idText.toLowerCase().replace(/_/g,"").replace(/ /g,"").replace(/,/g,"");
 }
@@ -800,7 +798,6 @@ function display_lists(){ // Imprimir listas?????? puede ser para imprimir por e
         $("<div class='linkContainer'><a href = "+link+" target =\"frame\">"+itemName+"</a></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
 }
-
 function addMessage(message, bubble){ //adiciona un mensaje (bubbleMessage) a un bubble especifico o al último
     if(!bubble){
         $("<div id='bubbleMessage"+printIndex+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+printIndex);
@@ -809,7 +806,6 @@ function addMessage(message, bubble){ //adiciona un mensaje (bubbleMessage) a un
         $("<div id='bubbleMessage"+bubble+"'><strong>"+message+"</strong></div>").appendTo('#chatBubbleDiv'+bubble);
     }
 }
-
 function changeMessage(messageToAdd, messageId){ // cambia un mensaje especifico (bubbleMessage) creado con addMessage
     if($("#bubbleMessage"+messageId).length){
         $("#bubbleMessage"+messageId).text(messageToAdd).css('font-weight', 'bold').css('font-style', 'italic');
@@ -852,7 +848,6 @@ function printAssets(data,parameters){ //data: es una lista de activos y su info
         return;
     }
 }
-
 function sendAsset(radioId,radiosId){ //funcion de los botones de enviar asset con monto.
     var amount = document.getElementById(""+printIndex+"InputAmountId").value;
     if($speechInput.val() != ''){
@@ -862,7 +857,6 @@ function sendAsset(radioId,radiosId){ //funcion de los botones de enviar asset c
     disableButtons(radioId,radiosId);
     send_query();
 }
-
 function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     var key;
     $("</br><span>You have created a new portfolio: <b>"+data.portfolioName+"</b></span><br><span>You added "+data.addedAssets.length+" assets</span><br>").appendTo('#chatBubbleDiv'+printIndex);
@@ -883,6 +877,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
                             function: "actToPortolioNew"
                         };
     console.log("main.js myClientData en show_portfolio", myClientDataJS);
+    sendGetData(serverEvent);
 }
 
 function printSendEmail (){ //imprime formulario para enviar correo
