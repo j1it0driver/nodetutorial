@@ -874,8 +874,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     console.log("main.js printPorfolio myclient",myClientDataJS, typeof(myClientDataJS));
     myClientDataJS=JSON.parse(myClientDataJS);
     console.log("main.js printPorfolio myclient2",myClientDataJS, typeof(myClientDataJS));
-    myClientDataJS.push({
-                        show_portfolio:{
+    myClientDataJS.show_portfolio={
                             rslt:{
                                 AssetCodes: Object.values(data.addedAssets), 
                                 PortfolioName: data.portfolioName,
@@ -883,7 +882,7 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
                             },
                             function: "actToPortolioNew"
                         }
-                    });
+                    };
     console.log("main.js myClientData en show_portfolio", myClientDataJS);
 }
 
