@@ -875,11 +875,9 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     reload_menu();
 }
 
-
 function printSendEmail (){ //imprime formulario para enviar correo
     $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
-
 
 function hideUpper(){
     if (($("#chatHistory").get(0).scrollHeight > $("#chatHistory").height()) && ($("#chatUpper").css("display")!="none")) {
@@ -887,7 +885,6 @@ function hideUpper(){
         $("#chatUpper").css("height","0").css("display","none");
     }
 }
-
 function jsonEscape(stringJSON)  { // convierte los saltos de linea \n a saltos en HTML <br />
     return stringJSON.replace(/\n/g,'<br />');//.replace(/\r/g, "\\r").replace(/\t/g, "\\t");
 }
@@ -916,11 +913,9 @@ function addCommas(nStr){ //adicionar comas de miles a un numero.
     }
     return x1 + x2;
 }
-
 /* function calcVH() { // calcula las unidades VH
     $('body').innerHeight( $(this).innerHeight() );
 } */
-
 function getFormattedDate() { // le da formato a la fecha y la retorna
     var date = new Date();
     var month = date.getMonth() + 1;
@@ -978,7 +973,6 @@ function username(){ //Actualiza la variable username con el valor en la info qu
     }
     createCookie("username", username, 1);
 }
-
 /* function visits(){ //Cuantifica el numero de visitas PENDIENTE: resetear el contador con cambio de usuario
     if(!checkCookie("visits")){
         console.log("primera visita");
@@ -993,11 +987,9 @@ function username(){ //Actualiza la variable username con el valor en la info qu
         console.log("Visits cookie: ", readCookie("visits"));
     }
 } */
-
 function wait_time(timer){ //Contador de tiempo que envia evento para activar un INTENT.
     timeout2 = setTimeout(function () {if($speechInput.val() == ''){send_event("wait_time","GEAR Hill:Balanced");}}, timer);
 }
-
 function just_wait(timer, callback){ // solo espera un tiempo para continuar
     timeout2 = setTimeout(function () {
 }, timer);
