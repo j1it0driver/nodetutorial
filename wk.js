@@ -167,7 +167,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 
                 displayText=speech="Summary";
                 data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsToAdd, "searchedAssets": assetsSearched};
-                console.log("SSwk Showing portfolio",data);
+                console.log("SSwk Showing portfolio2",data);
                 // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
                 json=apiaiResponseFormat(speech, displayText,data);
                 res.json(json, function(){
