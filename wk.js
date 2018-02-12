@@ -65,15 +65,16 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     var amount=0, array;
                     console.log("SSwk inside if");
                     var assetToAdd = param.assetToAdd;
-                    if(assetToAdd.match(" - ")){
+                    if(assetToAdd.match(" - ")){ //Ej: Tesla Motors -- Shs - USD2596008 TR - 60000
                         array=assetToAdd.split(' - ');
                         assetToAdd=array[0];
-                        amount=array[1];
+                        productCode=array[1].replace(/ /,'.'); //USD2596008 TR -> USD2596008.TR 
+                        amount=array[2];
                         console.log("SSwk array", array)
 
                     }
                     console.log("SSwk assettoadd y amount",assetToAdd,amount);
-                    assetsToAdd.push({"asset" : assetToAdd, "amount": amount});
+                    assetsToAdd.push({"asset" : assetToAdd, "productCode": productCode, "amount": amount});
                     console.log("SSwk AddAsset_Portfolio", assetToAdd);
                     console.log("SSwk Assets to add", assetsToAdd);
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
@@ -109,7 +110,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
                 console.log("SSwk name of portfolio", portfolio_name);
                 console.log("SSwk currency for portfolio", portfolio_currency);
-                var assetSearched=param.assetSearched.toLowerCase();
+                var array2=param.assetSearched.split(' - '); //Ej: Tesla Motors -- Shs - USD2596008.TR - 60000
+                var assetSearched=array2[0].toLowerCase();
                 assetsSearched.push(assetSearched);
 
                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
