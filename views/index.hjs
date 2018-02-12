@@ -68,7 +68,7 @@
         var serverEvent=window.parent;
 
         function sendGetData(event){
-            if(typeof(myClientDataJS)!=string){
+            if(typeof myClientDataJS !='string'){
                 myClientDataJS=JSON.stringify(myClientDataJS);
             }
             
