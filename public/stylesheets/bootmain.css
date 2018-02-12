@@ -22,7 +22,7 @@ body{
     background-color: white;
 }
 #speech{
-    border: 2px solid rgba(0,0,0,.15);
+    border: 2px solid rgba(122, 122, 122, 0.5);
 }
 img{
     max-height: 100%;
@@ -41,14 +41,29 @@ img{
     /*min-height: calc(100% - 9.2rem);/*inicial*/
     /*min-height: calc(100vh - 9.2rem);*/
 }
-.chat-message-left,.chat-message-right {/*code for look similar to speech bubble https://www.sitepoint.com/pure-css3-speech-bubbles/*/
+.chat-message-left {/*code for look similar to speech bubble https://www.sitepoint.com/pure-css3-speech-bubbles/*/
     position: relative;
     /* width: 200px;
     height: 100px;
     text-align: center;
     line-height: 100px;
     background-color: #fff;*/
-    border: 0.4rem solid #aaa;
+    border: 0.2rem solid #ffffff;
+    -webkit-border-radius: 1.5rem;
+    -moz-border-radius: 1.5rem;
+    border-radius: 1.5rem;
+    -webkit-box-shadow: 0.2rem 0.2rem 0.4rem #888;
+    -moz-box-shadow: 0.2rem 0.2rem 0.4rem #888;
+    box-shadow: 0.2rem 0.2rem 0.4rem #888;
+}
+.chat-message-right {/*code for look similar to speech bubble https://www.sitepoint.com/pure-css3-speech-bubbles/*/
+    position: relative;
+    /* width: 200px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    background-color: #fff;*/
+    border: 0.2rem solid #1688c6;
     -webkit-border-radius: 1.5rem;
     -moz-border-radius: 1.5rem;
     border-radius: 1.5rem;
@@ -171,7 +186,7 @@ h6{
     height: 0;
     left: 0.64rem;
     top: calc(100% + 0.03rem);
-    border: 0.8rem solid;
+    /* border: 0.8rem solid; */
     border-color: #aaa transparent transparent #aaa;
 
   }
@@ -193,7 +208,7 @@ h6{
     height: 0;
     right: 0.64rem;
     top: calc(100% + 0.03rem);
-    border: 0.8rem solid;
+    /* border: 0.8rem solid; */
     border-color: #aaa #aaa transparent transparent ;
 
   }
@@ -209,13 +224,7 @@ h6{
   }
 
   /* Place Holder CSS */
-  ::-webkit-input-placeholder {
-    color: #000;
-    opacity: 0.5;
-    -webkit-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  ::-webkit-input-placeholder {
+::-webkit-input-placeholder {
   color: #000;
   opacity: 0.5;
   -webkit-transition: opacity 0.35s ease-in-out;
@@ -282,65 +291,4 @@ h6{
   opacity: 0;
   -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
-}:-moz-placeholder {
-    color: #000;
-    opacity: 0.5;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  ::-moz-placeholder {
-    color: #000;
-    opacity: 0.5;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :-ms-input-placeholder {  
-    color: #000;
-    opacity: 0.5;
-    -ms-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  
-  /* Place Holder CSS for Focus */
-  :hover::-webkit-input-placeholder {
-    opacity: 0.75;
-    -webkit-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :hover:-moz-placeholder {
-    opacity: 0.75;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :hover::-moz-placeholder {
-    opacity: 0.75;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :hover:-ms-input-placeholder {  
-    opacity: 0.75;
-    -ms-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  
-  /* Place Holder CSS for Focus */
-  :focus::-webkit-input-placeholder {
-    opacity: 0;
-    -webkit-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :focus:-moz-placeholder {
-    opacity: 0;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :focus::-moz-placeholder {
-    opacity: 0;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :focus:-ms-input-placeholder {  
-    opacity: 0;
-    -ms-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
+}
