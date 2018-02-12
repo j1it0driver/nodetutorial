@@ -471,7 +471,7 @@ function send_event(eventName,valor){
       prepareResponse(temporal);
     };
     r.send(JSON.stringify({event: {name: eventName, data:{valor: valor}}}));
-    $('#statusMessages').text("Type the topic you're interested in");
+    $('#statusMessages').text("Choose a topic...");
     $speechInput.val("");
     $speechInput.blur();
 }

@@ -226,49 +226,53 @@ h6{
   /* Place Holder CSS */
 ::-webkit-input-placeholder {
   color: #000;
-  opacity: 0.5;
+  opacity: 0.4;
   -webkit-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 :-moz-placeholder {
   color: #000;
-  opacity: 0.5;
+  opacity: 0.4;
   -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 ::-moz-placeholder {
   color: #000;
-  opacity: 0.5;
+  opacity: 0.4;
   -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 :-ms-input-placeholder {  
   color: #000;
-  opacity: 0.5;
+  opacity: 0.4;
   -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 
 /* Place Holder CSS for Focus */
 :hover::-webkit-input-placeholder {
-  opacity: 0.75;
-  -webkit-transition: opacity 0.35s ease-in-out;
-  transition: opacity 0.35s ease-in-out;
+  opacity: 0.6;
+  color: #1688c6;
+  -webkit-transition: opacity 0.35s ease-in-out, color 0.35s linear;
+  transition: opacity 0.35s ease-in-out, color 0.35s linear;
 }
 :hover:-moz-placeholder {
-  opacity: 0.75;
-  -moz-transition: opacity 0.35s ease-in-out;
-  transition: opacity 0.35s ease-in-out;
+  opacity: 0.6;
+  color: #1688c6;
+  -moz-transition: opacity 0.35s ease-in-out, color 0.35s linear;
+  transition: opacity 0.35s ease-in-out, color 0.35s linear;
 }
 :hover::-moz-placeholder {
-  opacity: 0.75;
-  -moz-transition: opacity 0.35s ease-in-out;
-  transition: opacity 0.35s ease-in-out;
+  opacity: 0.6;
+  color: #1688c6;
+  -moz-transition: opacity 0.35s ease-in-out, color 0.35s linear;
+  transition: opacity 0.35s ease-in-out, color 0.35s linear;
 }
 :hover:-ms-input-placeholder {  
-  opacity: 0.75;
-  -ms-transition: opacity 0.35s ease-in-out;
-  transition: opacity 0.35s ease-in-out;
+  opacity: 0.6;
+  color: #1688c6;
+  -ms-transition: opacity 0.35s ease-in-out, color 0.35s linear;
+  transition: opacity 0.35s ease-in-out, color 0.35s linear;
 }
 
 /* Place Holder CSS for Focus */
@@ -292,11 +296,11 @@ h6{
   -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-input:hover {
+#speech:hover {
   outline: none;
-  border-color: #AAA;
+  border-color: #1688c6;
 }
-input:focus {
+#speech:focus {
   outline: none;
   border-color: #888;
 }
