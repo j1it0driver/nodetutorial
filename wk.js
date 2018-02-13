@@ -208,54 +208,55 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
                 switch (userResponses.amount){
                     case 'up to 20000':
-                        userResponsesId[2]={Id: 2, Options: 1}
+                        userResponsesId[2]={Id: 2, Options: 6}
                     break;
                     case 'Between 20000 and 30000':
-                        userResponsesId[2]={Id: 2, Options: 2}
+                        userResponsesId[2]={Id: 2, Options: 7}
                     break;
                     case 'Between 30000 and 50000':
-                        userResponsesId[2]={Id: 2, Options: 3}
+                        userResponsesId[2]={Id: 2, Options: 8}
                     break;
                     case 'Between 50000 and 100000':
-                        userResponsesId[2]={Id: 2, Options: 4}
+                        userResponsesId[2]={Id: 2, Options: 9}
                     break;
                     case 'More than 100000':
-                        userResponsesId[2]={Id: 2, Options: 5}
+                        userResponsesId[2]={Id: 2, Options: 10}
                     break; 
                 }
                 switch (userResponses.reaction){
                     case 'terrified':
-                        userResponsesId[3]={Id: 3, Options: 1}
+                        userResponsesId[3]={Id: 3, Options: 11}
                     break;
                     case 'worried':
-                        userResponsesId[3]={Id: 3, Options: 2}
+                        userResponsesId[3]={Id: 3, Options: 12}
                     break;
                     case 'hopeful':
-                        userResponsesId[3]={Id: 3, Options: 3}
+                        userResponsesId[3]={Id: 3, Options: 13}
                     break;
                     case 'relaxed':
-                        userResponsesId[3]={Id: 3, Options: 4}
+                        userResponsesId[3]={Id: 3, Options: 14}
                     break;
                 }
                 switch (userResponses.risk_aversion){
                     case 'very conservative':
-                        userResponsesId[4]={Id: 4, Options: 1}
+                        userResponsesId[4]={Id: 4, Options: 15}
                     break;
                     case 'conservative':
-                        userResponsesId[4]={Id: 4, Options: 2}
+                        userResponsesId[4]={Id: 4, Options: 16}
                     break;
                     case 'balanced':
-                        userResponsesId[4]={Id: 4, Options: 3}
+                        userResponsesId[4]={Id: 4, Options: 17}
                     break;
                     case 'dynamic':
-                        userResponsesId[4]={Id: 4, Options: 4}
+                        userResponsesId[4]={Id: 4, Options: 18}
                     break;
                     case 'aggresive':
-                        userResponsesId[4]={Id: 4, Options: 5}
+                        userResponsesId[4]={Id: 4, Options: 19}
                     break; 
                 }
 
-/*                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
+                
+                var answer xml, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
                 console.log("SSwk asset searched2", assetSearched);
                 userCode='oyet6qi08k0axpiVx0tDBA==';
                 domain="TADVISOR";
@@ -265,20 +266,88 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 numMaxResults = 5;
                 assetGroupsId='';
                 iAdvisor= 1;
+                clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
+                answerXML="<?xml version='1.0'?><BasicQuestionnaireResult xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>"+
+                    "<QuestionnaireId>5</QuestionnaireId>"+
+                    "<Answers>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>1</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>"+userResponsesId[1].Options+"</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>6</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>1</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>2</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>"+userResponsesId[2].Options+"</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>3</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>"+userResponsesId[3].Options+"</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>4</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>"+userResponsesId[4].Options+"</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>5</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>"+userResponsesId[5].Options+"</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                        "<BasicQuestionAnswer>"+
+                        "<QuestionId>7</QuestionId>"+
+                        "<Options>"+
+                            "<BasicQuestionOption>"+
+                            "<OptionId>28</OptionId>"+
+                            "<ExtendedValue />"+
+                            "</BasicQuestionOption>"+
+                        "</Options>"+
+                        "</BasicQuestionAnswer>"+
+                    "</Answers>"+
+                    +"</BasicQuestionnaireResult>";
+
                 var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
-                    path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term='+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
+                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode+'&answerXML='+answerXML,
                     method: 'POST'
                 };
                 var call = https.request(options, (response) => {
                     response.on('data', (chunk) => {
-                        global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
-                        // console.log(assetList);
+                        global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
+                        console.log(userEvalResult);
                     });
                     response.on('end', ()=> {
-                        // console.log("asset List",assetList);
-                        // res.sendStatus(200);
                         displayText=speech="Showing "+assetList.length+" results:"
                         var json = apiaiResponseFormat(speech, displayText, assetList);
                         res.json(json);
@@ -287,7 +356,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.on('error', (e) => {
                     console.error("SSwk error searching assets",e);
                 });
-                call.end(); */
+                call.end();
 
                 displayText=speech="user Evaluation result";
                 data={"userProfileResult": userResponsesId};
