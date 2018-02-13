@@ -327,8 +327,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printPortfolio(webhookData);
             }
             else if(webhookAction=="user_Evaluation"){
-                console.log('userEvaluation fuction',webhookParameters);
-                evaluateUser(webhookParameters);
+                console.log('userEvaluation fuction', profileQuestions);
+                evaluateUser(profileQuestions);
             }
         }
         else if (spokenResponse[i].type==4) { //type 4 is a custompayload
@@ -362,7 +362,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
             /* if (payload.lists) { //type 4 is a custompayload    ej: assets??? en existing_portfolio_intention3
                 display_lists(); //envio el nombre y los datos del payload
             } */
-            if(payload.dataVar){
+            if(payload.dataVar){ // Para guardar info temporalmente
                 if (payload.dataVar.username){
                     username=payload.dataVar.username;
                     createCookie("username",username,365);
@@ -486,16 +486,16 @@ function send_query(other){
 
         var s = new XMLHttpRequest();
         s.open("POST", "/api", true);
-        console.log("send_query 1", typeof(JSON.stringify(text)));
+        //console.log("send_query 1", typeof(JSON.stringify(text)));
         s.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         s.onreadystatechange = function () {
-            console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
+            //console.log("send_query 2",s.readyState,s.status, s.statusText, s.responseText);
             if (s.readyState != 4 || s.status != 200){
             //   respond(messageInternalError,null);
               return;
             }
             var temporal=JSON.parse(s.responseText);
-            console.log("CCmain temporal",temporal);
+            console.log("CCmain temporal response",temporal);
 
             prepareResponse(temporal);
         };
@@ -880,11 +880,9 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
     console.log("main.js myClientData en show_portfolio", myClientDataJS);
     sendGetData(serverEvent);
 }
-
 function printSendEmail (){ //imprime formulario para enviar correo
     $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
 }
-
 function hideUpper(){
     if (($("#chatHistory").get(0).scrollHeight > $("#chatHistory").height()) && ($("#chatUpper").css("display")!="none")) {
         $("#chatHistory").css("max-height","+=42px");
