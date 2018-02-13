@@ -44,14 +44,16 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
             var param = body.result.parameters;
             console.log("SSwk parameters: ", param);
         }
+
         console.log('SSwk Action is: '+action);
+
         switch(action){
-            case 'user_Evaluation':
+       /*      case 'user_Evaluation':
                 console.log('SSwk print user data',username);
                 console.log("SSwk user_Evaluation from wk", param);
                 var json = apiaiResponseFormat(speech='This is an userEvaluation test.', displayText='This is an userEvaluation test.');
                 res.json(json);//response to be print on chat.
-                break;
+                break; */
 
             case 'my_action':
                 console.log("SSwk myaction");
@@ -183,6 +185,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }); */
 
                 break;
+                
             case "user_Evaluation":
                 displayText=speech="user Evaluation result";
                 data={"userProfileResult": "no se"};

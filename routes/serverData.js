@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/', function(req,res){
-    console.log("ServerData.js print body from client myServerData on server", req.body,typeof(req.body));
+    //console.log("ServerData.js print body from client myServerData on server", req.body,typeof(req.body));
 global.serverData=req.body;
 
 // var uSession = {

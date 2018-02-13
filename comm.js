@@ -32,7 +32,7 @@ module.exports = {
                 });
             }
             request.on('response', function(response) {
-                console.log("SScommLa respuesta" + response);
+                console.log("SScommLa respuesta", response);
                 resolve(response);
                 // console.log(datos);
             });
