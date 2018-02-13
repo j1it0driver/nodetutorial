@@ -256,7 +256,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
 
                 
-                var answer xml, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
+                var answerxml, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
                 console.log("SSwk asset searched2", assetSearched);
                 userCode='oyet6qi08k0axpiVx0tDBA==';
                 domain="TADVISOR";
