@@ -327,7 +327,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 printPortfolio(webhookData);
             }
             else if(webhookAction=="user_Evaluation"){
-                console.log('userEvaluation fuction', profileQuestions);
+                console.log('userEvaluation function', profileQuestions);
                 evaluateUser(profileQuestions);
             }
         }
