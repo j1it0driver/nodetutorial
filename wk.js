@@ -128,16 +128,16 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //     iAdvisor= 1;
                 // }
                 // else{
-                    console.log("SSwk asset searched2", assetSearched);
-                    userCode='oyet6qi08k0axpiVx0tDBA==';
-                    //userCode=serverData.Code;
-                    domain="TADVISOR";
-                    language="es-ES";
-                    token='whatever';
-                    term=assetSearched;
-                    numMaxResults = 5;
-                    assetGroupsId='';
-                    iAdvisor= 1;
+                console.log("SSwk asset searched2", assetSearched);
+                userCode='oyet6qi08k0axpiVx0tDBA==';
+                //userCode=serverData.Code;
+                domain="TADVISOR";
+                language="es-ES";
+                token='whatever';
+                term=assetSearched;
+                numMaxResults = 5;
+                assetGroupsId='';
+                iAdvisor= 1;
                 // }
                 var options = {
                     hostname: 'mytadvisor.com',
@@ -187,8 +187,110 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 break;
                 
             case "user_Evaluation":
+                var userResponses=param;
+                var userResponsesId= new Object;
+                switch (userResponses.frequency){
+                    case 'Every 6 months':
+                        userResponsesId[1]={Id: 1, Options: 1}
+                    break;
+                    case 'Every year':
+                        userResponsesId[1]={Id: 1, Options: 2}
+                    break;
+                    case 'Every 2 year':
+                        userResponsesId[1]={Id: 1, Options: 3}
+                    break;
+                    case 'Every 3 to 5 years':
+                        userResponsesId[1]={Id: 1, Options: 4}
+                    break;
+                    case 'Every 5 years or more':
+                        userResponsesId[1]={Id: 1, Options: 5}
+                    break; 
+                }
+                switch (userResponses.amount){
+                    case 'up to 20000':
+                        userResponsesId[2]={Id: 2, Options: 1}
+                    break;
+                    case 'Between 20000 and 30000':
+                        userResponsesId[2]={Id: 2, Options: 2}
+                    break;
+                    case 'Between 30000 and 50000':
+                        userResponsesId[2]={Id: 2, Options: 3}
+                    break;
+                    case 'Between 50000 and 100000':
+                        userResponsesId[2]={Id: 2, Options: 4}
+                    break;
+                    case 'More than 100000':
+                        userResponsesId[2]={Id: 2, Options: 5}
+                    break; 
+                }
+                switch (userResponses.reaction){
+                    case 'terrified':
+                        userResponsesId[3]={Id: 3, Options: 1}
+                    break;
+                    case 'worried':
+                        userResponsesId[3]={Id: 3, Options: 2}
+                    break;
+                    case 'hopeful':
+                        userResponsesId[3]={Id: 3, Options: 3}
+                    break;
+                    case 'relaxed':
+                        userResponsesId[3]={Id: 3, Options: 4}
+                    break;
+                }
+                switch (userResponses.risk_aversion){
+                    case 'very conservative':
+                        userResponsesId[4]={Id: 4, Options: 1}
+                    break;
+                    case 'conservative':
+                        userResponsesId[4]={Id: 4, Options: 2}
+                    break;
+                    case 'balanced':
+                        userResponsesId[4]={Id: 4, Options: 3}
+                    break;
+                    case 'dynamic':
+                        userResponsesId[4]={Id: 4, Options: 4}
+                    break;
+                    case 'aggresive':
+                        userResponsesId[4]={Id: 4, Options: 5}
+                    break; 
+                }
+
+/*                 var userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term; //assetList;
+                console.log("SSwk asset searched2", assetSearched);
+                userCode='oyet6qi08k0axpiVx0tDBA==';
+                domain="TADVISOR";
+                language="es-ES";
+                token='whatever';
+                term=assetSearched;
+                numMaxResults = 5;
+                assetGroupsId='';
+                iAdvisor= 1;
+                var options = {
+                    hostname: 'mytadvisor.com',
+                    port: 443,
+                    path: '/SOA/tower4customers/SearchAssetHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&term='+term+'&numMaxResults='+numMaxResults+'&assetGroupsId='+assetGroupsId+'&iAdvisor='+iAdvisor,
+                    method: 'POST'
+                };
+                var call = https.request(options, (response) => {
+                    response.on('data', (chunk) => {
+                        global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
+                        // console.log(assetList);
+                    });
+                    response.on('end', ()=> {
+                        // console.log("asset List",assetList);
+                        // res.sendStatus(200);
+                        displayText=speech="Showing "+assetList.length+" results:"
+                        var json = apiaiResponseFormat(speech, displayText, assetList);
+                        res.json(json);
+                    });
+                });
+                call.on('error', (e) => {
+                    console.error("SSwk error searching assets",e);
+                });
+                call.end(); */
+
                 displayText=speech="user Evaluation result";
-                data={"userProfileResult": "no se"};
+                data={"userProfileResult": userResponsesId};
                 console.log("SSwk Showing userEvaluation result",data);
                 // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
                 json=apiaiResponseFormat(speech, displayText,data);
