@@ -317,7 +317,7 @@ function setInput(text) {// for Speech Recognition: startRecgnition Function
     $speechInput.val(text);
     send_query();
 }
-function prepareResponse(jsonDF) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
+function prepareResponse(jsonDFstring) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // Esta función toma la respuesta de DialogFlow y la prepara para mostrarla en pantalla al usuario.
     /*{
         "id": "3622be70-cb49-4796-a4fa-71f16f7b5600",
@@ -369,10 +369,11 @@ function prepareResponse(jsonDF) {  //////////////////////////////////// RESPUES
         },
         "timestamp": "2017-09-19T21:16:44.832Z"
     }*/ 
+    jsonDF=JSON.parse(jsonDFstring);//object
     console.log("prepare response",jsonDF);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
-    var apiResponses = jsonDF.result.fulfillment.messages;
+    var apiResponses = jsonDF.result.fulfillment.messages; //is an array of objects
     console.log("apiREsponses",apiResponses, typeof(apiResponses))
     /* var spokenResponse = val.result.fulfillment.messages; */
     /*"messages": [
@@ -384,7 +385,7 @@ function prepareResponse(jsonDF) {  //////////////////////////////////// RESPUES
     var webhookData = jsonDF.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
     var webhookAction = jsonDF.result.action;
     var webhookParameters = jsonDF.result.parameters;
-    var debugJSON = JSON.stringify(jsonDF, undefined, 2); //convert JSON to string
+    //var debugJSON = JSON.stringify(jsonDF, undefined, 2); //convert JSON to string
     /*debugRespond(debugJSON); //function to print string in debug window response from API */
     var i=0, length=apiResponses.length;
     for (; i < length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
@@ -662,8 +663,8 @@ function send_event(eventName,valor){
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
       var temporal=JSON.parse(r.responseText);
-      datos=temporal.result.fulfillment.messages;
-      prepareResponse(temporal);
+      //datos=temporal.result.fulfillment.messages;
+      prepareResponse(r.responseText);
     };
     r.send(JSON.stringify({event: {name: eventName, data:{valor: valor}}}));
     $('#statusMessages').text("Choose a topic...");
@@ -691,10 +692,10 @@ function send_query(other){
             //   respond(messageInternalError,null);
               return;
             }
-            var temporal=JSON.parse(s.responseText);
-            console.log("CCmain temporal response",temporal);
+            //var temporal=JSON.parse(s.responseText);
+            console.log("CCmain temporal response",s.responseText);
 
-            prepareResponse(temporal);
+            prepareResponse(s.responseText);
         };
         s.send(JSON.stringify({text}));
         $('#statusMessages').text("Message Send!");
