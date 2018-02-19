@@ -317,7 +317,7 @@ function setInput(text) {// for Speech Recognition: startRecgnition Function
     $speechInput.val(text);
     send_query();
 }
-function prepareResponse(val) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
+function prepareResponse(jsonDF) {  //////////////////////////////////// RESPUESTA ////////////////////////////////////
     // Esta función toma la respuesta de DialogFlow y la prepara para mostrarla en pantalla al usuario.
     /*{
         "id": "3622be70-cb49-4796-a4fa-71f16f7b5600",
@@ -369,10 +369,10 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         },
         "timestamp": "2017-09-19T21:16:44.832Z"
     }*/ 
-    console.log("prepare response",val);
+    console.log("prepare response",jsonDF);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
-    var apiResponses = val.result.fulfillment.messages, apiResponse;
+    var apiResponses = jsonDF.result.fulfillment.messages;
     console.log("apiREsponses",apiResponses, typeof(apiResponses))
     /* var spokenResponse = val.result.fulfillment.messages; */
     /*"messages": [
@@ -381,29 +381,29 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
           "type": 0
         }
     ] */
-    var webhookData = val.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
-    var webhookAction = val.result.action;
-    var webhookParameters = val.result.parameters;
-    var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
+    var webhookData = jsonDF.result.fulfillment.data;//?????? viene de la respuesta del webhook wk.js cuando se usa apiaiResponseFormat para que pueda cumplir con el formato que recibe DialogFlow
+    var webhookAction = jsonDF.result.action;
+    var webhookParameters = jsonDF.result.parameters;
+    var debugJSON = JSON.stringify(jsonDF, undefined, 2); //convert JSON to string
     /*debugRespond(debugJSON); //function to print string in debug window response from API */
-
-    for (apiResponse in apiResponses){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
-        var payload=apiResponse.payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
+    var i=0, length=apiResponses.length;
+    for (; i < length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
+        var payload=apiResponses[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
         /*"messages": [
             {
                 "payload": custom JSON,
                 "type": 4
             }
         ]*/
-        if(apiResponse.type === 0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
-            messagePrint2= apiResponse.speech;
+        if(apiResponses[i].type === 0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
+            messagePrint2= apiResponses[i].speech;
             console.log("CCPrepareResponse tipo de dato",typeof(messagePrint2));
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
             console.log("CCPrepareResponse tipo de dato",dataObj);
-            var apiResponse2;
-            for (apiResponse2 in apiResponses){ //add links on displayed text
-                if(apiResponse2.type==4 && apiResponse2.payload.links){
-                    dataObjLinks=putLinks(apiResponse2.payload.links,dataObj);
+            var j=0;
+            for (; j< length; j++){ //add links on displayed text
+                if(apiResponses[j].type==4 && apiResponses[j].payload.links){
+                    dataObjLinks=putLinks(apiResponses[j].payload.links,dataObj);
                 }
             }
             respond(dataObj,dataObjLinks);
@@ -428,7 +428,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 evaluateUser(profileQuestions);
             }
         }
-        else if (apiResponse.type==4) { //type 4 is a custompayload
+        else if (apiResponses[i].type==4) { //type 4 is a custompayload
             if(payload.items){
                 printButton(payload.items);
             }
