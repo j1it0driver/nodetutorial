@@ -373,6 +373,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
     var apiResponses = val.result.fulfillment.messages, apiResponse;
+    console.log("apiREsponses",apiResponses, typeof(apiResponses))
     /* var spokenResponse = val.result.fulfillment.messages; */
     /*"messages": [
         {
