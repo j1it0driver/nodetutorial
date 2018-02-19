@@ -48,9 +48,10 @@
         // IFRAME START////////////////////////////////
         //From http://blog.teamtreehouse.com/cross-domain-messaging-with-postmessage
 
-        //var originHost="http://localhost:38183"; 
-        var originHost="https://tadvisorchatbottest.herokuapp.com/";
+        var originHost="http://localhost:38183"; 
+        //var originHost="https://tadvisorchatbottest.herokuapp.com/";
         //var originHost="http://localhost:3000";
+        var targetOrigin;
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
 
         if(isInIframe){
@@ -73,7 +74,7 @@
                 myClientDataJS=JSON.stringify(myClientDataJS);
             }
             
-            serverEvent.postMessage(myClientDataJS, originHost);
+            serverEvent.postMessage(myClientDataJS, targetOrigin);
         }
         
         window.addEventListener('message', function(event){
