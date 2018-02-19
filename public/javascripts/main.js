@@ -369,7 +369,7 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
         },
         "timestamp": "2017-09-19T21:16:44.832Z"
     }*/ 
-    jsonDF=JSON.parse(jsonDFstring);//object
+    var jsonDF=JSON.parse(jsonDFstring);//object
     console.log("prepare response",jsonDF);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
