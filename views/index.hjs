@@ -55,11 +55,11 @@
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
 
         if(isInIframe){
-            console.log("Is in frame")
+            console.log("Is in frame", window);
             targetOrigin=originHost; 
         }
         else{
-            console.log("Not in frame")
+            console.log("Not in frame", window);
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
             //targetOrigin="http://localhost:3000";
         }
@@ -75,7 +75,7 @@
                 myClientDataJS=JSON.stringify(myClientDataJS);
             }
             
-            serverEvent.postMessage(myClientDataJS, targetOrigin);
+            serverEvent.postMessage(myClientDataJS, originHost);
         }
         
         window.addEventListener('message', function(event){
