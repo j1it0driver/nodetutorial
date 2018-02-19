@@ -55,10 +55,11 @@
         var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
 
         if(isInIframe){
-
+            console.log("Is in frame")
             targetOrigin=originHost; 
         }
         else{
+            console.log("Not in frame")
             targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
             //targetOrigin="http://localhost:3000";
         }
