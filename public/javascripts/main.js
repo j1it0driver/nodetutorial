@@ -372,7 +372,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     console.log("prepare response",val);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
-    var apiResponses = val.result.fulfillment.messages;
+    var apiResponses = val.result.fulfillment.messages, apiResponse;
+    /* var spokenResponse = val.result.fulfillment.messages; */
     /*"messages": [
         {
           "speech": "Text response",
@@ -384,7 +385,6 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     var webhookParameters = val.result.parameters;
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     /*debugRespond(debugJSON); //function to print string in debug window response from API */
-    var i=0, length = apiResponses.length, apiResponse; 
 
     for (apiResponse in apiResponses){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
         var payload=apiResponse.payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
@@ -488,7 +488,8 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
-    /* for (; i < length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
+    /*     var i=0, length = spokenResponse.length; 
+    for (; i < length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
         var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
         /*"messages": [
             {
