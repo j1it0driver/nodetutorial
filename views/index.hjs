@@ -60,8 +60,8 @@
         }
         else{
             console.log("Not in frame", window);
-            targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
-            //targetOrigin="http://localhost:3000";
+            //targetOrigin="https://tadvisorchatbottest.herokuapp.com/";
+            targetOrigin="http://localhost:3000";
         }
         var myClientDataJS=JSON.stringify({"clientData":{"name": "Juan", "age": 30}});
 
@@ -75,7 +75,7 @@
                 myClientDataJS=JSON.stringify(myClientDataJS);
             }
             
-            serverEvent.postMessage(myClientDataJS, originHost);
+            serverEvent.postMessage(myClientDataJS, targetOrigin);
         }
         
         window.addEventListener('message', function(event){
