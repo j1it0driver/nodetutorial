@@ -1,33 +1,82 @@
 
-  'use strict';
+'use strict';
 
-var $speechInput= $("#speech"), $recBtn= $("#rec"), $recBtn1= $("#rec1"), $statusMessages= $('#statusMessages'), $debugBtn= $(".debug_btn");
-var recognition,
+var $speechInput= $("#speech"), 
+$recBtn= $("#rec"), 
+$recBtn1= $("#rec1"), 
+$statusMessages= $('#statusMessages'), 
+$debugBtn= $(".debug_btn"),
+recognition,
 messageRecording = "Recording...",
 messageCouldntHear = "I couldn't hear you, could you say that again?",
 messageInternalError = "Oh no, there has been an internal server error",
 messageSorry = "I'm sorry, I don't have the answer to that yet.";
-var tiempoSend, timeout = null, timeout2=null, tiempoStop=null, buttonIds=[], sliderId=[], imgBtnIds=[], imgBtnIdsSend=[], radiosId=[],imgBtnTemp; //imgBtnList=[];//arrayList=[]
-var str="", datos, bubble_id=0, printIndex=bubble_id-1;
-var datestr;
+
+var 
+tiempoSend, 
+timeout = null, 
+timeout2=null, 
+tiempoStop=null, 
+buttonIds=[], 
+sliderId=[], 
+imgBtnIds=[], 
+imgBtnIdsSend=[], 
+radiosId=[],
+imgBtnTemp,
+chat_bubbleId=[],
+toDisable=[];
+//imgBtnList=[];
+//arrayList=[]
+var str="", 
+datos, 
+bubble_id=0,
+printIndex=bubble_id-1,
+datestr; 
+
 var srcAddresses=JSON.parse('{"reaction":{"hopeful":{"src":"/images/reaction/hopeful.png"},"worried":{"src":"/images/reaction/worried.png"},"relaxed":{"src":"/images/reaction/relaxed.png"},"terrified":{"src":"/images/reaction/terrified.png"}},"risk_aversion":{"very conservative":{"src":"/images/risk_aversion/veryconservative.png"},"conservative":{"src":"/images/risk_aversion/conservative.png"},"balanced":{"src":"/images/risk_aversion/moderate.png"},"dynamic":{"src":"/images/risk_aversion/dynamic.png"},"aggresive":{"src":"/images/risk_aversion/aggresive.png"}},"risk_profile":{"Gear2":{"src":"/images/risk_profile/Gear2.png"}},"asset_list":{"assetList":{"src":"/images/asset_list/assetList.PNG"}}}');
-var uname, psw;
-var domain="TADVISOR";
-var language=null, userId=null, userCode=null, userPass=null, tokenString=null, views=null, clientId=null, token=null, email=null;
-var chat_bubbleId=[];
-var voices=speechSynthesis.getVoices();
-var chatHistoryDiv = $("#chatHistory");
-var toAppend;
-var x, i, j, k;
-var visits;
-var sessionID=null;
+
+var uname, 
+psw, 
+x, 
+i, 
+j, 
+k, 
+visits, 
+sessionID=null;
+ 
+
+var 
+domain="TADVISOR", 
+language=null, 
+userId=null, 
+userCode=null, 
+userPass=null, 
+tokenString=null, 
+views=null,
+clientId=null, 
+token=null, 
+email=null;
+
+
+var 
+voices=speechSynthesis.getVoices(),
+chatHistoryDiv = $("#chatHistory"), 
+toAppend;
+
 // INTRO option: responses from user
-var username="New User", investedBefore, saveTopic, goal, profileQuestions={}, createPortfolio={};
+var username="New User",
+investedBefore,
+saveTopic, goal,
+profileQuestions={}, 
+createPortfolio={};
+
 var sonido= false;
-var iOS=iOS();
-var _iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
-var toDisable=[];
+var iOS=iOS(), 
+_iOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
+
+
 sendGetData(serverEvent);// to get user data from iframe host.
+
 navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -60,7 +109,7 @@ $(document).ready(function() {
       registerListener: function(listener) {
         this.bubble_idListener = listener;
       }
-    }
+    };
     x.registerListener(function(val) {
       $("#bubbleId").text(x.bubble_id);
 
@@ -72,15 +121,15 @@ $(document).ready(function() {
         if (timeout !== null) {
             clearTimeout(timeout);
         }
-        if ($speechInput.val()==''){
+        if ($speechInput.val()===''){ //JSLint ==
         }
         else{
             $statusMessages.text("Typing...");
-            timeout = setTimeout(function () {if($speechInput.val() != ''){$statusMessages.text("Waiting input or Enter...");}}, 3000);
+            timeout = setTimeout(function () {if($speechInput.val() !==''){$statusMessages.text("Waiting input or Enter...");}}, 3000);
         }
         if (event.which == 13) {
             event.preventDefault();
-            if($speechInput.val() != ''){
+            if($speechInput.val() !==''){
                 send_query();
                 tiempoSend=setTimeout(function(){$statusMessages.text("Next input...");},2000);
             }
@@ -91,7 +140,8 @@ $(document).ready(function() {
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 200);
     });
     $recBtn.on("click", function(event) { // SPEECH
-        clearTimeout(tiempoStop);sessionID
+        clearTimeout(tiempoStop);
+        //sessionID;
         if (hasGetUserMedia()) { // revisar si existe hasGetUserMEdia
             console.log("getusermedia ok");
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -99,7 +149,8 @@ $(document).ready(function() {
                 console.log("audioTrue ok");
                 switchRecognition();
             },function(err) { console.log(err.name + ": " + err.message);
-                                    alert("Microphone is disabled/blocked in your device/browser. Please give permissions to use voice recognition.")}); // always check for errors at the end.;
+                                alert("Microphone is disabled/blocked in your device/browser. Please give permissions to use voice recognition.");
+                            }); // always check for errors at the end.;
         } else {
           alert('getUserMedia() is not supported in your browser');
         }
@@ -111,7 +162,7 @@ $(document).ready(function() {
         return false;
     });
     $("#chat-button").bind("click",function(){
-        if(bubble_id==0){
+        if(bubble_id === 0){
             send_event('custom_event', username);
         }
         $(this).hide();
@@ -148,8 +199,47 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/* https://developers.google.com/web/fundamentals/primers/promises?hl=es
+    function get(url) {
+    // Return a new promise.
+    return new Promise(function(resolve, reject) {
+      // Do the usual XHR stuff
+      var req = new XMLHttpRequest();
+      req.open('GET', url);
+  
+      req.onload = function() {
+        // This is called even on 404 etc
+        // so check the status
+        if (req.status == 200) {
+          // Resolve the promise with the response text
+          resolve(req.response);
+        }
+        else {
+          // Otherwise reject with the status text
+          // which will hopefully be a meaningful error
+          reject(Error(req.statusText));
+        }
+      };
+  
+      // Handle network errors
+      req.onerror = function() {
+        reject(Error("Network Error"));
+      };
+  
+      // Make the request
+      req.send();
+    });
+  } */
 
-
+  /* get('story.json').then(function(response) {
+    console.log("Success!", response);
+  }, function(error) {
+    console.error("Failed!", error);
+  }) 
+  function getJSON(url) {
+    return get(url).then(JSON.parse);
+  }
+  */
 
 //////////////////////////////////// SPEECH RECOGNITION ////////////////////////////////////
 function startRecognition() {
@@ -171,7 +261,8 @@ function startRecognition() {
         };
         recognition.onresult = function(event) {
             var text = "";
-            for (var i = event.resultIndex; i < event.results.length; ++i) {
+            var i = event.resultIndex, length = event.results.length;
+            for (; i < length; ++i) {
                if (event.results[i].isFinal) {
                  final_transcript += event.results[i][0].transcript;
                } else {
@@ -281,7 +372,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     console.log("prepare response",val);
     updateUserData(myServerDataJS);
     var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
-    var spokenResponse = val.result.fulfillment.messages;
+    var apiResponses = val.result.fulfillment.messages;
     /*"messages": [
         {
           "speech": "Text response",
@@ -293,20 +384,25 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
     var webhookParameters = val.result.parameters;
     var debugJSON = JSON.stringify(val, undefined, 2); //convert JSON to string
     /*debugRespond(debugJSON); //function to print string in debug window response from API */
-    for (i=0;i< spokenResponse.length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
-        var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
+    var i=0, length = apiResponses.length, apiResponse; 
+
+    for (apiResponse in apiResponses){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
+        var payload=apiResponse.payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
         /*"messages": [
             {
                 "payload": custom JSON,
                 "type": 4
             }
         ]*/
-        if(spokenResponse[i].type==0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
-            messagePrint2= spokenResponse[i].speech;
+        if(apiResponse.type === 0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
+            messagePrint2= apiResponse.speech;
+            console.log("CCPrepareResponse tipo de dato",typeof(messagePrint2));
             dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-            for (j=0;j< spokenResponse.length; j++){ //add links on displayed text
-                if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
-                    dataObjLinks=putLinks(spokenResponse[j].payload.links,dataObj);
+            console.log("CCPrepareResponse tipo de dato",dataObj);
+            var apiResponse2;
+            for (apiResponse2 in apiResponses){ //add links on displayed text
+                if(apiResponse2.type==4 && apiResponse2.payload.links){
+                    dataObjLinks=putLinks(apiResponse2.payload.links,dataObj);
                 }
             }
             respond(dataObj,dataObjLinks);
@@ -331,7 +427,7 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
                 evaluateUser(profileQuestions);
             }
         }
-        else if (spokenResponse[i].type==4) { //type 4 is a custompayload
+        else if (apiResponse.type==4) { //type 4 is a custompayload
             if(payload.items){
                 printButton(payload.items);
             }
@@ -392,6 +488,105 @@ function prepareResponse(val) {  //////////////////////////////////// RESPUESTA 
         }
         $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
     }
+    /* for (; i < length; i++){ //por cada uno de los mensajes: es decir cada uno de los Text Response (no los textos alternativos) de los intent en la consola DF
+        var payload=spokenResponse[i].payload; //se carga el json que trae el intent de DialogFlow y se busca el payload.
+        /*"messages": [
+            {
+                "payload": custom JSON,
+                "type": 4
+            }
+        ]*/
+        /*if(spokenResponse[i].type==0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
+            messagePrint2= spokenResponse[i].speech;
+            dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
+            for (j=0;j< spokenResponse.length; j++){ //add links on displayed text
+                if(spokenResponse[j].type==4 && spokenResponse[j].payload.links){
+                    dataObjLinks=putLinks(spokenResponse[j].payload.links,dataObj);
+                }
+            }
+            respond(dataObj,dataObjLinks);
+        }
+        if(webhookData){ // do something with data returned by webhook  , but action are called directly from DialogFlow with webhook referenced to /webhook/action
+            console.log("webhook data",webhookData);
+            if(webhookAction=="search_Asset"){
+                printAssets(webhookData,webhookParameters);
+            }
+            else if(webhookAction=="add_Asset"){
+                printButton(webhookData.items);
+            }
+            else if(webhookAction=="send_Email"){
+                printSendEmail();
+            }
+            else if(webhookAction=="show_portfolio"){
+                console.log("print show portfolio", webhookData);
+                printPortfolio(webhookData);
+            }
+            else if(webhookAction=="user_Evaluation"){
+                console.log('userEvaluation function', profileQuestions);
+                evaluateUser(profileQuestions);
+            }
+        }
+        else if (spokenResponse[i].type==4) { //type 4 is a custompayload
+            if(payload.items){
+                printButton(payload.items);
+            }
+            if (payload.slide) { //type 4 is a custompayload
+                printSliderSelector(payload.slide.name);
+            }
+            if (payload.imgButton) { //type 4 is a custompayload
+                printImgButton(payload.imgButton.name,payload.imgButton.data); //envio el nombre y los datos del payload
+            }
+            if (payload.sendEvent) { //type 4 is a custompayload
+                prepare_event(payload.sendEvent.name, payload.sendEvent.data); //evento enviado hacia el cliente (ej:un timer), envio el nombre y los datos del payload
+                /* {
+                    "sendEvent": {
+                        "name": "just_wait",
+                        "data": {
+                            "timer": 1000
+                        }
+                    }
+                } */
+            /*}
+            if (payload.img) { //type 4 is a custompayload
+                printImgAndText(payload.img.name, payload.img.data, payload.img.data["text"],payload.img.data["link"]); //envio el nombre y los datos del payload
+            }
+            if (payload.login) { //type 4 is a custompayload
+                appendHtml("left");
+                printLogin('login', payload.login.username, payload.login.password); //envio el nombre y los datos del payload
+            }*/
+            /* if (payload.lists) { //type 4 is a custompayload    ej: assets??? en existing_portfolio_intention3
+                display_lists(); //envio el nombre y los datos del payload
+            } */
+            /*if(payload.dataVar){ // Para guardar info temporalmente
+                if (payload.dataVar.username){
+                    username=payload.dataVar.username;
+                    createCookie("username",username,365);
+                }
+                if (payload.dataVar.investedBefore){
+                    investedBefore=payload.dataVar.investedBefore;
+                    createCookie("investedBefore",investedBefore,365);
+                }
+                if (payload.dataVar.saveTopic){
+                    saveTopic=payload.dataVar.saveTopic;
+                    createCookie("saveTopic",saveTopic,365);
+                }
+                if (payload.dataVar.goal){
+                    goal=payload.dataVar.goal;
+                    createCookie("goal",goal,365);
+                }
+                if (payload.dataVar.profileQuestions){
+                    profileQuestions=Object.assign(profileQuestions,payload.dataVar.profileQuestions);
+                    console.log('profileQuestions',profileQuestions);
+                }
+                if (payload.dataVar.createPortfolio){
+
+                    createPortfolio=Object.assign(createPortfolio,payload.dataVar.createPortfolio);
+                    console.log('Create Portfolio vars',createPortfolio);
+                }
+            }
+        }
+        $("#chatHistory").animate({ scrollTop: $("#chatHistory")[0].scrollHeight}, 400); //[0].scrollHeight ==== .scrollTop
+    } */
     //spokenRespond(messagesPrint);
 
 
