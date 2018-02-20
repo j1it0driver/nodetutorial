@@ -256,7 +256,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
 
                 
-                var answerxml, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
+                var answerXML, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
                 console.log("SSwk User Evaluation userResponses", userResponses);
                 userCode='pvqH9wZSRmbRGFhVKPtJGw==';
                 domain="TADVISOR";
@@ -336,7 +336,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         "</BasicQuestionAnswer>"+
                     "</Answers>"+
                     +"</BasicQuestionnaireResult>";
-
+                console.log("SSwk user Evaluation XML", answerXML);
                 var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
