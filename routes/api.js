@@ -7,6 +7,8 @@ var router = express.Router();
 
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { 
+    console.log("                ");
+    console.log("*********************************");
     cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionID= cookies_s.sessionID;
     console.log("SSapi api.js sessionId",cookies_s.sessionID);
