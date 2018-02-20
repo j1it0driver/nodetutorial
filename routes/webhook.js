@@ -13,10 +13,10 @@ var router = express.Router();
 /* GET ex:"users" listing. */
 router.post('/', function(req, res) { //api.ai for nodejs
 
-    // console.log('Request to webhook: ', req.body);
+     console.log('SSWebhook Request to webhook: ', req.body);
     // console.log('cookies from client', cookies_s);
     wk.fulfillment(req, res);//, function(){
-    //     console.log('Response from webhook');
+         console.log('SSWebhooh Response from webhook',res);
     // console.log(res);
     //});
 
