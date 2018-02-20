@@ -258,10 +258,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 
                 var answerxml, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
                 console.log("SSwk User Evaluation userResponses", userResponses);
-                userCode='oyet6qi08k0axpiVx0tDBA==';
+                userCode='pvqH9wZSRmbRGFhVKPtJGw==';
                 domain="TADVISOR";
                 language="es-ES";
                 token='whatever';
+                //token='2B45071690292106ED861F81C10FA9D4'
                 term=assetSearched;
                 numMaxResults = 5;
                 assetGroupsId='';
