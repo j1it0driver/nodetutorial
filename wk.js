@@ -265,7 +265,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //token='2B45071690292106ED861F81C10FA9D4';
                 clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
                 /* answerXML="texto deprueba"; */
-                /* answerXML="<?xml version='1.0'?>"+
+                answerXML="<?xml version='1.0'?>"+
                     "<BasicQuestionnaireResult xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>"+
                     "<QuestionnaireId>5</QuestionnaireId>"+
                     "<Answers>"+
@@ -333,9 +333,20 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     "   </Options>"+
                     "   </BasicQuestionAnswer>"+
                     "</Answers>"+
-                    "</BasicQuestionnaireResult>"; */
-                answerXML=encodeURIComponent("<?xml version='1.0'?><BasicQuestionnaireResult xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[1].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[2].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[3].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[4].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[5].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>");
+                    "</BasicQuestionnaireResult>";
+                /* answerXML=encodeURIComponent("<?xml version='1.0'?><BasicQuestionnaireResult xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[1].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[2].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[3].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[4].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[5].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>"); */
                 console.log("SSwk user Evaluation XML", answerXML);
+/*                 var r = new XMLHttpRequest();
+                r.open("POST", url, true);
+                r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                r.onload = function(){
+                    if(r.status == 200) resolve(r.responseText);
+                    else {reject(Error(r.statusText));}
+                }
+                r.onerror = function(){
+                    reject(Error("CCmain Ajax Network Error"));
+                }
+                r.send(jsonToSend); */
                 /* var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
