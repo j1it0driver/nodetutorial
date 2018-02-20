@@ -21,6 +21,8 @@ router.post('/', function(req, res) {
     });
 });
 router.post('/event', function(req,res) {
+    console.log("                ");
+    console.log("*********************************");
     console.log("SSapi api.js api/event");
     cookies_s = cookie.parse(req.headers.cookie || '');
     var sessionID= cookies_s.sessionID;
