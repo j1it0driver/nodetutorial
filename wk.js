@@ -257,7 +257,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
                 
                 var answerXML2, answerXML, userCode, domain, language, token, clientCode; //assetList;
-                console.log("SSwk User Evaluation userResponses", userResponsesId);
+                console.log("SSwk User Evaluation userResponses", userResponsesId, userResponsesId[1].Options);
                 userCode='pvqH9wZSRmbRGFhVKPtJGw==';
                 domain="TADVISOR";
                 language="es-ES";
