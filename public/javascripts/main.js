@@ -82,6 +82,15 @@ navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia;
 
+/* var global = this; // in the top-level context, "this" always
+// refers to the global object
+function f(x) {
+    'use strict';
+    var a = 12;
+    global.b = a + x * 35;
+}
+f(42);    */                       
+
 $(document).ready(function() {
     window.speechSynthesis.cancel();
     console.log("Browser/OS:", bowser.name, bowser.osname);
@@ -200,7 +209,7 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /* https://developers.google.com/web/fundamentals/primers/promises?hl=es
-    function get(url) {
+    function get(url) { //create a get function to ajax function using promise
     // Return a new promise.
     return new Promise(function(resolve, reject) {
       // Do the usual XHR stuff
@@ -372,9 +381,9 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
     var jsonDF=JSON.parse(jsonDFstring);//object
     console.log("prepare response",jsonDF);
     updateUserData(myServerDataJS);
-    var location_c, dataObj=null, messagesPrint = "", messagePrint2 = "", dataObjLinks;
+    var location_c, message2PrintWithLinks = {}, message2Print = {};
     var apiResponses = jsonDF.result.fulfillment.messages; //is an array of objects
-    console.log("apiREsponses",apiResponses, typeof(apiResponses))
+    console.log("apiREsponses",apiResponses, typeof(apiResponses));
     /* var spokenResponse = val.result.fulfillment.messages; */
     /*"messages": [
         {
@@ -397,21 +406,42 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
             }
         ]*/
         if(apiResponses[i].type === 0){ //type 0 is a SPEECH type 4 is a CUSTOM PAYLOAD (types for web platform, for others platforms integrations there are more types.)
-            messagePrint2= apiResponses[i].speech;
-            console.log("CCPrepareResponse tipo de dato",typeof(messagePrint2));
-            dataObj = eval('\"'+ jsonEscape(messagePrint2) +'\"');
-            console.log("CCPrepareResponse tipo de dato",dataObj);
+            message2Print = jsonEscape(apiResponses[i].speech);
+            /* message2Print = eval('\"'+jsonEscape(messagePrint2)+'\"'); */
+            console.log("CCPrepareResponse tipo de dato2",message2Print);
             var j=0;
-            for (; j< length; j++){ //add links on displayed text
+            message2PrintWithLinks=message2Print;
+            for (; j< length; j++){ //add links on displayed text. Only one payload must contain the list of links
                 if(apiResponses[j].type==4 && apiResponses[j].payload.links){
-                    dataObjLinks=putLinks(apiResponses[j].payload.links,dataObj);
+                    message2PrintWithLinks=putLinks(apiResponses[j].payload.links,message2Print);
                 }
             }
-            respond(dataObj,dataObjLinks);
+            console.log("CCPrepareResponse tipo de dato2",message2PrintWithLinks);
+            respond(message2PrintWithLinks);
         }
         if(webhookData){ // do something with data returned by webhook  , but action are called directly from DialogFlow with webhook referenced to /webhook/action
             console.log("webhook data",webhookData);
-            if(webhookAction=="search_Asset"){
+            switch (webhookAction){
+                case "search_Asset":
+                    printAssets(webhookData,webhookParameters);
+                    break;
+                case "add_Asset":
+                    printButton(webhookData.items);
+                    break;
+                case "send_Email":
+                    printSendEmail();
+                    break;
+                case "show_portfolio":
+                    console.log("print show portfolio", webhookData);
+                    printPortfolio(webhookData);
+                    break;
+                case "user_evaluation":
+                    console.log('userEvaluation function', profileQuestions);
+                    evaluateUser(profileQuestions);
+                    break;
+                default:
+            }
+            /* if(webhookAction=="search_Asset"){
                 printAssets(webhookData,webhookParameters);
             }
             else if(webhookAction=="add_Asset"){
@@ -427,7 +457,7 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
             else if(webhookAction=="user_Evaluation"){
                 console.log('userEvaluation function', profileQuestions);
                 evaluateUser(profileQuestions);
-            }
+            } */
         }
         else if (apiResponses[i].type==4) { //type 4 is a custompayload
             if(payload.items){
@@ -451,7 +481,7 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
                 } */
             }
             if (payload.img) { //type 4 is a custompayload
-                printImgAndText(payload.img.name, payload.img.data, payload.img.data["text"],payload.img.data["link"]); //envio el nombre y los datos del payload
+                printImgAndText(payload.img.name, payload.img.data, payload.img.data.text,payload.img.data.link); //envio el nombre y los datos del payload
             }
             if (payload.login) { //type 4 is a custompayload
                 appendHtml("left");
@@ -608,21 +638,22 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
     $('#testing').append(dato);
 } */
 
-function respond(val, valLinks) { // function to print text into chat message and to speech the text outloud
+function respond(speech2printWithLinks) { // function to print text into chat message and to speech the text outloud
     var toAppend, sentences=null, sentence=null, sentencesArray;
-    if (valLinks==null){
-        valLinks=val;
+/*     if (speech2printWithLinks === null ){ //no message
+        speech2printWithLinks = speech2print;
+    } */
+    if (speech2printWithLinks === "") {
+        speech2printWithLinks = messageSorry;
     }
-    if (valLinks == "") {
-        valLinks = messageSorry;
-    }
-    sentences=val;
+    /* sentences=speech2print; */
+    sentences=speech2printWithLinks;
     sentences=sentences.replace(/&nbsp/g,"").replace(/<br \/>/g,"").replace(/<br>/g,"").replace(/<i>/g,"").replace(/<\/i>/g,"").replace(/\n/g,"").replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<p>/g,"").replace(/<\/p>/g,""); //quitar el espacio en blanco del speech .replace(/H.*S/, 'HS');
     sentencesArray=sentences.split(".");
     var synth= window.speechSynthesis;
     for (var k in sentencesArray){
          sentence=sentencesArray[k];
-        if (sonido && val !== messageRecording) {
+        if (sonido && speech2print !== messageRecording) {
             var msg = new SpeechSynthesisUtterance(sentence);
             console.log("Speech Synth Msg", msg);
             var voices = synth.getVoices();
@@ -638,7 +669,7 @@ function respond(val, valLinks) { // function to print text into chat message an
             msg.onerror = function(event) {
                 console.log(event);
                 console.log('An error has occurred with the speech synthesis: ' + event.error);
-            }
+            };
             if(iOS){
                 console.log("I'm iOS");
 
@@ -650,12 +681,13 @@ function respond(val, valLinks) { // function to print text into chat message an
     if ('SpeechRecognition' in window) {
       // Speech recognition support. Talk to your apps!
     }
-    toAppend="<h6 class='mb-0 d-block'>"+valLinks+"</h6>";
+    toAppend="<h6 class='mb-0 d-block'>"+speech2printWithLinks+"</h6>";
     appendHtml("left",toAppend);
     $speechInput.blur();
 }
 
-function send_event(eventName,valor){
+/* function send_event(eventName,valor){
+    
     var r = new XMLHttpRequest();
     
     r.open("POST", "/api/event", true);
@@ -670,16 +702,85 @@ function send_event(eventName,valor){
     $('#statusMessages').text("Choose a topic...");
     $speechInput.val("");
     $speechInput.blur();
+} */
+
+function send_event(eventName , valor){
+    var url = "/api/event";
+    var objToSend={ 
+                    event: 
+                        { 
+                        name: eventName, 
+                        data:{
+                            valor: valor
+                            }
+                        }
+                    };
+    var ajaxResponse;//string??
+    sendJsonPostAjax(url,objToSend).then(function(responseJsonString){
+        prepareResponse(responseJsonString);
+    }, function(error){
+        console.log("CCmain error send_event",error);
+    });
+    $('#statusMessages').text("Choose a topic...");
+    $speechInput.val("");
+    $speechInput.blur();
 }
 
-function send_query(other){
+function send_query(){
+    var text =document.getElementById('speech').value ;
+    var obj2send={text: text};
+    var url = "/api";
+    var toAppend;
+    /* if(isEmpty(obj2send)!== ''){ */
+    if(text!== ''){
+        window.speechSynthesis.cancel();
+        sendJsonPostAjax(url,obj2send).then(function(responseJsonString){
+            prepareResponse(responseJsonString);
+        }, function(error){
+            console.log("CCmain Error send_query",error);
+        });
+        disableBubbles();
+        toAppend= "<h6 class='mb-0 d-block'>"+text+"</h6>";
+        appendHtml("right",toAppend);
+        $('#statusMessages').text("Message Send!");
+        $speechInput.val("");
+        $speechInput.blur();
+    }
+}
+
+function sendJsonPostAjax(url, objToSend, callback){
+    var jsonToSend=JSON.stringify(objToSend);
+    return new Promise (function(resolve, reject){
+        var r = new XMLHttpRequest();
+        r.open("POST", url, true);
+        r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        r.onload = function(){
+            if(r.status == 200) resolve(r.responseText);
+            else {reject(Error(r.statusText));}
+        }
+        r.onerror = function(){
+            reject(Error("CCmain Ajax Network Error"));
+        }
+        /* r.onreadystatechange = function () {
+        if (r.readyState = 4 && r.status = 200) reject(Error(r.statusText));
+        //prepareResponse(r.responseText);
+        resolve(callback(r.responseText));
+        }; */
+        r.send(jsonToSend);
+    });
+}
+
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
+/* function send_query(other){
     var text = $speechInput.val();
     var otherData=null;
     if(other){
         otherData=other;
     }
     var toAppend;
-    if($speechInput.val() != ''){
+    if($speechInput.val() !== ''){
         window.speechSynthesis.cancel();
 
         var s = new XMLHttpRequest();
@@ -705,10 +806,10 @@ function send_query(other){
         $speechInput.val("");
         $speechInput.blur();
     }
-}
+} */
 
 function sendEmail(formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId){
-    toDisable=[formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId]
+    toDisable=[formNameId, formEmailId, formSubjectId, formBodyId, formSendButtonId];
     console.log("sendEmail function client");
     var r = new XMLHttpRequest();
     r.open("POST", "/sayHello", true);
@@ -752,8 +853,14 @@ function send_login(){
     }); //handlers.js
 }
 
-function updateUserData(myServerData){ // send info from tadvisor-server to NodeJS Server
-    var r = new XMLHttpRequest();
+function updateUserData(myServerDataObj){ // send info from tadvisor-server to NodeJS Server
+    console.log("CCmain ServerData",myServerDataObj);
+    sendJsonPostAjax("/serverData", myServerDataObj).then(function(response){
+        console.log("CCmain response updateUserData",response);
+    },function(error){
+        console.log("CCmain response error updateUserData",error);
+    });
+    /* var r = new XMLHttpRequest();
     r.open("POST", "/serverData", true);
     r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     r.onreadystatechange = function () {
@@ -761,8 +868,7 @@ function updateUserData(myServerData){ // send info from tadvisor-server to Node
         var temporal=JSON.parse(r.responseText);
         console.log("CCmain response updateUserData",temporal);
     };
-    console.log("CCmain ServerData",myServerData);
-    r.send(JSON.stringify(myServerData));
+    r.send(JSON.stringify(myServerDataObj)); */
 }
 
 function evaluateUser(questionsResponses){
