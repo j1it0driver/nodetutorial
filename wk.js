@@ -2,10 +2,10 @@
 var express = require('express');
 var cookie = require('cookie');
 var cookiesm= require('./cookies.js');
-var api = require('./routes/api');
+//var api = require('./routes/api');
 //var handlers = require('./handlers.js');
 var https = require('https');
-var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
+//var baseUrl="https://mytadvisor.com/SOA/tower4customers/";
 
 
 
@@ -46,7 +46,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
         }
 
         console.log('SSwk Action is: '+action);
-
+        var json;
         switch(action){
        /*      case 'user_Evaluation':
                 console.log('SSwk print user data',username);
@@ -57,7 +57,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
             case 'my_action':
                 console.log("SSwk myaction");
-                var json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
+                json = apiaiResponseFormat(speech='This is an action test.', displayText='This is an action test.');
                 res.json(json);
                 break;
 
@@ -67,12 +67,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     var amount=0, array;
                     console.log("SSwk inside if");
                     var assetToAdd = param.assetToAdd;
+                    var productCode;
                     if(assetToAdd.match(" - ")){ //Ej: Tesla Motors -- Shs - USD2596008 TR - 60000
                         array=assetToAdd.split(' - ');
                         assetToAdd=array[0];
                         productCode=array[1].replace(/ /,'.'); //USD2596008 TR -> USD2596008.TR 
                         amount=array[2];
-                        console.log("SSwk array", array)
+                        console.log("SSwk array", array);
 
                     }
                     console.log("SSwk assettoadd y amount",assetToAdd,amount);
@@ -88,7 +89,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     {"name":"existingportfoliointention2-followup","lifespan":"2", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
                     {"name":"existing_portfolio_intention2-followup","lifespan":"2", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}}];
                     console.log("SSwk add_asset data",data);
-                    var json = apiaiResponseFormat(speech, displayText, data, contextOut);
+                    json = apiaiResponseFormat(speech, displayText, data, contextOut);
                     res.json(json);
                 }
                 break;
@@ -97,7 +98,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 console.log('SSwk send email from server');
                 displayText=speech="Sending Email";
                 data={"nada":"vacio"};
-                var json=apiaiResponseFormat(speech, displayText,data,null);
+                json=apiaiResponseFormat(speech, displayText,data,null);
                 res.json(json);
                 break;
 
@@ -153,8 +154,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     response.on('end', ()=> {
                         // console.log("asset List",assetList);
                         // res.sendStatus(200);
-                        displayText=speech="Showing "+assetList.length+" results:"
-                        var json = apiaiResponseFormat(speech, displayText, assetList);
+                        displayText=speech="Showing "+assetList.length+" results:";
+                        json = apiaiResponseFormat(speech, displayText, assetList);
                         res.json(json);
                     });
                 });
@@ -188,70 +189,70 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 
             case "user_Evaluation":
                 var userResponses=param;
-                var userResponsesId= new Object;
+                var userResponsesId= {};
                 switch (userResponses.frequency){
                     case 'Every 6 months':
-                        userResponsesId[1]={Id: 1, Options: 1}
+                        userResponsesId[1]={Id: 1, Options: 1};
                     break;
                     case 'Every year':
-                        userResponsesId[1]={Id: 1, Options: 2}
+                        userResponsesId[1]={Id: 1, Options: 2};
                     break;
                     case 'Every 2 year':
-                        userResponsesId[1]={Id: 1, Options: 3}
+                        userResponsesId[1]={Id: 1, Options: 3};
                     break;
                     case 'Every 3 to 5 years':
-                        userResponsesId[1]={Id: 1, Options: 4}
+                        userResponsesId[1]={Id: 1, Options: 4};
                     break;
                     case 'Every 5 years or more':
-                        userResponsesId[1]={Id: 1, Options: 5}
+                        userResponsesId[1]={Id: 1, Options: 5};
                     break; 
                 }
                 switch (userResponses.amount){
                     case 'up to 20000':
-                        userResponsesId[2]={Id: 2, Options: 6}
+                        userResponsesId[2]={Id: 2, Options: 6};
                     break;
                     case 'Between 20000 and 30000':
-                        userResponsesId[2]={Id: 2, Options: 7}
+                        userResponsesId[2]={Id: 2, Options: 7};
                     break;
                     case 'Between 30000 and 50000':
-                        userResponsesId[2]={Id: 2, Options: 8}
+                        userResponsesId[2]={Id: 2, Options: 8};
                     break;
                     case 'Between 50000 and 100000':
-                        userResponsesId[2]={Id: 2, Options: 9}
+                        userResponsesId[2]={Id: 2, Options: 9};
                     break;
                     case 'More than 100000':
-                        userResponsesId[2]={Id: 2, Options: 10}
+                        userResponsesId[2]={Id: 2, Options: 10};
                     break; 
                 }
                 switch (userResponses.reaction){
                     case 'terrified':
-                        userResponsesId[3]={Id: 3, Options: 11}
+                        userResponsesId[3]={Id: 3, Options: 11};
                     break;
                     case 'worried':
-                        userResponsesId[3]={Id: 3, Options: 12}
+                        userResponsesId[3]={Id: 3, Options: 12};
                     break;
                     case 'hopeful':
-                        userResponsesId[3]={Id: 3, Options: 13}
+                        userResponsesId[3]={Id: 3, Options: 13};
                     break;
                     case 'relaxed':
-                        userResponsesId[3]={Id: 3, Options: 14}
+                        userResponsesId[3]={Id: 3, Options: 14};
                     break;
                 }
                 switch (userResponses.risk_aversion){
                     case 'very conservative':
-                        userResponsesId[4]={Id: 4, Options: 15}
+                        userResponsesId[4]={Id: 4, Options: 15};
                     break;
                     case 'conservative':
-                        userResponsesId[4]={Id: 4, Options: 16}
+                        userResponsesId[4]={Id: 4, Options: 16};
                     break;
                     case 'balanced':
-                        userResponsesId[4]={Id: 4, Options: 17}
+                        userResponsesId[4]={Id: 4, Options: 17};
                     break;
                     case 'dynamic':
-                        userResponsesId[4]={Id: 4, Options: 18}
+                        userResponsesId[4]={Id: 4, Options: 18};
                     break;
                     case 'aggresive':
-                        userResponsesId[4]={Id: 4, Options: 19}
+                        userResponsesId[4]={Id: 4, Options: 19};
                     break; 
                 }
 
@@ -274,7 +275,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     "   <Options>"+
                     "       <BasicQuestionOption>"+
                     "       <OptionId>"+userResponsesId[1].Options+"</OptionId>"+
-                    "       <ExtendedValue />"
+                    "       <ExtendedValue />"+
                     "       </BasicQuestionOption>"+
                     "   </Options>"+
                     "   </BasicQuestionAnswer>"+
@@ -365,7 +366,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     });
                     response.on('end', ()=> {
                         displayText=speech="Showing results of user evaluation"
-                        var json = apiaiResponseFormat(speech, displayText, userEvalResult);
+                        json = apiaiResponseFormat(speech, displayText, userEvalResult);
                         res.json(json);
                     });
                 });
