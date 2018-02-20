@@ -344,6 +344,10 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     port: 443,
                     path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode+'&answerXML='+answerXML,
                     method: 'POST'
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                        //'Content-Length': Buffer.byteLength(postData)
+                      }
                 };
                 var call = https.request(options, (response) => {
                     response.on('data', (chunk) => {
