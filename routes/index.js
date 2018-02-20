@@ -9,7 +9,7 @@ var router = express.Router();
 //   res.render('index', { title: 'Express' });
 // });
 router.get('/', function(req,res){
-  console.log("es la llamada a route index.js");
+  console.log("SSIndex es la llamada a route index.js");
   // console.log("Cookies :  ", req.cookies);
   // var cookies_s = cookie.parse(req.headers.cookie || '');
   // console.log(cookies_s.visits);
@@ -20,7 +20,7 @@ router.get('/', function(req,res){
   global.assetsSearched=[];
   global.assetsToAdd=[];
   global.userData={};
-  console.log("from index root assetsToAdd & assetsSearched", assetsToAdd);
+  console.log("SS Index from index root assetsToAdd & assetsSearched", assetsToAdd);
   res.render('index');
 });
 /////// EXAMPLE FOR ROUTING
