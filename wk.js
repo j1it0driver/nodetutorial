@@ -257,7 +257,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
                 
                 var answerxml, userCode, domain, language, token, numMaxResults, assetGroupsId, iAdvisor,term, clientCode; //assetList;
-                console.log("SSwk asset searched2", assetSearched);
+                console.log("SSwk User Evaluation userResponses", userResponses);
                 userCode='oyet6qi08k0axpiVx0tDBA==';
                 domain="TADVISOR";
                 language="es-ES";
@@ -345,25 +345,25 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var call = https.request(options, (response) => {
                     response.on('data', (chunk) => {
                         global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
-                        console.log(userEvalResult);
+                        console.log("SSwk userEvalResult",userEvalResult);
                     });
                     response.on('end', ()=> {
-                        displayText=speech="Showing "+assetList.length+" results:"
-                        var json = apiaiResponseFormat(speech, displayText, assetList);
+                        displayText=speech="Showing results of user evaluation"
+                        var json = apiaiResponseFormat(speech, displayText, userEvalResult);
                         res.json(json);
                     });
                 });
                 call.on('error', (e) => {
-                    console.error("SSwk error searching assets",e);
+                    console.error("SSwk error user evaluation",e);
                 });
                 call.end();
 
-                displayText=speech="user Evaluation result";
-                data={"userProfileResult": userResponsesId};
+                /* displayText=speech="user Evaluation result";
+                data={"userProfileResult": userResponsesId}; */
                 console.log("SSwk Showing userEvaluation result",data);
                 // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
-                json=apiaiResponseFormat(speech, displayText,data);
-                res.json(json);
+                /* json=apiaiResponseFormat(speech, displayText,data);
+                res.json(json); */
                 break;
             // case 'show_Portfolio':
             //     displayText=speech='show portfolio';
