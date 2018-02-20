@@ -268,7 +268,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 assetGroupsId='';
                 iAdvisor= 1;
                 clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
-                answerXML="<?xml version='1.0'?><BasicQuestionnaireResult xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>"+
+                answerXML="texto deprueba"
+                /* answerXML="<?xml version='1.0'?><BasicQuestionnaireResult xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>"+
                     "<QuestionnaireId>5</QuestionnaireId>"+
                     "<Answers>"+
                         "<BasicQuestionAnswer>"+
@@ -335,7 +336,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         "</Options>"+
                         "</BasicQuestionAnswer>"+
                     "</Answers>"+
-                    +"</BasicQuestionnaireResult>";
+                    +"</BasicQuestionnaireResult>"; */
+                    
                 console.log("SSwk user Evaluation XML", answerXML);
                 var options = {
                     hostname: 'mytadvisor.com',
