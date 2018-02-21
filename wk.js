@@ -362,7 +362,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 /* var postData=encodeURIComponent(temp); */
                 var postData = Object.keys(temp).map((key) => {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(temp[key])
-                }).join('&');
+                }).join('&').replace(/%20/g, '+');
+
                 console.log("SSwk userEvaluation temp",temp)
                 /* var postData=encodeURIComponent(JSON.stringify(temp)); */
                 var options = {
@@ -398,7 +399,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.on('error', (e) => {
                     console.error("SSwk error user evaluation",e);
                 });
-                call.write(postData.replace(/%20/g, '+'));
+                call.write(postData);
                 call.end();
 
                 /* displayText=speech="user Evaluation result";
