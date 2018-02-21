@@ -2,6 +2,7 @@
 var express = require('express');
 var cookie = require('cookie');
 var cookiesm= require('./cookies.js');
+var request=require('request');
 //var api = require('./routes/api');
 //var handlers = require('./handlers.js');
 var https = require('https');
@@ -403,21 +404,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.write(postData);
                 call.end(); */
 //--------------------
-                var url="http://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx"
-                var req = new XMLHttpRequest();
-                req.open("POST", url, true);
-                //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
-                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                req.onreadystatechange = function () {
-                  if (req.readyState != 4) return;
-                  if (req.status != 200 && req.status != 304) {
-                    console.log('HTTP error ' + req.status);
-                    return;
-                  }
-                  console.log("******************************",req.responseText);
-                }
-                if (req.readyState == 4) return;
-                req.send(postData);
+                var uri='http://www.mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx';
+                request.post(uri,temp, function(err,httpResponse,body){ 
+                    displayText=speech="Showing results of user evaluation"
+                    json = apiaiResponseFormat(speech, displayText, body);
+                    console.log("SSwk userEvalResult json",json);
+                    res.json(json);
+                });
 //-------------------------_
 
 
