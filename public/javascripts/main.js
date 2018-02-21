@@ -1323,7 +1323,7 @@ function prepare_event(eventName,data){// solo para timers. De acuerdo a lo que 
                 */
     switch(eventName){
         case "wait_time":
-            wait_time(data.timer);// sens event to call intent. data.timer captura el tiempo que se trae de la API en el payload
+            //wait_time(data.timer);// sens event to call intent. data.timer captura el tiempo que se trae de la API en el payload
             break;
         case "just_wait":
             just_wait(data.timer);
