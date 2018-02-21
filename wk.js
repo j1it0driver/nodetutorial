@@ -405,8 +405,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.end(); */
 //--------------------
                 var uri='http://www.mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx';
-                var headers={'content-type': 'application/x-www-form-urlencoded'}
+                var headers={'content-type': 'application/x-www-form-urlencoded'};
                 request.post({url: uri, headers: headers, form: postData}, function(err,httpResponse,body){ 
+                    console.log("SSwk userEvaluation request httpResponse",httpResponse);
                     displayText=speech="Showing results of user evaluation";
                     json = apiaiResponseFormat(speech, displayText, body);
                     console.log("SSwk userEvalResult json",json);
