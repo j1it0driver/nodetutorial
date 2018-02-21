@@ -257,7 +257,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 }
 
                 
-                var answerXML2, answerXML="", userCode, domain, language, token, clientCode; //assetList;
+                var answersXML2, answersXML="", userCode, domain, language, token, clientCode; //assetList;
                 console.log("SSwk User Evaluation userResponses", userResponsesId, userResponsesId[1].Options);
                 userCode='pvqH9wZSRmbRGFhVKPtJGw==';
                 domain="TADVISOR";
@@ -266,7 +266,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 //token='2B45071690292106ED861F81C10FA9D4';
                 clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
                 /* answerXML="texto deprueba"; */
-                answerXML="<?xml version=\"1.0\"?>"+"\n"+
+                answersXML="<?xml version=\"1.0\"?>"+"\n"+
                     "<BasicQuestionnaireResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"+"\n"+
                     "   <QuestionnaireId>5</QuestionnaireId>"+"\n"+
                     "   <Answers>"+"\n"+
@@ -335,9 +335,10 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     "      </BasicQuestionAnswer>"+"\n"+
                     "   </Answers>"+"\n"+
                     "</BasicQuestionnaireResult>";
-                    answerXML2=encodeURI(answerXML);
+                    answersXML2=encodeURI(answersXML);
+
                 /* answerXML="<?xml version=\"1.0\"?><BasicQuestionnaireResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[1].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[2].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[3].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[4].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>"; */
-                console.log("SSwk user Evaluation XML", answerXML, answerXML2);
+                console.log("SSwk user Evaluation XML", answersXML, answersXML2);
 /*                 var r = new XMLHttpRequest();
                 r.open("POST", url, true);
                 r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -349,6 +350,15 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     reject(Error("CCmain Ajax Network Error"));
                 }
                 r.send(jsonToSend); */
+                var postData={
+                    userCode: userCode,
+                    domain: domain,
+                    language: language,
+                    token: token,
+                    clientCode: clientCode,
+                    answersXML: answersXML
+                };
+
                 var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
