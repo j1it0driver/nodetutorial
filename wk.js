@@ -358,6 +358,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         //'Content-Length': Buffer.byteLength(answerXML)
                       }
                 };
+                console.log("------------------------",options);
                 var call = https.request(options, (response) => {
                     console.log("SSwk iserEval inside request",response);
                     response.on('data', (chunk) => {
