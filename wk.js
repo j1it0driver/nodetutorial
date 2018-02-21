@@ -362,11 +362,12 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
-                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode+'&answersXML='+answersXML,
+                    /* path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode+'&answersXML='+answersXML, */
+                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?',
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                        //'Content-Length': Buffer.byteLength(answerXML)
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Length': Buffer.byteLength(postData)
                       }
                 };
                 console.log("------------------------",options);
@@ -388,6 +389,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.on('error', (e) => {
                     console.error("SSwk error user evaluation",e);
                 });
+                call.write(postData);
                 call.end();
 
                 /* displayText=speech="user Evaluation result";
