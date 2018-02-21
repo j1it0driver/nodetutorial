@@ -268,75 +268,76 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 /* answerXML="texto deprueba"; */
                 answerXML="<?xml version=\"1.0\"?>"+"\n"+
                     "<BasicQuestionnaireResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"+"\n"+
-                    "<QuestionnaireId>5</QuestionnaireId>"+"\n"+
-                    "<Answers>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>1</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>"+userResponsesId[1].Options+"</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>6</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>1</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>2</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>"+userResponsesId[2].Options+"</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>3</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>"+userResponsesId[3].Options+"</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>4</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>"+userResponsesId[4].Options+"</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>5</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>18</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "   <BasicQuestionAnswer>"+"\n"+
-                    "   <QuestionId>7</QuestionId>"+"\n"+
-                    "   <Options>"+"\n"+
-                    "       <BasicQuestionOption>"+"\n"+
-                    "       <OptionId>28</OptionId>"+"\n"+
-                    "       <ExtendedValue />"+"\n"+
-                    "       </BasicQuestionOption>"+"\n"+
-                    "   </Options>"+"\n"+
-                    "   </BasicQuestionAnswer>"+"\n"+
-                    "</Answers>"+"\n"+
+                    "   <QuestionnaireId>5</QuestionnaireId>"+"\n"+
+                    "   <Answers>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>1</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>"+userResponsesId[1].Options+"</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>6</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>1</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>2</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>"+userResponsesId[2].Options+"</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>3</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>"+userResponsesId[3].Options+"</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>4</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>"+userResponsesId[4].Options+"</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>5</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>18</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "      <BasicQuestionAnswer>"+"\n"+
+                    "      <QuestionId>7</QuestionId>"+"\n"+
+                    "      <Options>"+"\n"+
+                    "          <BasicQuestionOption>"+"\n"+
+                    "          <OptionId>28</OptionId>"+"\n"+
+                    "          <ExtendedValue />"+"\n"+
+                    "          </BasicQuestionOption>"+"\n"+
+                    "      </Options>"+"\n"+
+                    "      </BasicQuestionAnswer>"+"\n"+
+                    "   </Answers>"+"\n"+
                     "</BasicQuestionnaireResult>";
+                    answerXML2=encodeURI(answerXML);
                 /* answerXML="<?xml version=\"1.0\"?><BasicQuestionnaireResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[1].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[2].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[3].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[4].Options+"</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>"; */
-                console.log("SSwk user Evaluation XML", answerXML);
+                console.log("SSwk user Evaluation XML", answerXML, answerXML2);
 /*                 var r = new XMLHttpRequest();
                 r.open("POST", url, true);
                 r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
