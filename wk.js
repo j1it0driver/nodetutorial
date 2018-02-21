@@ -369,7 +369,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     method: 'POST',
                     headers: {
                         //'Content-Type': 'application/json',
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/x-www-form-urlencoded',
                         'Content-Length': Buffer.byteLength(postData)
                       }
                 };
