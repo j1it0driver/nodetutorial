@@ -405,7 +405,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.write(postData);
                 call.end(); */
 //--------------------
-                var uri='https://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx';
+                /* var uri='https://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx';
                 var headers={'Content-Type': 'application/x-www-form-urlencoded'};
                 request.post({url: uri, headers: headers, body: postData}, function(err,httpResponse,body){ 
                     console.log("SSwk userEvaluation request httpResponse",httpResponse);
@@ -413,7 +413,31 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     json = apiaiResponseFormat(speech, displayText, body);
                     console.log("SSwk userEvalResult json",json);
                     res.json(json);
-                });
+                }); */
+                var options = { method: 'POST',
+                    url: 'https://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
+                    headers: 
+                    {   'Postman-Token': '959884b6-5c5a-9a15-e09b-3b3750be4f7d',
+                        'Cache-Control': 'no-cache',
+                        'Content-Type': 'application/x-www-form-urlencoded' },
+                    form: 
+                    {   userCode: 'pvqH9wZSRmbRGFhVKPtJGw==',
+                        domain: 'TADVISOR',
+                        language: 'es-ES',
+                        token: '2B45071690292106ED861F81C10FA9D4',
+                        clientCode: 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw',
+                        answersXML: '<?xml version=\'1.0\'?><BasicQuestionnaireResult xmlns:xsi=\'http://www.w3.org/2001/XMLSchema-instance\' xmlns:xsd=\'http://www.w3.org/2001/XMLSchema\'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>23</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>6</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>10</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>14</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>' } };
+
+                    request(options, function (error, response, body) {
+                        if (error) throw new Error(error);
+
+                        console.log("SSwk userEvaluation body",body);
+
+                        displayText=speech="Showing results of user evaluation";
+                        json = apiaiResponseFormat(speech, displayText, body);
+                        console.log("SSwk userEvalResult json",json);
+                        res.json(json);
+                    });
 //-------------------------_
 
 
