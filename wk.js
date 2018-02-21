@@ -411,10 +411,10 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 req.onreadystatechange = function () {
                   if (req.readyState != 4) return;
                   if (req.status != 200 && req.status != 304) {
-                    alert('HTTP error ' + req.status);
+                    console.log('HTTP error ' + req.status);
                     return;
                   }
-                  console.log("******************************"req.responseText);
+                  console.log("******************************",req.responseText);
                 }
                 if (req.readyState == 4) return;
                 req.send(postData);
