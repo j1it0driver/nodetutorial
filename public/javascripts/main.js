@@ -1126,7 +1126,7 @@ function printAssets(data,parameters){ //data: es una lista de activos y su info
         radiosId[i]=('radio'+i+printIndex);
         $("<div id='radio"+i+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Name+" - "+data[i].ProductCode+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Market:&nbsp;&nbsp;&nbsp;</i>"+data[i].MarketName+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Date:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPriceDate+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
     }
-    $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><div class='hide-inputbtns p-2 row'><div class='col-8 input-group input-group-sm'><span class='input-group-addon' id='sizing-addon2'>"+parameters.portfolio_currency+"</span><input class='form-control' number-to-fixed='2' id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='number' min='0.00' max='1000000.00' placeholder='Enter amount'></div></div></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+    /* $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><div class='hide-inputbtns p-2 row'><div class='col-8 input-group input-group-sm'><span class='input-group-addon' id='sizing-addon2'>"+parameters.portfolio_currency+"</span><input class='form-control' number-to-fixed='2' id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='number' min='0.00' max='1000000.00' placeholder='Enter amount'></div></div></br>").appendTo('#chatBubbleDivDiv'+printIndex); */
     $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"submit\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
     $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button></br>").appendTo('#chatBubbleDivDiv'+printIndex);
     addMessage("If the asset is not listed, please be more specific");
@@ -1141,23 +1141,25 @@ function printAssets(data,parameters){ //data: es una lista de activos y su info
     });
     $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
         $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
+        $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
     });
-    $("#"+printIndex+"InputAmountId").keyup(function(){
+   /*  $("#"+printIndex+"InputAmountId").keyup(function(){
          if($speechInput.val()!=""){
              $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
          }
-    });
+    }); */
     if(radiosId.length==0){
         send_event("searchAgain", null);
         return;
     }
 }
 function sendAsset(radioId,radiosId){ //funcion de los botones de enviar asset con monto.
-    var amount = document.getElementById(""+printIndex+"InputAmountId").value;
+    
+   /*  var amount = document.getElementById(""+printIndex+"InputAmountId").value;
     if($speechInput.val() != ''){
         $speechInput.val($speechInput.val()+" - "+$("#"+printIndex+"InputAmountId").val());
     }
-    console.log("amount from input",amount);
+    console.log("amount from input",amount); */
     disableButtons(radioId,radiosId);
     send_query();
 }

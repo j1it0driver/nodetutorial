@@ -261,8 +261,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var answersXML2, answersXML="", userCode, domain, language, token, clientCode; //assetList;
                 console.log("SSwk User Evaluation userResponses", userResponsesId, userResponsesId[1].Options);
                 userCode='pvqH9wZSRmbRGFhVKPtJGw==';
-                domain="TADVISOR";
-                language="es-ES";
+                domain='TADVISOR';
+                language='es-ES';
                 token='2B45071690292106ED861F81C10FA9D4';//whatever
                 //token='2B45071690292106ED861F81C10FA9D4';
                 clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
@@ -338,7 +338,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     "</BasicQuestionnaireResult>"; */
                     answersXML2=encodeURI(answersXML);
 
-                answersXML='<?xml version=\'1.0\'?><BasicQuestionnaireResult xmlns:xsi=\'http://www.w3.org/2001/XMLSchema-instance\' xmlns:xsd=\'http://www.w3.org/2001/XMLSchema\'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[1].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[2].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[3].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[4].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>';
+                answersXML='<?xml version="1.0"?><BasicQuestionnaireResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[1].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[2].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[3].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[4].Options+'</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>';
                 console.log("SSwk user Evaluation XML", answersXML, answersXML2);
 /*                 var r = new XMLHttpRequest();
                 r.open("POST", url, true);
@@ -359,21 +359,21 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     clientCode: clientCode,
                     answersXML: answersXML
                 };
-                var postData=encodeURIComponent(answersXML);
+                var postData=encodeURIComponent(temp);
                 /* var postData=encodeURIComponent(JSON.stringify(temp)); */
                 var options = {
                     hostname: 'mytadvisor.com',
-                    port: 443,
-                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode,
-                    //path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
+                    //port: 443,
+                    //path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode,
+                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/xml',
-                        //'Content-Type': 'application/x-www-form-urlencoded',
+                        //'Content-Type': 'application/xml',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                         'Content-Length': Buffer.byteLength(postData)
                       }
                 };
-                console.log("------------------------",options);
+                console.log("------------------------",postData);
                 var userEvalResult;
                 var call = https.request(options, (response) => {
                     console.log("SSwk iserEval inside request",response);
