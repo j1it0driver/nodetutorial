@@ -366,7 +366,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json',//'application/x-www-form-urlencoded',sdfasdfasdfasdfasdfasdfasdfa
                         'Content-Length': Buffer.byteLength(postData)
                       }
                 };
