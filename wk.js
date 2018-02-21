@@ -379,7 +379,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         'Content-Length': Buffer.byteLength(postData)
                       }
                 };
-                console.log("------------------------",postData);
+                console.log("------------------------",postData,typeof(postData));
+            
                 /* var userEvalResult="";
                 var call = https.request(options, (response) => {
                     console.log("SSwk iserEval inside request",response);
@@ -405,8 +406,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.end(); */
 //--------------------
                 var uri='https://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx';
-                var headers={'content-type': 'application/x-www-form-urlencoded'};
-                request.post({url: uri, headers: headers, form: postData}, function(err,httpResponse,body){ 
+                var headers={'Content-Type': 'application/x-www-form-urlencoded'};
+                request.post({url: uri, headers: headers, body: postData}, function(err,httpResponse,body){ 
                     console.log("SSwk userEvaluation request httpResponse",httpResponse);
                     displayText=speech="Showing results of user evaluation";
                     json = apiaiResponseFormat(speech, displayText, body);
