@@ -364,7 +364,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     hostname: 'mytadvisor.com',
                     port: 443,
                     path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode+'&answersXML='+encodeURIComponents(answersXML),
-                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
+                    //path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
                     method: 'POST',
                     headers: {
                         //'Content-Type': 'application/json',
