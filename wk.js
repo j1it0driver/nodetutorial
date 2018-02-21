@@ -359,7 +359,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                       }
                 };
                 var call = https.request(options, (response) => {
+                    console.log("SSwk iserEval inside request",response);
                     response.on('data', (chunk) => {
+                        console.log("SSwk userEval chunk",chunk);
                         //global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
                         global.userEvalResult=JSON.parse(chunk.toString()).RSLT.DATA;
                         console.log("SSwk userEvalResult",userEvalResult);
