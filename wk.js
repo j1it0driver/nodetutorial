@@ -361,12 +361,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var call = https.request(options, (response) => {
                     response.on('data', (chunk) => {
                         //global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
-                        global.userEvalResult+= chunk.RSLT.DATA;
+                        global.userEvalResult=JSON.parse(chunk.toString()).RSLT.DATA;
                         console.log("SSwk userEvalResult",userEvalResult);
                     });
                     response.on('end', ()=> {
                         displayText=speech="Showing results of user evaluation"
                         json = apiaiResponseFormat(speech, displayText, userEvalResult);
+                        console.log("SSwk userEvalResult json",json);
                         res.json(json);
                     });
                 });
