@@ -262,7 +262,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 userCode='pvqH9wZSRmbRGFhVKPtJGw==';
                 domain="TADVISOR";
                 language="es-ES";
-                token='whatever';
+                token='2B45071690292106ED861F81C10FA9D4';//whatever
                 //token='2B45071690292106ED861F81C10FA9D4';
                 clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
                 /* answerXML="texto deprueba"; */
@@ -350,7 +350,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     reject(Error("CCmain Ajax Network Error"));
                 }
                 r.send(jsonToSend); */
-                var postData={
+                var temp={
                     userCode: userCode,
                     domain: domain,
                     language: language,
@@ -358,7 +358,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     clientCode: clientCode,
                     answersXML: answersXML
                 };
-
+                var postData=encodeURIComponent(JSON.stringify(temp));
                 var options = {
                     hostname: 'mytadvisor.com',
                     port: 443,
@@ -366,7 +366,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',//'application/x-www-form-urlencoded',sdfasdfasdfasdfasdfasdfasdfa
+                        //'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                         'Content-Length': Buffer.byteLength(postData)
                       }
                 };
