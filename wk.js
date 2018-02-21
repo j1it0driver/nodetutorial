@@ -403,7 +403,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 call.write(postData);
                 call.end(); */
 //--------------------
-                var url="mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx"
+                var url="http://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx"
                 var req = new XMLHttpRequest();
                 req.open("POST", url, true);
                 //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
