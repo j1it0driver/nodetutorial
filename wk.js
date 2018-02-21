@@ -363,8 +363,8 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var postData = Object.keys(temp).map((key) => {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(temp[key])
                 }).join('&').replace(/%20/g, '+').replace(/'/g, '%27');
-
-                console.log("SSwk userEvaluation temp",temp)
+                /* querystring.stringify(obj[, sep[, eq[, options]]]) */
+                //console.log("SSwk userEvaluation temp",temp)
                 /* var postData=encodeURIComponent(JSON.stringify(temp)); */
                 var options = {
                     hostname: 'mytadvisor.com',
@@ -387,8 +387,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         //global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
 
                         userEvalResult+=chunk;
-                        console.log("SSwk userEvalResult",userEvalResult);
+                        
                     });
+                    console.log("SSwk userEvalResult",userEvalResult);
                     response.on('end', ()=> {
                         displayText=speech="Showing results of user evaluation"
                         json = apiaiResponseFormat(speech, displayText, userEvalResult);
@@ -404,7 +405,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
 
                 /* displayText=speech="user Evaluation result";
                 data={"userProfileResult": userResponsesId}; */
-                console.log("SSwk Showing userEvaluation result",data);
+                //console.log("SSwk Showing userEvaluation result",data);
                 // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
                 /* json=apiaiResponseFormat(speech, displayText,data);
                 res.json(json); */
