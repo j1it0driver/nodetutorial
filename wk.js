@@ -147,6 +147,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     method: 'POST'
                 };
                 var call = https.request(options, (response) => {
+                    console.log("SSwk searchAsset inside request",response);
                     response.on('data', (chunk) => {
                         global.assetList= JSON.parse(chunk.toString()).RSLT.DATA;
                         // console.log(assetList);
