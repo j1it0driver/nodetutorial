@@ -379,7 +379,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                       }
                 };
                 console.log("------------------------",postData);
-                var userEvalResult="";
+                /* var userEvalResult="";
                 var call = https.request(options, (response) => {
                     console.log("SSwk iserEval inside request",response);
                     response.on('data', (chunk) => {
@@ -401,7 +401,26 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     console.error("SSwk error user evaluation",e);
                 });
                 call.write(postData);
-                call.end();
+                call.end(); */
+//--------------------
+                var url="mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx"
+                var req = new XMLHttpRequest();
+                req.open("POST", url, true);
+                //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
+                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                req.onreadystatechange = function () {
+                  if (req.readyState != 4) return;
+                  if (req.status != 200 && req.status != 304) {
+                    alert('HTTP error ' + req.status);
+                    return;
+                  }
+                  console.log("******************************"req.responseText);
+                }
+                if (req.readyState == 4) return;
+                req.send(postData);
+//-------------------------_
+
+
 
                 /* displayText=speech="user Evaluation result";
                 data={"userProfileResult": userResponsesId}; */
