@@ -380,7 +380,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         //global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
 
                         userEvalResult+=chunk;
-                        console.log("SSwk userEvalResult",JSON.parse(userEvalResult));
+                        console.log("SSwk userEvalResult",userEvalResult);
                     });
                     response.on('end', ()=> {
                         displayText=speech="Showing results of user evaluation"
