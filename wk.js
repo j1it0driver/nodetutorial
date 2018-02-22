@@ -1,4 +1,4 @@
-import { Promise } from 'mongoose';
+
 
 var express = require('express');
 var cookie = require('cookie');
