@@ -259,14 +259,13 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     break; 
                 }
 
-                
-                var answersXML2, answersXML="", userCode, domain, language, token, clientCode; //assetList;
+
+                var userCode, domain, language, token, clientCode;
                 console.log("SSwk User Evaluation userResponses", userResponsesId, userResponsesId[1].Options);
                 userCode='pvqH9wZSRmbRGFhVKPtJGw==';
                 domain='TADVISOR';
                 language='es-ES';
                 token='2B45071690292106ED861F81C10FA9D4';//whatever
-                //token='2B45071690292106ED861F81C10FA9D4';
                 clientCode= 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw';
                 /* answerXML="texto deprueba"; */
                 /* answersXML="<?xml version=\"1.0\"?>"+"\n"+
@@ -340,19 +339,9 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     "</BasicQuestionnaireResult>"; */
                     //answersXML2=encodeURIComponent(answersXML);
 
-                answersXML="<?xml version='1.0'?><BasicQuestionnaireResult><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[1].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[2].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[3].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[4].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>";
+                /* answersXML="<?xml version='1.0'?><BasicQuestionnaireResult><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[1].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[2].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[3].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>"+userResponsesId[4].Options+"</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>";
                 console.log("SSwk user Evaluation answersXML", answersXML);
-/*                 var r = new XMLHttpRequest();
-                r.open("POST", url, true);
-                r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                r.onload = function(){
-                    if(r.status == 200) resolve(r.responseText);
-                    else {reject(Error(r.statusText));}
-                }
-                r.onerror = function(){
-                    reject(Error("CCmain Ajax Network Error"));
-                }
-                r.send(jsonToSend); */
+
                 var temp={
                     userCode: userCode,
                     domain: domain,
@@ -361,60 +350,11 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     clientCode: clientCode,
                     answersXML: answersXML
                 };
-                /* var postData=encodeURIComponent(temp); */
+
                 var postData = Object.keys(temp).map((key) => {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(temp[key])
-                }).join('&').replace(/%20/g, '+').replace(/'/g, '%27');
-                /* querystring.stringify(obj[, sep[, eq[, options]]]) */
-                //console.log("SSwk userEvaluation temp",temp)
-                /* var postData=encodeURIComponent(JSON.stringify(temp)); */
-                var options = {
-                    hostname: 'mytadvisor.com',
-                    //port: 443,
-                    //path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx?userCode='+userCode+'&domain='+domain+'&language='+language+'&token='+token+'&clientCode='+clientCode,
-                    path: '/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
-                    method: 'POST',
-                    headers: {
-                        //'Content-Type': 'application/xml',
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Content-Length': Buffer.byteLength(postData)
-                      }
-                };
-                console.log("------------------------",postData,typeof(postData));
-            
-                /* var userEvalResult="";
-                var call = https.request(options, (response) => {
-                    console.log("SSwk iserEval inside request",response);
-                    response.on('data', (chunk) => {
-                        console.log("SSwk userEval chunk",chunk);
-                        //global.userEvalResult= JSON.parse(chunk.toString()).RSLT.DATA;
+                }).join('&').replace(/%20/g, '+').replace(/'/g, '%27'); */
 
-                        userEvalResult+=chunk;
-                        
-                    });
-                    console.log("SSwk userEvalResult",userEvalResult);
-                    response.on('end', ()=> {
-                        displayText=speech="Showing results of user evaluation"
-                        json = apiaiResponseFormat(speech, displayText, userEvalResult);
-                        console.log("SSwk userEvalResult json",json);
-                        res.json(json);
-                    });
-                });
-                call.on('error', (e) => {
-                    console.error("SSwk error user evaluation",e);
-                });
-                call.write(postData);
-                call.end(); */
-//--------------------
-                /* var uri='https://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx';
-                var headers={'Content-Type': 'application/x-www-form-urlencoded'};
-                request.post({url: uri, headers: headers, body: postData}, function(err,httpResponse,body){ 
-                    console.log("SSwk userEvaluation request httpResponse",httpResponse);
-                    displayText=speech="Showing results of user evaluation";
-                    json = apiaiResponseFormat(speech, displayText, body);
-                    console.log("SSwk userEvalResult json",json);
-                    res.json(json);
-                }); */
                 var options = { method: 'POST',
                     url: 'https://mytadvisor.com/SOA/tower4customers/EvaluateInvestorProfileQuestionnaireHandler.ashx',
                     headers: 
@@ -427,48 +367,23 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         language: 'es-ES',
                         token: '2B45071690292106ED861F81C10FA9D4',
                         clientCode: 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw',
-                        answersXML: '<?xml version=\'1.0\'?><BasicQuestionnaireResult xmlns:xsi=\'http://www.w3.org/2001/XMLSchema-instance\' xmlns:xsd=\'http://www.w3.org/2001/XMLSchema\'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>23</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>6</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>10</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>14</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>' } };
+                        answersXML: '<?xml version=\'1.0\'?><BasicQuestionnaireResult xmlns:xsi=\'http://www.w3.org/2001/XMLSchema-instance\' xmlns:xsd=\'http://www.w3.org/2001/XMLSchema\'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[1].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[2].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[3].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[4].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>' } };
 
-                    /* request(options, function (error, response, body) {
-                        if (error) throw new Error(error);
-
-                        console.log("SSwk userEvaluation body",body);
-
-                        displayText=speech="Showing results of user evaluation";
-                        json = apiaiResponseFormat(speech, displayText, body.RSLT.DATA);
-                        console.log("SSwk userEvalResult json",json);
-                        res.json(json);
-                    }); */
-//-------------------------_
                     return new Promise(function(resolve,reject){
                         request(options, function (error, response, body) {
                             /* if (error) throw new Error(error); */
                             if (error) reject(Error(error));
                             else{
-                                console.log("SSwk userEvaluation body",body);
-                                displayText=speech="Showing results of user evaluation";
-                                json = apiaiResponseFormat(speech, displayText, JSON.parse(body).RSLT.DATA);
+                                //console.log("SSwk userEvaluation body",body);
+                                body=JSON.parse(body).RSLT.DATA;
+                                displayText=speech="Showing results of user evaluation.\n Score: " + body.InvestorProfileScore+"\n Profile: " + body.InvestorProfileName;
+                                json = apiaiResponseFormat(speech, displayText, body);
                                 console.log("SSwk userEvalResult json",json);
                                 resolve(res.json(json));
                             }
-                            
                         });
                     });
-                    
-
-
-                /* displayText=speech="user Evaluation result";
-                data={"userProfileResult": userResponsesId}; */
-                //console.log("SSwk Showing userEvaluation result",data);
-                // data={"portfolioName": portfolio_name, "portfolioCurrency": portfolio_currency, "addedAssets": assetsSearched};
-                /* json=apiaiResponseFormat(speech, displayText,data);
-                res.json(json); */
                 break;
-            // case 'show_Portfolio':
-            //     displayText=speech='show portfolio';
-            //     var json = apiaiResponseFormat(speech, displayText, null);
-            //     res.json(json);
-            //     break;
         }
     }
 };
