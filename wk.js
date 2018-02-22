@@ -1,3 +1,4 @@
+import { Promise } from 'mongoose';
 
 var express = require('express');
 var cookie = require('cookie');
@@ -428,18 +429,32 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                         clientCode: 'i7z9hO9MNrA4DBOJmF+Ykbo693dpPyH4mroJod3DnvUBclxOmWC2Lb4b5iragxZw',
                         answersXML: '<?xml version=\'1.0\'?><BasicQuestionnaireResult xmlns:xsi=\'http://www.w3.org/2001/XMLSchema-instance\' xmlns:xsd=\'http://www.w3.org/2001/XMLSchema\'><QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>1</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>23</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>6</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>10</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>14</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue /></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>' } };
 
-                    request(options, function (error, response, body) {
+                    /* request(options, function (error, response, body) {
                         if (error) throw new Error(error);
 
                         console.log("SSwk userEvaluation body",body);
 
                         displayText=speech="Showing results of user evaluation";
-                        json = apiaiResponseFormat(speech, displayText, body);
+                        json = apiaiResponseFormat(speech, displayText, body.RSLT.DATA);
                         console.log("SSwk userEvalResult json",json);
                         res.json(json);
-                    });
+                    }); */
 //-------------------------_
-
+                    return new Promise(function(resolve,reject){
+                        request(options, function (error, response, body) {
+                            /* if (error) throw new Error(error); */
+                            if (error) reject(Error(error));
+                            else{
+                                console.log("SSwk userEvaluation body",body);
+                                displayText=speech="Showing results of user evaluation";
+                                json = apiaiResponseFormat(speech, displayText, body.RSLT.DATA);
+                                console.log("SSwk userEvalResult json",json);
+                                resolve(res.json(json));
+                            }
+                            
+                        });
+                    });
+                    
 
 
                 /* displayText=speech="user Evaluation result";
