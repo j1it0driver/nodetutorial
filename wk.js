@@ -194,68 +194,68 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var userResponses=param;
                 var userResponsesId= {};
                 switch (userResponses.frequency){
-                    case 'Every 6 months':
-                        userResponsesId[1]={Id: 1, Options: 1};
+                    case 'Every 6 months': //question 1
+                        userResponsesId[1]={Id: 1, Options: 1}; //10
                     break;
                     case 'Every year':
-                        userResponsesId[1]={Id: 1, Options: 2};
+                        userResponsesId[1]={Id: 1, Options: 2}; //7.5
                     break;
                     case 'Every 2 year':
-                        userResponsesId[1]={Id: 1, Options: 3};
+                        userResponsesId[1]={Id: 1, Options: 3}; //5
                     break;
                     case 'Every 3 to 5 years':
-                        userResponsesId[1]={Id: 1, Options: 4};
+                        userResponsesId[1]={Id: 1, Options: 4}; //2.5
                     break;
                     case 'Every 5 years or more':
-                        userResponsesId[1]={Id: 1, Options: 5};
+                        userResponsesId[1]={Id: 1, Options: 5}; //2.5
                     break; 
                 }
                 switch (userResponses.amount){
-                    case 'up to 20000':
-                        userResponsesId[2]={Id: 2, Options: 6};
+                    case 'up to 20000': //question 5
+                        userResponsesId[2]={Id: 2, Options: 18}; //2
                     break;
                     case 'Between 20000 and 30000':
-                        userResponsesId[2]={Id: 2, Options: 7};
+                        userResponsesId[2]={Id: 2, Options: 19}; //5
                     break;
                     case 'Between 30000 and 50000':
-                        userResponsesId[2]={Id: 2, Options: 8};
+                        userResponsesId[2]={Id: 2, Options: 20}; //8
                     break;
                     case 'Between 50000 and 100000':
-                        userResponsesId[2]={Id: 2, Options: 9};
+                        userResponsesId[2]={Id: 2, Options: 21}; //10
                     break;
                     case 'More than 100000':
-                        userResponsesId[2]={Id: 2, Options: 9};
+                        userResponsesId[2]={Id: 2, Options: 22}; //10
                     break; 
                 }
-                switch (userResponses.reaction){
+                switch (userResponses.reaction){ //question 7
                     case 'terrified':
-                        userResponsesId[3]={Id: 3, Options: 10};
+                        userResponsesId[3]={Id: 3, Options: 28}; //0    
                     break;
                     case 'worried':
-                        userResponsesId[3]={Id: 3, Options: 11};
+                        userResponsesId[3]={Id: 3, Options: 29}; //10
                     break;
                     case 'hopeful':
-                        userResponsesId[3]={Id: 3, Options: 12};
+                        userResponsesId[3]={Id: 3, Options: 30}; //20
                     break;
                     case 'relaxed':
-                        userResponsesId[3]={Id: 3, Options: 13};
+                        userResponsesId[3]={Id: 3, Options: 31}; //30
                     break;
                 }
                 switch (userResponses.risk_aversion){
-                    case 'very conservative':
-                        userResponsesId[4]={Id: 4, Options: 14};
+                    case 'very conservative': // question 4
+                        userResponsesId[4]={Id: 4, Options: 14}; //2
                     break;
                     case 'conservative':
-                        userResponsesId[4]={Id: 4, Options: 15};
+                        userResponsesId[4]={Id: 4, Options: 15}; //5
                     break;
                     case 'balanced':
-                        userResponsesId[4]={Id: 4, Options: 16};
+                        userResponsesId[4]={Id: 4, Options: 16}; //8
                     break;
                     case 'dynamic':
-                        userResponsesId[4]={Id: 4, Options: 17};
+                        userResponsesId[4]={Id: 4, Options: 17}; //10
                     break;
                     case 'aggresive':
-                        userResponsesId[4]={Id: 4, Options: 18};
+                        userResponsesId[4]={Id: 4, Options: 17}; //10
                     break; 
                 }
 
@@ -354,7 +354,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                 var postData = Object.keys(temp).map((key) => {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(temp[key])
                 }).join('&').replace(/%20/g, '+').replace(/'/g, '%27'); */
-                var ans='<QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[1].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>23</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[2].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[3].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[4].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>18</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>28</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>';
+                var ans='<QuestionnaireId>5</QuestionnaireId><Answers><BasicQuestionAnswer><QuestionId>1</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[1].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>6</QuestionId><Options><BasicQuestionOption><OptionId>23</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>2</QuestionId><Options><BasicQuestionOption><OptionId>8</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>3</QuestionId><Options><BasicQuestionOption><OptionId>12</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>4</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[4].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>5</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[2].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer><BasicQuestionAnswer><QuestionId>7</QuestionId><Options><BasicQuestionOption><OptionId>'+userResponsesId[3].Options+'</OptionId><ExtendedValue/></BasicQuestionOption></Options></BasicQuestionAnswer></Answers></BasicQuestionnaireResult>';
 
                 console.log("RRRRRRRrRRRRRRRRRR",ans.replace(/'/g, '\''));
 
