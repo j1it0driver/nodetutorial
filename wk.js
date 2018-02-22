@@ -447,7 +447,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                             else{
                                 console.log("SSwk userEvaluation body",body);
                                 displayText=speech="Showing results of user evaluation";
-                                json = apiaiResponseFormat(speech, displayText, body.RSLT.DATA);
+                                json = apiaiResponseFormat(speech, displayText, JSON.parse(body).RSLT.DATA);
                                 console.log("SSwk userEvalResult json",json);
                                 resolve(res.json(json));
                             }
