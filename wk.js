@@ -83,7 +83,7 @@ var  fulfillment = function(req, res){ //Raphael Meudec API.AI Facebook Messenge
                     console.log("SSwk AddAsset_Portfolio", assetToAdd);
                     console.log("SSwk Assets to add", assetsToAdd);
                     // displayText=speech= "Asset with ISIN: "+assetToAdd.slice(-1).pop()+ " was added to your portfolio. Do you want to add more assets?";
-                    displayText=speech= "You investment of <i>"+portfolio_currency+" "+amount+"</i> on asset: <b>"+assetToAdd+"</b>, was added to your portfolio. Do you want to add more assets?";
+                    displayText=speech= "Asset: <b>"+assetToAdd+"</b>, was added to your portfolio. Do you want to add more assets?";
                     data= {"items": ["Add more", "Finish"]};
                     contextOut=[{"name":"asset_to_add","lifespan":"1", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},
                     {"name":"create_portfolio","lifespan":"1", "parameters":{"assetSearched":"'"+ assetsToAdd+"'"}},

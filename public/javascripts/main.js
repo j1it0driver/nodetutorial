@@ -872,6 +872,8 @@ function updateUserData(myServerDataObj){ // send info from tadvisor-server to N
 }
 
 function evaluateUser(questionsResponses){
+
+    just_wait(2000,reload_menu());
     // var r = new XMLHttpRequest();
     // r.open("POST", "/sayHello", true);
     // r.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
