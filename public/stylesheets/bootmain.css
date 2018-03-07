@@ -98,7 +98,7 @@ h6{
 .listButton{
     /* font-size: 0.875rem; */
     font-size: 0.7rem !important;
-    line-height: 1.2rem;
+    line-height: 0.7rem;
 }
 .barButton{
     line-height: 1.8rem;
@@ -306,4 +306,7 @@ h6{
 #speech:focus {
   outline: none;
   border-color: #888;
+}
+.card-img-top {
+    width: 50%;
 }
