@@ -97,8 +97,9 @@ h6{
 }
 .listButton{
     /* font-size: 0.875rem; */
-    font-size: 0.7rem !important;
+    font-size: 0.6rem !important;
     line-height: 0.7rem;
+    padding: 0.25rem;
 }
 .barButton{
     line-height: 1.8rem;
@@ -137,7 +138,7 @@ h6{
 .img-button-container{
     /*height: 8rem;*/
     /*vertical-align: center;*/
-    width: 100px;
+    width: 129px;
 }
 .statusToUser{
  font-size: 100%;
