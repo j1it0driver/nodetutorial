@@ -8,6 +8,7 @@ body{
 /*button{
     all: none;
 }*/
+
 #rec{
     height: 2.25rem;
     max-width: 5rem;
@@ -92,11 +93,11 @@ img{
 }
 h6{
     /* font-size: 0.875rem; */
-    font-size: 0.8rem;
+    font-size: 0.7rem !important;
 }
 .listButton{
     /* font-size: 0.875rem; */
-    font-size: 0.8rem;
+    font-size: 0.7rem !important;
     line-height: 1.2rem;
 }
 .barButton{
