@@ -425,6 +425,9 @@ function prepareResponse(jsonDFstring) {  //////////////////////////////////// R
                 case "search_Asset":
                     printAssets(webhookData,webhookParameters);
                     break;
+                case "ask_data":
+                    printAskedData(webhookData,webhookParameters);
+                    break;
                 case "add_Asset":
                     printButton(webhookData.items);
                     break;
@@ -1187,6 +1190,42 @@ function printPortfolio(data){ //Imprime los assets del portafolio PENDIENTE
                         };
     console.log("main.js myClientData en show_portfolio", myClientDataJS);
     sendGetData(serverEvent);
+}
+
+function printAskedData(data,parameters){ //data: es una lista de activos y su info, y parameters son el nombre y la moneda del portafolio
+    radiosId=[];
+    var radioBtnSendId=""+printIndex+"RadioBtnSendId";
+    $("</br><form class='radios"+printIndex+"' id='chatBubbleDivDiv"+printIndex+"'></form>").appendTo('#chatBubbleDiv'+printIndex);
+    for(i=0;i<data.length;i++){
+        radiosId[i]=('radio'+i+printIndex);
+        $("<div id='radio"+i+printIndex+"'class='radio'><label><input type='radio' name='optradio' value='"+data[i].Name+" - "+data[i].ProductCode+"'><span>&nbsp;&nbsp;&nbsp;<strong>"+data[i].Name+"</strong></span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Last Price:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPrice+"</span>&nbsp;&nbsp;<span>"+data[i].Currency+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>ISIN:&nbsp;&nbsp;&nbsp;</i>"+data[i].Isin+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Market:&nbsp;&nbsp;&nbsp;</i>"+data[i].MarketName+"</span></br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Date:&nbsp;&nbsp;&nbsp;</i>"+data[i].LastPriceDate+"</span></label></div>").appendTo('#chatBubbleDivDiv'+printIndex);
+    }
+    /* $("</br><label for='"+printIndex+"InputAmountId'>Amount to invest: (in "+parameters.portfolio_currency+")</label><div class='hide-inputbtns p-2 row'><div class='col-8 input-group input-group-sm'><span class='input-group-addon' id='sizing-addon2'>"+parameters.portfolio_currency+"</span><input class='form-control' number-to-fixed='2' id='"+printIndex+"InputAmountId' name='"+printIndex+"InputAmountId' type='number' min='0.00' max='1000000.00' placeholder='Enter amount'></div></div></br>").appendTo('#chatBubbleDivDiv'+printIndex); */
+    $("</br><button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnSendId' type=\"submit\" style='width:100px' disabled>Add Asset</button>").appendTo('#chatBubbleDivDiv'+printIndex);
+    $("<button class='btn btn-outline-primary btn-sm m-1' id='"+printIndex+"RadioBtnRepeatId' type=\"button\" style='width:100px'>Try again</button></br>").appendTo('#chatBubbleDivDiv'+printIndex);
+    addMessage("If the asset is not listed, please be more specific");
+    $('#'+printIndex+'RadioBtnSendId').attr("onClick", "sendAsset('"+radioBtnSendId+"',"+'radiosId'+")");
+    $('#'+printIndex+'RadioBtnRepeatId').on("click", function(){
+        if(radiosId.length>0){
+            $speechInput.val("");
+            disableButtons(radioBtnSendId,radiosId);
+            send_event("searchAgain",null);
+        }
+        $('#'+printIndex+'RadioBtnRepeatId')[0].disabled=true;
+    });
+    $("#chatBubbleDivDiv"+printIndex+" input").on('change', function() {
+        $speechInput.val($('input[name=optradio]:checked', "#chatBubbleDivDiv"+printIndex).val());
+        $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
+    });
+   /*  $("#"+printIndex+"InputAmountId").keyup(function(){
+         if($speechInput.val()!=""){
+             $('#'+printIndex+'RadioBtnSendId')[0].disabled = false;
+         }
+    }); */
+    if(radiosId.length==0){
+        send_event("searchAgain", null);
+        return;
+    }
 }
 function printSendEmail (){ //imprime formulario para enviar correo
     $("</br><form method='POST' onsubmit=sendEmail('sendemailname"+printIndex+"','sendemailemail"+printIndex+"','sendemailsubject"+printIndex+"','sendemailbody"+printIndex+"','sendemailbutton"+printIndex+"') enctype='text/plain' class='email' id='form"+printIndex+"' target='hiddenFrame'><label for='name'>Name:</label><input type='text' name='Name' id='sendemailname"+printIndex+"' placeholder='Enter name' required><br><label for='email'>Email:</label><input type='email' name='email' id='sendemailemail"+printIndex+"' placeholder='Enter Email' required><br><label for='subject'>Subject:</label><input type='text' name='subject' id='sendemailsubject"+printIndex+"' placeholder='Subject' ><br><label for='text'>Message:</label><textarea name='body' id='sendemailbody"+printIndex+"' placeholder='Write your message... ex: Add ISIN xxxxxxxxxxxxx to catalog' rows='5' cols='30' required></textarea><br><input type='submit' id='sendemailbutton"+printIndex+"' value='Send Email'></form>").appendTo('#chatBubbleDiv'+printIndex);
