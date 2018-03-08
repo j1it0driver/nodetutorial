@@ -113,6 +113,10 @@ h6{
     border: 1px solid #1688c6;
     /*color: : black;*/
 }
+.sliderButton{
+    font-size: 0.6rem;
+    line-height: 0.7rem;
+}
 .slider::-webkit-slider-thumb { /* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
     /*-webkit-appearance: none; /* Override default look */
     /*appearance: none;*/
