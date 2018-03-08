@@ -137,7 +137,7 @@ $(document).ready(function() {
             timeout = setTimeout(function () {if($speechInput.val() !==''){$statusMessages.text("Waiting input or Enter...");}}, 3000);
         }
         if (event.which == 13) {
-            event.prevent();
+            event.preventDefault();
             if($speechInput.val() !==''){
                 send_query();
                 tiempoSend=setTimeout(function(){$statusMessages.text("Next input...");},2000);
